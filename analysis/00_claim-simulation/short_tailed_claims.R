@@ -519,18 +519,7 @@ setDT(transactions)
 
 # Make triangle for visualisation
 
-make_triangle_vis <- function(tr, runoff = runoff_1, n_dev = 40L) {
-  dev <- tr$payment_period - tr$occurrence_period + 1L
-  if (runoff == 1) dev[dev > n_dev] <- n_dev
-  keep <- dev >= 1L & dev <= n_dev
-  m <- matrix(0, n_dev, n_dev)
-  cells <- rowsum(tr$payment_inflated[keep],
-                  group = (dev[keep] - 1L) * n_dev + tr$occurrence_period[keep])
-  m[as.integer((rownames(cells)))] <- cells[, 1]
-  out <- data.frame(AQ = 1:n_dev, m)
-  colnames(out) <- c("AQ", 1:n_dev)
-  out
-}
+
 
 triangle_vis <- make_triangle_vis(transactions)
 

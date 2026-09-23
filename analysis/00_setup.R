@@ -15,14 +15,10 @@
 suppressPackageStartupMessages({
   library(tidyverse)
   library(data.table)
-  library(ChainLadder)
-  library(SyntETIC)
-  library(tidyverse)
   library(dplyr)
   library(ChainLadder)
   library(ggplot2)
   library(SynthETIC)
-  library(data.table)
   library(stats)
   library(keras3)
 

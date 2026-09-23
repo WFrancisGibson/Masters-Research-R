@@ -537,19 +537,6 @@ stopifnot(!anyNA(transactions$payment_inflated))
 # Make triangle for visualisation
 # (occurrence_period and payment_period are in years when time_unit = 1)
 
-make_triangle_vis <- function(tr, runoff = runoff_1, n_dev = sim_periods) {
-  dev <- tr$payment_period - tr$occurrence_period + 1L
-  if (runoff == 1) dev[dev > n_dev] <- n_dev
-  keep <- dev >= 1L & dev <= n_dev
-  m <- matrix(0, n_dev, n_dev)
-  cells <- rowsum(tr$payment_inflated[keep],
-                  group = (dev[keep] - 1L) * n_dev + tr$occurrence_period[keep])
-  m[as.integer((rownames(cells)))] <- cells[, 1]
-  out <- data.frame(AY = 1:n_dev, m)
-  colnames(out) <- c("AY", 1:n_dev)
-  out
-}
-
 triangle_vis <- make_triangle_vis(transactions)
 
 
