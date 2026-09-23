@@ -1,0 +1,34 @@
+source(here::here("analysis", "00_setup.R"))
+
+
+# loads the 20 x 20 annual incremental claims triangle
+tri_mack <- prepare_triangle(
+                             fread(
+                                   file.path(
+                                             paths$raw,
+                                             "claim-simulation-annual",
+                                             "triangle.csv")))
+cl   <- fit_chainladder(tri_mack, cum = FALSE)
+mack_model <- MackChainLadder(tri_mack, est.sigma = "Mack")
+plot(mack_model, lattice = TRUE)
+mack <- fit_mack(tri_mack, cum = FALSE, est.sigma = "Mack")
+odp  <- fit_glm_reserve(tri_mack, cum = FALSE)
+gam  <- fit_glm_reserve(tri_mack, cum = FALSE, var.power = 2)
+
+mack$total       # reserve, SE, CV
+mack$by_origin   # by accident quarter
+mack_model$total       # reserve, SE, CV
+mack_model$by_origin   # by accident quarter
+plot(mack_model)
+
+save_plot("MackCL Development Pattern.png", plot(mack_model))
+save_plot("MackCL Triangle.png", plot(tri_mack))
+save_plot("MackCL development by origin period.png", plot(mack, lattice = TRUE))
+
+
+
+# Save the prepared triangle to an interim CSV file
+fwrite(as.data.table(tri_mack, keep.rownames = "origin"),
+       file.path(paths$interim, "tri_mack.csv"))
+
+
