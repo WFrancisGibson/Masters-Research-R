@@ -1,0 +1,17 @@
+default:
+  seed: 2026
+  paths:
+    raw: data/raw
+    interim: data/interim
+    processed: data/processed
+    models: models
+    tables: output/tables
+    figures: output/figures
+    logs: output/logs
+  training:
+    epochs: 100
+    batch_size: 256
+    learning_rate: 0.001
+    validation_split: 0.2
+  cv:
+    folds: 5

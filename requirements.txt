@@ -1,0 +1,4 @@
+# Python side of keras3 / tensorflow (pin once installed: pip freeze > requirements.txt)
+tensorflow
+keras
+numpy

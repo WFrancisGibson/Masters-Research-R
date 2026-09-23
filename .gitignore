@@ -1,0 +1,25 @@
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+Thumbs.db
+
+# data and regenerable outputs
+data/raw/*
+data/interim/*
+data/processed/*
+models/*
+output/*
+!**/.gitkeep
+
+# renv library (renv.lock IS tracked)
+renv/library/
+renv/local/
+renv/cellar/
+renv/staging/
+renv/python/
+
+# python side
+.venv/
+__pycache__/
