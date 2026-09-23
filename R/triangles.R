@@ -1,9 +1,8 @@
 ############################# TRIANGLE MANIPULATION FUNCTION ##################
-#Load libaries
-library(data.table)
+
 # Function to create a triangle for visualisation
 # of claim payments over development periods
-make_triangle_vis <- function(tr, runoff = runoff_1, n_dev = sim_periods) {
+make_triangle_vis <- function(tr, runoff = 0L, n_dev) {
   dev <- tr$payment_period - tr$occurrence_period + 1L
   if (runoff == 1) dev[dev > n_dev] <- n_dev
   keep <- dev >= 1L & dev <= n_dev
@@ -19,7 +18,7 @@ make_triangle_vis <- function(tr, runoff = runoff_1, n_dev = sim_periods) {
 ## ----- 0a. triangle helpers --------------------------------------------------
 ## Fill an n x n matrix from cell indices. M[cbind(row, col)], never a linear
 ## index: R fills matrices column by column, so a linear index transposes.
-square <- function(i, j, v, n = N) {
+square <- function(i, j, v, n = n) {
   a <- data.table(i = i, j = j, v = v)[j <= n, .(v = sum(v)), by = .(i, j)]
   mat <- matrix(0, n, n, dimnames = list(origin = 1:n, dev = 1:n))
   mat[cbind(a$i, a$j)] <- a$v
@@ -37,19 +36,30 @@ upper     <- function(m) {
 }
 
 # Cumulative upper triangle function
-upper_cum <- function(M) {
-  incr2cum(as.triangle(upper(M))) # observed cumulative triangle
+upper_cum <- function(m) {
+  incr2cum(as.triangle(upper(m))) # observed cumulative triangle
 }
 
-# Transfer cumulative triangle to incremental triangle 
-cum_to_inc <- function(M) {
-  M <- unname(as.matrix(M))
-  cbind(M[, 1], M[, -1, drop = FALSE] - M[, -ncol(M), drop = FALSE])
+# Transfer cumulative triangle to incremental triangle
+cum_to_inc <- function(m) {
+  m <- unname(as.matrix(m))
+  cbind(m[, 1], m[, -1, drop = FALSE] - m[, -ncol(m), drop = FALSE])
 }
-fut_cells <- function(M) { M <- unname(as.matrix(M)); M[!fut_mask(nrow(M))] <- NA; M }
-origin_sum <- function(i, v, keep, n = N) {               # sum of v by origin, over rows `keep`
+
+
+fut_cells <- function(m) {
+  m <- unname(as.matrix(m))
+  m[!fut_mask(nrow(m))] <- NA
+  m
+}
+
+# Sum of v by origin, over rows 'keep'
+origin_sum <- function(i, v, keep, n = n) {
   o <- numeric(n)
-  if (any(keep)) { a <- rowsum(v[keep], i[keep]); o[as.integer(rownames(a))] <- a[, 1] }
+  if (any(keep)) {
+    a <- rowsum(v[keep], i[keep])
+    o[as.integer(rownames(a))] <- a[, 1]
+  }
   o
 }
 ## Truth for one triangle: the lower triangle (to the last development column)
