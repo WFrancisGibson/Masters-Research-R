@@ -183,12 +183,7 @@ reserve_totals <- function(by_origin, se_total = NA_real_, ibnr_total = NULL) {
 #' @param fit a list with $by_origin (data.frame) and $total (named vector),
 #'   as returned by this file's fit_*() functions.
 #' @param name file prefix, e.g. "mack".
-save_reserve_tables <- function(fit, name) {
-  data.table::fwrite(fit$by_origin,
-                     file.path(paths$tables, paste0(name, "_by_origin.csv")))
-  data.table::fwrite(as.list(fit$total),
-                     file.path(paths$tables, paste0(name, "_total.csv")))
-}
+
 
 
 #' Chain ladder as weighted link-ratio regressions (no standard errors)

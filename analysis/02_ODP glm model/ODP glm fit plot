@@ -1,0 +1,28 @@
+source(here::here("analysis", "00_setup.R"))
+
+
+# loads the 20 x 20 annual incremental claims triangle
+tri_glm_odp <- prepare_triangle(fread(file.path(paths$raw,
+                                                "claim-simulation-annual",
+                                                "triangle.csv")),
+                                cum = FALSE)
+
+
+
+
+
+odp <- glmReserve(tri_glm_odp)          # now genuinely cumulative
+odp_boot <- glmReserve(tri_glm_odp, mse.method = "bootstrap")
+
+
+save_plot("GLM reserves triangle.png", plot(tri_glm_odp))
+save_plot("GLM ODP fit lattice.png", plot(odp, lattice = TRUE))
+save_plot("GLM ODP fit.png", plot(odp))
+
+
+save_reserve_tables(odp, "odp_raw")
+s <- odp$summary
+save_reserve_tables(list(by_origin = s[rownames(s) != "total", ],
+                         total     = as.list(s["total", ])),
+                    "odp_raw")
+

@@ -9,9 +9,12 @@ default:
     figures: output/figures
     logs: output/logs
   training:
-    epochs: 100
-    batch_size: 256
+    epochs: 10
+    batch_size: 50
     learning_rate: 0.001
     validation_split: 0.2
   cv:
     folds: 5
+  bootstrap:
+    iterations.GLM: 10
+    iterations.NN: 10
