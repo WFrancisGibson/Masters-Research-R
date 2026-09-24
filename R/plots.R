@@ -173,3 +173,30 @@ plot_bias_by_origin <- function(by_origin, title = NULL) {
     ggplot2::theme_bw() +
     ggplot2::theme(legend.position = "top")
 }
+
+
+# Rolling-origin partition of a triangle into training, validation and test
+# cells (Al-Mudafer et al. 2021, Figures 3 and 9); part is one element of
+# rolling_origin_sets(), drawn on the full n x n grid
+plot_partition <- function(part, title = NULL) {
+  n <- part$n
+  role <- matrix(NA_character_, n, n)
+  idx <- seq_len(part$origin)
+  role[idx, idx] <- part$role
+  d <- triangle_long(role)
+  d <- d[!is.na(d$value), ]
+  d$value <- droplevels(factor(d$value,
+                               levels = c("train", "validation", "test")))
+  ggplot2::ggplot(d, ggplot2::aes(x = dev, y = origin, fill = value)) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_manual(values = c(train = "green3",
+                                          validation = "darkgreen",
+                                          test = "red"),
+                               name = NULL) +
+    ggplot2::scale_x_continuous(limits = c(0.5, n + 0.5), expand = c(0, 0)) +
+    ggplot2::scale_y_reverse(limits = c(n + 0.5, 0.5), expand = c(0, 0)) +
+    ggplot2::coord_fixed() +
+    ggplot2::labs(x = "development period", y = "accident period",
+                  title = title) +
+    ggplot2::theme_bw()
+}

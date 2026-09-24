@@ -250,9 +250,12 @@ rolling_origin_sets <- function(m, test_periods = c(5, 2), vali_periods = 2,
     vali <- known & cal > c0 - vali_periods &
       row(ys) > exclude & col(ys) > exclude
     if (exclude >= 2) {
+      # k cells at the centres of k equal bins of accident periods
+      # lo..hi; hi keeps them off the validation diagonals
       k <- vali_periods * (exclude - 1L)
-      rows <- round(seq(exclude + 1, c0 - vali_periods - exclude + 1,
-                        length.out = k))
+      lo <- exclude + 1
+      hi <- c0 - vali_periods - exclude + 1
+      rows <- round(lo + (hi - lo) * (seq_len(k) - 0.5) / k)
       devs <- rep(exclude:2, length.out = k)
       vali[cbind(rows, devs)] <- TRUE   # calendar <= c0 - vali_periods
     }
