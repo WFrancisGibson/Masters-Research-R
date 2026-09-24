@@ -8,8 +8,10 @@ source(here::here("analysis", "00_setup.R"))
 # is an observed cell, so it holds payments made after the valuation date.
 raw_dir <- file.path(paths$raw, cfg$data$annual_dir)
 transactions <- fread(file.path(raw_dir, "transactions.csv"),
-                      select = c("claim_no", "occurrence_period",
-                                 "payment_period", "payment_inflated"))
+                      select = c("claim_no",
+                                 "occurrence_period",
+                                 "payment_period",
+                                 "payment_inflated"))
 sets <- triangle_sets(transactions, n_dev = cfg$data$n_dev)
 tri_glm_odp <- prepare_triangle(sets$upper, cum = FALSE)   # cumulative
 
@@ -18,7 +20,8 @@ tri_glm_odp <- prepare_triangle(sets$upper, cum = FALSE)   # cumulative
 odp      <- fit_glm_reserve(sets$upper, cum = FALSE)
 # the bootstrap's tweedie::rtweedie() warns "non-integer x" in an unused
 # check; its draws, phi * rpois(mu / phi), are correct
-odp_boot <- suppressWarnings(fit_glm_reserve(sets$upper, cum = FALSE,
+odp_boot <- suppressWarnings(fit_glm_reserve(sets$upper,
+                                             cum = FALSE,
                                              mse.method = "bootstrap"))
 
 # the ODP GLM reserves are the chain-ladder reserves

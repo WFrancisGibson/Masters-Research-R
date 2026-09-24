@@ -51,6 +51,8 @@ folded <- sets$full
 folded[, n] <- folded[, n] + sets$tail_o
 stopifnot(isTRUE(all.equal(unname(folded), unname(tri_csv))))
 
+
+# Writing each of the triangles to the intrim data folder (interim data for further analysis)
 for (k in c("full", "upper", "test", "train", "vali")) {
   fwrite(as.data.table(sets[[k]], keep.rownames = "origin"),
          file.path(paths$interim, paste0("tri_annual_", k, ".csv")))
