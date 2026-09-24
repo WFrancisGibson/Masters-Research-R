@@ -1,13 +1,13 @@
 ############################# NEURAL NETWORK MODELS ############################
-# R/nn_models.R -- functions only, no top-level code.
 #
-# The blended cross-classified neural network (bCCNN) of Paper C:
-#   Gabrielli, Richman & Wuthrich (2020), Neural network embedding of the
-#   over-dispersed Poisson reserving model, Scand. Actuarial J. 2020(1), 1-29
-#   (= Paper C and Chapter 4 of Gabrielli (2020), PhD thesis, ETH Zurich).
+# blended cross-classified neural network (bCCNN)
+# Gabrielli, Richman & Wuthrich (2020):
+#  Neural network embedding of the over-dispersed Poisson reserving model,
+#  Scand. Actuarial J. 2020(1), 1-29
 #
-# One triangle (one line of business); accident period i and development
-# period j are 1-based here (Paper C's development year j = 0 is j = 1):
+#
+# One triangle (one line of business)
+# accident period i and development period j are 1-based here
 #
 #   mu(i, j) = exp{ w * (alpha_i + beta_j) + c + <B, z3(i, j)> }          (13)
 #
@@ -20,23 +20,17 @@
 #                    w = 1, c = c_ODP, B = 0,                              (14)
 #
 # so the untrained network is exactly the ccODP (chain-ladder) model and
-# gradient descent looks for structure beyond cross-classification. Loss:
-# Poisson deviance (Keras "poisson"); optimiser: RMSprop; full batch, so one
-# epoch is one gradient-descent step.
-#
-# The number of gradient-descent steps (early stopping) is chosen on held-out
-# data, in one of two ways (bccnn_calibrate()):
-#   * "rolling_origin" (default): Al-Mudafer, Avanzi, Taylor & Wong (2021),
-#     Section 3.1: validation on the latest calendar periods of the triangle
-#     (rolling_origin_sets()), plus test partitions at earlier valuation dates
-#     that measure the model's forecast error (bccnn_rolling_origin());
-#   * "claims_split": Paper C, Section 3.3.2, a 50/50 split of the individual
-#     claims into training and validation triangles (bccnn_validation()).
-# Then the network is refitted on the full triangle for exactly that many
-# steps (Paper C, Section 3.3.3), or -- rolling origin only -- the network
-# trained on the final partition's training cells is kept (Al-Mudafer et al.,
-# Section 4.3).
-#
+# gradient descent looks for structure beyond cross-classification.
+# Loss: Poisson deviance (Keras "poisson")
+# optimiser: RMSprop; full batch, so one epoch is one gradient-descent step.
+# The number of steps is chosen on two validation approaches
+# Approach 1 :
+#   50/50 claims split (bccnn_validation(), Section 3.3.2), then the network is
+#   refitted on the full triangle for exactly that many steps (Section 3.3.3).
+# Approach 2 :
+#   The rolling origin validation as outlined by Al-Mudafer, Avanzi, Taylor &
+#   Wong (2021), Section 3.1 (rolling_origin_sets(), bccnn_rolling_origin());
+#   the default in config.yml.
 # Keras functions (keras3) are called unqualified: analysis scripts attach
 # keras3 through analysis/00_setup.R. Hyperparameters live in config.yml
 # (bccnn:).
@@ -50,23 +44,16 @@ bccnn_inputs <- function(origin, dev) {
 }
 
 
-#' Build and compile a bCCNN model started in the ccODP model
-#'
-#' Paper C, eq. (13) with initialisation (14) and Listing 4.
-#'
-#' @param odp a fit_odp_glm() result: $c, $alpha, $beta (length n).
-#' @param q neurons of the hidden layers; Paper C: c(20, 15, 10).
-#' @param dropout dropout rate after every hidden layer; Paper C: 0.1.
-#' @param activation hidden-layer activation; Paper C: "tanh".
-#' @param trainable_embeddings FALSE (Paper C) keeps alpha and beta fixed at
-#'   the ccODP estimates.
-#' @param learning_rate,rho,epsilon RMSprop settings; Paper C used Keras's
-#'   defaults (0.001, 0.9, 1e-7).
-#' @param seed random seed of the hidden-layer initialisation and dropout.
-#' @return a compiled Keras model with inputs (AccYear, DevYear), 0-based.
-bccnn_model <- function(odp, q = c(20, 15, 10), dropout = 0.1,
-                        activation = "tanh", trainable_embeddings = FALSE,
-                        learning_rate = 0.001, rho = 0.9, epsilon = 1e-7,
+# Build and compile a bCCNN model started in the ccODP model
+
+bccnn_model <- function(odp,
+                        q = c(20, 15, 10),
+                        dropout = 0.1,
+                        activation = "tanh",
+                        trainable_embeddings = FALSE,
+                        learning_rate = 0.001,
+                        rho = 0.9,
+                        epsilon = 1e-7,
                         seed = 2026) {
   n <- length(odp$alpha)
   stopifnot(length(odp$beta) == n, length(odp$c) == 1, length(q) >= 1)
@@ -207,7 +194,7 @@ fit_bccnn <- function(odp, y = odp$y, epochs, cells = odp$cells,
         train_dropout = keras_poisson_to_deviance(loss, y_fit),
         vapply(scored, poisson_deviance, numeric(1), mu = mu),
         stats::setNames(vapply(track, function(t) sum(mu[!is.na(t)]), numeric(1)),
-                        paste0(names(track), "_pred")))
+                        paste0(names(track), "_pred", recycle0 = TRUE)))
     if (keep_mu) mu_path[, , epoch + 1L] <<- mu
   }
   callbacks <- NULL
@@ -244,8 +231,11 @@ fit_bccnn <- function(odp, y = odp$y, epochs, cells = odp$cells,
 #' Paper C, Table 3, from a fit_bccnn() history with a "vali" column:
 #' train (no dropout) and vali compare step with step 0 (the ccODP start);
 #' train_dropout compares Keras's training loss (Paper C Figure 2, rough
-#' because of dropout), averaged over steps within `window` of `step`, with
-#' its value at step 1 (computed at the start weights, so the ccODP loss).
+#' because of dropout) with its value at the start. Keras computes the loss
+#' of epoch e before that epoch's update, i.e. at the weights after e - 1
+#' steps, so the start is epoch 1 and step s is epoch s + 1; the loss is
+#' averaged over epochs within `window` of s + 1 (fewer near the start, so
+#' step 0 gives exactly 0).
 #'
 #' @param history fit_bccnn()$history with columns epoch, train, vali,
 #'   train_dropout.
@@ -256,13 +246,17 @@ loss_decrease <- function(history, step, window = 10) {
     stop("loss_decrease(): step ", step, " is not in the history", call. = FALSE)
   }
   at <- function(col, e) history[[col]][history$epoch == e]
-  near <- history$epoch >= max(1, step - window) &
-    history$epoch <= max(1, step + window)
+  train_dropout <- if (step == 0) 0 else {
+    target <- step + 1
+    w <- min(window, step)
+    near <- history$epoch >= target - w &
+      history$epoch <= min(max(history$epoch), target + w)
+    if (!any(near)) near <- history$epoch == max(history$epoch)
+    1 - mean(history$train_dropout[near]) / at("train_dropout", 1)
+  }
   c(train = 1 - at("train", step) / at("train", 0),
     vali = 1 - at("vali", step) / at("vali", 0),
-    train_dropout = if (max(history$epoch) >= 1) {
-      1 - mean(history$train_dropout[near]) / at("train_dropout", 1)
-    } else NA_real_)
+    train_dropout = train_dropout)
 }
 
 
@@ -325,11 +319,20 @@ bccnn_validation <- function(train, vali, max_epochs = 1000, scale = 1,
 #' partition's training cells, starts a bCCNN there, trains it on the training
 #' cells for max_epochs while recording the deviance on the validation cells
 #' (and, for a test partition, on its test cells), and stops at the step with
-#' the lowest validation deviance. The recorded test deviance at that step is
-#' the test error of the early-stopped network (Keras's EarlyStopping with
-#' the best weights restored; Al-Mudafer et al. use patience 1000). The
-#' benchmark is the chain ladder (ccODP) fitted on all the partition's cells,
-#' i.e. at the partition's valuation date.
+#' the lowest validation deviance (the argmin over the whole run: Keras's
+#' EarlyStopping with the best weights restored; Al-Mudafer et al. use
+#' patience 1000).
+#'
+#' For a test partition, the test error scores the same procedure that
+#' produces the reported model (final_fit, see bccnn_calibrate()):
+#' * "refit": a bCCNN started in the chain ladder at the partition's
+#'   valuation date (ccODP on all its cells) and trained on all its cells for
+#'   the early-stopped number of steps; its like-for-like baseline is that
+#'   chain ladder (ccODP_dev);
+#' * "partition": the early-stopped network itself, trained on the training
+#'   cells only; its like-for-like baseline is its own start, the ccODP on
+#'   the training cells (ccODP_train_dev).
+#' Both baselines are always reported.
 #'
 #' @param part one element of rolling_origin_sets().
 #' @param truth optional n x n true lower triangle in units of scale, recorded
@@ -337,13 +340,18 @@ bccnn_validation <- function(train, vali, max_epochs = 1000, scale = 1,
 #' @param max_epochs length of the run.
 #' @param scale,phi passed to fit_odp_glm().
 #' @param keep_mu keep the means after every step (see fit_bccnn()).
+#' @param final_fit "refit" or "partition": which procedure the test error
+#'   scores.
 #' @param ... passed to fit_bccnn() and bccnn_model().
 #' @return a list: origin, final, n_train, n_vali, n_test, history,
 #'   best_epoch, decrease (loss_decrease() at best_epoch), odp (the training
-#'   cells' fit), test (test-set summary, test partitions only), mu_path.
+#'   cells' fit), test (test partitions only: actual, predicted sums and test
+#'   deviances of the chain ladder at c, of the ccODP on the training cells
+#'   and of the bCCNN), mu_path.
 bccnn_ro_partition <- function(part, truth = NULL, max_epochs = 1000,
                                scale = 1, phi = "deviance", keep_mu = FALSE,
-                               ...) {
+                               final_fit = c("refit", "partition"), ...) {
+  final_fit <- match.arg(final_fit)
   odp <- fit_odp_glm(part$y, scale = scale, phi = phi, cells = part$train)
   track <- list(vali = ifelse(part$vali, odp$y, NA))
   if (!is.null(part$test)) track$test <- unname(part$test) / scale
@@ -358,13 +366,24 @@ bccnn_ro_partition <- function(part, truth = NULL, max_epochs = 1000,
               decrease = loss_decrease(h, best), odp = odp, test = NULL,
               mu_path = nn$mu_path)
   if (!is.null(part$test)) {
+    at <- function(col, e) h[[col]][h$epoch == e]
     cl <- fit_odp_glm(part$y, scale = scale, phi = phi)   # chain ladder at c
-    at <- function(col) h[[col]][h$epoch == best]
+    if (final_fit == "refit") {
+      rf <- fit_bccnn(cl, epochs = best, track = list(test = track$test), ...)
+      last <- nrow(rf$history)
+      nn_dev <- rf$history$test[last]
+      nn_pred <- rf$history$test_pred[last]
+    } else {
+      nn_dev <- at("test", best)
+      nn_pred <- at("test_pred", best)
+    }
     out$test <- c(actual = sum(track$test, na.rm = TRUE),
                   ccODP_pred = sum(cl$mu[!is.na(track$test)]),
-                  bCCNN_pred = at("test_pred"),
+                  ccODP_train_pred = at("test_pred", 0),
+                  bCCNN_pred = nn_pred,
                   ccODP_dev = poisson_deviance(track$test, cl$mu),
-                  bCCNN_dev = at("test"))
+                  ccODP_train_dev = at("test", 0),
+                  bCCNN_dev = nn_dev)
   }
   out
 }
@@ -376,47 +395,60 @@ bccnn_ro_partition <- function(part, truth = NULL, max_epochs = 1000,
 #' on every partition of rolling_origin_sets(). The test error of the model
 #' design is the cell-weighted average over the test partitions of the
 #' per-cell test loss (their eq. (4.4)); here the loss is the Poisson
-#' deviance, the bCCNN's training loss, and the same is reported for the
-#' chain ladder. Al-Mudafer et al. average (4.2)-(4.3) over several
-#' initialisations; the bCCNN starts deterministically in the ccODP model, so
-#' one run per partition is used.
+#' deviance, the bCCNN's training loss, and the same is reported for the two
+#' ccODP baselines (see bccnn_ro_partition(): the chain ladder at each
+#' valuation date is the like-for-like baseline for final_fit = "refit", the
+#' ccODP on the training cells for "partition").
+#'
+#' Al-Mudafer et al. average (4.2)-(4.3) over several weight initialisations.
+#' Here each partition is fitted once, with the given seed (like Paper C's
+#' single run). The network starts in the ccODP model, but its hidden layers
+#' and dropout masks are random, so the chosen steps and the test error depend
+#' on the seed: rerun with other seeds to check their stability.
 #'
 #' @param parts rolling_origin_sets() result.
 #' @param truth optional true lower triangle (units of scale), recorded in the
 #'   final partition for back-testing only.
-#' @param max_epochs,scale,phi passed to bccnn_ro_partition().
+#' @param max_epochs,scale,phi,final_fit passed to bccnn_ro_partition().
 #' @param keep_mu_final keep the final partition's means after every step.
 #' @param ... passed to fit_bccnn() and bccnn_model().
 #' @return a list: fits (one bccnn_ro_partition() result per partition),
 #'   summary (data.frame, one row per partition), test_error (per test cell,
-#'   c(ccODP, bCCNN)), final (the final partition's fit).
+#'   c(ccODP, ccODP_train, bCCNN)), final_fit, final (the final partition's
+#'   fit).
 bccnn_rolling_origin <- function(parts, truth = NULL, max_epochs = 1000,
                                  scale = 1, phi = "deviance",
+                                 final_fit = c("refit", "partition"),
                                  keep_mu_final = FALSE, ...) {
+  final_fit <- match.arg(final_fit)
   fits <- lapply(parts, function(p) {
     bccnn_ro_partition(p, truth = if (p$final) truth, max_epochs = max_epochs,
                        scale = scale, phi = phi,
-                       keep_mu = p$final && keep_mu_final, ...)
+                       keep_mu = p$final && keep_mu_final,
+                       final_fit = final_fit, ...)
   })
   summary <- do.call(rbind, lapply(seq_along(fits), function(k) {
     f <- fits[[k]]
     t <- if (is.null(f$test)) {
-      c(actual = NA, ccODP_pred = NA, bCCNN_pred = NA, ccODP_dev = NA,
-        bCCNN_dev = NA)
+      c(actual = NA, ccODP_pred = NA, ccODP_train_pred = NA, bCCNN_pred = NA,
+        ccODP_dev = NA, ccODP_train_dev = NA, bCCNN_dev = NA)
     } else f$test
     data.frame(partition = if (f$final) "final" else as.character(k),
                origin = f$origin, n_train = f$n_train, n_vali = f$n_vali,
                n_test = f$n_test, best_epoch = f$best_epoch,
                test_actual = t[["actual"]], test_ccODP = t[["ccODP_pred"]],
+               test_ccODP_train = t[["ccODP_train_pred"]],
                test_bCCNN = t[["bCCNN_pred"]],
                test_loss_ccODP = t[["ccODP_dev"]],
+               test_loss_ccODP_train = t[["ccODP_train_dev"]],
                test_loss_bCCNN = t[["bCCNN_dev"]])
   }))
   tst <- summary[summary$partition != "final", ]
   test_error <- c(ccODP = sum(tst$test_loss_ccODP) / sum(tst$n_test),
+                  ccODP_train = sum(tst$test_loss_ccODP_train) / sum(tst$n_test),
                   bCCNN = sum(tst$test_loss_bCCNN) / sum(tst$n_test))
   list(fits = fits, summary = summary, test_error = test_error,
-       final = fits[[length(fits)]])
+       final_fit = final_fit, final = fits[[length(fits)]])
 }
 
 
@@ -442,7 +474,8 @@ bccnn_phi <- function(phi_odp, decrease_vali) {
 #'      rolling-origin partitions of the observed triangle
 #'      (rolling_origin_sets(), bccnn_rolling_origin()); the number of steps
 #'      comes from the final partition (validation on the latest calendar
-#'      periods), and the test partitions give the forecast test error;
+#'      periods), and the test partitions give the forecast test error of
+#'      the chosen final_fit procedure;
 #'    * validation = "claims_split": Paper C's 50/50 claims split
 #'      (bccnn_validation());
 #' 2. ccODP model on the full observed triangle (fit_odp_glm());
@@ -454,7 +487,9 @@ bccnn_phi <- function(phi_odp, decrease_vali) {
 #'    * final_fit = "partition" (Al-Mudafer et al. Section 4.3, rolling origin
 #'      only): the network trained on the final partition's training cells,
 #'      early-stopped at the chosen step (its $model is NULL: the Keras model
-#'      holds the weights of the last step, not of the chosen one).
+#'      holds the weights of the last step, not of the chosen one). Its
+#'      $deviance is on those training cells; $deviance_observed is on the
+#'      whole observed triangle, the validation cells being out-of-sample.
 #'
 #' @param sets triangle_sets() result.
 #' @param scale,phi passed to fit_odp_glm().
@@ -485,7 +520,7 @@ bccnn_calibrate <- function(sets, scale = 1, phi = "deviance",
     parts <- rolling_origin_sets(sets$upper, test_periods = test_periods,
                                  vali_periods = vali_periods, exclude = exclude)
     ro <- bccnn_rolling_origin(parts, truth = truth, max_epochs = max_epochs,
-                               scale = scale, phi = phi,
+                               scale = scale, phi = phi, final_fit = final_fit,
                                keep_mu_final = final_fit == "partition", ...)
     ro$parts <- parts
     val <- ro$final
@@ -516,7 +551,8 @@ bccnn_calibrate <- function(sets, scale = 1, phi = "deviance",
     nn <- list(model = NULL, mu = mu,
                by_origin = by_origin, total = reserve_totals(by_origin),
                reserve_o = by_origin$ibnr, reserve = sum(by_origin$ibnr),
-               deviance = poisson_deviance(odp$y, mu), epochs = steps,
+               deviance = poisson_deviance(ifelse(val$odp$cells, odp$y, NA), mu),
+               deviance_observed = poisson_deviance(odp$y, mu), epochs = steps,
                cells = val$odp$cells, history = val$history, mu_path = NULL,
                scale = scale)
     ro$fits[[length(ro$fits)]]$mu_path <- NULL

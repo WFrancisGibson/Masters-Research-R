@@ -45,10 +45,16 @@ bccnn_tables <- function(res, sets) {
                 "override (config epochs)",
               format(s, scientific = FALSE)))
 
+  # final_fit = "partition": the bCCNN never trained on the validation cells,
+  # so its loss on the whole observed triangle is not purely in-sample
+  partition_fit <- !is.null(nn$deviance_observed)
   results <- data.frame(
     quantity = c("true reserves", "CL reserves (ccODP)", "bCCNN reserves",
                  "bias CL", "bias bCCNN", "bias CL (%)", "bias bCCNN (%)",
-                 "in-sample loss ccODP", "in-sample loss bCCNN",
+                 "in-sample loss ccODP",
+                 if (partition_fit) {
+                   "loss bCCNN on the observed triangle (validation cells out-of-sample)"
+                 } else "in-sample loss bCCNN",
                  "out-of-sample loss ccODP", "out-of-sample loss bCCNN",
                  "dispersion ccODP", "dispersion bCCNN",
                  "gradient descent steps",
@@ -57,7 +63,8 @@ bccnn_tables <- function(res, sets) {
     value = c(true, odp$reserve, nn$reserve,
               odp$reserve - true, nn$reserve - true,
               100 * (odp$reserve / true - 1), 100 * (nn$reserve / true - 1),
-              odp$deviance, nn$deviance,
+              odp$deviance,
+              if (partition_fit) nn$deviance_observed else nn$deviance,
               poisson_deviance(test, odp$mu), poisson_deviance(test, nn$mu),
               res$phi[["ccODP"]], res$phi[["bCCNN"]],
               res$epochs, sum(sets$tail_o) / s, s))
@@ -86,18 +93,26 @@ bccnn_tables <- function(res, sets) {
   rolling <- NULL
   if (!is.null(res$rolling_origin)) {
     ro <- res$rolling_origin
+    # test_*_ccODP: chain ladder at each valuation date (like-for-like
+    # baseline of final_fit "refit"); test_*_ccODP_train: ccODP on the
+    # training cells (like-for-like baseline of "partition")
     rolling <- ro$summary
     rolling$test_loss_per_cell_ccODP <- rolling$test_loss_ccODP / rolling$n_test
+    rolling$test_loss_per_cell_ccODP_train <-
+      rolling$test_loss_ccODP_train / rolling$n_test
     rolling$test_loss_per_cell_bCCNN <- rolling$test_loss_bCCNN / rolling$n_test
     tst <- rolling[rolling$partition != "final", ]
     rolling <- rbind(rolling, data.frame(
       partition = "test error (4.4)", origin = NA, n_train = NA, n_vali = NA,
       n_test = sum(tst$n_test), best_epoch = NA,
       test_actual = sum(tst$test_actual), test_ccODP = sum(tst$test_ccODP),
+      test_ccODP_train = sum(tst$test_ccODP_train),
       test_bCCNN = sum(tst$test_bCCNN),
       test_loss_ccODP = sum(tst$test_loss_ccODP),
+      test_loss_ccODP_train = sum(tst$test_loss_ccODP_train),
       test_loss_bCCNN = sum(tst$test_loss_bCCNN),
       test_loss_per_cell_ccODP = ro$test_error[["ccODP"]],
+      test_loss_per_cell_ccODP_train = ro$test_error[["ccODP_train"]],
       test_loss_per_cell_bCCNN = ro$test_error[["bCCNN"]]))
   }
 

@@ -46,8 +46,11 @@
 #'                    their MLE is -Inf, which glm reports as a large negative
 #'                    "converged" value (about -30), so their means are ~0;
 #'   n_obs, n_par, scale, converged, model (the glm object).
-fit_odp_glm <- function(triangle, cum = FALSE, scale = 1,
-                        phi = c("deviance", "pearson"), cells = NULL,
+fit_odp_glm <- function(triangle,
+                        cum = FALSE,
+                        scale = 1,
+                        phi = c("deviance", "pearson"),
+                        cells = NULL,
                         mask_future = NULL, ...) {
   phi <- match.arg(phi)
   tri <- prepare_triangle(triangle, cum = cum, mask_future = mask_future, ...)
@@ -96,7 +99,8 @@ fit_odp_glm <- function(triangle, cum = FALSE, scale = 1,
                     dev = factor(col(y)[cells], levels = seq_len(n)))
   # treatment contrasts give exactly Paper C's identification (3):
   # intercept c, alpha_1 = beta_1 = 0
-  fit <- stats::glm(y ~ origin + dev, family = stats::quasipoisson(link = "log"),
+  fit <- stats::glm(y ~ origin + dev,
+                    family = stats::quasipoisson(link = "log"),
                     data = dat,
                     control = stats::glm.control(epsilon = 1e-12, maxit = 100))
   if (!isTRUE(fit$converged)) {

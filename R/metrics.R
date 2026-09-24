@@ -17,7 +17,7 @@
 #' @param y observed incremental upper triangle (lower triangle NA or ignored).
 #' @param mu n x n fitted / predicted means, in the units of y.
 reserve_by_origin <- function(y, mu) {
-  y  <- unname(as.matrix(y))
+  y  <- unname(as.matrix(y)) 
   mu <- unname(as.matrix(mu))
   n  <- nrow(mu)
   fut <- fut_mask(n)
