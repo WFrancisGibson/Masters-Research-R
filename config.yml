@@ -8,11 +8,26 @@ default:
     tables: output/tables
     figures: output/figures
     logs: output/logs
-  training:
-    epochs: 10
-    batch_size: 50
-    learning_rate: 0.001
-    validation_split: 0.2
+  data:
+    annual_dir: claim-simulation-annual  # data/raw/<annual_dir>: claims, transactions, triangle
+    n_dev: 20            # 20 accident years x 20 development years
+    runoff: 1            # payments after development year 20 go into year 20 (as triangle.csv)
+    scale: 1000000       # fit in millions (Paper C fits in 1'000 CHF)
+  odp:
+    phi: deviance        # dispersion estimate: deviance (Paper C eq. (5)) or pearson
+  bccnn:                 # Paper C: Gabrielli, Richman & Wuthrich (2020)
+    model:               # eq. (13)-(14), Listing 4
+      hidden: [20, 15, 10]            # neurons of the 3 hidden layers
+      activation: tanh
+      dropout: 0.1                    # after every hidden layer
+      trainable_embeddings: false     # ccODP alpha_i, beta_j stay fixed
+    training:            # Section 3.3; loss Poisson deviance, optimiser RMSprop
+      learning_rate: 0.001
+      rho: 0.9
+      epsilon: 1.0e-07   # keep the ".0": YAML reads 1e-7 as text
+      batch_size: ~      # ~ (null) = full batch: one gradient-descent step per epoch
+      max_epochs: 1000   # validation run on the 50/50 claims split (Figure 2)
+      epochs: ~          # ~ = step with the lowest validation loss; a number overrides
   cv:
     folds: 5
   bootstrap:
