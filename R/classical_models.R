@@ -1,57 +1,6 @@
 ############################# CLASSICAL RESERVING MODELS #######################
-# R/classical_models.R -- functions only, no top-level code.
-#
-# Wrappers around three model functions of the ChainLadder package (0.2.21):
-#   fit_chainladder()  -> chainladder()      Barnett & Zehnwirth (2000); ?chainladder
-#   fit_mack()         -> MackChainLadder()  Mack (1993, 1999); ?MackChainLadder
-#   fit_glm_reserve()  -> glmReserve()       England & Verrall (1999, 2002); ?glmReserve
-#
-# Each wrapper takes a claims triangle plus the model's own arguments (same
-# names and defaults as the package), fits the model and returns a list:
-#   $model          the object returned by the ChainLadder function, unchanged
-#   $full_triangle  the cumulative triangle completed by the model
-#   $by_origin      data.frame, one row per origin:
-#                   origin, latest, dev_to_date, ultimate, ibnr, se, cv
-#   $total          named vector: latest, ultimate, ibnr, se, cv
-#   $settings       the arguments used
-# plus model-specific extras (factors, sigma, risk, var_power, simulations).
-# For an input that is already a triangle (NA below the latest diagonal) the
-# fit is the package's own: fit_mack(tri)$model is MackChainLadder(tri).
-#
-# Functions are called as ChainLadder::fun, so the file also works when it is
-# sourced on its own (e.g. by the tests). Analysis scripts get it through
-# analysis/00_setup.R.
 
-
-#' Turn claims data into the observed cumulative triangle the models need
-#'
-#' @param triangle one of
-#' * a matrix or ChainLadder "triangle" (rows = origins, columns = development);
-#' * a wide data.frame / data.table with one column per development period,
-#'     optionally preceded by an origin column (like the simulated triangle.csv:
-#'     AQ, 1, 2, ..., 40), or with the origins as row names;
-#' * a long data.frame with one row per origin x development cell
-#' (ChainLadder's as.data.frame(triangle), or any frame with format = "long").
-#' @param cum TRUE if the values are cumulative, FALSE if incremental.
-#' @param mask_future what to do with cells below the latest diagonal
-#'   (origin + dev > number of origins + 1):
-#'   NULL (default) masks them only when the input is a full SQUARE with no NA,
-#'   e.g. the simulated triangle.csv, which holds the future too; a triangle that
-#'   already has NA is used as it is, and a full non-square rectangle stops and
-#'   asks you to choose. TRUE always masks (stops if that would delete values
-#'   from an input that already has NA); FALSE never masks.
-#'   Assuming that origin and development periods have the same length, so the
-#'   latest diagonal, origin + dev = n_origin + 1, is the valuation date.]
-#' @param origin_col wide data only: NULL guesses (the first column is the
-#'   origin unless its name looks like a development period: 1, V1, X1, dev1,
-#'   DQ1, DY1); a column name or number; or FALSE for none (row names are then
-#'   used as origins if the frame has real row names).
-#' @param format "auto", "wide" or "long". "auto" treats a data.frame as long if
-#'   it has class long.triangle or columns named origin, dev, value.
-#' @param long_cols long data only: names of the origin, dev and value columns.
-#' @return a cumulative ChainLadder "triangle" with dimnames origin / dev.
-
-
+# Prepares the simulated data to a format suitable for ChainLadder models
 
 prepare_triangle <- function(triangle,
                      cum = TRUE,
@@ -64,7 +13,7 @@ prepare_triangle <- function(triangle,
   format <- match.arg(format)
 
   m <- triangle_matrix(triangle, origin_col, format, long_cols)
-  
+
   if (is.null(rownames(m))) rownames(m) <- seq_len(nrow(m))
   if (is.null(colnames(m))) colnames(m) <- seq_len(ncol(m))
   dimnames(m) <- list(origin = rownames(m), dev = colnames(m))
@@ -106,7 +55,9 @@ prepare_triangle <- function(triangle,
       stop(sprintf(paste("prepare_triangle(): %d NA cell(s) inside the observed",
                          "incremental triangle, e.g. origin %s dev %s. Replace them",
                          "(e.g. by 0) before fitting."),
-                   nrow(holes), rownames(m)[holes[1, 1]], colnames(m)[holes[1, 2]]),
+                   nrow(holes),
+                   rownames(m)[holes[1, 1]],
+                   colnames(m)[holes[1, 2]]),
            call. = FALSE)
     }
   }

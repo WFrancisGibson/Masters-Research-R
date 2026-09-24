@@ -21,7 +21,9 @@
 # Settings: config.yml (data:, odp:, bccnn:). Keras runs on Python through
 # reticulate; point it at a Python with tensorflow and keras before the first
 # Keras call, e.g. with a line in .Renviron such as
-#   RETICULATE_PYTHON=C:/Users/<you>/AppData/Local/Programs/Python/Python312/python.exe
+#   RETICULATE_PYTHON=<full path of python.exe>
+# where the path is that of your Python 3.12 (in your user folder under
+# AppData, Local, Programs, Python, Python312).
 
 source(here::here("analysis", "00_setup.R"))
 # 'R/fit ODP GLM' has no .R extension, so 00_setup.R does not source it
@@ -55,7 +57,7 @@ for (k in c("full", "upper", "test", "train", "vali")) {
 }
 
 
-## 2.-3. early stopping, ccODP and bCCNN -----------------------------------------
+## 2.-3. early stopping, ccODP and bCCNN ---------------------------------------
 res <- bccnn_calibrate(sets,
                        scale = dat_cfg$scale,
                        phi = cfg$odp$phi,
@@ -82,7 +84,7 @@ stopifnot(isTRUE(all.equal(res$odp$reserve * dat_cfg$scale,
                            unname(cl$total[["ibnr"]]), tolerance = 1e-6)))
 
 
-## 4. tables and figures ----------------------------------------------------------
+## 4. tables and figures ------------------------------------------------------
 tabs <- bccnn_tables(res, sets)
 write_tables(tabs, "bccnn_annual")
 print(tabs$settings)
@@ -117,7 +119,8 @@ save_gg("bCCNN fit losses.png",
         height = 8)
 save_gg("bCCNN vs ccODP relative difference.png",
         plot_relative_difference(res$odp$mu, res$nn$mu,
-                                 title = "bCCNN versus ccODP: mu_bCCNN / mu_ccODP - 1"),
+                                 title = paste("bCCNN versus ccODP:",
+                                               "mu_bCCNN / mu_ccODP - 1")),
         width = 8, height = 7)
 
 test <- unname(sets$test) / dat_cfg$scale
@@ -127,20 +130,22 @@ r_max <- max(abs(c(pearson_residuals(test, res$odp$mu, res$phi[["ccODP"]]),
 save_gg("ccODP Pearson residuals.png",
         plot_pearson_residuals(test, res$odp$mu, res$phi[["ccODP"]],
                                limits = c(-r_max, r_max),
-                               title = "Pearson residuals ccODP (lower triangle)"),
+                               title = paste("Pearson residuals ccODP",
+                                             "(lower triangle)")),
         width = 8, height = 7)
 save_gg("bCCNN Pearson residuals.png",
         plot_pearson_residuals(test, res$nn$mu, res$phi[["bCCNN"]],
                                limits = c(-r_max, r_max),
-                               title = "Pearson residuals bCCNN (lower triangle)"),
+                               title = paste("Pearson residuals bCCNN",
+                                             "(lower triangle)")),
         width = 8, height = 7)
 save_gg("bCCNN cumulative development factors.png",
         plot_cum_dev_factors(res$odp$mu, res$nn$mu,
                              title = "Cumulative development factors"))
 save_gg("bCCNN bias by accident year.png",
         plot_bias_by_origin(tabs$by_origin,
-                            title = paste0("Reserve bias by accident year (units of ",
-                                           unit, ")")))
+                            title = paste0("Reserve bias by accident year ",
+                                           "(units of ", unit, ")")))
 
 if (!is.null(res$nn$model)) {
   save_model(res$nn$model, file.path(paths$models, "bccnn_annual.keras"),

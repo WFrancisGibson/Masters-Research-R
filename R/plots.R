@@ -4,7 +4,11 @@
 save_plot <- function(filename, expr, ...) {
   png(file.path(paths$figures, filename), ...)
   on.exit(dev.off())
-  expr
+  out <- expr
+  # lattice (e.g. plot(..., lattice = TRUE)) and ggplot objects only draw
+  # when printed; base graphics have drawn already
+  if (inherits(out, c("trellis", "ggplot"))) print(out)
+  invisible(out)
 }
 
 

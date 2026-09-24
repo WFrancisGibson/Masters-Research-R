@@ -17,7 +17,7 @@
 #' @param y observed incremental upper triangle (lower triangle NA or ignored).
 #' @param mu n x n fitted / predicted means, in the units of y.
 reserve_by_origin <- function(y, mu) {
-  y  <- unname(as.matrix(y)) 
+  y  <- unname(as.matrix(y))
   mu <- unname(as.matrix(mu))
   n  <- nrow(mu)
   fut <- fut_mask(n)
@@ -36,17 +36,19 @@ reserve_by_origin <- function(y, mu) {
 #'   f(i, j) = sum_{l <= j} mu(i, l) / sum_{l <= j - 1} mu(i, l),
 #' and their cumulative version g(i, j) = prod_{l = 2..j} f(i, l)
 #'   = sum_{l <= j} mu(i, l) / mu(i, 1)   (development periods 1-based).
-#' Under the ccODP model every row is the same (the CL factors); the bCCNN
-#' model lets them vary by accident period.
+#' The f(i, j) are ChainLadder's age-to-age factors, ata(), of the
+#' cumulated mean square: a full square, so every accident period has all
+#' its factors (on an observed triangle ata() would be NA below the
+#' diagonal). Under the ccODP model every row is the same (the CL factors);
+#' the bCCNN model lets them vary by accident period.
 #'
 #' @param mu n x n means.
 #' @return n x (n - 1) matrix of g(i, j), j = 2..n.
 cum_dev_factors <- function(mu) {
   mu <- unname(as.matrix(mu))
-  n  <- ncol(mu)
-  cs <- t(apply(mu, 1, cumsum))
-  g  <- cs[, -1, drop = FALSE] / cs[, 1]
-  dimnames(g) <- list(origin = seq_len(nrow(mu)), dev = 2:n)
+  f  <- ChainLadder::ata(ChainLadder::incr2cum(ChainLadder::as.triangle(mu)))
+  g  <- t(apply(matrix(as.numeric(f), nrow(mu)), 1, cumprod))
+  dimnames(g) <- list(origin = seq_len(nrow(mu)), dev = 2:ncol(mu))
   g
 }
 
@@ -62,4 +64,25 @@ pearson_residuals <- function(y, mu, phi) {
   y  <- unname(as.matrix(y))
   mu <- unname(as.matrix(mu))
   (y - mu) / sqrt(phi * mu)
+}
+
+
+#' Back-test a reserving fit against the true reserves (simulated data)
+#'
+#' Adds the true outstanding payments of the lower triangle (to development
+#' period n, triangle_sets()$test) and the bias to $by_origin (columns true,
+#' bias) and to $total (true, bias, plus tail: the payments after
+#' development period n, which are in no triangle and no model).
+#'
+#' @param fit a fit_mack() / fit_glm_reserve() / fit_chainladder() result.
+#' @param sets the triangle_sets() result the fit was made on.
+#' @param scale divide the truth by scale (use the fit's units).
+add_truth <- function(fit, sets, scale = 1) {
+  true_o <- rowSums(unname(as.matrix(sets$test)), na.rm = TRUE) / scale
+  fit$by_origin$true <- true_o
+  fit$by_origin$bias <- fit$by_origin$ibnr - true_o
+  fit$total <- c(fit$total, true = sum(true_o),
+                 bias = fit$total[["ibnr"]] - sum(true_o),
+                 tail = sum(sets$tail_o) / scale)
+  fit
 }
