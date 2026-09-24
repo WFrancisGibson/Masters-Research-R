@@ -21,7 +21,8 @@ poisson_deviance <- function(y, mu) {
   y  <- y[ok]
   mu <- mu[ok]
   if (any(!is.finite(mu) | mu <= 0)) {
-    stop("poisson_deviance(): mu must be positive and finite on the scored cells",
+    stop("poisson_deviance():
+          mu must be positive and finite on the scored cells",
          call. = FALSE)
   }
   2 * sum(mu - y + ifelse(y > 0, y * log(y / mu), 0))

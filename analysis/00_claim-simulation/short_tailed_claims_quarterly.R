@@ -210,7 +210,7 @@ base_inflation_future <- rep(base_rate, times = sim_periods)
 base_inflation_vector <- c(base_inflation_past, base_inflation_future)
 
 si_occurrence <- function(occurrence_time, claim_size) {
-  { # no lint
+  { # nolint
     1
   }
 }
@@ -276,11 +276,12 @@ vehicle <- set.covariates_relativity(covariates = vehicle,
 
 factors5 <- c(bundled$factors, vehicle$factors)
 template5 <- relativity_template(factors5)
-row_key <- function(d) { paste(d$factor_i,
-                               d$factor_j,
-                               d$level_ik,
-                               d$level_jl,
-                               sep = "|")
+row_key <- function(d) {
+  paste(d$factor_i,
+        d$factor_j,
+        d$level_ik,
+        d$level_jl,
+        sep = "|")
 }
 fill_from_sources <- function(tmpl, sources) {
   tmpl$relativity <- 1
