@@ -6,15 +6,7 @@
 
 #Load packages
 
-suppressPackageStartupMessages({
-  library(tidyverse)
-  library(dplyr)
-  library(ChainLadder)
-  library(ggplot2)
-  library(SynthETIC)
-  library(data.table)
-  library(stats)
-})
+source(here::here("analysis", "00_setup.R"))
 
 # Global parameters
 set.seed(2026)
@@ -45,6 +37,7 @@ claim_freq <- c(rep(0.1, sim_periods))
 #SyntETIC parameters setting
 set_parameters(ref_claim = ref_claim, time_unit = time_unit)
 
+
 #Define delay target variables
 # based on the environment 1, whose targets are in QUARTERS:
 # / 4 converts quarters to years, / time_unit converts years to periods
@@ -73,8 +66,8 @@ sev_df <- function(s) {
 notidel_param <- function(claim_size, occurrence_period) {
   target_mean <- notidel_target_mean
   target_cv <- notidel_target_cv
-  params <- get_Weibull_parameters(target_mean = target_mean,
-                                   target_cv = target_cv)
+  params <- stats::get_Weibull_parameters(target_mean = target_mean,
+                                          target_cv = target_cv)
   c(shape = params[1], scale = params[2])
 }
 
@@ -82,8 +75,8 @@ notidel_param <- function(claim_size, occurrence_period) {
 setldel_param <- function(claim_size, occurrence_period) {
   target_mean <- setldel_target_mean
   target_cv <- setldel_target_cv
-  params <- get_Weibull_parameters(target_mean = target_mean,
-                                   target_cv = target_cv)
+  params <- stats::get_Weibull_parameters(target_mean = target_mean,
+                                          target_cv = target_cv)
   c(shape = params[1], scale = params[2])
 }
 
@@ -111,7 +104,8 @@ rmixed_payment_size <- function(n, claim_size) {
   if (n >= 4) {
     p_mean <- 1 - min(0.95, 0.75 + 0.04 * log(claim_size / (0.1 * ref_claim)))
     p_cv <- 0.20
-    p_parameters <- get_Beta_parameters(target_mean = p_mean, target_cv = p_cv)
+    p_parameters <- stats::get_Beta_parameters(target_mean = p_mean,
+                                               target_cv = p_cv)
 
     last_two_pmnts_complement <- stats::rbeta(1,
                                               shape1 = p_parameters[1],
@@ -121,7 +115,7 @@ rmixed_payment_size <- function(n, claim_size) {
 
     q_mean <- 0.9
     q_cv <- 0.03
-    q_parameters <- get_Beta_parameters(target_mean = q_mean, target_cv = q_cv)
+    q_parameters <- stats::get_Beta_parameters(target_mean = q_mean, target_cv = q_cv)
     q <- stats::rbeta(1, shape1 = q_parameters[1], shape2 = q_parameters[2])
 
     p_second_last <- q * last_two_pmnts
@@ -129,8 +123,8 @@ rmixed_payment_size <- function(n, claim_size) {
     p_unnorm_mean <- last_two_pmnts_complement / (n - 2)
     p_unnorm_cv <- 0.10
 
-    p_unnorm_parameters <- get_Beta_parameters(target_mean = p_unnorm_mean,
-                                               target_cv = p_unnorm_cv)
+    p_unnorm_parameters <- stats::get_Beta_parameters(target_mean = p_unnorm_mean,
+                                                      target_cv = p_unnorm_cv)
 
     amnt <- stats::rbeta(n - 2,
                          shape1 = p_unnorm_parameters[1],
@@ -142,8 +136,8 @@ rmixed_payment_size <- function(n, claim_size) {
   } else if (n == 2 || n == 3) {
     p_unnorm_mean <- 1 / n
     p_unnorm_cv <- 0.10
-    p_unnorm_parameters <- get_Beta_parameters(target_mean = p_unnorm_mean,
-                                               target_cv = p_unnorm_cv)
+    p_unnorm_parameters <- stats::get_Beta_parameters(target_mean = p_unnorm_mean,
+                                                      target_cv = p_unnorm_cv)
 
     amnt <- stats::rbeta(n,
                          shape1 = p_unnorm_parameters[1],
@@ -166,15 +160,15 @@ r_pmntdel <- function(n, claim_size, setldel, setldel_mean) {
     # last payment gap: 1 quarter, expressed in periods
     unnorm_d_mean <- (1 / 4) / time_unit
     unnorm_d_cv <- 0.20
-    parameters <- get_Weibull_parameters(target_mean = unnorm_d_mean,
-                                         target_cv = unnorm_d_cv)
+    parameters <- stats::get_Weibull_parameters(target_mean = unnorm_d_mean,
+                                                target_cv = unnorm_d_cv)
     result[n] <- stats::rweibull(1, shape = parameters[1],
                                  scale = parameters[2])
     for (i in 1:(n - 1)) {
       unnorm_d_mean <- setldel_mean / n
       unnorm_d_cv <- 0.35
-      parameters <- get_Weibull_parameters(target_mean = unnorm_d_mean,
-                                           target_cv = unnorm_d_cv)
+      parameters <- stats::get_Weibull_parameters(target_mean = unnorm_d_mean,
+                                                  target_cv = unnorm_d_cv)
       result[i] <- stats::rweibull(1, shape = parameters[1],
                                    scale = parameters[2])
     }
@@ -182,8 +176,8 @@ r_pmntdel <- function(n, claim_size, setldel, setldel_mean) {
     for (i in 1:n) {
       unnorm_d_mean <- setldel_mean / n
       unnorm_d_cv <- 0.35
-      parameters <- get_Weibull_parameters(target_mean = unnorm_d_mean,
-                                           target_cv = unnorm_d_cv)
+      parameters <- stats::get_Weibull_parameters(target_mean = unnorm_d_mean,
+                                                  target_cv = unnorm_d_cv)
       result[i] <- stats::rweibull(1, shape = parameters[1],
                                    scale = parameters[2])
     }

@@ -24,6 +24,7 @@ suppressPackageStartupMessages({
 
 })
 
+
 # config and here are only ever called with ::
 # (library(config) would mask base get() and merge(),
 # which data.table code uses)

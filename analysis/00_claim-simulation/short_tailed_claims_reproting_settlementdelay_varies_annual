@@ -1,16 +1,21 @@
 # Short tailed (Simple, short tail) Claims Simulation environment
-# Load the 00_setup
-source(here::here("analysis", "00_setup.R"))
+# ANNUAL version: 20 accident years x 20 development years.
+# Every quarter-specific constant of short_tailed_claims.R is expressed
+# through time_unit here, so time_unit <- 1 / 4 and years <- 10 gives the
+# quarterly 40 x 40 run back exactly.
+
 #Load packages
 
 suppressPackageStartupMessages({
   library(tidyverse)
+  library(data.table)
   library(dplyr)
   library(ChainLadder)
   library(ggplot2)
   library(SynthETIC)
-  library(data.table)
   library(stats)
+  library(keras3)
+
 })
 
 
@@ -24,16 +29,17 @@ runoff_1 <- 1L
 # Define the scale of the claim size
 ref_claim <- 200000
 
-#40 Quater simulations
-time_unit <- 1 / 4
+# Annual periods (1 / 4 would be quarterly)
+time_unit <- 1
 
 # Total years
-years <- 10
+years <- 20
 
-# Number of periods to simulate
+# Number of periods to simulate: 20 annual periods -> 20 x 20 triangle
 sim_periods <- years / time_unit
 
-# Effective annual exposure rates
+# Effective annual exposure rates. SynthETIC multiplies these by time_unit,
+# so the same annual rate gives 20,000 claims a year at either scale
 exposure <- c(rep(ref_claim, sim_periods))
 
 # Claim frequency rate per unit of exposure
@@ -42,12 +48,39 @@ claim_freq <- c(rep(0.1, sim_periods))
 #SyntETIC parameters setting
 set_parameters(ref_claim = ref_claim, time_unit = time_unit)
 
-#Define delay target variables
-# based on the environment 1
-notidel_target_mean <- 0.49305517
-notidel_target_cv <- 1.919494
-setldel_target_mean <- 6.575582
-setldel_target_cv <- 1.02259
+# Sumperimposed inflation indicator
+superimposed_inflation <- FALSE
+
+# Altering the delay formula
+to_quarter <- function(x) {
+  (occurrence_period - 0.5) * 4 * time_unit + 0.5
+}
+
+# NotificationL mean 1 to 3 quarters, shorter for larger claims
+notidel_mean <- function(claim_size, occurrence_period) {
+  mean_quarter <- min(3, max(1, 2 - log(claim_size / (0.5 * ref_claim)) / 3))
+  mean_quarter / 4 / time_unit
+}
+notidel_cv <- 0.7
+
+# Settlement: mean grwos wiht claim size (1 to 25 quarters, times above)
+# During from ~1 to 0.85 over the first 20 quarters,
+# and small claims occurring from quarter 21 settle faster still
+setdel_mean <- function(claim_size, occurrence_period) {
+  q <- to_quarter(occurrence_period)
+  if (claim_size < (0.1 * ref_claim) && q >= 21) {
+    a <- min(0.85, 0.65 + 0.02 * (q-21))
+  } else {
+    a <- min(0.85, 1 - 0.0075 * q)
+  }
+  mean_quarter <- a * min(25, 
+                          max(1, 6 + 4 * log(claim_size / (0.1 * ref_claim))))
+  mean_quarter / 4 / time_unit
+}
+
+setldel_cv <- 0.60
+
+
 
 
 ###############################################################
@@ -67,19 +100,20 @@ sev_df <- function(s) {
 
 # Module 3: Notification delay
 notidel_param <- function(claim_size, occurrence_period) {
-  target_mean <- 0.49305517
-  target_cv <- 1.919494
-  params <- stats::get_Weibull_parameters(target_mean = target_mean,
-                                          target_cv = target_cv)
+  target_mean <- notidel_mean(claim_size, occurrence_period)
+  target_cv <- notidel_cv
+  params <- stats::get_Weibull_parameters(
+    target_mean = target_mean,
+    target_cv = target_cv)
   c(shape = params[1], scale = params[2])
 }
 
 # Module 4: settlement delay
 setldel_param <- function(claim_size, occurrence_period) {
-  target_mean <- 6.575582
-  target_cv <- 1.02259
+  target_mean <- setdel_mean(claim_size, occurrence_period)
+  target_cv <- setldel_cv
   params <- stats::get_Weibull_parameters(target_mean = target_mean,
-                                          target_cv = target_cv)
+                                   target_cv = target_cv)
   c(shape = params[1], scale = params[2])
 }
 
@@ -107,7 +141,8 @@ rmixed_payment_size <- function(n, claim_size) {
   if (n >= 4) {
     p_mean <- 1 - min(0.95, 0.75 + 0.04 * log(claim_size / (0.1 * ref_claim)))
     p_cv <- 0.20
-    p_parameters <- stats::get_Beta_parameters(target_mean = p_mean, target_cv = p_cv)
+    p_parameters <- stats::get_Beta_parameters(target_mean = p_mean,
+                                               target_cv = p_cv)
 
     last_two_pmnts_complement <- stats::rbeta(1,
                                               shape1 = p_parameters[1],
@@ -117,7 +152,8 @@ rmixed_payment_size <- function(n, claim_size) {
 
     q_mean <- 0.9
     q_cv <- 0.03
-    q_parameters <- stats::get_Beta_parameters(target_mean = q_mean, target_cv = q_cv)
+    q_parameters <- stats::get_Beta_parameters(target_mean = q_mean,
+                                               target_cv = q_cv)
     q <- stats::rbeta(1, shape1 = q_parameters[1], shape2 = q_parameters[2])
 
     p_second_last <- q * last_two_pmnts
@@ -138,7 +174,7 @@ rmixed_payment_size <- function(n, claim_size) {
   } else if (n == 2 || n == 3) {
     p_unnorm_mean <- 1 / n
     p_unnorm_cv <- 0.10
-    p_unnorm_parameters <- stats::get_Beta_parameters(target_mean = p_unnorm_mean,
+    p_unnorm_parameters <- stats::get_Beta_parameters(target_mean = p_unnorm_mean, #nolint
                                                       target_cv = p_unnorm_cv)
 
     amnt <- stats::rbeta(n,
@@ -159,6 +195,7 @@ rmixed_payment_size <- function(n, claim_size) {
 r_pmntdel <- function(n, claim_size, setldel, setldel_mean) {
   result <- rep(NA_real_, n)
   if (n >= 4) {
+    # last payment gap: 1 quarter, expressed in periods
     unnorm_d_mean <- (1 / 4) / time_unit
     unnorm_d_cv <- 0.20
     parameters <- stats::get_Weibull_parameters(target_mean = unnorm_d_mean,
@@ -190,36 +227,48 @@ r_pmntdel <- function(n, claim_size, setldel, setldel_mean) {
 }
 
 param_pmntdel <- function(claim_size, setldel, occurrence_period) {
-  if (claim_size < (0.1 * ref_claim) && occurrence_period >= 21) {
-    a <- min(0.85, 0.65 + 0.02 * (occurrence_period - 21))
-  } else {
-    a <- max(0.85, 1 - 0.0075 * occurrence_period)
-  }
-  mean_quarter <- a * min(25,
-                          max(1, 6 + 4 * log(claim_size / (0.1 * ref_claim))))
-  target_mean <- mean_quarter / 4 / time_unit
   c(claim_size = claim_size,
     setldel = setldel,
-    setldel_mean = target_mean)
+    setldel_mean = setdel_mean(claim_size, occurrence_period))
 }
 
 # Module 8 Inflation: Simple 2% p.a., no superimposed inflation
+# claim_payment_inflation() reads base_inflation_vector by QUARTER whatever
+# time_unit is (it looks up t * time_unit * 4), and needs one entry per
+# quarter over twice the simulated span. So the rate stays quarterly and the
+# vector has 2 x 80 = 160 entries for 20 years. An annual rate here would
+# compound 2% every quarter; a 40-entry vector gives NA after year 10.
+n_quarters <- years * 4
 base_rate <- (1 + 0.02) ^ (1 / 4) - 1
-base_inflation_past <- rep(base_rate, times = sim_periods)
-base_inflation_future <- rep(base_rate, times = sim_periods)
+base_inflation_past <- rep(base_rate, times = n_quarters)
+base_inflation_future <- rep(base_rate, times = n_quarters)
 base_inflation_vector <- c(base_inflation_past, base_inflation_future)
 
-si_occurrence <- function(occurrence_time, claim_size) {
-  { # nolint
+
+if (superimposed_inflation) {
+  # occurrence SI: small claims occurring after quarter 20 reduced by up to 40%
+  si_occurrence <- function(occurrence_time, claim_size) {
+    if (occurrence_time <= 20 / 4 / time_unit) {
+      1
+    } else {
+      1 - 0.4 * max(0, 1 - claim_size / (0.25 * ref_claim))
+    }
+  }
+  # payment SI: 30% p.a., tapering to 0 at ref_claim
+  si_payment <- function(payment_time, claim_size) {
+    period_rate <- (1 + 0.30)^(time_unit) - 1
+    beta <- period_rate * max(0, 1 - claim_size / ref_claim)
+    (1 + beta)^payment_time
+  }
+} else {
+  si_occurrence <- function(occurrence_time, claim_size) {
+    1
+  }
+  si_payment <- function(payment_time, claim_size) {
     1
   }
 }
 
-si_payment <- function(payment_time, claim_size) {
-  period_rate <- (1 + 0)^(time_unit) - 1
-  beta <- period_rate
-  (1 + beta)^payment_time
-}
 
 #################################################################
 # Covariate Simulation
@@ -317,7 +366,7 @@ delay_mult <- bind_rows(
          notidel_mult = c(1.10, 1.00, 0.95, 0.90, 0.85, 0.70),
          setldel_mult = c(0.85, 1.00, 1.20, 1.45, 1.75, 0.80),
          rationale = c("minor / soft tissue: reported late, settled quickly",
-                       "reference", "moderate: 
+                       "reference", "moderate:
                         hospital contact speeds reporting;
                        prognosis takes longer",
                        "serious: reported fast;
@@ -385,8 +434,7 @@ claim_sizes <- adj$claim_size_adj
 cov_levels <- as.data.frame(adj$covariates_data$data, check.names = FALSE)
 
 stopifnot(nrow(cov_levels) == n_claims,
-          abs(sum(unlist(claim_sizes)) - sum(unlist(claim_sizes_raw))) <
-            1e-6 * sum(unlist(claim_sizes_raw)))
+          abs(sum(unlist(claim_sizes)) - sum(unlist(claim_sizes_raw))) < 1e-6 * sum(unlist(claim_sizes_raw))) # nolint
 cat("Module 2b: covariates drawn; total claim cost preserved:",
     format(round(sum(unlist(claim_sizes))), big.mark = ","), "\n")
 
@@ -495,9 +543,13 @@ claims$claim_size_raw <- unlist(claim_sizes_raw)
 claims$sev_relativity <- claims$claim_size / claims$claim_size_raw
 claims$notidel_mult <- notidel_mult
 claims$setldel_mult <- setldel_mult
+
+
+claims$notidel_base_mean <- mapply(notidel_mean,
+                                   unlist(claim_sizes), occ_period)
+claims$setldel_base_mean <- mapply(setldel_mean,
+                                   unlist(claim_sizes), occ_period)
 claims <- cbind(claims, cov_levels)
-
-
 
 # Transaction level dataset
 
@@ -517,10 +569,11 @@ transactions <- generate_transaction_dataset(
 setDT(claims)
 setDT(transactions)
 
+stopifnot(!anyNA(transactions$payment_inflated))
+
 
 # Make triangle for visualisation
-
-
+# (occurrence_period and payment_period are in years when time_unit = 1)
 
 triangle_vis <- make_triangle_vis(transactions)
 
@@ -543,18 +596,21 @@ impact_by_level <- rbindlist(lapply(factor_names, function(fct) {
              mean_size_adj = mean(claim_size),             # after covariates
              mean_sev_relativity = mean(sev_relativity),
              mean_notidel = mean(notidel),
+             mean_notidel_base = mean(notidel_base_mean),
              mean_notidel_mult = mean(notidel_mult),
              mean_setldel = mean(setldel),
+             mean_setldel_base = mean(setldel_base_mean),
              mean_setldel_mult = mean(setldel_mult),
              mean_no_payment = mean(no_payment),
              mean_payment_size = mean(mean_payment_size),
-             share_settled_by_dev8 = mean(last_payment_dev <= 8)),
+             # settled within 2 years = dev 2 annual, dev 8 quarterly
+             share_settled_by_2yrs = mean(last_payment_dev <= 2 / time_unit)),
          by = .(level = as.character(get(fct)))][order(level)]
 }))
 setcolorder(impact_by_level, c("factor", "level"))
 
 ## Development pattern by level: cumulative share of a level's own total paid
-## by development quarter (money-weighted, all 40 accident quarters together).
+## by development period (money-weighted, all accident periods together).
 dev_by_level <- rbindlist(lapply(factor_names, function(fct) {
   lev <- as.character(claims[[fct]])[match(transactions$claim_no,
                                            claims$claim_no)]
@@ -577,9 +633,15 @@ summary_tbl <- data.frame(
   total_claim_size_adj = sum(claims$claim_size),
   median_size_raw = median(claims$claim_size_raw),
   median_size_adj = median(claims$claim_size),
-  mean_notidel = mean(claims$notidel), env1_target_notidel = 0.4930517,
-  mean_setldel = mean(claims$setldel), env1_target_setldel = 6.575582,
+  # delays and their targets are in periods (years when time_unit = 1)
+  mean_notidel = mean(claims$notidel),
+  target_mean_notidel = mean(claims$notidel_base_mean),
+  mean_setldel = mean(claims$setldel),
+  target_mean_setldel = mean(claims$setldel_base_mean),
   mean_no_payment = mean(claims$no_payment),
+  share_no_observation = mean(floor(claims$occurrence_time + claims$notidel) ==
+                              floor(claims$occurrence_time + claims$notidel + 
+                              claims$setldel)),
   triangle_total = sum(m),
   pct_of_triangle_observed = sum(m[observed]) / sum(m)
 )
@@ -590,14 +652,17 @@ print(impact_by_level[, .(factor, level, share = round(share, 3),
                           size_raw = round(mean_size_raw),
                           size_adj = round(mean_size_adj),
                           notidel = round(mean_notidel, 3),
+                          notidel_base = round(mean_notidel_base, 3),
                           setldel = round(mean_setldel, 2),
+                          setldel_base = round(mean_setldel_base, 2),
                           n_pay = round(mean_no_payment, 2),
                           pay_size = round(mean_payment_size),
-                          settled_by_dev8 = round(share_settled_by_dev8, 3))])
+                          settled_by_2yrs = round(share_settled_by_2yrs, 3))])
 
 
 ## ===== Part 6: write outputs =================================================
-output_dir <- here::here(paths$raw, "claim-simulation")
+
+output_dir <- here::here("data", "raw", "claim-simulation-annual-vignette")
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 fwrite(claims,          file.path(output_dir, "claims.csv"))
 fwrite(transactions,    file.path(output_dir, "transactions.csv"))
