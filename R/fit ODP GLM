@@ -83,12 +83,12 @@ fit_odp_glm <- function(triangle, cum = FALSE, scale = 1,
   zero_origin <- rowSums(paid) == 0
   zero_dev <- colSums(paid) == 0
   if (any(zero_origin) || any(zero_dev)) {
-    warning("fit_odp_glm(): no payments in accident period(s) ",
-            paste(which(zero_origin), collapse = ", "),
-            if (any(zero_origin) && any(zero_dev)) " and in",
-            if (any(zero_dev)) " development period(s) ",
-            paste(which(zero_dev), collapse = ", "),
-            ": their effects are -Inf, fitted means ~0", call. = FALSE)
+    where <- c(if (any(zero_origin)) paste("accident period(s)",
+                                           paste(which(zero_origin), collapse = ", ")),
+               if (any(zero_dev)) paste("development period(s)",
+                                        paste(which(zero_dev), collapse = ", ")))
+    warning("fit_odp_glm(): no payments in ", paste(where, collapse = " and "),
+            ": their effects are -Inf (fitted means ~0)", call. = FALSE)
   }
 
   dat <- data.frame(y = y[cells],
