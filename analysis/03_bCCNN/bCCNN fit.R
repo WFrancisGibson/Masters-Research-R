@@ -24,6 +24,30 @@
 #   RETICULATE_PYTHON=<full path of python.exe>
 # where the path is that of your Python 3.12 (in your user folder under
 # AppData, Local, Programs, Python, Python312).
+# bccnn_single.R  (the single bCCNN of Paper C Listing 4; builder taken from
+#                  the earlier R port "Main coding run/R/bccnn.R", training
+#                  rewritten on the shared recorder of tabm_bccnn.R)
+#
+# The blended cross-classified neural network of Paper C Section 3:
+#
+#   mu(i, j) = exp( w * (alpha_i + beta_j)  +  c_D + <B_D, z(i, j)> )      (13)
+#                   \___________________/      \________________/
+#                    skip connection = ccODP     feed-forward network
+#
+# alpha and beta are the ccODP maximum likelihood estimates, frozen inside
+# embedding layers, and gradient descent starts at w = 1, c_D = c_hat_ODP,
+# B_D = 0 (equation 14), so before the first step the network *is* the ccODP
+# model and its reserve is the chain-ladder reserve. Unlike the ensembles of
+# tabm_bccnn.R this model keeps Paper C's trainable weight w on the skip
+# connection, exactly as Listing 4 does. Hidden layers use Keras' default
+# glorot_uniform kernels and zero biases (the paper's own default).
+# INFERRED (conflict with the Python project): the Python single bCCNN used
+# torch's U(+-1/sqrt(fan_in)) default, which leaves the chain ladder ~3x more
+# slowly;
+# the earlier R port documents this in its scripts/08_initialiser_check.R.
+# train_single() returns the same list(model, history, snapshots) as
+# train_tabm(), with snapshots of shape (1, I, J), so configs.R can treat all
+# six configurations alike.
 
 source(here::here("analysis", "00_setup.R"))
 # 'R/fit ODP GLM' has no .R extension, so 00_setup.R does not source it
