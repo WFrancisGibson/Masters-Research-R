@@ -39,3 +39,32 @@ short scripts that run from top to bottom, a few small functions, base R.
 3. For the bCCNN, point reticulate to a Python with tensorflow and keras
    (`RETICULATE_PYTHON=<path>/python.exe` in `.Renviron`).
 4. Keep `renv/library`, `models/` and `.git` out of OneDrive sync.
+
+## NN chain ladder (Wuthrich 2018) on the Gabrielli & Wuthrich simulation machine
+Wuthrich (2018), *Neural networks applied to chain-ladder reserving*, EAJ 8:407-436, on
+the individual claims of the Gabrielli & Wuthrich (2018) simulation machine (Risks
+6(2):29). Settings: the `nncl:` block of `config.yml`. Run in this order:
+1. `analysis/00_claim-simulation/individual_claims_simulation_machine.R` (~7 min, peak
+   ~20 GB): the paper's Listing 1 portfolio (V = 5,000,000, seed1 = 100); with
+   `rng_rounding: true` (sample.kind "Rounding" of R < 3.6, also in the machine's
+   workers) it reproduces the paper's data exactly (5,003,204 claims, 4,970,856 reported
+   by 2005, Table 4). Writes `data/raw/claim-simulation-machine/claims.csv` (~395 MB)
+2. `analysis/04_nn-chain-ladder/trackA_wuthrich2018/simulated data description.R`
+   (~3 min): Risks Tables 3, 5, 6, 7 and Figures A1-A4; EAJ Figures 5-6
+3. `.../trackA_wuthrich2018/NN chain ladder fit.R` (~75 min on CPU): the networks of
+   Listing 2 (q = 5, 10, 20) and the sensitivity runs S1 Adam, S2 + early stopping,
+   S3 + CL-initialised output, S4 + balance correction; the zero claims factors
+   (Section 4.2). Each run is saved to `data/processed/nncl_fit_<run>.rds` (a saved run
+   is not refitted), the networks to `models/`
+4. `.../trackA_wuthrich2018/NN chain ladder analysis.R` (~2 min, no Keras): reserves
+   (5.1), EAJ Tables 2-5, the sensitivity runs, Figures 2-4 and 7-9
+   (`output/tables/nncl_*.csv`, `output/figures/NNCL *.png`)
+
+Functions: `R/nn_chain_ladder.R` (networks, zero claims factors, reserves, Mack),
+`R/plots_nn_chain_ladder.R` (figures); checks in `tests/testthat/test-nn_chain_ladder.R`.
+Packages: MASS and doParallel (the machine), keras3. Deviations from the paper: the zero
+claims features are the cells with C <= 0 (recoveries), 0/0 gives a factor 1, and a
+zero claims factor with a positive numerator over a zero denominator takes the ratio
+pooled over the LoBs (LoB 3, accident year 1997). `analysis/00_claim-simulation/
+Simulation.Machine.V1/` is the authors' machine V1, unmodified: third-party code, not
+lint-clean, sourced only by the simulation script.

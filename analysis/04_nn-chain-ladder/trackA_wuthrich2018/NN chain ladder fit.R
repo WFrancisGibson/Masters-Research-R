@@ -165,10 +165,15 @@ for (run_name in names(runs)) {
                overwrite = TRUE)
     fit$model <- NULL
     fits[[j]] <- fit
-    cat(run_name, " j = ", j, ": ", round(fit$run_time), " s, epochs ",
-        fit$epochs_used, "/", fit$epochs_run, ", loss ",
-        round(fit$loss / 1e6, 1), " (homogeneous ",
-        round(homogeneous$loss[j] / 1e6, 1), ")\n", sep = "")
+    cat(sprintf(paste("%s j = %d: %.0f s, epochs %d/%d, loss %.1f",
+                      "(homogeneous %.1f)\n"),
+                run_name,
+                j,
+                fit$run_time,
+                fit$epochs_used,
+                fit$epochs_run,
+                fit$loss / 1e6,
+                homogeneous$loss[j] / 1e6))
   }
   saveRDS(list(run = run_name, q = run$q, param = run$param, fits = fits),
           run_file)
@@ -209,17 +214,37 @@ if (file.exists(s3_file) && !file.exists(s4_file)) {
 ## triangle enters (NA elsewhere)
 cum_obs <- ifelse(observed, cum, NA)
 lobs <- sort(unique(cells$LoB))
+lob_rows <- lapply(lobs, function(l) which(cells$LoB == l))
+## the LoBs' observed triangles
+vol <- lapply(lob_rows, function(r) rowsum(cum_obs[r, ], cells$i[r]))
+zero_factors <- NULL
+for (l in lobs) {
+  r <- lob_rows[[l]]
+  for (i in 2:n_ay) {
+    z <- nncl_zero_claims_factors(cum_obs[r, ], cells$i[r], vol[[l]], i)
+    zero_factors <- rbind(zero_factors, data.frame(LoB = l, z$factors))
+  }
+}
+## the paper assumes 'all denominators are positive': a factor with a
+## positive numerator over a zero denominator takes the ratio pooled over the
+## LoBs (LoB 3, accident year 1997: g_9)
+pooled <- aggregate(cbind(num, den) ~ j + i, zero_factors, sum)
 ult_zero <- matrix(0, length(lobs), n_ay)
 zero_factors <- NULL
 for (l in lobs) {
-  r <- which(cells$LoB == l)
-  vol <- rowsum(cum_obs[r, ], cells$i[r])      # the LoB's observed triangle
+  r <- lob_rows[[l]]
   for (i in 2:n_ay) {
-    z <- nncl_zero_claims_factors(cum_obs[r, ], cells$i[r], vol, i)
+    p <- pooled[pooled$i == i, ]
+    z <- nncl_zero_claims_factors(cum_obs[r, ],
+                                  cells$i[r],
+                                  vol[[l]],
+                                  i,
+                                  p$num / p$den)
     zero_factors <- rbind(zero_factors, data.frame(LoB = l, z$factors))
     ult_zero[l, i] <- z$ultimate
   }
 }
+zero_factors[zero_factors$pooled, ]
 saveRDS(list(factors = zero_factors, ult_zero = ult_zero),
         file.path(paths$processed, "nncl_zero_claims.rds"))
 round(ult_zero / cfg$nncl$units)
