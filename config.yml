@@ -41,3 +41,33 @@ default:
                             # (theirs: 10 and 4 of 40 quarters)
       vali_periods: 2       # validation: latest 2 calendar years of each partition (theirs: 4)
       exclude: 2            # ... except the first 2 accident and development years (theirs: 3)
+  nncl:                  # Wuthrich (2018) EAJ 8:407-436: neural network chain ladder
+    data_dir: claim-simulation-machine  # data/raw/<data_dir>: claims.csv, summary.csv
+    simulation:          # Listing 1: Gabrielli & Wuthrich (2018) machine V1
+      expected_claims: 5000000        # V
+      lob_dist: [0.35, 0.20, 0.15, 0.30]
+      growth: [0, 0, 0, 0]
+      seed1: 100
+      std1: 0.85
+      std2: 0.85
+      rng_rounding: true # sample.kind "Rounding" of R < 3.6 in the master and the
+                         # workers, to come close to the paper's data
+    first_ay: 1994
+    n_ay: 12             # I = 12 accident years, development years j = 0..J = 11
+    model:               # Section 3, Listing 2
+      q: [5, 10, 20]     # hidden neurons (Table 5)
+      q_main: 20         # the reserves, Figs 8-9 and the sensitivity runs
+      activation: tanh
+    training:            # Listing 2: loss mse, optimiser rmsprop
+      epochs: 100
+      batch_size: 10000
+      validation_split: 0.1  # Keras: the last 10% of the rows, ordered by AY and
+                             # features
+    sensitivity:         # runs S1-S4 at q_main, each adds one change
+      learning_rate: 0.001   # S1: Adam
+      max_epochs: 500        # S2: early stopping on the validation loss
+      patience: 20
+    runs: [paper_q5, paper_q10, paper_q20, s1_adam, s2_early_stop, s3_cl_start]
+                         # networks to fit; s4_balance = s3_cl_start + balance
+    units: 1000          # EAJ tables in 1'000
+    risks_units: 10000   # Risks tables in 10'000
