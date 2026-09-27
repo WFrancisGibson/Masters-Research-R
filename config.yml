@@ -15,7 +15,8 @@ default:
                          # them into year 20, a leak into observed cell (1, 20))
     scale: 1000000       # fit in millions (Paper C fits in 1'000 CHF)
   odp:
-    phi: deviance        # dispersion estimate: deviance (Paper C eq. (5)) or pearson
+    phi: deviance        # ccODP dispersion in the bCCNN script: deviance (Paper C eq. (5))
+                         # or pearson; the ODP GLM script (glmReserve) always uses Pearson
   bccnn:                 # Paper C: Gabrielli, Richman & Wuthrich (2020)
     model:               # eq. (13)-(14), Listing 4
       hidden: [20, 15, 10]            # neurons of the 3 hidden layers
@@ -29,6 +30,7 @@ default:
       batch_size: ~      # ~ (null) = full batch: one gradient-descent step per epoch
       max_epochs: 1000   # length of each early-stopping run (Paper C Figure 2)
       epochs: ~          # ~ = step with the lowest validation loss; a number overrides
+                         # (at most max_epochs: the tables need its validation losses)
       validation: rolling_origin  # early stopping: rolling_origin (Al-Mudafer et al. 2021)
                                   # or claims_split (Paper C's 50/50 claims split)
       final_fit: refit   # refit: train on the full triangle for the chosen steps
@@ -39,8 +41,3 @@ default:
                             # (theirs: 10 and 4 of 40 quarters)
       vali_periods: 2       # validation: latest 2 calendar years of each partition (theirs: 4)
       exclude: 2            # ... except the first 2 accident and development years (theirs: 3)
-  cv:
-    folds: 5
-  bootstrap:
-    iterations.GLM: 10
-    iterations.NN: 10

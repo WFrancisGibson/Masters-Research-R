@@ -1,344 +1,190 @@
-##################################################################
+##########################################
 #########  bCCNN: neural network embedding of the ccODP model
-#########  Gabrielli, Richman & Wuthrich (2020), Paper C
-#########  early stopping: rolling origin (Al-Mudafer et al. 2021)
-#########                  or the 50/50 claims split (Paper C)
-##################################################################
-#
-# mu(i, j) = exp{ w * (alpha_i + beta_j) + c + <B, z3(i, j)> }     (13)
-#
-# alpha_i, beta_j: ccODP estimates, fixed embeddings (skip connection)
-# z3: three tanh hidden layers (20, 15, 10), 10% dropout after each
-# start: w = 1, c = c_ODP, B = 0, i.e. exactly the ccODP model     (14)
-# loss "poisson", optimiser rmsprop, full batch (1 epoch = 1 step)
+#########  Paper C: Gabrielli, Richman & Wuthrich (2020), Section 3, Listing 4
+##########################################
 
-
-###############################################
-#########  network architecture
-###############################################
-
-# Keras inputs: 0-based accident and development years of the cells
-bccnn_inputs <- function(origin, dev) {
-  list(as.matrix(origin - 1L), as.matrix(dev - 1L))
-}
-
-bccnn_model <- function(odp,
-                        q = c(20, 15, 10),
-                        dropout = 0.1,
-                        activation = "tanh",
-                        trainable_embeddings = FALSE,
-                        learning_rate = 0.001,
-                        rho = 0.9,
-                        epsilon = 1e-7,
-                        seed = 2026) {
+## mu(i,j) = exp{w * (alpha_i + beta_j) + c + <B, z(i,j)>} (13):
+## skip connection cc0 plus the network nn0,
+## started in the ccODP model w = 1, c = c_ODP, B = 0 (14)
+bccnn_model <- function(odp, param) {
   n <- length(odp$alpha)
+  q0 <- param$hidden
   clear_session()
-  set_random_seed(seed)
-
-  acc_year <- layer_input(shape = c(1), dtype = "int32", name = "AccYear")
-  dev_year <- layer_input(shape = c(1), dtype = "int32", name = "DevYear")
-
-  ay_embed <- acc_year |>
-    layer_embedding(input_dim = n, output_dim = 1, name = "AY_embed",
-                    trainable = trainable_embeddings) |>
+  set_random_seed(param$seed)
+  #
+  # declare AY and DY features to be categorical
+  accyear <- layer_input(shape = c(1), dtype = "int32", name = "AccYear")
+  devyear <- layer_input(shape = c(1), dtype = "int32", name = "DevYear")
+  #
+  # embedding layers for alpha_i and beta_j (fixed unless param$trainable)
+  ay_embed <- accyear %>%
+    layer_embedding(input_dim = n, output_dim = 1,
+                    trainable = param$trainable,
+                    name = "AY_embed") %>%
     layer_flatten(name = "AY_flat")
-
-  dy_embed <- dev_year |>
-    layer_embedding(input_dim = n, output_dim = 1, name = "DY_embed",
-                    trainable = trainable_embeddings) |>
+  dy_embed <- devyear %>%
+    layer_embedding(input_dim = n, output_dim = 1,
+                    trainable = param$trainable,
+                    name = "DY_embed") %>%
     layer_flatten(name = "DY_flat")
-
-  # the ccODP part: alpha_i + beta_j
-  cc0 <- layer_add(list(ay_embed, dy_embed), name = "cc0")
-
-  nn0 <- list(ay_embed, dy_embed) |>
-    layer_concatenate(name = "concate0") |>
-    layer_dense(units = q[1], activation = activation, name = "hidden1") |>
-    layer_dropout(rate = dropout, name = "dropout1") |>
-    layer_dense(units = q[2], activation = activation, name = "hidden2") |>
-    layer_dropout(rate = dropout, name = "dropout2") |>
-    layer_dense(units = q[3], activation = activation, name = "hidden3") |>
-    layer_dropout(rate = dropout, name = "dropout3")
-
-  response <- list(cc0, nn0) |>
-    layer_concatenate(name = "concate1") |>
-    layer_dense(units = 1, activation = "exponential", name = "Response")
-
-  model <- keras_model(inputs = list(acc_year, dev_year), outputs = response)
-
-  # start exactly in the ccODP model
-  get_layer(model, "AY_embed") |> set_weights(list(as.matrix(odp$alpha)))
-  get_layer(model, "DY_embed") |> set_weights(list(as.matrix(odp$beta)))
-  get_layer(model, "Response") |>
-    set_weights(list(as.matrix(c(1, rep(0, q[3]))), array(odp$c)))
-
-  model |> compile(loss = "poisson",
-                   optimizer = optimizer_rmsprop(learning_rate = learning_rate,
-                                                 rho = rho, epsilon = epsilon))
+  #
+  # the ccODP part alpha_i + beta_j and the 3 hidden layers of the NN part
+  cc0 <- list(ay_embed, dy_embed) %>% layer_add(name = "CC0")
+  nn0 <- list(ay_embed, dy_embed) %>%
+    layer_concatenate(name = "concate0") %>%
+    layer_dense(units = q0[1],
+                activation = param$activation,
+                name = "hidden1") %>%
+    layer_dropout(rate = param$dropout,
+                  name = "dropout1") %>%
+    layer_dense(units = q0[2],
+                activation = param$activation,
+                name = "hidden2") %>%
+    layer_dropout(rate = param$dropout,
+                  name = "dropout2") %>%
+    layer_dense(units = q0[3],
+                activation = param$activation,
+                name = "hidden3") %>%
+    layer_dropout(rate = param$dropout,
+                  name = "dropout3")
+  #
+  # the bCCNN with the skip connection for the CC part
+  response <- list(cc0, nn0) %>%
+    layer_concatenate(name = "concate1") %>%
+    layer_dense(units = 1,
+                activation = "exponential",
+                name = "Response")
+  model <- keras_model(inputs = list(accyear, devyear), outputs = response)
+  #
+  # start exactly in the ccODP model (14): alpha_i, beta_j in the embeddings;
+  # Response weights 1 on CC0 (w = 1) and 0 on the q0[3] NN0 neurons (B = 0),
+  # bias c = c_ODP
+  get_layer(model, "AY_embed") %>% set_weights(list(as.matrix(odp$alpha)))
+  get_layer(model, "DY_embed") %>% set_weights(list(as.matrix(odp$beta)))
+  get_layer(model, "Response") %>%
+    set_weights(list(as.matrix(c(1, rep(0, q0[3]))), array(odp$intercept)))
+  #
+  model %>% compile(
+    loss = "poisson",
+    optimizer = optimizer_rmsprop(learning_rate = param$learning_rate,
+                                  rho = param$rho,
+                                  epsilon = param$epsilon)
+  )
   model
 }
 
-
-###############################################
-#########  fitting, recording the losses
-###############################################
-
-# Trains the bCCNN started in `odp` for `epochs` steps on `cells` of y
-# (units of odp). After every step it records the Poisson deviance (without
-# dropout) on the training cells and on each matrix of `track` (NA outside
-# the cells to score), the predicted sum over each `track` matrix, and
-# Keras's training loss (with dropout) as a deviance. Epoch 0 = ccODP start.
-fit_bccnn <- function(odp,
-                      y = odp$y,
-                      epochs,
-                      cells = odp$cells,
-                      track = list(),
-                      keep_mu = FALSE,
-                      batch_size = NULL, ...) {
-  n <- length(odp$alpha)
-  cell <- triangle_long(y)
-  x_all <- bccnn_inputs(cell$origin, cell$dev)
-  x_fit <- bccnn_inputs(cell$origin[cells], cell$dev[cells])
+## trains the bCCNN started in odp for 'epochs' gradient descent steps on the
+## cells odp was fitted on, and keeps the predicted triangle after every step
+## (epoch 0 = ccODP start)
+bccnn_fit <- function(odp, epochs, param, track) {
+  y <- odp$y
+  cells <- odp$cells
+  n <- nrow(y)
+  # accident and development period of each cell, from 0 for the embedding
+  # layers; x_all runs over all n x n cells column by column, as matrix()
+  # fills them back
+  x_all <- list(as.matrix(as.vector(row(y)) - 1L),
+                as.matrix(as.vector(col(y)) - 1L))
+  x_fit <- list(as.matrix(row(y)[cells] - 1L),
+                as.matrix(col(y)[cells] - 1L))
   y_fit <- as.matrix(y[cells])
-  scored <- c(list(train = ifelse(cells, y, NA)), track)
-
-  model <- bccnn_model(odp, ...)
-  predict_mu <- function() matrix(model$predict_on_batch(x_all), n, n)
-
-  history <- NULL
-  mu_path <- list()
-  record <- function(epoch, loss) {
-    mu <- predict_mu()
-    if (keep_mu) mu_path[[epoch + 1]] <<- mu
-    pred <- lapply(track, function(t) sum(mu[!is.na(t)]))
-    names(pred) <- paste0(names(track), "_pred", recycle0 = TRUE)
-    row <- data.frame(epoch = epoch,
-                      train_dropout = keras_poisson_to_deviance(loss, y_fit),
-                      c(lapply(scored, poisson_deviance, mu = mu), pred))
-    history <<- rbind(history, row)
+  #
+  model <- bccnn_model(odp, param)
+  mu_hat <- function() {
+    matrix(model$predict_on_batch(x_all),
+           n,
+           n,
+           dimnames = list(origin = 1:n, dev = 1:n))
   }
-
-  record(0, NA)
-  step <- 0
+  # after every gradient descent step keep the predicted triangle and
+  # Keras's loss
+  mu_path <- list(mu_hat())
+  loss <- NA
   after_step <- callback_lambda(on_epoch_end = function(epoch, logs) {
-    step <<- step + 1
-    record(step, logs$loss)
+    mu_path[[length(mu_path) + 1]] <<- mu_hat()
+    loss[length(loss) + 1] <<- logs$loss
   })
+  batch_size <- if (is.null(param$batch_size)) nrow(y_fit) else
+    param$batch_size
   if (epochs > 0) {
-    model |> fit(x_fit, y_fit, epochs = as.integer(epochs),
-                 batch_size = batch_size %||% nrow(y_fit),
-                 callbacks = list(after_step),
-                 verbose = 0, view_metrics = FALSE)
+    model %>% fit(x_fit, y_fit,
+                  epochs = as.integer(epochs),
+                  batch_size = batch_size,
+                  callbacks = list(after_step),
+                  verbose = 0,
+                  view_metrics = FALSE)
   }
-
-  mu <- predict_mu()
-  dimnames(mu) <- list(origin = 1:n, dev = 1:n)
-  by_origin <- reserve_by_origin(y, mu)
-  list(model = model, mu = mu, by_origin = by_origin,
-       total = reserve_totals(by_origin),
-       reserve_o = by_origin$ibnr, reserve = sum(by_origin$ibnr),
-       deviance = poisson_deviance(scored$train, mu), epochs = epochs,
-       cells = cells, history = history, mu_path = mu_path, scale = odp$scale)
+  # deviance losses by step: Keras's training loss (with dropout), the
+  # deviance without dropout on the training cells and on each matrix of
+  # 'track' (NA = cell not scored), and the predicted sum over each matrix
+  # of 'track'
+  history <- data.frame(epoch = seq_along(mu_path) - 1,
+                        train_dropout = keras_to_deviance(loss, y_fit))
+  scored <- c(list(train = ifelse(cells, y, NA)), track)
+  for (k in names(scored)) {
+    history[[k]] <- sapply(mu_path, poisson_deviance, y = scored[[k]])
+  }
+  for (k in names(track)) {
+    obs <- !is.na(track[[k]])
+    history[[paste0(k, "_pred")]] <- sapply(mu_path, function(mu) sum(mu[obs]))
+  }
+  list(model = model,
+       mu = mu_hat(),
+       history = history,
+       mu_path = mu_path)
 }
 
-# relative decrease of the losses from the ccODP start to `step` (Paper C
-# Table 3). Keras's training loss of epoch e is computed before that epoch's
-# update, i.e. after e - 1 steps: average it over epochs step + 1 +- window
-# (fewer near the start, so step 0 gives 0)
-loss_decrease <- function(h, step, window = 10) {
-  at <- function(col, e) h[[col]][h$epoch == e]
-  w <- min(window, step)
-  near <- h$epoch >= step + 1 - w & h$epoch <= step + 1 + w
-  c(train = 1 - at("train", step) / at("train", 0),
-    vali = 1 - at("vali", step) / at("vali", 0),
-    train_dropout = if (step == 0) 0 else
-      1 - mean(h$train_dropout[near]) / at("train_dropout", 1))
-}
-
-# bCCNN dispersion: the ccODP one reduced by the decrease of the validation
-# loss (Paper C, Section 3.3.2)
-bccnn_phi <- function(phi_odp, decrease_vali) {
-  phi_odp * (1 - max(0, decrease_vali))
-}
-
-
-###############################################
-#########  early stopping 1: 50/50 claims split
-###############################################
-
-# Paper C, Section 3.3.2: ccODP and bCCNN fitted on the training half, the
-# step with the lowest deviance on the validation half is kept
-bccnn_validation <- function(train,
-                             vali,
-                             max_epochs = 1000,
-                             scale = 1,
-                             phi = "deviance", ...) {
-  odp <- suppressWarnings(fit_odp_glm(train, scale = scale, phi = phi))
-  vali <- upper(vali / scale)
-  # no payments in the training half (tail development years): ccODP effect
-  # -Inf, nothing carries over, so leave these validation cells out
-  vali[odp$zero_origin, ] <- NA
-  vali[, odp$zero_dev] <- NA
-
-  h <- fit_bccnn(odp, epochs = max_epochs, track = list(vali = vali),
-                 ...)$history
-  best <- h$epoch[which.min(h$vali)]
-  list(method = "claims_split", history = h, best_epoch = best,
-       decrease = loss_decrease(h, best), odp = odp)
-}
-
-
-###############################################
-#########  early stopping 2: rolling origin
-###############################################
-
-# One partition of rolling_origin_sets() (Al-Mudafer et al. 2021): ccODP and
-# bCCNN fitted on the training cells, the step with the lowest validation
-# deviance is kept. A test partition also scores the procedure that gives
-# the reported model ("refit": bCCNN from the chain ladder at the valuation
-# date, all cells, `best` steps; "partition": the early-stopped network),
-# next to the chain ladder at that date and the ccODP on the training cells.
-bccnn_ro_partition <- function(part,
-                               truth = NULL,
-                               max_epochs = 1000,
-                               scale = 1,
-                               phi = "deviance",
-                               final_fit = "refit",
-                               keep_mu = FALSE, ...) {
-
-  odp <- fit_odp_glm(part$y, scale = scale, phi = phi, cells = part$train)
-
-  track <- list(vali = ifelse(part$vali, odp$y, NA))
-
-  if (!part$final) track$test <- part$test / scale
-  track$truth <- truth
-
-  nn <- fit_bccnn(odp, epochs = max_epochs, track = track, keep_mu = keep_mu,
-                  ...)
-  h <- nn$history
-  best <- h$epoch[which.min(h$vali)]
-  out <- list(origin = part$origin,
-              final = part$final,
-              n_train = sum(part$train),
-              n_vali = sum(part$vali),
-              n_test = sum(!is.na(part$test)),
-              history = h,
-              best_epoch = best,
-              decrease = loss_decrease(h, best),
-              odp = odp,
-              mu_path = nn$mu_path,
-              test = NULL)
-
-  if (!part$final) {
-    at <- function(col, e) h[[col]][h$epoch == e]
-    cl <- fit_odp_glm(part$y, scale = scale, phi = phi)  # chain ladder at c
-    if (final_fit == "refit") {
-      rf <- fit_bccnn(cl, epochs = best, track = list(test = track$test),
-                      ...)$history
-      nn_dev <- tail(rf$test, 1)
-      nn_pred <- tail(rf$test_pred, 1)
+## rolling origin: per partition, ccODP and bCCNN on the training cells,
+## early-stopped on the validation cells; a test partition also scores the
+## network chosen by final_fit on its test cells (test error: their eq. (4.4))
+rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
+  summary <- NULL
+  for (k in seq_along(parts)) {
+    part <- parts[[k]]
+    odp <- ccodp_fit(part$y, cells = part$train)
+    track <- list(vali = ifelse(part$vali, part$y, NA))
+    if (part$final) track$truth <- truth else track$test <- part$test
+    nn <- bccnn_fit(odp, max_epochs, param, track = track)
+    h <- nn$history
+    best <- h$epoch[which.min(h$vali)]
+    res <- data.frame(partition = if (part$final) "final" else as.character(k),
+                      origin = part$origin,
+                      n_train = sum(part$train),
+                      n_vali = sum(part$vali),
+                      n_test = sum(!is.na(part$test)),
+                      best_epoch = best,
+                      test_actual = NA,
+                      test_ccODP = NA,
+                      test_ccODP_train = NA,
+                      test_bCCNN = NA,
+                      test_loss_ccODP = NA,
+                      test_loss_ccODP_train = NA,
+                      test_loss_bCCNN = NA)
+    if (part$final) {
+      final <- list(history = h, best_epoch = best, mu_path = nn$mu_path)
     } else {
-      nn_dev <- at("test", best)
-      nn_pred <- at("test_pred", best)
+      cl <- ccodp_fit(part$y)                      # chain ladder at c0
+      if (final_fit == "refit") {
+        # refit: bCCNN started in the chain ladder at c0, all cells,
+        # 'best' steps
+        h_test <- bccnn_fit(cl,
+                            best,
+                            param,
+                            track = list(test = part$test))$history
+        h_test <- tail(h_test, 1)
+      } else {
+        h_test <- h[h$epoch == best, ]
+      }
+      res$test_actual <- sum(part$test, na.rm = TRUE)
+      res$test_ccODP <- sum(cl$mu[!is.na(part$test)])
+      res$test_ccODP_train <- h$test_pred[h$epoch == 0]
+      res$test_bCCNN <- h_test$test_pred
+      res$test_loss_ccODP <- poisson_deviance(part$test, cl$mu)
+      res$test_loss_ccODP_train <- h$test[h$epoch == 0]
+      res$test_loss_bCCNN <- h_test$test
     }
-    out$test <- c(test_actual = sum(track$test, na.rm = TRUE),
-                  test_ccODP = sum(cl$mu[!is.na(track$test)]),
-                  test_ccODP_train = at("test_pred", 0),
-                  test_bCCNN = nn_pred,
-                  test_loss_ccODP = poisson_deviance(track$test, cl$mu),
-                  test_loss_ccODP_train = at("test", 0),
-                  test_loss_bCCNN = nn_dev)
+    summary <- rbind(summary, res)
   }
-  out
-}
-
-# All partitions; test error = test deviance per test cell over the test
-# partitions (Al-Mudafer et al. eq. (4.4)). One run per partition: the
-# results depend on the seed (random hidden layers and dropout).
-bccnn_rolling_origin <- function(parts,
-                                 truth = NULL,
-                                 max_epochs = 1000,
-                                 scale = 1,
-                                 phi = "deviance",
-                                 final_fit = "refit",
-                                 keep_mu_final = FALSE,
-                                 ...) {
-  fits <- lapply(parts, function(p) {
-    bccnn_ro_partition(p, truth = if (p$final) truth, max_epochs = max_epochs,
-                       scale = scale, phi = phi, final_fit = final_fit,
-                       keep_mu = p$final && keep_mu_final, ...)
-  })
-
-  no_test <- c(test_actual = NA, test_ccODP = NA, test_ccODP_train = NA,
-               test_bCCNN = NA, test_loss_ccODP = NA,
-               test_loss_ccODP_train = NA, test_loss_bCCNN = NA)
-  summary <- do.call(rbind, lapply(seq_along(fits), function(k) {
-    f <- fits[[k]]
-    data.frame(partition = if (f$final) "final" else as.character(k),
-               origin = f$origin, n_train = f$n_train, n_vali = f$n_vali,
-               n_test = f$n_test, best_epoch = f$best_epoch,
-               as.list(if (f$final) no_test else f$test))
-  }))
-
-  tst <- summary[summary$partition != "final", ]
-  test_error <- c(ccODP = sum(tst$test_loss_ccODP),
-                  ccODP_train = sum(tst$test_loss_ccODP_train),
-                  bCCNN = sum(tst$test_loss_bCCNN)) / sum(tst$n_test)
-  list(fits = fits, summary = summary, test_error = test_error,
-       final_fit = final_fit, final = fits[[length(fits)]])
-}
-
-
-###############################################
-#########  calibration of the bCCNN
-###############################################
-
-# 1. early stopping (rolling origin or claims split) gives the number of steps
-# 2. ccODP on the full observed triangle
-# 3. final_fit "refit" (Paper C): bCCNN from that ccODP, trained on the full
-#    triangle for those steps; "partition" (Al-Mudafer et al.): the
-#    early-stopped network of the final rolling-origin partition
-bccnn_calibrate <- function(sets, scale = 1, phi = "deviance",
-                            max_epochs = 1000, epochs = NULL,
-                            validation = "rolling_origin",
-                            test_periods = c(5, 2), vali_periods = 2,
-                            exclude = 2, final_fit = "refit", ...) {
-  truth <- sets$test / scale
-  ro <- NULL
-  if (validation == "rolling_origin") {
-    parts <- rolling_origin_sets(sets$upper, test_periods = test_periods,
-                                 vali_periods = vali_periods, exclude = exclude)
-    ro <- bccnn_rolling_origin(parts, truth = truth, max_epochs = max_epochs,
-                               scale = scale, phi = phi, final_fit = final_fit,
-                               keep_mu_final = final_fit == "partition", ...)
-    ro$parts <- parts
-    val <- ro$final
-  } else {
-    val <- bccnn_validation(sets$train, sets$vali, max_epochs = max_epochs,
-                            scale = scale, phi = phi, ...)
-  }
-
-  steps <- if (is.null(epochs)) val$best_epoch else epochs
-  decrease <- loss_decrease(val$history, steps)
-  odp <- fit_odp_glm(sets$upper, scale = scale, phi = phi)
-
-  if (final_fit == "refit") {
-    nn <- fit_bccnn(odp, epochs = steps, track = list(truth = truth), ...)
-  } else {
-    mu <- val$mu_path[[steps + 1]]
-    by_origin <- reserve_by_origin(odp$y, mu)
-    y_train <- ifelse(val$odp$cells, odp$y, NA)
-    nn <- list(model = NULL, mu = mu, by_origin = by_origin,
-               total = reserve_totals(by_origin),
-               reserve_o = by_origin$ibnr, reserve = sum(by_origin$ibnr),
-               deviance = poisson_deviance(y_train, mu),
-               deviance_observed = poisson_deviance(odp$y, mu),
-               epochs = steps, history = val$history)
-  }
-
-  list(validation_method = validation, final_fit = final_fit,
-       validation = val, rolling_origin = ro, decrease = decrease,
-       odp = odp, nn = nn, epochs = steps,
-       phi = c(ccODP = odp$phi, bCCNN = bccnn_phi(odp$phi, decrease[["vali"]])),
-       scale = scale)
+  list(summary = summary,
+       final = final)
 }
