@@ -1,6 +1,7 @@
 ##########################################
 #########  bCCNN: neural network embedding of the ccODP model
-#########  Paper C: Gabrielli, Richman & Wuthrich (2020), Section 3, Listing 4
+#########  Paper C: Gabrielli, Richman & Wuthrich (2020), Section 3, Listing 4;
+#########  parametric bootstrap: Section 3.3.4
 ##########################################
 
 ## mu(i,j) = exp{w * (alpha_i + beta_j) + c + <B, z(i,j)>} (13):
@@ -132,6 +133,19 @@ bccnn_fit <- function(odp, epochs, param, track) {
        mu = mu_hat(),
        history = history,
        mu_path = mu_path)
+}
+
+## Paper C Section 3.3.4: the bCCNN refitted on the simulated triangles
+## y_boot[b] as the final network, ccODP start (14) on 'cells' and 'epochs'
+## gradient descent steps; refit k with the seed param$seed + k; bCCNN
+## reserves by accident period (length(b) x n)
+bccnn_bootstrap <- function(y_boot, b, cells, epochs, param) {
+  t(sapply(b, function(k) {
+    param$seed <- param$seed + k               # local copy per refit
+    nn <- bccnn_fit(ccodp_fit(y_boot[[k]], cells), epochs, param,
+                    track = list())
+    rowSums(lower_triangle(nn$mu), na.rm = TRUE)
+  }))
 }
 
 ## rolling origin: per partition, ccODP and bCCNN on the training cells,

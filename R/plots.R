@@ -1,7 +1,8 @@
 ##########################################
 #########  Figures
 #########  after Paper C (Gabrielli, Richman & Wuthrich 2020), Figures 2, 7, 8
-#########  and Al-Mudafer et al. (2021), Figures 3 and 9
+#########  and Al-Mudafer et al. (2021), Figures 3 and 9; RMSEP and bootstrap
+#########  figures for Paper C Sections 2.3 and 3.3.4
 ##########################################
 
 ## save a base graphics or lattice figure (e.g. the ChainLadder plots) to
@@ -135,6 +136,54 @@ bias_plot <- function(by_origin, title) {
     scale_fill_manual(values = c("blue", "red"), name = NULL) +
     labs(x = "accident period", y = "reserve - true reserve", title = title) +
     theme_bw() + theme(legend.position = "top")
+}
+
+## RMSEP by accident period, one line per method (rows of rmsep_table()), on
+## a log scale; the absolute reserve biases |reserve - true reserve| as
+## points (bias: label, origin, bias)
+rmsep_plot <- function(d, bias, title) {
+  d <- d[d$origin != "total", ]
+  d$origin <- as.integer(d$origin)
+  d$method <- factor(d$method, levels = unique(d$method))
+  bias <- bias[bias$bias != 0, ]
+  bias$label <- factor(bias$label, levels = unique(bias$label))
+  ggplot() +
+    geom_line(data = d,
+              aes(x = origin, y = rmsep, colour = method)) +
+    geom_point(data = d,
+               aes(x = origin, y = rmsep, colour = method),
+               size = 0.8) +
+    geom_point(data = bias,
+               aes(x = origin, y = abs(bias), shape = label),
+               size = 2) +
+    scale_shape_manual(values = c(4, 1), name = NULL) +
+    scale_x_continuous(breaks = unique(d$origin)) +
+    scale_y_log10() +
+    guides(colour = guide_legend(ncol = 2)) +
+    labs(x = "accident period",
+         y = "RMSEP (log scale)",
+         colour = NULL,
+         title = title) +
+    theme_bw() + theme(legend.position = "top", legend.box = "vertical")
+}
+
+## densities of the bootstrap total reserves by method (d: method, total),
+## with vertical lines at the reserves 'lines' (a named vector)
+boot_density_plot <- function(d, lines, title) {
+  d$method <- factor(d$method, levels = unique(d$method))
+  v <- data.frame(label = factor(names(lines), levels = names(lines)),
+                  value = unname(lines))
+  ggplot(d, aes(x = total, colour = method)) +
+    geom_density() +
+    geom_vline(data = v,
+               aes(xintercept = value, linetype = label),
+               inherit.aes = FALSE) +
+    labs(x = "total reserve",
+         y = "density",
+         colour = NULL,
+         linetype = NULL,
+         title = title) +
+    theme_bw() + theme(legend.position = "top", legend.box = "vertical")
 }
 
 ## training, validation and test cells of a rolling-origin partition on the

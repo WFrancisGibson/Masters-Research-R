@@ -5,7 +5,9 @@
 #########  (Gabrielli 2020, PhD thesis ETH Zurich)
 #########  early stopping: rolling origin (Al-Mudafer, Avanzi, Taylor & Wong
 #########  2021) or Paper C's 50/50 claims split
-#########  (config.yml: bccnn$training$validation)
+#########  (config.yml: bccnn$training$validation);
+#########  prediction uncertainty: Paper C's parametric bootstrap
+#########  (Sections 2.3 and 3.3.4)
 ##########################################
 
 ## Keras runs on Python through reticulate: point it to a Python with
@@ -301,3 +303,165 @@ if (train_cfg$final_fit == "refit") {
   save_model(nn$model,
              file.path(paths$models, "bccnn_annual.keras"), overwrite = TRUE)
 }
+
+##########################################
+#########  prediction uncertainty: parametric bootstrap
+#########  Paper C Sections 2.3 and 3.3.4, eqs. (6), (15) and (16)
+##########################################
+
+## after the network is saved: the refits clear the Keras session and
+## set_random_seed() also resets R's seed, so every random step below has
+## its own set.seed()
+nsim <- cfg$odp$nsim
+nsim_nn <- cfg$bccnn$bootstrap$nsim
+phi_odp <- c(pearson = odp$phi_pearson, deviance = odp$phi_deviance)
+# Paper C Section 3.3.2 for (5); for Pearson's phi by analogy
+phi_bccnn <- phi_odp * (1 - max(0, decrease_vali))
+
+## ccODP (Section 2.3) under both dispersions: the Paper C rows of the ODP
+## GLM script
+rmsep <- NULL
+boot_totals <- NULL
+for (k in names(phi_odp)) {
+  set.seed(cfg$seed)
+  boot <- ccodp_bootstrap(odp, phi_odp[[k]], nsim)
+  method <- paste("ccODP, phi", k)
+  rmsep <- rbind(rmsep,
+                 rmsep_table(method, phi_odp[[k]], odp$reserve_o, boot))
+  boot_totals <- rbind(boot_totals,
+                       data.frame(method = method, total = rowSums(boot)))
+}
+
+## bCCNN (Section 3.3.4) under the headline phi: triangles from (1) with the
+## bCCNN means and phi_bCCNN on the cells the final network was trained on,
+## each refitted as the final network; all drawn before the first refit
+if (nsim_nn > 0) {
+  nn_cells <- if (train_cfg$final_fit == "refit") odp$cells else
+    parts[[length(parts)]]$train
+  set.seed(cfg$seed)
+  y_boot <- replicate(nsim_nn,
+                      odp_sample(mu_nn, phi_nn, nn_cells),
+                      simplify = FALSE)
+  # saved after every tenth of the refits: a stopped run resumes; other
+  # means, dispersion, cells, steps or hyper-parameters start afresh
+  boot_file <- file.path(paths$processed,
+                         paste0("bccnn_bootstrap_", train_cfg$final_fit,
+                                "_n", nsim_nn, ".rds"))
+  key <- list(mu = mu_nn,
+              phi = phi_nn,
+              cells = nn_cells,
+              epochs = epochs,
+              param = param)
+  boot_nn <- if (file.exists(boot_file)) readRDS(boot_file)
+  if (!isTRUE(all.equal(boot_nn$key, key, tolerance = 1e-6))) {
+    boot_nn <- list(key = key, reserves = matrix(0, 0, n))
+  }
+  chunks <- split(1:nsim_nn, ceiling(10 * (1:nsim_nn) / nsim_nn))
+  for (b in chunks) {
+    if (max(b) <= nrow(boot_nn$reserves)) next
+    boot_nn$reserves <- rbind(boot_nn$reserves,
+                              bccnn_bootstrap(y_boot,
+                                              b,
+                                              nn_cells,
+                                              epochs,
+                                              param))
+    saveRDS(boot_nn, boot_file)
+    cat(format(Sys.time(), "%H:%M"), "bCCNN bootstrap:", max(b), "of",
+        nsim_nn, "refits\n")
+  }
+  stopifnot(all(is.finite(boot_nn$reserves)))
+  method <- paste("bCCNN, phi", phi_method)
+  rmsep <- rbind(rmsep,
+                 rmsep_table(method,
+                             phi_nn,
+                             by_origin$bCCNN,
+                             boot_nn$reserves))
+  boot_totals <- rbind(boot_totals,
+                       data.frame(method = method,
+                                  total = rowSums(boot_nn$reserves)))
+}
+rownames(rmsep) <- NULL
+
+## totals (Paper C Table 5): RMSEP and coefficient of variation of the
+## ccODP (CL) and bCCNN reserves, and their bias against the true reserves
+rmsep_total <- rmsep[rmsep$origin == "total", -2]
+rmsep_total$cv <- rmsep_total$rmsep / rmsep_total$reserve
+rmsep_total$true <- tot[["true"]]
+rmsep_total$bias <- rmsep_total$reserve - rmsep_total$true
+rownames(rmsep_total) <- NULL
+cbind(rmsep_total[1], round(rmsep_total[-1], 3))
+
+## dispersion of the ccODP and bCCNN by Pearson's statistic and by Paper C
+## eq. (5), with the process error sqrt(phi * reserve) (16) and the
+## bootstrap RMSEP (none for the bCCNN under the other phi)
+dispersion <- data.frame(model = rep(c("ccODP", "bCCNN"), each = 2),
+                         phi_estimate = names(c(phi_odp, phi_bccnn)),
+                         phi = unname(c(phi_odp, phi_bccnn)),
+                         reserve = rep(c(tot[["CL"]], tot[["bCCNN"]]),
+                                       each = 2))
+dispersion$process_sd <- sqrt(dispersion$phi * dispersion$reserve)
+dispersion$rmsep <- rmsep_total$rmsep[match(paste0(dispersion$model,
+                                                   ", phi ",
+                                                   dispersion$phi_estimate),
+                                            rmsep_total$method)]
+dispersion
+
+## write the tables to output/tables
+tables <- list(rmsep_total = rmsep_total,
+               rmsep_by_origin = rmsep,
+               dispersion = dispersion,
+               bootstrap_totals = boot_totals)
+for (k in names(tables)) {
+  fwrite(tables[[k]],
+         file.path(paths$tables, paste0("bccnn_annual_", k, ".csv")))
+}
+
+## RMSEP by accident period (log scale) against the biases of the ccODP (CL)
+## and bCCNN reserves
+bias <- data.frame(label = rep(c("|CL reserve - true reserve|",
+                                 "|bCCNN reserve - true reserve|"),
+                               each = n),
+                   origin = rep(1:n, 2),
+                   bias = c(by_origin$bias_CL, by_origin$bias_bCCNN))
+ggsave("bCCNN RMSEP by accident year.png",
+       rmsep_plot(rmsep,
+                  bias,
+                  paste0("ccODP and bCCNN: bootstrap RMSEP by accident year ",
+                         "(units of ", unit, ")")),
+       path = paths$figures, width = 8, height = 6, dpi = 150)
+
+## bootstrap distributions of the ccODP and bCCNN reserves (headline phi)
+head_method <- paste(c("ccODP, phi", "bCCNN, phi"), phi_method)
+ggsave("bCCNN bootstrap densities.png",
+       boot_density_plot(boot_totals[boot_totals$method %in% head_method, ],
+                         c("CL reserve" = tot[["CL"]],
+                           "bCCNN reserve" = tot[["bCCNN"]],
+                           "true reserve" = tot[["true"]]),
+                         paste0("Bootstrap reserves (units of ", unit, ")")),
+       path = paths$figures, width = 8, height = 5, dpi = 150)
+
+## Pearson's phi against Paper C's (5): dispersion, process error and
+## bootstrap RMSEP of both models
+quantity <- c("dispersion phi",
+              "process error sqrt(phi * reserve)",
+              "RMSEP (bootstrap)")
+phi_label <- c(pearson = "Pearson", deviance = "Paper C eq. (5)")
+d <- data.frame(model = factor(rep(dispersion$model, 3),
+                               levels = c("ccODP", "bCCNN")),
+                phi_estimate = rep(phi_label[dispersion$phi_estimate], 3),
+                quantity = factor(rep(quantity, each = 4), levels = quantity),
+                value = c(dispersion$phi,
+                          dispersion$process_sd,
+                          dispersion$rmsep))
+ggsave("bCCNN dispersion comparison.png",
+       ggplot(d[!is.na(d$value), ],
+              aes(x = model, y = value, colour = phi_estimate)) +
+         geom_point(position = position_dodge(width = 0.4), size = 2) +
+         facet_wrap(~quantity, scales = "free_y") +
+         labs(x = NULL,
+              y = NULL,
+              colour = "phi estimate",
+              title = paste0("Pearson's phi versus Paper C eq. (5) (units of ",
+                             unit, ")")) +
+         theme_bw() + theme(legend.position = "top"),
+       path = paths$figures, width = 8, height = 4, dpi = 150)
