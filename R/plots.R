@@ -6,10 +6,10 @@
 ##########################################
 
 ## save a base graphics or lattice figure (e.g. the ChainLadder plots) to
-## output/figures; R evaluates 'expr' (draws the plot) only at out <- expr,
-## after png() opened the file
-save_plot <- function(file, expr, ...) {
-  png(file.path(paths$figures, file), ...)
+## dir (default output/figures); R evaluates 'expr' (draws the plot) only at
+## out <- expr, after png() opened the file
+save_plot <- function(file, expr, dir = paths$figures, ...) {
+  png(file.path(dir, file), ...)
   on.exit(dev.off())
   out <- expr
   # lattice figures only draw when printed

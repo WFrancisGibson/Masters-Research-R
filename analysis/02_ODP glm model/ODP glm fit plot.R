@@ -6,6 +6,8 @@
 ##########################################
 
 source(here::here("analysis", "00_setup.R"))
+tab_dir <- file.path(paths$tables, "02_ODP-glm")
+dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
 ##########################################
 #########  load data
@@ -51,14 +53,14 @@ odp_reserves <- function(fit, name) {
                           ibnr = fit$summary["total", "IBNR"],
                           se = fit$summary["total", "S.E"],
                           tail = sum(sets$tail))
-  save_reserves(res, total, name)
+  save_reserves(res, total, name, tab_dir)
   total
 }
 total <- odp_reserves(odp, "odp_raw")
 total_boot <- odp_reserves(odp_boot, "odp_boot_raw")
 round(rbind(formula = total, bootstrap = total_boot))
 fwrite(data.frame(total = rowSums(odp_boot$sims.reserve.pred)),
-       file.path(paths$tables, "odp_boot_raw_simulations.csv"))
+       file.path(tab_dir, "odp_boot_raw_simulations.csv"))
 
 ##########################################
 #########  dispersion: Pearson (glmReserve) and Paper C eq. (5)
@@ -215,20 +217,25 @@ tables <- list(dispersion = dispersion,
                rmsep_total = rmsep_total,
                bootstrap_totals = boot_totals)
 for (k in names(tables)) {
-  fwrite(tables[[k]], file.path(paths$tables, paste0("odp_", k, ".csv")))
+  fwrite(tables[[k]], file.path(tab_dir, paste0("odp_", k, ".csv")))
 }
 
 ##########################################
 #########  figures
 ##########################################
 
+fig_dir <- file.path(paths$figures, "02_ODP-glm")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+
 ## plot.glmReserve: which = 2 the completed triangle, 3 the bootstrap reserves,
 ## 4 the residuals against the fitted values
-save_plot("GLM ODP fit.png", plot(odp, which = 2))
-save_plot("GLM ODP fit lattice.png", plot(odp, which = 2, lattice = TRUE))
-save_plot("GLM ODP residuals.png", plot(odp, which = 4))
+save_plot("GLM ODP fit.png", plot(odp, which = 2), dir = fig_dir)
+save_plot("GLM ODP fit lattice.png",
+          plot(odp, which = 2, lattice = TRUE),
+          dir = fig_dir)
+save_plot("GLM ODP residuals.png", plot(odp, which = 4), dir = fig_dir)
 save_plot("GLM ODP bootstrap reserves.png", plot(odp_boot, which = 3),
-          width = 1200, height = 700)
+          dir = fig_dir, width = 1200, height = 700)
 
 ## RMSEP of the methods by accident period (log scale) against the bias of
 ## the CL reserves
@@ -241,7 +248,7 @@ ggsave("GLM ODP RMSEP by accident year.png",
                   bias,
                   paste0("ODP GLM: RMSEP by accident year (units of ",
                          unit, ")")),
-       path = paths$figures, width = 8, height = 6, dpi = 150)
+       path = fig_dir, width = 8, height = 6, dpi = 150)
 
 ## RMSEP relative to Paper C's parametric bootstrap with phi (5); every
 ## method has the same accident periods in the same order
@@ -263,7 +270,7 @@ ggsave("GLM ODP RMSEP relative to Paper C.png",
               colour = NULL,
               title = "ODP GLM: RMSEP relative to Paper C Section 2.3") +
          theme_bw() + theme(legend.position = "top"),
-       path = paths$figures, width = 8, height = 6, dpi = 150)
+       path = fig_dir, width = 8, height = 6, dpi = 150)
 
 ## bootstrap distributions of the estimated CL reserve
 ggsave("GLM ODP bootstrap densities.png",
@@ -272,4 +279,4 @@ ggsave("GLM ODP bootstrap densities.png",
                            "true reserve" = sum(true_o)),
                          paste0("Bootstrap CL reserves (units of ", unit,
                                 ")")),
-       path = paths$figures, width = 8, height = 5, dpi = 150)
+       path = fig_dir, width = 8, height = 5, dpi = 150)

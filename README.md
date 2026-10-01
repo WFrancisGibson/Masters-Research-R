@@ -14,13 +14,13 @@ short scripts that run from top to bottom, a few small functions, base R.
   CL reserves by seven methods: analytic under both phi, glmReserve's bootstrap (residuals times
   sqrt(n/(n-p)), pseudo triangles with a negative cell redrawn), England & Verrall (1999)
   Section 4 without and with the factor n/(n-p), and Paper C's parametric bootstrap (Section 2.3)
-  under both phi (`output/tables/odp_dispersion.csv`, `odp_rmsep_*.csv`,
+  under both phi (`output/tables/02_ODP-glm/odp_dispersion.csv`, `odp_rmsep_*.csv`,
   `odp_bootstrap_totals.csv`; figures `GLM ODP RMSEP *.png`, `GLM ODP bootstrap densities.png`)
 - `analysis/03_bCCNN/bCCNN fit.R`: bCCNN of Paper C (Gabrielli, Richman & Wuthrich 2020) with
   early stopping by rolling origin (Al-Mudafer et al. 2021) or the 50/50 claims split; its
   RMSEP by Paper C's parametric bootstrap (Section 3.3.4, eqs. (15)-(16)) next to the ccODP's
   (Section 2.3), and the dispersions of both models by Pearson and eq. (5)
-  (`output/tables/bccnn_annual_rmsep_*.csv`, `_dispersion.csv`, `_bootstrap_totals.csv`).
+  (`output/tables/03_bCCNN/bccnn_annual_rmsep_*.csv`, `_dispersion.csv`, `_bootstrap_totals.csv`).
   The 1,000 bCCNN refits take ~3.5 h on the first run (~13 s each on CPU); they are saved in
   `data/processed/bccnn_bootstrap_<final_fit>_n<nsim>.rds` after every tenth, a stopped run
   resumes there, and later runs reuse them while the network, phi and steps are unchanged
@@ -76,7 +76,7 @@ the individual claims of the Gabrielli & Wuthrich (2018) simulation machine (Ris
    is not refitted), the networks to `models/`
 4. `.../trackA_wuthrich2018/NN chain ladder analysis.R` (~2 min, no Keras): reserves
    (5.1), EAJ Tables 2-5, the sensitivity runs, Figures 2-4 and 7-9
-   (`output/tables/nncl_*.csv`, `output/figures/NNCL *.png`)
+   (`output/tables/04_NN-chain-ladder/`, `output/figures/04_NN-chain-ladder/`)
 
 Functions: `R/nn_chain_ladder.R` (networks, zero claims factors, reserves, Mack),
 `R/plots_nn_chain_ladder.R` (figures); checks in `tests/testthat/test-nn_chain_ladder.R`.

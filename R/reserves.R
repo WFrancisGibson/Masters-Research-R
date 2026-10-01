@@ -35,10 +35,10 @@ reserves_total <- function(res, ibnr, se, tail) {
     tail = tail)
 }
 
-## write both tables to output/tables
-save_reserves <- function(res, total, name) {
-  fwrite(res, file.path(paths$tables, paste0(name, "_by_origin.csv")))
-  fwrite(as.list(total), file.path(paths$tables, paste0(name, "_total.csv")))
+## write both tables to dir (default output/tables)
+save_reserves <- function(res, total, name, dir = paths$tables) {
+  fwrite(res, file.path(dir, paste0(name, "_by_origin.csv")))
+  fwrite(as.list(total), file.path(dir, paste0(name, "_total.csv")))
 }
 
 ## RMSEP (Paper C eqs. (6), (15)-(16); England & Verrall 1999 Section 4):

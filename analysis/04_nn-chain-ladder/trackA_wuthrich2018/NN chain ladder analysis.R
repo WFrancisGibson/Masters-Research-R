@@ -6,6 +6,8 @@
 
 ## reads the fits of "NN chain ladder fit.R" (no Keras needed)
 source(here::here("analysis", "00_setup.R"))
+tab_dir <- file.path(paths$tables, "04_NN-chain-ladder/model")
+dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
 n_ay <- cfg$nncl$n_ay                          # I = 12, J = I - 1 = 11
 first_ay <- cfg$nncl$first_ay                  # 1994
@@ -179,15 +181,18 @@ sensitivity[, c("true", "reserve", "zero_claims", "loss", "loss_vali",
                         "loss_vali", "bias_pct")]
 sensitivity
 
-fwrite(table4, file.path(paths$tables, "nncl_table4_triangles.csv"))
-fwrite(table23, file.path(paths$tables, "nncl_tables2_3_reserves.csv"))
-fwrite(table5, file.path(paths$tables, "nncl_table5_losses.csv"))
-fwrite(sensitivity, file.path(paths$tables, "nncl_sensitivity_runs.csv"))
-fwrite(zero$factors, file.path(paths$tables, "nncl_zero_claims_factors.csv"))
+fwrite(table4, file.path(tab_dir, "nncl_table4_triangles.csv"))
+fwrite(table23, file.path(tab_dir, "nncl_tables2_3_reserves.csv"))
+fwrite(table5, file.path(tab_dir, "nncl_table5_losses.csv"))
+fwrite(sensitivity, file.path(tab_dir, "nncl_sensitivity_runs.csv"))
+fwrite(zero$factors, file.path(tab_dir, "nncl_zero_claims_factors.csv"))
 
 ##########################################
 #########  figures (EAJ Figures 2-4 and 7-9)
 ##########################################
+
+fig_dir <- file.path(paths$figures, "04_NN-chain-ladder/model")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
 ## Figs. 2-4: part-1 NN reserves (q_main) by label against the true
 ## outstanding payments of the same cells (C_{i,I-i}(x) > 0, over all LoBs);
@@ -206,19 +211,19 @@ ggsave("NNCL Fig 2 reserves by cc.png",
        nncl_reserves_by_label_plot(by_label("cc"),
                                    paste("NN reserves by cc (EAJ Fig. 2),",
                                          note)),
-       path = paths$figures, width = 9, height = 4.5, dpi = 150)
+       path = fig_dir, width = 9, height = 4.5, dpi = 150)
 ggsave("NNCL Fig 3 reserves by inj_part.png",
        nncl_reserves_by_label_plot(by_label("inj_part"),
                                    paste("NN reserves by inj_part",
                                          "(EAJ Fig. 3),", note)),
-       path = paths$figures, width = 9, height = 4.5, dpi = 150)
+       path = fig_dir, width = 9, height = 4.5, dpi = 150)
 ggsave("NNCL Fig 4 relative reserves.png",
        nncl_reserves_by_label_plot(rbind(by_label("cc"),
                                          by_label("age"),
                                          by_label("inj_part")),
                                    "NN reserves / true reserves (EAJ Fig. 4)",
                                    relative = TRUE),
-       path = paths$figures, width = 9, height = 9, dpi = 150)
+       path = fig_dir, width = 9, height = 9, dpi = 150)
 
 ## Fig. 7: training (in-sample) and validation losses per epoch, j = 1
 loss_j1 <- NULL
@@ -241,7 +246,7 @@ ggsave("NNCL Fig 7 losses j1.png",
          scale_colour_manual(values = c("red", "darkgreen"), name = NULL) +
          labs(title = "Keras mse losses for j = 1 (EAJ Fig. 7)") +
          theme_bw() + theme(legend.position = "top"),
-       path = paths$figures, width = 9, height = 4.5, dpi = 150)
+       path = fig_dir, width = 9, height = 4.5, dpi = 150)
 
 ## Figs. 8-9: sensitivities (3.9) of f_{j-1}(x) (q_main) on the learning
 ## cells, weighted by C_{i,j-1}(x); age in 5-year bands
@@ -263,8 +268,8 @@ for (j in 1:(n_ay - 1)) {
 ggsave("NNCL Fig 8 sensitivities j1-5.png",
        nncl_sensitivity_plot(sens[j <= 5], avg[j <= 5],
                              "CL factor sensitivities, j = 1..5 (EAJ Fig. 8)"),
-       path = paths$figures, width = 12, height = 11, dpi = 150)
+       path = fig_dir, width = 12, height = 11, dpi = 150)
 ggsave("NNCL Fig 9 sensitivities j6-11.png",
        nncl_sensitivity_plot(sens[j > 5], avg[j > 5],
                              "CL factor sensitivities, j = 6..11 (EAJ Fig. 9)"),
-       path = paths$figures, width = 12, height = 13, dpi = 150)
+       path = fig_dir, width = 12, height = 13, dpi = 150)

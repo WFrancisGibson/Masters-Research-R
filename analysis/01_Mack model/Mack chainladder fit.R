@@ -4,6 +4,8 @@
 ##########################################
 
 source(here::here("analysis", "00_setup.R"))
+tab_dir <- file.path(paths$tables, "01_Mack")
+dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
 ##########################################
 #########  load data
@@ -37,16 +39,19 @@ total <- reserves_total(res,
                         se = unname(mack$Total.Mack.S.E),
                         tail = sum(sets$tail))
 round(total)
-save_reserves(res, total, "mack_raw")
+save_reserves(res, total, "mack_raw", tab_dir)
 
 ##########################################
 #########  figures
 ##########################################
 
-save_plot("MackCL Development Pattern.png", plot(mack))
-save_plot("MackCL Triangle.png", plot(tri))
+fig_dir <- file.path(paths$figures, "01_Mack")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+
+save_plot("MackCL Development Pattern.png", plot(mack), dir = fig_dir)
+save_plot("MackCL Triangle.png", plot(tri), dir = fig_dir)
 save_plot("MackCL development by origin period.png",
-          plot(mack, lattice = TRUE))
+          plot(mack, lattice = TRUE), dir = fig_dir)
 
 ## cumulative observed triangle to data/interim
 fwrite(data.frame(origin = 1:n, unclass(tri), check.names = FALSE),

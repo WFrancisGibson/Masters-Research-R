@@ -5,6 +5,8 @@
 ##########################################
 
 source(here::here("analysis", "00_setup.R"))
+tab_dir <- file.path(paths$tables, "04_NN-chain-ladder/data-description")
+dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
 n_ay <- cfg$nncl$n_ay                          # I = 12, development years 0..11
 first_ay <- cfg$nncl$first_ay                  # 1994
@@ -79,16 +81,19 @@ table7[, -1] <- round(table7[, -1] / units)
 table7
 
 fwrite(data.frame(AY = ay_lab, upper_triangle(tri_n), check.names = FALSE),
-       file.path(paths$tables, "nncl_data_table3_reported_claims.csv"))
+       file.path(tab_dir, "nncl_data_table3_reported_claims.csv"))
 fwrite(data.frame(AY = ay_lab, upper_triangle(tri_c) / units,
                   check.names = FALSE),
-       file.path(paths$tables, "nncl_data_table5_cumulative_payments.csv"))
-fwrite(table6, file.path(paths$tables, "nncl_data_table6_ibnyr_counts.csv"))
-fwrite(table7, file.path(paths$tables, "nncl_data_table7_cl_reserves.csv"))
+       file.path(tab_dir, "nncl_data_table5_cumulative_payments.csv"))
+fwrite(table6, file.path(tab_dir, "nncl_data_table6_ibnyr_counts.csv"))
+fwrite(table7, file.path(tab_dir, "nncl_data_table7_cl_reserves.csv"))
 
 ##########################################
 #########  figures (Risks Figs. A1-A4, EAJ Figs. 5-6)
 ##########################################
+
+fig_dir <- file.path(paths$figures, "04_NN-chain-ladder/data-description")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
 features <- c("LoB", "cc", "AY", "AQ", "age", "inj_part")
 
@@ -101,13 +106,13 @@ ggsave("NNCL data Fig A1 claims by feature.png",
        nncl_feature_bar_plot(by_feature,
                              "number of claims",
                              "Portfolio distributions (Risks Fig. A1)"),
-       path = paths$figures, width = 10, height = 6, dpi = 150)
+       path = fig_dir, width = 10, height = 6, dpi = 150)
 by_feature$value <- by_feature$value / nrow(claims)
 ggsave("NNCL data Fig 5 relative frequencies.png",
        nncl_feature_bar_plot(by_feature,
                              "relative frequency",
                              "Marginal distributions (EAJ Fig. 5)"),
-       path = paths$figures, width = 10, height = 6, dpi = 150)
+       path = fig_dir, width = 10, height = 6, dpi = 150)
 
 ## Fig. A2: by reporting delay T; Fig. A3: by number of payments K;
 ## claim sizes over the claims with a payment
@@ -127,7 +132,7 @@ ggsave("NNCL data Fig A2 by reporting delay.png",
                              data.frame(panel = panels[2:3],
                                         value = c(mean(claims$size[paid]),
                                                   mean(claims$k)))),
-       path = paths$figures, width = 10, height = 4, dpi = 150)
+       path = fig_dir, width = 10, height = 4, dpi = 150)
 panels <- c("(a) log number of claims",
             "(b) average claim size",
             "(c) number of claims with recoveries")
@@ -142,7 +147,7 @@ ggsave("NNCL data Fig A3 by number of payments.png",
                              "By number of payments K (Risks Fig. A3)",
                              data.frame(panel = panels[2],
                                         value = mean(claims$size[paid]))),
-       path = paths$figures, width = 10, height = 4, dpi = 150)
+       path = fig_dir, width = 10, height = 4, dpi = 150)
 
 ## Fig. A4: average claim size per label of each feature
 size_by_feature <- rbindlist(lapply(features, function(v) {
@@ -154,7 +159,7 @@ ggsave("NNCL data Fig A4 claim size by feature.png",
                              "Average claim size (Risks Fig. A4)",
                              data.frame(panel = features,
                                         value = mean(claims$size[paid]))),
-       path = paths$figures, width = 10, height = 6, dpi = 150)
+       path = fig_dir, width = 10, height = 6, dpi = 150)
 
 ## EAJ Fig. 6: two-dimensional contour plots of the portfolio distribution,
 ## numbers of claims relative to the largest one of each panel
@@ -179,4 +184,4 @@ ggsave("NNCL data Fig 6 contours.png",
          labs(x = NULL, y = NULL, fill = "claims / maximum",
               title = "Two-dimensional portfolio distributions (EAJ Fig. 6)") +
          theme_bw(),
-       path = paths$figures, width = 11, height = 7, dpi = 150)
+       path = fig_dir, width = 11, height = 7, dpi = 150)

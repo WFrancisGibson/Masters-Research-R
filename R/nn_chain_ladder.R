@@ -39,7 +39,13 @@ nncl_model <- function(d, q, param, f_start = NULL) {
 ## fits the network of development period j on its learning cells (Listing 2
 ## lines 18-21); Keras validates on the last validation_split of the rows;
 ## returns the losses (6.1) and f(x) on the learning rows and on x_diag
-nncl_fit <- function(x, y, w, x_diag, q, param, f_start = NULL) {
+nncl_fit <- function(x,
+                     y,
+                     w,
+                     x_diag,
+                     q,
+                     param,
+                     f_start = NULL) {
   model <- nncl_model(ncol(x), q, param, f_start)
   n <- length(y)
   train <- seq_len(floor(n * (1 - param$validation_split)))  # Keras's split

@@ -14,6 +14,8 @@
 ## tensorflow and keras, e.g. with the line
 ## RETICULATE_PYTHON=<path to Python312>/python.exe in .Renviron
 source(here::here("analysis", "00_setup.R"))
+tab_dir <- file.path(paths$tables, "03_bCCNN")
+dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 library(keras3)
 
 n <- cfg$data$n_dev
@@ -236,13 +238,16 @@ tables <- list(
 for (k in names(tables)) {
   if (!is.null(tables[[k]])) {
     fwrite(tables[[k]],
-           file.path(paths$tables, paste0("bccnn_annual_", k, ".csv")))
+           file.path(tab_dir, paste0("bccnn_annual_", k, ".csv")))
   }
 }
 
 ##########################################
 #########  figures
 ##########################################
+
+fig_dir <- file.path(paths$figures, "03_bCCNN")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
 unit <- format(scale, big.mark = ",", scientific = FALSE)
 if (train_cfg$validation == "rolling_origin") {
@@ -254,7 +259,7 @@ if (train_cfg$validation == "rolling_origin") {
                                  lab,
                                  " (valuation year ",
                                  parts[[k]]$origin, ")")),
-           path = paths$figures, width = 7, height = 6, dpi = 150)
+           path = fig_dir, width = 7, height = 6, dpi = 150)
   }
 }
 ggsave("bCCNN validation losses.png",
@@ -262,7 +267,7 @@ ggsave("bCCNN validation losses.png",
                                 vali = "validation loss (out-of-sample)"),
                  val$best_epoch,
                  paste("bCCNN early stopping:", train_cfg$validation)),
-       path = paths$figures, width = 7, height = 5, dpi = 150)
+       path = fig_dir, width = 7, height = 5, dpi = 150)
 ggsave("bCCNN fit losses.png",
        loss_plot(h_fit, c(train = "in-sample loss (training cells)",
                           vali = "validation loss",
@@ -270,12 +275,12 @@ ggsave("bCCNN fit losses.png",
                  epochs,
                  paste("bCCNN final network:", train_cfg$final_fit),
                  free_y = TRUE),
-       path = paths$figures, width = 7, height = 8, dpi = 150)
+       path = fig_dir, width = 7, height = 8, dpi = 150)
 ggsave("bCCNN vs ccODP relative difference.png",
        triangle_heatmap(mu_nn / odp$mu - 1,
                         "bCCNN versus ccODP: mu_bCCNN / mu_ccODP - 1",
                         "relative\ndifference"),
-       path = paths$figures, width = 8, height = 7, dpi = 150)
+       path = fig_dir, width = 8, height = 7, dpi = 150)
 
 ## Pearson residuals (y - mu) / sqrt(phi * mu) on the true lower triangle
 ## (Paper C Figure 7), on the same colour scale for both models
@@ -285,18 +290,18 @@ r_max <- max(abs(c(res_odp, res_nn)), na.rm = TRUE)
 ggsave("ccODP Pearson residuals.png",
        triangle_heatmap(res_odp, "Pearson residuals ccODP (lower triangle)",
                         "Pearson\nresidual", c(-r_max, r_max)),
-       path = paths$figures, width = 8, height = 7, dpi = 150)
+       path = fig_dir, width = 8, height = 7, dpi = 150)
 ggsave("bCCNN Pearson residuals.png",
        triangle_heatmap(res_nn, "Pearson residuals bCCNN (lower triangle)",
                         "Pearson\nresidual", c(-r_max, r_max)),
-       path = paths$figures, width = 8, height = 7, dpi = 150)
+       path = fig_dir, width = 8, height = 7, dpi = 150)
 ggsave("bCCNN cumulative development factors.png",
        cum_factors_plot(odp$mu, mu_nn, "Cumulative development factors"),
-       path = paths$figures, width = 7, height = 5, dpi = 150)
+       path = fig_dir, width = 7, height = 5, dpi = 150)
 ggsave("bCCNN bias by accident year.png",
        bias_plot(by_origin,
                  paste0("Reserve bias by accident year (units of ", unit, ")")),
-       path = paths$figures, width = 7, height = 5, dpi = 150)
+       path = fig_dir, width = 7, height = 5, dpi = 150)
 
 ## the fitted network to models/
 if (train_cfg$final_fit == "refit") {
@@ -413,7 +418,7 @@ tables <- list(rmsep_total = rmsep_total,
                bootstrap_totals = boot_totals)
 for (k in names(tables)) {
   fwrite(tables[[k]],
-         file.path(paths$tables, paste0("bccnn_annual_", k, ".csv")))
+         file.path(tab_dir, paste0("bccnn_annual_", k, ".csv")))
 }
 
 ## RMSEP by accident period (log scale) against the biases of the ccODP (CL)
@@ -428,7 +433,7 @@ ggsave("bCCNN RMSEP by accident year.png",
                   bias,
                   paste0("ccODP and bCCNN: bootstrap RMSEP by accident year ",
                          "(units of ", unit, ")")),
-       path = paths$figures, width = 8, height = 6, dpi = 150)
+       path = fig_dir, width = 8, height = 6, dpi = 150)
 
 ## bootstrap distributions of the ccODP and bCCNN reserves (headline phi)
 head_method <- paste(c("ccODP, phi", "bCCNN, phi"), phi_method)
@@ -438,7 +443,7 @@ ggsave("bCCNN bootstrap densities.png",
                            "bCCNN reserve" = tot[["bCCNN"]],
                            "true reserve" = tot[["true"]]),
                          paste0("Bootstrap reserves (units of ", unit, ")")),
-       path = paths$figures, width = 8, height = 5, dpi = 150)
+       path = fig_dir, width = 8, height = 5, dpi = 150)
 
 ## Pearson's phi against Paper C's (5): dispersion, process error and
 ## bootstrap RMSEP of both models
@@ -464,4 +469,4 @@ ggsave("bCCNN dispersion comparison.png",
               title = paste0("Pearson's phi versus Paper C eq. (5) (units of ",
                              unit, ")")) +
          theme_bw() + theme(legend.position = "top"),
-       path = paths$figures, width = 8, height = 4, dpi = 150)
+       path = fig_dir, width = 8, height = 4, dpi = 150)
