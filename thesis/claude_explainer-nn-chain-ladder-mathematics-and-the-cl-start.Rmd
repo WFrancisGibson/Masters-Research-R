@@ -637,3 +637,45 @@ All checks are on the SynthETIC cells in millions, development period $j = 2$ ($
 | rule (20): the S3 networks with `epochs_used = 0` against $\hat f^{\,\mathcal{T}}_{j-1}$ | maximum relative deviation $1.8\cdot10^{-7}$ (single precision of Keras) |
 
 The optimiser formulas of Section 9.1 and the nagging statements of Section 11 are standard results and were not recomputed; the update rules are stated as the methods are published and Keras's implementation may differ in details such as the place of $\epsilon$.
+
+# The fitted results in the terms of this document
+
+The two tables below are read from `output/tables/04_NN-chain-ladder/synthetic/nncl_synthetic_seed_spread.csv` when this document is rendered. Every row is one combination of hidden layers and optimiser; the bias is the reserve less the true outstanding payments in percent of the latter ($R^{\text{true}} = 9{,}626.8$ million; Mack's chain ladder: $-1.5\%$). "Closer than CL" is the share of the seeds whose absolute bias is smaller than Mack's. The nagging columns are the predictors (22) of the two blocks of ten seeds.
+
+```{r results-setup, eval = TRUE, echo = FALSE}
+spread <- read.csv(file.path("..", "output", "tables", "04_NN-chain-ladder",
+                             "synthetic", "nncl_synthetic_seed_spread.csv"))
+nag_cols <- grep("^nagging_bias_pct_", names(spread), value = TRUE)
+show <- function(training, cols, names) {
+  d <- spread[spread$training == training, c("hidden", "optimizer", cols,
+                                             nag_cols)]
+  knitr::kable(d,
+               row.names = FALSE,
+               digits = 2,
+               col.names = c("hidden", "optimiser", names,
+                             paste("nagging", seq_along(nag_cols))))
+}
+```
+
+**Chain-ladder start** (`cl_start`), bias in %:
+
+```{r results-cl, eval = TRUE, echo = FALSE}
+show("cl_start",
+     c("seeds", "bias_pct_mean", "bias_pct_sd", "bias_pct_min", "bias_pct_max",
+       "closer_than_cl"),
+     c("seeds", "mean", "sd", "min", "max", "closer than CL"))
+```
+
+**The paper's training** (`paper`), bias in %; the mean is dominated by a few seeds, so the median is shown:
+
+```{r results-paper, eval = TRUE, echo = FALSE}
+show("paper",
+     c("seeds", "bias_pct_median", "bias_pct_min", "bias_pct_max"),
+     c("seeds", "median", "min", "max"))
+```
+
+How the tables connect to the formulas:
+
+- *Chain-ladder start.* By (15) every network begins at the chain ladder and by (20) it never leaves it for something worse on the validation rows, so the seeds can only differ in the small feature correction of Section 7.2. That is why the spread over the seeds is a fraction of a percentage point for most optimisers, and why by (23) the nagging predictor sits at the mean of its members without moving it. The exceptions are the optimisers whose steps are large relative to that correction (Adadelta with $\eta = 1$, and RMSprop, whose first step is about $3\eta$).
+- *The paper's training.* From the random start the 100 steps of Section 7.6 leave seed-dependent noise in every factor, and the reserve multiplies up to 19 noisy factors per cell. Noise in $\log f$ inflates a product on average ($\mathbb{E}[e^{\varepsilon}] > e^{\mathbb{E}[\varepsilon]}$), which is why the single seeds mostly over-reserve and sometimes by orders of magnitude. The nagging predictor averages the factors of each development period before they are multiplied (Section 11.3), which removes most of that noise at the source: its bias is far smaller than the typical bias of its members, in line with (24).
+- *Hidden layers.* More layers add parameters (Section 4.2) but no information; with the chain-ladder start the three-layer networks are on average slightly further from the truth than the single layer of 20.
