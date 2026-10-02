@@ -78,7 +78,42 @@ the individual claims of the Gabrielli & Wuthrich (2018) simulation machine (Ris
    (5.1), EAJ Tables 2-5, the sensitivity runs, Figures 2-4 and 7-9
    (`output/tables/04_NN-chain-ladder/`, `output/figures/04_NN-chain-ladder/`)
 
-Functions: `R/nn_chain_ladder.R` (networks, zero claims factors, reserves, Mack),
+The same networks, runs and zero claims rules on the SynthETIC portfolio (annual 20 x 20,
+`data/raw/claim-simulation-annual/`; settings from the `data:` and `nncl:` blocks):
+1. `.../trackA_wuthrich2018/NN chain ladder SynthETIC fit.R` (~3 h on CPU for the seven
+   runs and one seed of the grid): cells (accident year, feature value) of the five covariates, all categorical
+   (14 dummies, no LoB); 3,342 cells, 226 of the 480 feature values occur. Besides the
+   seven runs of the machine data it fits a grid of my own design (`nncl: synthetic:` in
+   `config.yml`): hidden layers (20), (20, 20, 15) and (20, 15, 10) x ten optimisers
+   (SGD, SGD with momentum, Nesterov, Adagrad, Adadelta, RMSprop, Adam, AdamW, Adamax,
+   Nadam) x training (`paper`: Listing 2's; `cl_start`: early stopping from the
+   homogeneous CL factor, as S3), each combination with `seeds` seeds (2026, 2027, ...).
+   The networks are fitted on the payments in millions (SGD needs moderate gradients).
+   Runs saved to `data/processed/nncl_synthetic_fit_<run>.rds`, the networks of the
+   first seed to `models/nncl_synthetic/`. With 20 seeds that is 1,200 grid runs: about
+   20 times as long when the script runs them one after the other (the saved runs were
+   fitted in about 7 h by ten R sessions, each on its own share of the runs)
+2. `.../trackA_wuthrich2018/NN chain ladder SynthETIC analysis.R` (no Keras): reserves
+   (5.1) against the true reserves and Mack's CL, the analogues of EAJ Tables 2-5 and
+   Figures 2-4 and 7-9, the zero claims cells by accident year, and for the hidden
+   layers and optimisers the table of all runs (`nncl_synthetic_layers_optimisers.csv`),
+   the spread over the seeds (`nncl_synthetic_seed_spread.csv`) and the nagging
+   predictors (`nncl_synthetic_nagging.csv`; Richman & Wuthrich 2020: the CL factors of
+   10 seeds averaged per development period, one predictor per block of 10 seeds), with
+   a figure of the bias per training
+   (`output/tables/04_NN-chain-ladder/synthetic/`,
+   `output/figures/04_NN-chain-ladder/synthetic/`)
+
+What differs from the machine data: with at most 2,952 learning cells per development
+period the batch of 10,000 holds all rows, so an epoch is one gradient step and a paper
+run is 100 steps (the paper's j = 1: about 18,400); the portfolio is one LoB, so a zero
+claims factor with a positive numerator over a zero denominator has nothing to be pooled
+over and stays infinite, which is harmless while the first factor of its accident year
+is 0 (accident years 14-16) and stops the reserves otherwise; SynthETIC pays no
+recoveries, so the zero claims features are the cells with C = 0.
+
+Functions: `R/nn_chain_ladder.R` (networks of one or more hidden layers, optimisers, zero
+claims factors, reserves, Mack),
 `R/plots_nn_chain_ladder.R` (figures); checks in `tests/testthat/test-nn_chain_ladder.R`.
 Packages: MASS and doParallel (the machine), keras3. Deviations from the paper: the zero
 claims features are the cells with C <= 0 (recoveries), 0/0 gives a factor 1, and a

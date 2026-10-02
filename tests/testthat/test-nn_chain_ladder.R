@@ -67,6 +67,24 @@ test_that("zero claims factors of Section 4.2 match a hand calculation", {
   expect_equal(z$ultimate, 5 / 14 * 2)
 })
 
+test_that("a zero first factor gives the zero claims ultimate 0", {
+  # one portfolio (SynthETIC): no LoB to pool over, so a later factor with a
+  # zero denominator stays infinite, harmless behind g_{I-i} = 0
+  cum <- rbind(c(5, 8, 9, 9),
+               c(0, 0, 0, 3),       # AY 1, x = b: first payment at year 3
+               c(4, 6, 7, 7),
+               c(0, 0, 0, 0),
+               c(3, 5, 6, 6),
+               c(0, 0, 1, 1),
+               c(2, 3, 4, 4),
+               c(0, 1, 1, 1))
+  d <- toy(cum, ay = rep(1:4, each = 2))
+  # accident year i = 3: g_1 = (0 + 0) / (8 + 6), g_2 = 3 / 0
+  z <- nncl_zero_claims_factors(d$cum, d$ay, d$vol, 3)
+  expect_equal(z$factors$g, c(0, Inf))
+  expect_equal(z$ultimate, 0)
+})
+
 test_that("(5.1) stops on a zero claims factor with a zero denominator", {
   # a positive numerator over a zero denominator ('all denominators
   # positive', Section 4.2) gives an infinite reserve

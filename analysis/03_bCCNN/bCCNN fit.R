@@ -250,18 +250,7 @@ fig_dir <- file.path(paths$figures, "03_bCCNN")
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
 unit <- format(scale, big.mark = ",", scientific = FALSE)
-if (train_cfg$validation == "rolling_origin") {
-  for (k in seq_along(parts)) {
-    lab <- if (parts[[k]]$final) "final" else k
-    ggsave(paste0("bCCNN rolling origin partition ", lab, ".png"),
-           partition_plot(parts[[k]],
-                          paste0("Rolling-origin partition ",
-                                 lab,
-                                 " (valuation year ",
-                                 parts[[k]]$origin, ")")),
-           path = fig_dir, width = 7, height = 6, dpi = 150)
-  }
-}
+## the rolling-origin partitions are drawn by "bCCNN partitions.R"
 ggsave("bCCNN validation losses.png",
        loss_plot(val$history, c(train_dropout = "training loss (in-sample)",
                                 vali = "validation loss (out-of-sample)"),

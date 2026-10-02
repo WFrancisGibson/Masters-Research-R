@@ -77,6 +77,28 @@ default:
                          # networks to fit; s4_balance = s3_cl_start + balance
     units: 1000          # EAJ tables in 1'000
     risks_units: 10000   # Risks tables in 10'000
+    synthetic:           # SynthETIC portfolio only (own design, not in the paper): every
+                         # combination of hidden layers, optimiser and training
+      hidden: [[20], [20, 20, 15], [20, 15, 10]]  # neurons of the hidden layers; [20] is
+                         # the paper's q = 20, [20, 15, 10] the layers of the bCCNN
+      optimizers:        # Keras optimiser: learning rate (Keras default unless noted)
+        sgd: 0.001           # Keras default 0.01: the networks of three hidden layers
+        sgd_momentum: 0.001  # (sgd) and all networks (momentum) diverge in trial fits
+        sgd_nesterov: 0.001
+        adagrad: 0.01        # Keras default 0.001 hardly moves in 100 full-batch steps
+        adadelta: 1.0        # Zeiler (2012); Keras default 0.001 hardly moves
+        rmsprop: 0.001       # Listing 2
+        adam: 0.001          # S1
+        adamw: 0.001
+        adamax: 0.001
+        nadam: 0.001
+      momentum: 0.9      # sgd_momentum and sgd_nesterov
+      training: [paper, cl_start]  # paper: Listing 2 (100 epochs, random start);
+                         # cl_start: early stopping from the homogeneous CL factor (as S3)
+      seeds: 10          # fits per run that differ in the seed only: seed, seed + 1, ...
+      nagging: 10        # networks of a nagging predictor (Richman & Wuthrich 2020):
+                         # the CL factors averaged over 10 seeds, one predictor per
+                         # block of 10 seeds
 
 quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of the ODP GLM and bCCNN
                          # scripts, its outputs and bootstrap cache apart

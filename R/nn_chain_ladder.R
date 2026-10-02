@@ -4,17 +4,44 @@
 #########  reserving, EAJ 8:407-436, Sections 3-5 and Listing 2
 ##########################################
 
+## Keras optimiser param$optimizer at param$learning_rate (Listing 2:
+## rmsprop); sgd_momentum and sgd_nesterov are sgd with param$momentum
+nncl_optimizer <- function(param) {
+  lr <- param$learning_rate
+  switch(param$optimizer,
+         sgd = optimizer_sgd(learning_rate = lr),
+         sgd_momentum = optimizer_sgd(learning_rate = lr,
+                                      momentum = param$momentum),
+         sgd_nesterov = optimizer_sgd(learning_rate = lr,
+                                      momentum = param$momentum,
+                                      nesterov = TRUE),
+         adagrad = optimizer_adagrad(learning_rate = lr),
+         adadelta = optimizer_adadelta(learning_rate = lr),
+         rmsprop = optimizer_rmsprop(learning_rate = lr),
+         adam = optimizer_adam(learning_rate = lr),
+         adamw = optimizer_adam_w(learning_rate = lr),
+         adamax = optimizer_adamax(learning_rate = lr),
+         nadam = optimizer_nadam(learning_rate = lr))
+}
+
 ## network of the CL factor f_{j-1}(x) of development period j (Listing 2):
 ## response C_j / sqrt(C_{j-1}) = f(x) * sqrt(C_{j-1}) (6.2) with
 ## f(x) = exp(beta_0 + sum_k beta_k z_k(x)) and tanh neurons z_k (3.2)-(3.3);
+## q: neurons of the hidden layers (the paper: one layer, a vector of several
+## numbers gives a deeper network);
 ## f_start: output started in the homogeneous CL factor (weights 0)
 nncl_model <- function(d, q, param, f_start = NULL) {
   clear_session()
   set_random_seed(param$seed)
   features <- layer_input(shape = c(d), name = "Features")
   volumes <- layer_input(shape = c(1), name = "Volumes")
-  net <- features %>%
-    layer_dense(units = q, activation = param$activation, name = "hidden") %>%
+  net <- features
+  for (k in seq_along(q)) {
+    net <- net %>% layer_dense(units = q[k],
+                               activation = param$activation,
+                               name = paste0("hidden", k))
+  }
+  net <- net %>%
     layer_dense(units = 1, activation = "exponential", name = "CL_factor")
   # the offset sqrt(C_{j-1}): a frozen weight 1 (Listing 2 lines 11-14)
   offset <- volumes %>%
@@ -28,11 +55,9 @@ nncl_model <- function(d, q, param, f_start = NULL) {
   model <- keras_model(inputs = list(features, volumes), outputs = response)
   if (!is.null(f_start)) {
     get_layer(model, "CL_factor") %>%
-      set_weights(list(matrix(0, q, 1), array(log(f_start))))
+      set_weights(list(matrix(0, q[length(q)], 1), array(log(f_start))))
   }
-  optimizer <- if (param$optimizer == "adam")
-    optimizer_adam(learning_rate = param$learning_rate) else "rmsprop"
-  model %>% compile(loss = "mse", optimizer = optimizer)
+  model %>% compile(loss = "mse", optimizer = nncl_optimizer(param))
   model
 }
 
@@ -75,8 +100,9 @@ nncl_fit <- function(x,
   epochs_used <- if (param$early_stop) which.min(val_loss) else
     length(val_loss)
   # early stopping from the CL start: keep the start if no epoch beats it
+  # (na.rm: the losses of a diverging optimiser are NaN)
   if (param$early_stop && !is.null(f_start) &&
-        min(val_loss) >= mean((y[vali] - mu_start)^2)) {
+        min(val_loss, na.rm = TRUE) >= mean((y[vali] - mu_start)^2)) {
     set_weights(model, start)
     epochs_used <- 0
   }

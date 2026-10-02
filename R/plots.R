@@ -187,8 +187,10 @@ boot_density_plot <- function(d, lines, title) {
 }
 
 ## training, validation and test cells of a rolling-origin partition on the
-## n x n grid (Al-Mudafer et al. 2021, Figures 3 and 9)
-partition_plot <- function(part, title) {
+## n x n grid (Al-Mudafer et al. 2021, Figures 3 and 9); no title and grey
+## fills, as the Department's Research Assignment Guide (2026, 5.7) asks: the
+## number and heading go below the figure in the report
+partition_plot <- function(part) {
   n <- part$n
   role <- matrix(NA, part$origin, part$origin)
   role[part$train] <- "train"
@@ -200,14 +202,21 @@ partition_plot <- function(part, title) {
                                 levels = c("train", "validation", "test")))
   d <- d[!is.na(d$role), ]
   ggplot(d, aes(x = DY, y = AY, fill = role)) +
-    geom_tile() +
-    scale_fill_manual(values = c(train = "green3",
-                                 validation = "darkgreen",
-                                 test = "red"),
+    geom_tile(colour = "black", linewidth = 0.15) +
+    scale_fill_manual(values = c(train = "grey88",
+                                 validation = "grey10",
+                                 test = "grey55"),
                       name = NULL) +
-    scale_x_continuous(limits = c(0.5, n + 0.5), expand = c(0, 0)) +
-    scale_y_reverse(limits = c(n + 0.5, 0.5), expand = c(0, 0)) +
+    scale_x_continuous(breaks = 1:n,
+                       limits = c(0.5, n + 0.5),
+                       expand = c(0, 0)) +
+    scale_y_reverse(breaks = 1:n,
+                    limits = c(n + 0.5, 0.5),
+                    expand = c(0, 0)) +
     coord_fixed() +
-    labs(x = "development period", y = "accident period", title = title) +
-    theme_bw()
+    labs(x = "Development period", y = "Accident period") +
+    theme_bw(base_size = 10, base_family = "Cambria") +
+    theme(panel.grid = element_blank(),
+          axis.text = element_text(size = 8),
+          legend.position = "bottom")
 }
