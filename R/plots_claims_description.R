@@ -76,12 +76,15 @@ series_plot <- function(d, xlab, ylab = NULL, end_labels = FALSE) {
 
 ## values by covariate level: a row per level, the levels grouped by feature
 ## in panels of a height proportional to their number; d: columns feature,
-## level, value and optionally series (a shape per series), lower and upper
-## (intervals) and panel (columns of panels); ref: a vertical reference line
+## level, value and optionally series (a shape per series; the later series
+## are drawn smaller so that equal values stay visible), lower and upper
+## (intervals) and panel (columns of panels, one x-scale); ref: a vertical
+## reference line
 level_plot <- function(d,
                        xlab,
                        ref = NULL,
                        transform = "identity",
+                       breaks = waiver(),
                        bars = FALSE) {
   d$feature <- factor(d$feature, levels = unique(d$feature))
   d$level <- factor(d$level, levels = rev(unique(as.character(d$level))))
@@ -94,19 +97,22 @@ level_plot <- function(d,
     p <- p + geom_linerange(aes(xmin = lower, xmax = upper), na.rm = TRUE)
   }
   if (has_series) {
+    k <- seq_len(nlevels(d$series))
     p <- p +
-      geom_point(aes(shape = series), size = 1.8) +
-      scale_shape_manual(values = c(4, 1, 16, 2)[seq_len(nlevels(d$series))])
+      geom_point(aes(shape = series, size = series)) +
+      scale_shape_manual(values = c(4, 1, 16)[k]) +
+      scale_size_manual(values = c(1.8, 2.6, 1.1)[k])
   } else if (!bars) {
     p <- p + geom_point(size = 1.8)
   }
   if ("panel" %in% names(d)) {
-    p <- p + facet_grid(feature ~ panel, scales = "free", space = "free_y")
+    p <- p + facet_grid(feature ~ panel, scales = "free_y", space = "free_y")
   } else {
     p <- p + facet_grid(feature ~ ., scales = "free_y", space = "free_y")
   }
   p +
     scale_x_continuous(transform = transform,
+                       breaks = breaks,
                        labels = scales::label_number(big.mark = ",",
                                                      drop0trailing = TRUE)) +
     labs(x = xlab, y = NULL) +

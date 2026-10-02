@@ -26,7 +26,8 @@ short scripts that run from top to bottom, a few small functions, base R.
   figures have no title and grey fills (the number and heading go below the figure in the
   report)
 - `thesis/claude_explainer-synthetic-claims-data-and-feature-impact.Rmd`: the report of the two
-  scripts (47 tables, 25 figures, every number in the text computed from the output tables),
+  scripts (47 tables, 25 figures; the numbers quoted in the text are computed from the output
+  tables when it is knitted),
   knitted to Word in the format of `project_folder_guide.docx`: `thesis/guide_reference.docx`
   holds the guide's styles (built by `thesis/make_guide_reference.R`) and
   `thesis/guide_tables.lua` gives the tables the guide's table style. Run the two scripts first,

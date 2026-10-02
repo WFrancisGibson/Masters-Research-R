@@ -24,11 +24,9 @@ cells <- readRDS(file.path(paths$interim, "nncl_synthetic_cells.rds"))
 cum <- as.matrix(cells[, paste0("cum_", 0:(n_ay - 1)), with = FALSE])
 
 ## learning cells of development period j: i <= I - j, C_{i,j-1}(x) > 0, in
-## the row order of the fit script (accident year, then the features); Keras
-## trains on the first floor(0.9 n_j) rows and validates on the last 10%
-## (validation_split, no shuffling); train, vali: rows by accident year i
-## and development period j
-train <- vali <- matrix(0, n_ay, n_ay - 1)
+## the fit script's row order (accident year, then the features); Keras
+## validates on the last 10% of the rows (validation_split, Listing 2)
+train <- vali <- matrix(0, n_ay, n_ay - 1)      # rows by i and j
 for (j in 1:(n_ay - 1)) {
   r <- which(cells$i <= n_ay - j & cum[, j] > 0)
   n_train <- floor(length(r) * (1 - vali_split))  # Keras's split
@@ -60,26 +58,29 @@ data.frame(j = 1:(n_ay - 1),
 #########  triangle cells by role
 ##########################################
 
-## as "NN chain ladder learning cells.R": per network j the triangle, with
-## the columns C(j-1) (input) and C(j) (target) by the set of their rows.
-## The accident year in which Keras's split falls has training and validation
-## rows: its tiles are split at the share of the training rows, training
-## rows above the validation rows (the row order)
-roles <- c("train", "validation", "test", "observed, not used")
+## as "NN chain ladder learning cells.R": per network j the columns C(j-1)
+## and C(j) by the set of their rows; test: their cells below the latest
+## diagonal. The tiles of the accident year of Keras's split are split at the
+## share of the training rows (above the validation rows, the row order)
+roles <- c("train", "validation", "test", "observed, not used",
+           "latest diagonal")
 d <- NULL
 for (j in 1:(n_ay - 1)) {
   g <- expand.grid(i = 1:n_ay, dev = 0:(n_ay - 1), j = j)
   g$ymin <- g$i - 0.5
   g$ymax <- g$i + 0.5
   pair <- g$dev %in% c(j - 1, j)
-  learn <- g[pair & g$i <= n_ay - j, ]
-  split <- learn$ymin + (train[, j] / (train[, j] + vali[, j]))[learn$i]
+  is_learn <- pair & g$i <= n_ay - j
+  learn <- g[is_learn, ]
+  y_split <- learn$ymin + (train[, j] / (train[, j] + vali[, j]))[learn$i]
   d <- rbind(d,
-             cbind(transform(learn, ymax = split), role = "train"),
-             cbind(transform(learn, ymin = split), role = "validation"),
-             cbind(g[pair & g$i > n_ay - j, ], role = "test"),
-             cbind(g[!pair & g$i + g$dev <= n_ay, ],
-                   role = "observed, not used"))
+             cbind(transform(learn, ymax = y_split), role = "train"),
+             cbind(transform(learn, ymin = y_split), role = "validation"),
+             cbind(g[pair & g$i + g$dev > n_ay, ], role = "test"),
+             cbind(g[!pair & g$i + g$dev < n_ay, ],
+                   role = "observed, not used"),
+             cbind(g[!is_learn & g$i + g$dev == n_ay, ],
+                   role = "latest diagonal"))
 }
 d <- d[d$ymax > d$ymin, ]
 d$role <- factor(d$role, levels = roles)
@@ -90,12 +91,13 @@ d$role <- factor(d$role, levels = roles)
 
 ## guide 5.7: no title in the figure (number and heading go below it in the
 ## report), axes marked, legible in black and white; 16.5 cm text width,
-## Cambria 10 point; fills of partition_plot() in R/plots.R;
+## Cambria 10 point; the triangle in the fills of the learning cells figure;
 ## by: every by-th year on the axes
-fill_role <- c("train" = "grey88",
+fill_role <- c("train" = "grey65",
                "validation" = "grey10",
-               "test" = "grey55",
-               "observed, not used" = "white")
+               "test" = "grey40",
+               "observed, not used" = "grey88",
+               "latest diagonal" = "white")
 role_plot <- function(d, net_lab, ncol, by, linewidth) {
   d$net <- factor(net_lab[d$j], levels = net_lab)
   ggplot(d, aes(xmin = dev - 0.5,
@@ -106,13 +108,13 @@ role_plot <- function(d, net_lab, ncol, by, linewidth) {
     geom_rect(colour = "black", linewidth = linewidth) +
     facet_wrap(~net, ncol = ncol) +
     scale_fill_manual(values = fill_role, name = NULL) +
-    scale_x_continuous(breaks = seq(0, n_ay - 1, by), expand = c(0, 0)) +
+    scale_x_continuous(breaks = unique(c(seq(0, n_ay - 1, by), n_ay - 1)),
+                       expand = c(0, 0)) +
     scale_y_reverse(breaks = unique(c(1, seq(by, n_ay, by))),
                     expand = c(0, 0)) +
     labs(x = "Development year", y = "Accident year") +
     theme_bw(base_size = 10, base_family = "Cambria") +
     theme(panel.grid = element_blank(),
-          axis.text = element_text(size = 7),
           strip.text = element_text(hjust = 0),
           legend.position = "bottom")
 }

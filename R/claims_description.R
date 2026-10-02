@@ -42,18 +42,6 @@ synthetic_portfolio <- function(dir, n) {
   list(claims = claims, trans = trans, features = names(factors))
 }
 
-## the rows of d once per feature, with the name of the feature and the level
-## of the row: summaries by level of all features in one statement
-level_long <- function(d, features) {
-  levs <- unique(unlist(lapply(features, function(v) levels(d[[v]]))))
-  out <- rbindlist(lapply(features, function(v) {
-    data.table(feature = v, level = as.character(d[[v]]), d)
-  }))
-  out$feature <- factor(out$feature, levels = features)
-  out$level <- factor(out$level, levels = levs)
-  out
-}
-
 ## SynthETIC's relativity of a level combination (covariates_relativity): the
 ## product of the relativities of all factor pairs i <= j, the pairs i = j
 ## being the levels' own relativities; combos: one column per factor;
@@ -98,7 +86,7 @@ gini <- function(x) {
 ## all-else-equal effect of every level against its reference level ref:
 ## exp(coefficient) and 95% interval of the linear model of log(y) on the
 ## factors of x; the simulator multiplies the effects of the factors, so
-## this is its own structure
+## this is its own structure (but for the designed interactions)
 log_linear_effects <- function(y, x, ref) {
   d <- data.frame(lapply(seq_along(x), function(k) relevel(x[[k]], ref[k])))
   names(d) <- paste0("f", seq_along(x), "_")

@@ -108,11 +108,19 @@ interactions
 ##########################################
 
 ## all one-way (marginal) summaries by level; a level's summary also holds
-## the effects of the levels of the other features it occurs with
+## the effects of the levels of the other features it occurs with; long: the
+## claims once per feature, with the name of the feature and the claim's
+## level (levels in the order of the design, as the rows of 'design')
 cols <- c("AY", "claim_size", "notidel", "setldel", "notidel_mult",
           "setldel_mult", "no_payment", "np_design", "ultimate", "paid",
           "outstanding", "lag_paid", "lag", "rep_delay", "status")
-long <- level_long(claims[, c(features, cols), with = FALSE], features)
+long <- rbindlist(lapply(features, function(v) {
+  data.table(feature = v,
+             level = as.character(claims[[v]]),
+             claims[, cols, with = FALSE])
+}))
+long$feature <- factor(long$feature, levels = features)
+long$level <- factor(long$level, levels = unique(unlist(lapply(x, levels))))
 q99 <- quantile(claims$claim_size, 0.99)
 lev <- long[, .(n = .N,
                 cost = sum(claim_size),
@@ -151,9 +159,9 @@ lev <- long[, .(n = .N,
                 os_open = sum(outstanding[status == "open"]),
                 os_unreported = sum(outstanding[status == "unreported"])),
             keyby = .(feature, level)]
-stopifnot(all(lev$level == design$level))
 key <- lev[, .(feature, level)]
-## row of the reference level of each row's feature; the other levels
+## row of the reference level of each row's feature; the other levels (the
+## rows of log_linear_effects() are in their order)
 is_ref <- lev$level == ref[as.character(lev$feature)]
 ref_row <- which(is_ref)[as.integer(lev$feature)]
 
@@ -161,7 +169,8 @@ ref_row <- which(is_ref)[as.integer(lev$feature)]
 #########  tables: the portfolio mix
 ##########################################
 
-## observed against designed share of the claims; z: standardised difference
+## simulated against designed share of the claims; z: standardised
+## difference
 n_claims <- nrow(claims)
 mix <- data.frame(key,
                   n = lev$n,
@@ -172,7 +181,7 @@ mix <- data.frame(key,
                            (1 - design$design_prob)))
 cbind(mix[, 1:3], round(mix[, 4:6], 3))
 
-## the two pairs of dependent features: claims, observed and designed joint
+## the two pairs of dependent features: claims, simulated and designed joint
 ## share, and the share within the level of the first feature
 pairs <- list(features[c(2, 1)], features[c(4, 5)])
 dependent <- rbindlist(lapply(pairs, function(v) {
@@ -221,16 +230,19 @@ cells <- claims[, .N, by = c(features, "AY")]
 coverage <- c(
   "level combinations" = nrow(grid),
   "with a positive designed probability" = sum(possible),
-  "observed" = sum(combos$n > 0),
-  "possible but not observed" = sum(possible & combos$n == 0),
-  "largest expected number of claims of those not observed" =
+  "occurring" = sum(combos$n > 0),
+  "possible but not occurring" = sum(possible & combos$n == 0),
+  "largest expected number of claims of those not occurring" =
     max(n_claims * combos$p[possible & combos$n == 0]),
-  "chi-square of the observed against the designed numbers" = chi2,
+  "possible with an expected number of claims below 5" = sum(expected < 5),
+  "chi-square of the simulated against the designed numbers" = chi2,
   "degrees of freedom" = sum(possible) - 1,
-  "p-value" = pchisq(chi2, sum(possible) - 1, lower.tail = FALSE),
-  "observed with fewer than 5 claims" = sum(combos$n > 0 & combos$n < 5),
-  "observed with fewer than 30 claims" = sum(combos$n > 0 & combos$n < 30),
-  "observed with fewer than 100 claims" = sum(combos$n > 0 & combos$n < 100),
+  "p-value (chi-square distribution)" =
+    pchisq(chi2, sum(possible) - 1, lower.tail = FALSE),
+  "occurring with fewer than 5 claims" = sum(combos$n > 0 & combos$n < 5),
+  "occurring with fewer than 30 claims" = sum(combos$n > 0 & combos$n < 30),
+  "occurring with fewer than 100 claims" =
+    sum(combos$n > 0 & combos$n < 100),
   "combinations holding 50% of the claims" = holding(combos$n, 0.5),
   "combinations holding 90% of the claims" = holding(combos$n, 0.9),
   "combinations holding 99% of the claims" = holding(combos$n, 0.99),
@@ -260,7 +272,7 @@ top_combos <- data.frame(top_combos[, features, with = FALSE],
                          sev_vs_reference = top_combos$sev / ref_sev,
                          median_size = top_combos$median_size,
                          check.names = FALSE)
-top_combos
+cbind(top_combos[, 1:6], round(top_combos[, 7:11], 2))
 
 ## mix by accident year: range of the level's share of the claims and of the
 ## nominal ultimate over the accident years; p-value of the chi-square test
@@ -306,7 +318,6 @@ cbind(size_level[, 1:3], round(size_level[, 4:15], 2))
 ## (ratio of the means and of the geometric means) and all else equal
 ## (log-linear model on the five features, 95% interval)
 sev_fit <- log_linear_effects(claims$claim_size, x, ref)
-stopifnot(all(sev_fit$level == lev$level[!is_ref]))
 mean_ratio <- lev$mean_size / lev$mean_size[ref_row]
 geo_ratio <- lev$geo_mean_size / lev$geo_mean_size[ref_row]
 sev_effects <- data.frame(key[!is_ref],
@@ -316,21 +327,27 @@ sev_effects <- data.frame(key[!is_ref],
                           sev_fit[, .(estimate, lower, upper)])
 cbind(sev_effects[, 1:2], round(sev_effects[, 3:8], 3))
 
-## Injury Severity x Age of Claimant: claims and median claim size, the
-## geometric mean of the cell over the fit of its main effects, and the
-## designed interaction
+## Injury Severity x Age of Claimant: claims and median claim size; the
+## geometric mean of the cell over the fit of the two main effects, the same
+## for the designed relativities of its claims (what the ratio would be
+## without noise: the fit takes up part of the interaction), and the designed
+## interaction
 cell <- claims[, .(n = .N,
                    median_size = median(claim_size),
-                   mean_log = mean(log(claim_size))),
+                   mean_log = mean(log(claim_size)),
+                   mean_log_design = mean(log(sev_design))),
                keyby = .(injury = get(features[2]), age = get(features[3]))]
-cell$ratio_to_main_effects <-
-  exp(cell$mean_log -
-        fitted(lm(mean_log ~ injury + age, data = cell, weights = n)))
+main_effects_ratio <- function(v) {
+  exp(v - fitted(lm(v ~ injury + age, data = cell, weights = n)))
+}
+cell$ratio_to_main_effects <- main_effects_ratio(cell$mean_log)
+cell$design_ratio <- main_effects_ratio(cell$mean_log_design)
 inter <- sev_rel[factor_i == features[2] & factor_j == features[3]]
 cell$design <- inter$relativity[match(paste(cell$injury, cell$age),
                                       paste(inter$level_ik, inter$level_jl))]
 cell$mean_log <- NULL
-cbind(cell[, 1:3], round(cell[, 4:6], 3))
+cell$mean_log_design <- NULL
+cbind(cell[, 1:3], round(cell[, 4:7], 3))
 
 ## who is in the tail: the level's share of all claims and of the largest 1%
 ## of the claims, their ratio, and the share of its claims over 1 million
@@ -403,7 +420,7 @@ payments_band <- claims[, .(claims = .N,
                             mean_no_payment = mean(no_payment),
                             design_mean = mean(np_design)),
                         keyby = band]
-payments_band
+cbind(payments_band[, 1:2], round(payments_band[, 3:5], 3))
 payments_level <- data.frame(key,
                              lev[, .(small_pct, middle_pct, cap_pct,
                                      mean_no_payment, mean_np_design)])
@@ -420,7 +437,7 @@ outcomes <- list("log claim size" = log(claims$claim_size),
                  "log settlement delay" = log(claims$setldel),
                  "number of payments" = claims$no_payment,
                  "log payment lag" = log(claims$lag),
-                 "log claim size before the covariates" =
+                 "log claim size before the features" =
                    log(claims$claim_size_raw))
 variance <- rbindlist(lapply(names(outcomes), function(o) {
   data.table(outcome = o, r2_features(outcomes[[o]], x))
@@ -439,7 +456,7 @@ payments_r2 <- data.frame(
          1 - sum((claims$no_payment - claims$np_design)^2) / tss,
          1 - sum(fit$residuals^2) / tss)
 )
-payments_r2
+data.frame(model = payments_r2$model, r2 = round(payments_r2$r2, 4))
 
 ##########################################
 #########  tables: payment pattern, outstanding and chain ladder by level
@@ -512,13 +529,16 @@ open_level <- data.frame(key,
                          os_per_open_claim = lev$os_open / lev$open)
 cbind(open_level[, 1:2], round(open_level[, 3:9], 2))
 
-## true outstanding (millions) by accident year and Injury Severity
-os_injury <- claims[AY > n - 10,
-                    .(outstanding = sum(outstanding) / units),
-                    keyby = .(AY, injury = get(features[2]))]
+## true outstanding (millions) by accident year and Injury Severity; the
+## first n - 10 accident years together
+os_injury <- claims[, .(outstanding = sum(outstanding) / units),
+                    keyby = .(AY = pmax(AY, n - 10),
+                              injury = get(features[2]))]
 os_injury <- dcast(os_injury, AY ~ injury, value.var = "outstanding")
 os_injury$total <- rowSums(os_injury[, -1])
-round(os_injury, 1)
+os_injury <- rbind(os_injury, as.list(colSums(os_injury)))
+os_injury$AY <- c(paste0("1-", n - 10), (n - 9):n, "total")
+cbind(AY = os_injury$AY, round(os_injury[, -1], 1))
 
 ## chain-ladder factors f_1, ..., f_8 of each level's own observed triangle,
 ## the % paid in development year 1 they imply, the standard deviation of
@@ -545,10 +565,14 @@ factors_level <- data.frame(
 cbind(factors_level[, 1:2], round(factors_level[, 3:14], 4))
 
 ## chain-ladder reserve of each level's own triangle (Mack 1993) against the
-## true outstanding of the level in the triangle, in millions; one
-## simulation: an error is a single draw, not a bias (thin triangles: Mack
-## warns)
+## true outstanding of the level in the triangle (development years 1 to n),
+## in millions; one simulation: an error is a single draw, not a bias (thin
+## triangles: Mack warns); portfolio_factors: the reserve of the level when
+## the factors of the whole triangle are applied to its latest diagonal
+## (no feature in the development)
 mack <- suppressWarnings(lapply(cums, nncl_mack))
+f_all <- cl_factors(t(apply(tri, 1, cumsum)))
+to_ultimate <- cumprod(c(1, rev(f_all)))       # of accident year 1, ..., n
 cl_reserves_level <- data.frame(
   key,
   paid = sapply(mack, function(m) sum(m$by_origin$latest)) / units,
@@ -562,29 +586,42 @@ cl_reserves_level$error_pct <- 100 * cl_reserves_level$error /
   cl_reserves_level$true_reserves
 cl_reserves_level$error_to_msep_sqrt <- cl_reserves_level$error /
   cl_reserves_level$msep_sqrt
-cbind(cl_reserves_level[, 1:2], round(cl_reserves_level[, 3:9], 2))
+cl_reserves_level$portfolio_factors <- sapply(mack, function(m) {
+  sum(m$by_origin$latest * (to_ultimate - 1))
+}) / units
+cl_reserves_level$portfolio_factors_error_pct <-
+  100 * cl_reserves_level$portfolio_factors / cl_reserves_level$true_reserves -
+  100
+cbind(cl_reserves_level[, 1:2], round(cl_reserves_level[, 3:11], 2))
 
 ## does a split by one feature bring the total closer to the truth? sum of
-## the level reserves against the chain ladder of the whole triangle
+## the level reserves against the chain ladder of the whole triangle; and
+## the sum of the absolute errors of the level reserves, with the level's
+## own factors and with the factors of the whole triangle (their reserves
+## add up to the reserve of the whole triangle)
 mack_all <- nncl_mack(t(apply(tri, 1, cumsum)))
 cl_all <- sum(mack_all$by_origin$ibnr) / units
 true_all <- sum(mack_all$by_origin$true) / units
 split <- as.data.table(cl_reserves_level)
 split <- split[, .(segments = .N,
                    CL_reserves = sum(CL_reserves),
-                   sum_abs_errors = sum(abs(error))),
+                   sum_abs_errors = sum(abs(error)),
+                   sum_abs_errors_portfolio_factors =
+                     sum(abs(portfolio_factors - true_reserves))),
                keyby = feature]
 cl_split <- rbind(data.frame(split = "none (whole triangle)",
                              segments = 1,
                              CL_reserves = cl_all,
-                             sum_abs_errors = abs(cl_all - true_all)),
+                             sum_abs_errors = abs(cl_all - true_all),
+                             sum_abs_errors_portfolio_factors =
+                               abs(cl_all - true_all)),
                   data.frame(split = paste("by", split$feature),
                              split[, -1]))
 cl_split$true_reserves <- true_all
 cl_split$error <- cl_split$CL_reserves - true_all
 cl_split$error_pct <- 100 * cl_split$error / true_all
 cl_split$msep_sqrt_whole_triangle <- mack_all$total_se / units
-cbind(cl_split[, 1:2], round(cl_split[, 3:8], 2))
+cbind(cl_split[, 1:2], round(cl_split[, 3:9], 2))
 
 fwrite(design, file.path(tab_dir, "synthetic_features_t01_design.csv"))
 fwrite(interactions,
@@ -660,7 +697,11 @@ pair_fig <- data.frame(panel = dependent$pair,
                                              trim = TRUE),
                                       "not possible"))
 save_figure("SynthETIC features Fig 02 dependent features.png",
-            tile_plot(pair_fig, NULL, NULL, "% of the claims", "log10"),
+            tile_plot(pair_fig,
+                      NULL,
+                      NULL,
+                      "% of the claims (log scale)",
+                      "log10"),
             fig_dir,
             height = 11,
             width = 12)
@@ -708,7 +749,8 @@ save_figure("SynthETIC features Fig 05 severity relativities.png",
             level_plot(sev_fig,
                        "claim size relative to the reference level (log scale)",
                        ref = 1,
-                       transform = "log10"),
+                       transform = "log10",
+                       breaks = c(0.2, 0.5, 1, 2, 5, 10, 20)),
             fig_dir,
             height = 11,
             width = 12)
@@ -728,14 +770,15 @@ save_figure("SynthETIC features Fig 06 delay multipliers.png",
             level_plot(delay_fig,
                        "delay relative to the reference level (log scale)",
                        ref = 1,
-                       transform = "log10"),
+                       transform = "log10",
+                       breaks = c(0.5, 0.7, 1, 1.4, 2)),
             fig_dir,
             height = 11)
 
 ## Fig. 7: variance explained by each feature, by outcome: drop-one (bars)
-## and one-way (circles)
+## and one-way (circles); every panel has its own scale
 r2_fig <- variance[term %in% features &
-                     outcome != "log claim size before the covariates"]
+                     outcome != "log claim size before the features"]
 r2_fig$outcome <- factor(r2_fig$outcome, levels = unique(r2_fig$outcome))
 r2_fig$term <- factor(r2_fig$term, levels = rev(features))
 save_figure("SynthETIC features Fig 07 variance explained.png",
@@ -743,9 +786,11 @@ save_figure("SynthETIC features Fig 07 variance explained.png",
               geom_col(aes(x = 100 * drop_one), fill = "grey40", width = 0.7) +
               geom_point(aes(x = 100 * one_way), shape = 1) +
               facet_wrap(~outcome, scales = "free_x", nrow = 1) +
+              scale_x_continuous(n.breaks = 4) +
               labs(x = "variance explained (%)", y = NULL) +
               description_theme() +
-              theme(strip.text = element_text(size = 7)),
+              theme(strip.text = element_text(size = 7),
+                    panel.spacing.x = grid::unit(0.9, "lines")),
             fig_dir,
             height = 6)
 
@@ -762,7 +807,7 @@ save_figure("SynthETIC features Fig 08 injury by age.png",
             tile_plot(cell_fig,
                       features[3],
                       features[2],
-                      "median claim size (thousands)",
+                      "median claim size in thousands (log scale)",
                       "log10"),
             fig_dir,
             height = 11,
@@ -795,18 +840,21 @@ save_figure("SynthETIC features Fig 10 chain-ladder factors.png",
             level_curve_plot(factor_fig[factor_fig$value > 0, ],
                              data.frame(x = 1:8, value = factor_all),
                              "development year j",
-                             "chain-ladder factor f_j - 1 (log scale)",
+                             "chain-ladder factor minus 1 (log scale)",
                              transform = "log10") +
               scale_x_continuous(breaks = seq(2, 8, by = 2)),
             fig_dir,
             height = 14)
 
-## Fig. 11: number of payments against the claim size by Injury Severity
-## (bins of the log size with 50 claims or more) and the designed mean
-claims$size_bin <- round(4 * log10(claims$claim_size)) / 4
+## Fig. 11: number of payments against the claim size by Injury Severity and
+## the designed mean; bins of the claim size by factors of 2 from the upper
+## band limit (the two band limits are bin limits), with 50 claims or more,
+## drawn at the centre of the bin
+claims$size_bin <- floor(log2(claims$claim_size / bands[2]))
 np_fig <- claims[, .(n = .N, value = mean(no_payment)),
                  keyby = .(injury = get(features[2]), size_bin)]
 np_fig <- np_fig[n >= 50]
+np_fig$size <- bands[2] * 2^(np_fig$size_bin + 0.5)
 size_grid <- 10^seq(2, 7, by = 0.02)
 np_curve <- data.frame(
   size = size_grid,
@@ -817,7 +865,7 @@ np_curve <- data.frame(
                         pmin(8, 4 + log(size_grid / bands[2]))))
 )
 save_figure("SynthETIC features Fig 11 number of payments.png",
-            ggplot(np_fig, aes(x = 10^size_bin, y = value)) +
+            ggplot(np_fig, aes(x = size, y = value)) +
               geom_line(data = np_curve,
                         aes(x = size),
                         colour = "grey60",

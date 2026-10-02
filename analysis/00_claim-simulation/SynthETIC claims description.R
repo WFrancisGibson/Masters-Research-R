@@ -114,12 +114,14 @@ concentration <- data.frame(
 )
 cbind(statistic = concentration$statistic, round(concentration[, -1], 3))
 
-## the ten largest claims
+## the ten largest claims; raw_rank: rank of the size before the covariates
+claims$raw_rank <- rank(-claims$claim_size_raw)
 largest <- claims[order(-claim_size)][1:10,
                                       c("claim_no", "AY", "claim_size",
                                         "ultimate", "claim_size_raw",
-                                        "sev_relativity", "setldel",
-                                        "no_payment", port$features, "status"),
+                                        "raw_rank", "sev_relativity",
+                                        "setldel", "no_payment",
+                                        port$features, "status"),
                                       with = FALSE]
 largest
 
@@ -173,8 +175,7 @@ ibnyr <- rbind(ibnyr,
                           CL_IBNYR = sum(ibnyr$CL_IBNYR),
                           msep_sqrt = mack_n$total_se,
                           true_IBNYR = sum(ibnyr$true_IBNYR)))
-ibnyr[, 3:4] <- round(ibnyr[, 3:4], 2)
-ibnyr
+cbind(ibnyr[, 1:2], round(ibnyr[, 3:4], 2), true_IBNYR = ibnyr$true_IBNYR)
 
 ## status at the valuation date: closed (settled), open (reported, not
 ## settled) and not yet reported, and the true outstanding of the last two
@@ -204,7 +205,7 @@ censoring <- rbind(
   cbind(accident_years = as.character(n),
         claims[AY == n, eval(status_cols), keyby = status])
 )
-censoring
+cbind(censoring[, 1:3], round(censoring[, 4:8], 3))
 
 ##########################################
 #########  tables: reporting delay, number of payments and claim size
@@ -214,10 +215,11 @@ censoring
 ## numbers); 15 = 15 or more payments
 by_delay <- claims[, .(claims = .N,
                        mean_size = mean(claim_size),
+                       median_size = median(claim_size),
                        mean_no_payment = mean(no_payment),
                        mean_setldel = mean(setldel)),
                    keyby = rep_delay]
-by_delay
+round(by_delay, 2)
 by_payments <- claims[, .(claims = .N,
                           mean_size = mean(claim_size),
                           median_size = median(claim_size),
@@ -225,7 +227,7 @@ by_payments <- claims[, .(claims = .N,
                           cost_pct = 100 * sum(claim_size) /
                             sum(claims$claim_size)),
                       keyby = .(no_payment = pmin(no_payment, 15))]
-by_payments
+round(by_payments, 2)
 
 ## by claim size band; the first two bands are those of SynthETIC's number
 ## of payments (0.0375 and 0.075 times the claim size scale)
@@ -245,7 +247,7 @@ by_size <- claims[, .(claims = .N,
                         sum(claims$outstanding),
                       paid_pct = 100 * sum(paid) / sum(ultimate)),
                   keyby = size_band]
-by_size
+cbind(by_size[, 1:2], round(by_size[, 3:9], 2))
 
 ##########################################
 #########  tables: triangles and development (Risks Tables 5 and 7)
@@ -259,11 +261,14 @@ tri_cum <- data.frame(AY = 1:n,
                       upper_triangle(cum) / units,
                       ultimate = cum[, n] / units,
                       check.names = FALSE)
+round(tri_cum, 1)
 
 ## development: chain-ladder factors f_j from development year j to j + 1 on
 ## the observed triangle and on the full simulation (true), the range of the
-## observed individual factors C_{i,j+1} / C_{i,j}, and the share of the
-## ultimate paid by development year j (chain ladder and true)
+## observed individual factors C_{i,j+1} / C_{i,j}, and the % paid by
+## development year j: of the chain-ladder ultimate at development year n
+## (100 in year n) and of the true nominal ultimate (the rest to 100 in year
+## n is paid later)
 f_obs <- cl_factors(cum)
 link <- cum[, -1] / cum[, -n]
 link[row(link) + col(link) > n] <- NA          # the observed ones only
@@ -274,14 +279,15 @@ development <- data.frame(
   link_min = c(apply(link, 2, min, na.rm = TRUE), NA),
   link_max = c(apply(link, 2, max, na.rm = TRUE), NA),
   paid_pct_cl = 100 / rev(cumprod(rev(c(f_obs, 1)))),
-  paid_pct_true = 100 * cumsum(colSums(tri)) / sum(tri)
+  paid_pct_true = 100 * cumsum(colSums(tri)) / sum(claims$ultimate)
 )
 development$incr_pct_true <- diff(c(0, development$paid_pct_true))
 round(development, 4)
 
 ## payments by calendar year: nominal, in constant values and the inflation
-## index they carry (2% a year from time 0); after year n: the run-off of
-## the true outstanding; the years after n + 10 together
+## index they carry (2% a year from time 0; SynthETIC inflates a payment
+## after development year n only to the end of that year); after year n: the
+## run-off of the true outstanding; the years after n + 10 together
 last <- n + 11
 calendar <- trans[, .(payments = .N,
                       nominal = sum(payment_inflated) / units,
@@ -304,7 +310,7 @@ late <- trans[dev > n,
                 amount = sum(payment_inflated) / units),
               keyby = .(AY = occurrence_period)]
 late$ultimate_pct <- 100 * late$amount / by_ay$ultimate[late$AY]
-late
+round(late, 3)
 
 ## Table 7: chain-ladder reserves and Mack's sqrt(msep) against the true
 ## outstanding payments of the triangle (as output/tables/01_Mack), millions
@@ -377,9 +383,9 @@ save_figure("SynthETIC data Fig 01 accident years.png",
 
 ## Fig. 2: claim size before and after the covariates (density of the log)
 size_fig <- data.frame(
-  series = factor(rep(c("before the covariates", "after the covariates"),
+  series = factor(rep(c("before the features", "after the features"),
                       each = nrow(claims)),
-                  levels = c("before the covariates", "after the covariates")),
+                  levels = c("before the features", "after the features")),
   size = c(claims$claim_size_raw, claims$claim_size)
 )
 save_figure("SynthETIC data Fig 02 claim size distribution.png",
@@ -437,27 +443,33 @@ save_figure("SynthETIC data Fig 04 delays.png",
             height = 8,
             width = 12)
 
-## Fig. 5: cumulative payments in % of the true ultimate by accident year:
-## observed (black), after the valuation date (grey); points: the
-## chain-ladder pattern
+## Fig. 5: cumulative payments in % of the true nominal ultimate by accident
+## year: after the valuation date (grey) and, drawn on top, observed
+## (black); points: the chain-ladder pattern
+ult_ay <- ay$ultimate * units
 dev_fig <- data.frame(AY = as.vector(row(cum)),
                       dev = as.vector(col(cum)),
-                      value = as.vector(100 * cum / cum[, n]))
+                      value = as.vector(100 * cum / ult_ay))
 series <- c("observed", "after the valuation date (true)")
 dev_fig <- rbind(
-  data.frame(dev_fig[dev_fig$AY + dev_fig$dev >= n + 1, ], series = series[2]),
-  data.frame(dev_fig[dev_fig$AY + dev_fig$dev <= n + 1, ], series = series[1])
+  data.frame(dev_fig[dev_fig$AY + dev_fig$dev <= n + 1, ], series = series[1]),
+  data.frame(dev_fig[dev_fig$AY + dev_fig$dev >= n + 1, ], series = series[2])
 )
 dev_fig$series <- factor(dev_fig$series, levels = series)
 save_figure("SynthETIC data Fig 05 development by accident year.png",
             ggplot(dev_fig, aes(x = dev, y = value)) +
-              geom_line(aes(group = interaction(AY, series),
-                            colour = series),
+              geom_line(data = dev_fig[dev_fig$series == series[2], ],
+                        aes(group = AY, colour = series),
+                        linewidth = 0.3) +
+              geom_line(data = dev_fig[dev_fig$series == series[1], ],
+                        aes(group = AY, colour = series),
                         linewidth = 0.3) +
               geom_point(data = development,
                          aes(y = paid_pct_cl, shape = "chain-ladder pattern"),
                          size = 1.2) +
-              scale_colour_manual(values = c("black", "grey65")) +
+              scale_colour_manual(values = setNames(c("black", "grey65"),
+                                                    series),
+                                  breaks = series) +
               scale_x_continuous(breaks = seq(1, n, by = 2)) +
               labs(x = "development year",
                    y = "cumulative payments (% of the true ultimate)") +
@@ -465,11 +477,11 @@ save_figure("SynthETIC data Fig 05 development by accident year.png",
             fig_dir,
             height = 9)
 
-## Fig. 6: the triangle: incremental payments in % of the true ultimate of
-## the accident year; the staircase is the valuation date
+## Fig. 6: the triangle: incremental payments in % of the true nominal
+## ultimate of the accident year; the staircase is the valuation date
 tri_fig <- data.frame(AY = as.vector(row(tri)),
                       dev = as.vector(col(tri)),
-                      value = as.vector(100 * tri / cum[, n]))
+                      value = as.vector(100 * tri / ult_ay))
 stair <- data.frame(x = rep(n + 1.5 - 1:n, each = 2),
                     y = as.vector(rbind(1:n - 0.5, 1:n + 0.5)))
 save_figure("SynthETIC data Fig 06 triangle.png",
@@ -484,7 +496,7 @@ save_figure("SynthETIC data Fig 06 triangle.png",
                                   transform = "sqrt",
                                   breaks = c(0.1, 1, 5, 15, 30),
                                   labels = c("0.1", "1", "5", "15", "30"),
-                                  name = "% of the ultimate") +
+                                  name = "% of the ultimate (root scale)") +
               scale_x_continuous(breaks = 1:n, expand = c(0, 0)) +
               scale_y_reverse(breaks = 1:n, expand = c(0, 0)) +
               coord_fixed() +
@@ -559,6 +571,7 @@ save_figure("SynthETIC data Fig 09 open and unreported claims.png",
               geom_col(colour = "black", linewidth = 0.15) +
               facet_wrap(~panel, scales = "free_y") +
               scale_fill_manual(values = c("grey88", "grey55", "grey10")) +
+              scale_y_continuous(labels = scales::label_comma()) +
               labs(x = "accident year", y = NULL) +
               description_theme(),
             fig_dir,
@@ -581,6 +594,7 @@ save_figure("SynthETIC data Fig 10 chain-ladder reserves.png",
                               size = 0.25) +
               facet_wrap(~panel, scales = "free") +
               scale_fill_manual(values = "grey75") +
+              scale_y_continuous(labels = scales::label_comma()) +
               labs(x = "accident year", y = "millions") +
               description_theme(),
             fig_dir,

@@ -52,8 +52,8 @@ tab_caps <- c(
   simulation = "Settings of the simulation",
   portfolio = "The portfolio at the valuation date",
   accident_years = paste("Accident years: claims, claim cost and nominal",
-                         "payments (true; amounts in millions, sizes in",
-                         "units)"),
+                         "payments (true; amounts and the largest claim in",
+                         "millions, mean and median size in units)"),
   claim_sizes = "Distribution of the claim size (true)",
   concentration = "Concentration of the claim cost",
   largest = "The ten largest claims (amounts in millions)",
@@ -75,10 +75,11 @@ tab_caps <- c(
   calendar = "Payments by calendar year (millions)",
   late = "Payments after development year 20 (millions)",
   cl_reserves = paste("Chain-ladder reserves and Mack's sqrt(msep) against",
-                      "the true outstanding (millions)"),
+                      "the true reserve: the true outstanding of",
+                      "development years 1 to 20 (millions)"),
   f_design = "Design of the five features by level",
   f_interactions = "Designed relativities between two features that are not 1",
-  f_mix = "Observed and designed share of the claims by level",
+  f_mix = "Simulated and designed share of the claims by level",
   f_dependent = "The two pairs of dependent features",
   f_cramer = "Association of the features: Cramer's V",
   f_combos = "The 480 combinations of feature levels",
@@ -102,12 +103,14 @@ tab_caps <- c(
   f_exposure = paste("Share of the claims, of the cost and of the true",
                      "outstanding by level"),
   f_open = paste("Open and unreported claims by level and their true",
-                 "outstanding (millions)"),
+                 "outstanding (millions; per open claim in units)"),
   f_os_injury = paste("True outstanding by accident year and Injury",
                       "Severity (millions)"),
   f_cl_factors = "Chain-ladder factors of each level's own observed triangle",
-  f_cl_reserves = paste("Chain-ladder reserve of each level's own triangle",
-                        "against its true outstanding (millions)"),
+  f_cl_reserves = paste("Chain-ladder reserve of each level against its",
+                        "true reserve (development years 1 to 20), with the",
+                        "level's own factors and with the factors of the",
+                        "whole triangle (millions)"),
   f_cl_split = paste("Sum of the level reserves against the chain ladder of",
                      "the whole triangle (millions)")
 )
@@ -118,13 +121,14 @@ fig_caps <- c(
   delays = "Distribution functions of the notification and settlement delay",
   open = paste("Claims not closed at the valuation date and their true",
                "outstanding, accident years 11 to 20"),
-  bars_delay = "Claims by reporting delay T (dashed: portfolio average)",
+  bars_delay = paste("Claims by reporting delay T (dashed: portfolio",
+                     "average; T = 7 is one claim)"),
   bars_payments = paste("Claims by number of payments (15 = 15 or more;",
                         "dashed: portfolio average)"),
   triangle = paste("Incremental payments in % of the true ultimate of the",
                    "accident year; the staircase is the valuation date"),
   dev = paste("Cumulative payments by accident year in % of the true",
-              "ultimate"),
+              "ultimate (points: % of the chain-ladder ultimate)"),
   link = paste("Observed individual development factors by accident year",
                "(dashed: chain-ladder factor)"),
   calendar = paste("Payments by calendar year in millions (vertical line:",
@@ -138,32 +142,40 @@ fig_caps <- c(
                    "share of the claims and of the nominal ultimate"),
   f_size = paste("Claim size by level: median with quartiles and mean",
                  "(vertical line: portfolio median)"),
-  f_sev = "Severity relativities: designed, one-way and all else equal",
+  f_sev = paste("Severity relativities: designed, one-way and all else",
+                "equal (line: 95% interval of the all-else-equal estimate)"),
   f_injury_age = paste("Median claim size in thousands (number of claims) by",
                        "Injury Severity and Age of Claimant"),
-  f_delay_mult = "Delay multipliers: designed, one-way and all else equal",
+  f_delay_mult = paste("Delay multipliers: designed, one-way and all else",
+                       "equal (line: 95% interval of the all-else-equal",
+                       "estimate)"),
   f_np = paste("Mean number of payments against the claim size by Injury",
-               "Severity (grey: designed mean)"),
+               "Severity (means of size bins at the bin centre; grey:",
+               "designed mean)"),
   f_variance = paste("Variance explained by each feature: drop-one (bars)",
-                     "and one-way (circles)"),
+                     "and one-way (circles); every panel has its own scale"),
   f_pattern = paste("Payment pattern of each level (black) against the",
                     "portfolio (grey)"),
   f_shares = paste("Share of the claims, of the nominal ultimate and of the",
                    "true outstanding by level"),
   f_factors = paste("Chain-ladder factors of each level's own triangle",
-                    "(black) against the portfolio (grey)"),
+                    "(black) against the portfolio (grey); a factor of",
+                    "exactly 1 cannot be drawn on the log scale"),
   f_cl_error = paste("Error of each level's chain-ladder reserve in % of its",
-                     "true outstanding, with one sqrt(msep) to each side")
+                     "true reserve, with one sqrt(msep) to each side")
 )
 tab_ref <- function(label) paste("Table", match(label, names(tab_caps)))
 fig_ref <- function(label) paste("Figure", match(label, names(fig_caps)))
 tab_cap <- function(label) paste0(tab_ref(label), ": ", tab_caps[[label]])
 fig_cap <- function(label) paste0(fig_ref(label), ": ", fig_caps[[label]])
 
-## numbers as text: thousands separator, fixed decimals
+## numbers as text: thousands separator, fixed decimals, a minus sign that
+## does not break the line
 num <- function(x, digits = 0) {
   ifelse(is.na(x), NA,
-         formatC(x, format = "f", digits = digits, big.mark = ","))
+         sub("-", "−",
+             formatC(round(x, digits) + 0, format = "f", digits = digits,
+                     big.mark = ",")))
 }
 ## each number with the decimals its size needs (tables of mixed quantities)
 smart <- function(x) {
@@ -175,17 +187,20 @@ smart <- function(x) {
 }
 ## a table: column names, decimals per column, caption
 show <- function(d, label, names, digits = 1, align = NULL) {
-  if (is.null(align)) align <- ifelse(sapply(d, is.numeric), "r", "l")
+  numeric <- sapply(d, is.numeric)
+  if (is.null(align)) align <- ifelse(numeric, "r", "l")
+  digits <- rep(digits, length.out = ncol(d))
+  for (k in which(numeric)) d[[k]] <- num(d[[k]], digits[k])
   kable(d,
         col.names = names,
-        digits = digits,
         align = align,
-        format.args = list(big.mark = ","),
         caption = tab_cap(label),
         row.names = FALSE)
 }
 
+##########################################
 #########  load the tables
+##########################################
 
 portfolio <- data_tab("t01_portfolio")
 by_ay <- data_tab("t02_accident_years")
@@ -235,7 +250,9 @@ factors_level <- feat_tab("t25_cl_factors")
 cl_level <- feat_tab("t26_cl_reserves")
 cl_split <- feat_tab("t27_cl_split")
 
+##########################################
 #########  numbers quoted in the text
+##########################################
 
 p <- setNames(portfolio$value, portfolio$quantity)
 cmb <- setNames(combos$value, combos$quantity)
@@ -263,11 +280,34 @@ cl_error_pct <- 100 * res_total$error / res_total$true_reserves
 future <- calendar[!is.na(calendar$outstanding_pct), ]
 dev_row <- function(k) development[development$dev == k, ]
 n_ref <- nrow(sev_effects)
-sev_inside <- sum(sev_effects$lower <= sev_effects$design &
-                    sev_effects$design <= sev_effects$upper)
+sev_in <- sev_effects$lower <= sev_effects$design &
+  sev_effects$design <= sev_effects$upper
+sev_miss <- paste(sev_effects$feature[!sev_in], sev_effects$level[!sev_in],
+                  collapse = " and ")
 delay_inside <- sum(delay_effects$lower <= delay_effects$design &
                       delay_effects$design <= delay_effects$upper)
 inj_high <- exposure[exposure$feature == inj & exposure$level %in% 3:5, ]
+## "All ten" or "k of the ten"
+ten <- function(k) if (k == 10) "All ten" else paste(k, "of the ten")
+cramer$feature[cramer$feature == "AY"] <- "Accident year"
+## splits of the triangle by one feature against the whole triangle
+split_err <- abs(cl_split$error_pct[-1])
+whole_err <- abs(cl_split$error_pct[1])
+split_msep <- abs(cl_split$error) / cl_split$msep_sqrt_whole_triangle
+split_row <- function(feature) {
+  cl_split[cl_split$split == paste("by", feature), ]
+}
+## levels with a true reserve of at least 1,000 million; the worst level
+big <- cl_level$true_reserves >= 1000
+worst <- which.max(abs(cl_level$error_pct))
+np_gap <- which.max(abs(payments_level$mean_no_payment -
+                          payments_level$mean_np_design))
+iq_ratio <- size_level$q75_size / size_level$q25_size
+designed <- injury_age$design != 1
+os_share <- function(row) {
+  d <- os_injury[os_injury$AY == row, ]
+  100 * (d[["3"]] + d[["4"]] + d[["5"]]) / d$total
+}
 ```
 
 # What this report covers
@@ -279,26 +319,27 @@ All numbers come from two scripts in `analysis/00_claim-simulation/`:
 - `SynthETIC claims description.R` writes the tables and figures of the portfolio (sections 3 to 7) to `output/tables/00_claim-simulation/data-description/` and `output/figures/00_claim-simulation/data-description/`;
 - `SynthETIC feature impact.R` writes those of the features (sections 8 to 10) to the folders `feature-impact/` next to them.
 
-This document reads those tables: every number in the text is computed from them when the document is knitted, so the text cannot differ from the tables. The file name of each table is in the appendix.
+This document reads those tables: the numbers quoted from them are computed when the document is knitted, so they cannot differ from the tables. The settings of the simulation (section 2) and the statements that name a level or an accident year are written for the simulation with seed 2026. The file names of the tables follow the pattern given in the appendix.
 
 ## Main findings
 
 1. **Size and maturity.** The portfolio has `r num(p[["claims"]])` claims and `r num(p[["payments"]])` payments over 20 accident years. The nominal ultimate is `r num(p[["nominal ultimate (millions)"]], 1)` million, of which `r num(p[["paid to the valuation date (% of the ultimate)"]], 2)`% is paid at the valuation date. The true outstanding is `r num(p[["true outstanding (millions)"]], 1)` million: `r num(p[["true outstanding, development years 1 to 20 (millions)"]], 1)` million inside the 20 x 20 triangle (the true reserve of the model scripts) and `r num(p[["true outstanding, after development year 20 (millions)"]], 1)` million paid after development year 20.
 2. **Where the outstanding sits.** Accident years 16 to 20 hold `r num(os_recent, 1)`% of the true outstanding and accident year 20 alone `r num(os_last, 1)`%. `r num(100 * st_total$os_open / (st_total$os_open + st_total$os_unreported), 1)`% of it is on claims that are reported but not settled, and `r num(100 * st_total$os_unreported / (st_total$os_open + st_total$os_unreported), 1)`% on claims not yet reported.
 3. **The chain ladder is close on the whole triangle.** Mack's chain ladder gives a reserve of `r num(res_total$CL_reserves, 1)` million against the true `r num(res_total$true_reserves, 1)` million: an error of `r num(cl_error_pct, 2)`%, which is `r num(abs(res_total$error) / res_total$msep_sqrt, 2)` times its sqrt(msep) of `r num(res_total$msep_sqrt, 1)` million.
-4. **The features are simulated as designed.** The numbers of claims in the `r num(cmb[["with a positive designed probability"]])` possible feature combinations fit the designed probabilities (chi-square `r num(cmb[["chi-square of the observed against the designed numbers"]], 1)` on `r num(cmb[["degrees of freedom"]])` degrees of freedom, p-value `r num(cmb[["p-value"]], 2)`). The features are independent of each other except for two designed pairs: Legal Representation with Injury Severity, and Vehicle type with Business use.
+4. **The features are simulated as designed.** The numbers of claims in the `r num(cmb[["with a positive designed probability"]])` possible feature combinations fit the designed probabilities (chi-square `r num(cmb[["chi-square of the simulated against the designed numbers"]], 1)` on `r num(cmb[["degrees of freedom"]])` degrees of freedom, p-value about `r num(cmb[["p-value (chi-square distribution)"]], 2)`). The features are independent of each other except for two designed pairs: Legal Representation with Injury Severity, and Vehicle type with Business use.
 5. **Injury Severity is the main feature for every outcome.** Dropping it from the model of all five features removes `r num(r2("log claim size", inj), 1)` percentage points of the `r num(r2("log claim size", "additive", "r2"), 1)`% of the variance of the log claim size that the features explain; Vehicle type follows with `r num(r2("log claim size", veh), 1)` points and Age of Claimant with `r num(r2("log claim size", age), 1)`.
-6. **One-way comparisons mislead where the features depend on each other.** The mean claim size of unrepresented claimants is `r num(lv(sev_effects, leg, "N", "ratio_of_means"), 2)` times that of represented ones, although the designed relativity is `r num(lv(sev_effects, leg, "N", "design"), 2)`: unrepresented claims only occur with the lowest injury severity. All else equal, the log-linear model recovers `r num(lv(sev_effects, leg, "N", "estimate"), 2)`. The same happens for Business use Y (`r num(lv(sev_effects, bus, "Y", "ratio_of_means"), 2)` one-way, `r num(lv(sev_effects, bus, "Y", "design"), 2)` designed) and Heavy goods (`r num(lv(sev_effects, veh, "Heavy goods", "ratio_of_means"), 1)` one-way, `r num(lv(sev_effects, veh, "Heavy goods", "design"), 0)` designed).
-7. **Injury Severity and the age band 0-15 slow the payments; Vehicle type and Business use do not.** By the end of development year 2, `r num(lv(timing, inj, "1", "dev_2"), 1)`% of the cost of Injury Severity 1 is paid but only `r num(lv(timing, inj, "5", "dev_2"), 1)`% of Injury Severity 5. The pattern of Light Commerical vehicles (`r num(lv(timing, veh, "Light Commerical", "dev_2"), 1)`%) is that of Passenger vehicles (`r num(lv(timing, veh, "Passenger", "dev_2"), 1)`%) although their claims are `r num(lv(sev_effects, veh, "Light Commerical", "design"), 0)` times as large by design.
+6. **One-way comparisons mislead where the features depend on each other.** The mean claim size of unrepresented claimants is `r num(lv(sev_effects, leg, "N", "ratio_of_means"), 2)` times that of represented ones, although the designed relativity is `r num(lv(sev_effects, leg, "N", "design"), 2)`: unrepresented claims only occur with Injury Severity 1. All else equal, the log-linear model recovers `r num(lv(sev_effects, leg, "N", "estimate"), 2)`. The same happens for Business use Y (`r num(lv(sev_effects, bus, "Y", "ratio_of_means"), 2)` one-way, `r num(lv(sev_effects, bus, "Y", "design"), 2)` designed) and Heavy goods (`r num(lv(sev_effects, veh, "Heavy goods", "ratio_of_means"), 1)` one-way, `r num(lv(sev_effects, veh, "Heavy goods", "design"), 0)` designed).
+7. **Injury Severity and the age band 0-15 slow the payments; Vehicle type and Business use hardly change them.** By the end of development year 2, `r num(lv(timing, inj, "1", "dev_2"), 1)`% of the cost of Injury Severity 1 is paid but only `r num(lv(timing, inj, "5", "dev_2"), 1)`% of Injury Severity 5. The pattern of Light Commerical vehicles (`r num(lv(timing, veh, "Light Commerical", "dev_2"), 1)`%) is close to that of Passenger vehicles (`r num(lv(timing, veh, "Passenger", "dev_2"), 1)`%) although their claims are `r num(lv(sev_effects, veh, "Light Commerical", "design"), 0)` times as large by design.
 8. **The features move the reserve far more than the claim count.** Injury Severity 3 to 5 are `r num(sum(inj_high$claims_pct), 1)`% of the claims, `r num(sum(inj_high$ultimate_pct), 1)`% of the nominal ultimate and `r num(sum(inj_high$outstanding_pct), 1)`% of the true outstanding.
-9. **A chain ladder per level does not improve the total here.** The sum of the level reserves misses the truth by `r num(min(cl_split$error_pct[-1]), 2)`% to `r num(max(cl_split$error_pct[-1]), 2)`% depending on the feature used for the split, against `r num(cl_split$error_pct[1], 2)`% for the whole triangle. All these differences are well inside one sqrt(msep), and this is one simulation: they are single draws, not biases. The reserves of single levels are much less accurate than the total.
+9. **A chain ladder per level does not change the total in a way one simulation can show, but the levels need their own factors.** Split by one feature, the sum of the level reserves is below the truth by `r num(min(split_err), 2)`% to `r num(max(split_err), 2)`%, against `r num(whole_err, 2)`% for the whole triangle: `r sum(split_err < whole_err)` of the five splits are closer to the truth and `r sum(split_err > whole_err)` further away. These errors are `r num(min(split_msep), 2)` to `r num(max(split_msep), 2)` times the sqrt(msep) of the whole triangle, and this is one simulation: they are single draws, not biases. The reserves of single levels are much less accurate than the total, and far worse when the factors of the whole triangle are applied to a level: for the levels of Injury Severity the absolute errors add up to `r num(split_row(inj)$sum_abs_errors_portfolio_factors, 0)` million with the factors of the whole triangle and to `r num(split_row(inj)$sum_abs_errors, 0)` million with the levels' own factors.
 
 ## Conventions
 
-- **True and observed.** The simulation gives every claim to its last payment. "True" means computed on the full simulation; "observed" means known at the valuation date, the end of year 20. A payment is observed when its calendar year is 20 or earlier. Unless a table says "observed", it is true.
+- **True and observed.** The simulation gives every claim to its last payment. "True" means computed on the full simulation; "observed" means known at the valuation date, the end of year 20. A payment is observed when its calendar year is 20 or earlier. Unless a table says "observed", it is true. In the tables of the features "simulated" stands for the same thing: all claims of the simulation, against "designed".
+- **Outstanding and reserve.** The true outstanding is all payments after the valuation date. The true reserve is the part of it inside the triangle (development years 1 to 20), which is what the chain ladder and the other models predict.
 - **Development year.** Development year = calendar year of the payment - accident year + 1, so development year 1 is the accident year. The triangles have 20 development years; the payments after development year 20 are in no triangle and are shown apart (`r tab_ref("late")`), as in the Mack, ODP GLM, bCCNN and NN chain-ladder scripts. The file `triangle.csv` of the simulation folds them into development year 20 and is not used here.
-- **Nominal and constant values.** The claim size and the payment sizes of SynthETIC are in constant values (money of time 0). Every payment is then inflated by 2% a year from time 0 to its payment date: these nominal payments fill the triangles. Claim-size tables are in constant values; triangles, ultimates, outstanding amounts and reserves are nominal.
-- **Reference levels.** Relativities and multipliers are given against the reference level of each feature: Legal Representation Y, Injury Severity 2, Age of Claimant 30-50, Vehicle type Passenger and Business use N (the levels with delay multiplier 1).
+- **Nominal and constant values.** The claim size and the payment sizes of SynthETIC are in constant values (money of time 0). Every payment is then inflated by 2% a year from time 0 to its payment date: these nominal payments fill the triangles. (SynthETIC inflates a payment made after development year 20 only to the end of development year 20; this concerns the `r num(sum(late$payments))` payments of `r tab_ref("late")`.) Claim-size tables are in constant values; triangles, ultimates, outstanding amounts and reserves are nominal.
+- **Reference levels.** Relativities and multipliers are given against the reference level of each feature: Legal Representation Y, Injury Severity 2, Age of Claimant 30-50, Vehicle type Passenger and Business use N. Their delay multipliers are 1; for Age of Claimant the bands 15-30 and 30-50 both have multiplier 1 and 30-50 is used.
 - **Level names.** The level names are those of the data. "Light Commerical" is spelt this way in the data and is left as it is.
 
 # The simulation
@@ -335,8 +376,9 @@ simulation <- data.frame(
     paste("SynthETIC's default split of the claim into payments. All",
           "payments lie between the notification and the settlement; the",
           "last payment is at the settlement."),
-    paste("2% a year on every payment from time 0 to its payment date; no",
-          "superimposed inflation."),
+    paste("2% a year on every payment from time 0 to its payment date",
+          "(payments after development year 20: to the end of development",
+          "year 20); no superimposed inflation."),
     paste("End of year 20: 20 accident years and 20 development years",
           "(annual).")
   )
@@ -361,15 +403,15 @@ The claim cost in constant values is `r num(p[["claim cost in constant values (m
 
 ## Accident years
 
-`r tab_ref("accident_years")` and `r fig_ref("ay")` show the accident years. The number of claims varies between `r num(min(ay$claims))` and `r num(max(ay$claims))` around the designed 20,000, and the claim cost in constant values has no trend. The nominal ultimate rises from `r num(ay$ultimate[1], 0)` million in accident year 1 to `r num(ay$ultimate[20], 0)` million in accident year 20: this growth is inflation only (the ratio of nominal to constant values rises from `r num(ay$nominal_to_constant[1], 3)` to `r num(ay$nominal_to_constant[20], 3)`).
+`r tab_ref("accident_years")` and `r fig_ref("ay")` show the accident years. The number of claims varies between `r num(min(ay$claims))` and `r num(max(ay$claims))` around the designed 20,000, and the claim cost in constant values has no designed trend (the number of claims and the size distribution are the same for every accident year). The nominal ultimate rises from `r num(ay$ultimate[1], 0)` million in accident year 1 to `r num(ay$ultimate[20], 0)` million in accident year 20: this growth is inflation only (the ratio of nominal to constant values rises from `r num(ay$nominal_to_constant[1], 3)` to `r num(ay$nominal_to_constant[20], 3)`).
 
 The mean claim size of accident year `r ay$AY[which.max(ay$mean_size)]` (`r num(max(ay$mean_size))`) stands out. It is one claim of `r num(max(ay$max_size), 1)` million (`r tab_ref("largest")`); the median is unaffected. Means by accident year or by level are sensitive to such claims, so the tables give medians next to them.
 
 ```{r accident-years}
 show(by_ay, "accident_years",
      c("AY", "Claims", "Claim cost", "Mean size", "Median size",
-       "Largest claim", "Nominal ultimate", "Paid", "Outstanding", "Paid %",
-       "Nominal / constant"),
+       "Largest claim (millions)", "Nominal ultimate", "Paid", "Outstanding",
+       "Paid %", "Nominal / constant"),
      digits = c(0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 3))
 ```
 
@@ -408,23 +450,23 @@ kable(data.frame(concentration$statistic, smart(concentration$raw),
 include_graphics(data_fig("03 Lorenz curves"))
 ```
 
-The ten largest claims (`r tab_ref("largest")`) are not the claims with the largest size before the features: they are made by the product of the severity relativities. Among the ten, `r sum(largest[["Vehicle type"]] != "Passenger")` are commercial vehicles (not Passenger) and `r sum(largest[["Injury Severity"]] %in% 4:5)` have Injury Severity 4 or 5. All ten are closed at the valuation date, so they are in the observed triangle and not in the outstanding.
+The ten largest claims (`r tab_ref("largest")`) are made by the product of the severity relativities rather than by the size before the features: `r sum(largest$raw_rank <= 10)` of them is among the ten largest claims before the features, and the largest claim of all has rank `r num(largest$raw_rank[1])` before the features. `r ten(sum(largest[["Vehicle type"]] != "Passenger"))` are commercial vehicles (not Passenger) and `r sum(largest[["Injury Severity"]] %in% 4:5)` have Injury Severity 4 or 5. `r ten(sum(largest$status == "closed"))` are closed at the valuation date, so the largest claims are in the observed triangle and not in the outstanding.
 
 ```{r largest}
-largest_tab <- data.frame(largest$claim_no, largest$AY,
+largest_tab <- data.frame(as.character(largest$claim_no), largest$AY,
                           largest$claim_size / 1e6, largest$ultimate / 1e6,
-                          largest$claim_size_raw / 1e6,
+                          largest$claim_size_raw / 1e6, largest$raw_rank,
                           largest$sev_relativity, largest$setldel,
                           largest$no_payment,
                           largest[, c(leg, inj, age, veh, bus)])
 show(largest_tab, "largest",
-     c("Claim", "AY", "Claim size", "Nominal ultimate",
-       "Size before the features", "Size factor", "Settlement delay",
-       "Payments", "Legal", "Injury", "Age", "Vehicle", "Business"),
-     digits = c(0, 0, 1, 1, 2, 2, 2, 0, 0, 0, 0, 0, 0))
+     c("Claim", "AY", "Size", "Nominal", "Raw size", "Raw rank", "Factor",
+       "Settl. delay", "Payments", "Legal", "Injury", "Age", "Vehicle",
+       "Business"),
+     digits = c(0, 0, 1, 1, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0))
 ```
 
-The size factor in `r tab_ref("largest")` is the claim size over the size before the features: the product of the severity relativities of the claim's levels times the rescaling constant (section 8).
+In `r tab_ref("largest")` the raw size is the size before the features and the raw rank its rank among all claims; the factor is the claim size over the raw size: the product of the severity relativities of the claim's levels times the rescaling constant (section 8).
 
 ## Delays
 
@@ -493,13 +535,13 @@ show(censoring, "censoring",
 
 ## Reporting delay, number of payments and claim size
 
-`r tab_ref("by_delay")` to `r tab_ref("by_size")` and `r fig_ref("bars_delay")` and `r fig_ref("bars_payments")` are the analogues of Figures A2 and A3 of Gabrielli and Wuthrich (2018). The claim size and the settlement delay do not depend on the reporting delay (the rows from T = 3 on rest on few claims). The number of payments rises with the claim size, by design: claims of 1 to 3 payments are small and together hold `r num(sum(by_payments$cost_pct[1:3]), 1)`% of the cost. SynthETIC has no recoveries, so panel (c) of Figure A3 is replaced by the settlement delay.
+`r tab_ref("by_delay")` to `r tab_ref("by_size")` and `r fig_ref("bars_delay")` and `r fig_ref("bars_payments")` are the analogues of Figures A2 and A3 of Gabrielli and Wuthrich (2018). The settlement delay does not depend on the reporting delay. The claim size falls slightly with it (median `r num(by_delay$median_size[1])` at T = 0, `r num(by_delay$median_size[2])` at T = 1 and `r num(by_delay$median_size[3])` at T = 2), because the levels with larger claims are reported faster by design (section 8); the rows from T = 3 on rest on few claims. The number of payments rises with the claim size, by design: claims of 1 to 3 payments are small and together hold `r num(sum(by_payments$cost_pct[1:3]), 1)`% of the cost. SynthETIC has no recoveries, so panel (c) of Figure A3 is replaced by the settlement delay.
 
 ```{r by-delay}
 show(by_delay, "by_delay",
-     c("T", "Claims", "Mean size", "Mean number of payments",
+     c("T", "Claims", "Mean size", "Median size", "Mean number of payments",
        "Mean settlement delay"),
-     digits = c(0, 0, 0, 2, 2))
+     digits = c(0, 0, 0, 0, 2, 2))
 ```
 
 ```{r fig-bars-delay, out.width = "6.3in", fig.cap = fig_cap("bars_delay")}
@@ -536,11 +578,15 @@ show(by_size, "by_size",
 `r tab_ref("incremental")` and `r tab_ref("cumulative")` are the observed triangles of the nominal payments, the data of the Mack, ODP GLM and bCCNN scripts. The last column of `r tab_ref("cumulative")` is the true ultimate at development year 20. `r fig_ref("triangle")` shows the whole 20 x 20 square, with the future cells below the staircase.
 
 ```{r incremental}
-show(incremental, "incremental", c("AY", 1:20), digits = 1)
+## a triangle with one decimal in every cell
+triangle_tab <- function(d) data.frame(d[, 1], lapply(d[, -1], num, digits = 1))
+kable(triangle_tab(incremental), col.names = c("AY", 1:20),
+      align = c("l", rep("r", 20)), caption = tab_cap("incremental"))
 ```
 
 ```{r cumulative}
-show(cumulative, "cumulative", c("AY", 1:20, "True ultimate"), digits = 1)
+kable(triangle_tab(cumulative), col.names = c("AY", 1:20, "True ultimate"),
+      align = c("l", rep("r", 21)), caption = tab_cap("cumulative"))
 ```
 
 ```{r fig-triangle, out.width = "4.72in", fig.cap = fig_cap("triangle")}
@@ -549,7 +595,7 @@ include_graphics(data_fig("06 triangle"))
 
 ## Development factors and payment pattern
 
-`r tab_ref("development")` gives the chain-ladder factors of the observed triangle next to those of the full simulation, the range of the observed individual factors, and the share of the ultimate paid by development year. The business is short-tailed in the sense of environment 1: `r num(dev_row(1)$paid_pct_true, 1)`% of the ultimate is paid in the accident year, `r num(dev_row(2)$paid_pct_true, 1)`% by the end of development year 2, `r num(dev_row(5)$paid_pct_true, 1)`% by year 5 and `r num(dev_row(10)$paid_pct_true, 1)`% by year 10. The factors of the observed triangle are close to those of the full simulation (the first factor is `r num(dev_row(1)$cl_factor, 4)` against `r num(dev_row(1)$cl_factor_true, 4)`).
+`r tab_ref("development")` gives the chain-ladder factors of the observed triangle next to those of the full simulation, the range of the observed individual factors, and the share paid by development year. The chain-ladder pattern is in % of the chain-ladder ultimate at development year 20 and ends at 100; the true pattern is in % of the nominal ultimate and ends at `r num(dev_row(20)$paid_pct_true, 2)`, the rest being paid after development year 20. The business is short-tailed in the sense of environment 1: `r num(dev_row(1)$paid_pct_true, 1)`% of the nominal ultimate is paid in the accident year, `r num(dev_row(2)$paid_pct_true, 1)`% by the end of development year 2, `r num(dev_row(5)$paid_pct_true, 1)`% by year 5 and `r num(dev_row(10)$paid_pct_true, 1)`% by year 10. The factors of the observed triangle are close to those of the full simulation (the first factor is `r num(dev_row(1)$cl_factor, 4)` against `r num(dev_row(1)$cl_factor_true, 4)`).
 
 ```{r development}
 show(development, "development",
@@ -572,7 +618,7 @@ include_graphics(data_fig("07 development factors"))
 
 ## Calendar years and inflation
 
-`r tab_ref("calendar")` and `r fig_ref("calendar")` give the payments by calendar year. The index is the nominal amount over the amount in constant values: it rises by 2% a year. After the valuation date only the 20 simulated accident years run off: `r num(future$outstanding_pct[1], 1)`% of the true outstanding is paid in the first year after the valuation date and `r num(sum(future$outstanding_pct[1:5]), 1)`% within five years.
+`r tab_ref("calendar")` and `r fig_ref("calendar")` give the payments by calendar year. The index is the nominal amount over the amount in constant values: it rises by about 2% a year (the last row pools 13 calendar years, and the payments after development year 20 carry inflation only to the end of development year 20). After the valuation date only the 20 simulated accident years run off: `r num(future$outstanding_pct[1], 1)`% of the true outstanding is paid in the first year after the valuation date and `r num(sum(future$outstanding_pct[1:5]), 1)`% within five years.
 
 ```{r calendar}
 show(calendar, "calendar",
@@ -595,12 +641,12 @@ show(late, "late",
 
 # Chain-ladder reserves
 
-`r tab_ref("cl_reserves")` and `r fig_ref("reserves")` compare Mack's chain-ladder reserves with the true outstanding of the triangle (the analogue of Table 7 of Gabrielli and Wuthrich 2018; the same numbers as `output/tables/01_Mack/`). The total reserve is `r num(res_total$CL_reserves, 1)` million against `r num(res_total$true_reserves, 1)` million, an error of `r num(res_total$error, 1)` million. The largest error is in accident year 20 (`r num(reserves$error[reserves$AY == "20"], 1)` million, `r num(abs(reserves$error[reserves$AY == "20"]) / reserves$msep_sqrt[reserves$AY == "20"], 2)` times its sqrt(msep)).
+`r tab_ref("cl_reserves")` and `r fig_ref("reserves")` compare Mack's chain-ladder reserves with the true reserve, the true outstanding of the triangle (the analogue of Table 7 of Gabrielli and Wuthrich 2018; the same numbers as `output/tables/01_Mack/`). The total reserve is `r num(res_total$CL_reserves, 1)` million against `r num(res_total$true_reserves, 1)` million, an error of `r num(res_total$error, 1)` million. The largest error is in accident year 20 (`r num(reserves$error[reserves$AY == "20"], 1)` million, `r num(abs(reserves$error[reserves$AY == "20"]) / reserves$msep_sqrt[reserves$AY == "20"], 2)` times its sqrt(msep)).
 
 ```{r cl-reserves}
 show(reserves, "cl_reserves",
      c("AY", "Paid", "Chain-ladder reserve", "sqrt(msep)",
-       "True outstanding", "Error"),
+       "True reserve (DY 1 to 20)", "Error"),
      digits = 1)
 ```
 
@@ -615,6 +661,9 @@ include_graphics(data_fig("10 chain-ladder reserves"))
 `r tab_ref("f_design")` gives the design of the five features. The probability of a level is the sum of the designed probabilities of the combinations that contain it. The severity relativity is the factor on the claim size, all else equal; the column next to it is the same relative to the reference level. The two multipliers scale the mean (and every quantile) of the notification and of the settlement delay.
 
 ```{r f-design}
+## 'reference' for a level that is not the reference level of this report
+design$rationale[design$rationale == "reference" & !design$reference] <-
+  "as the reference level (multipliers 1)"
 design_tab <- data.frame(design$feature, design$level,
                          100 * design$design_prob, design$freq_relativity,
                          design$sev_relativity, design$sev_vs_reference,
@@ -641,11 +690,11 @@ show(interactions, "f_interactions",
 
 ## The portfolio mix
 
-`r tab_ref("f_mix")` and `r fig_ref("f_mix")` compare the observed share of the claims with the designed probability. The standardised differences z are all below `r num(ceiling(10 * max(abs(mix$z))) / 10, 1)` in absolute value. Three levels are small: Heavy goods has `r num(lv(mix, veh, "Heavy goods", "n"))` claims, Medium goods `r num(lv(mix, veh, "Medium goods", "n"))` and Injury Severity 5 `r num(lv(mix, inj, "5", "n"))`. Their averages are noisy and should not be over-read.
+`r tab_ref("f_mix")` and `r fig_ref("f_mix")` compare the simulated share of the claims with the designed probability. The standardised differences z are all below `r num(ceiling(10 * max(abs(mix$z))) / 10, 1)` in absolute value. Three levels are small: Heavy goods has `r num(lv(mix, veh, "Heavy goods", "n"))` claims, Medium goods `r num(lv(mix, veh, "Medium goods", "n"))` and Injury Severity 5 `r num(lv(mix, inj, "5", "n"))`. Their averages are noisy and should not be over-read.
 
 ```{r f-mix}
 show(mix, "f_mix",
-     c("Feature", "Level", "Claims", "Observed %", "Designed %", "z"),
+     c("Feature", "Level", "Claims", "Simulated %", "Designed %", "z"),
      digits = c(0, 0, 0, 3, 3, 2))
 ```
 
@@ -658,7 +707,7 @@ include_graphics(feat_fig("01 portfolio mix"))
 ```{r f-dependent}
 show(dependent, "f_dependent",
      c("Pair", "Level of the first", "Level of the second", "Claims",
-       "Observed %", "Designed %", "% within the level of the first"),
+       "Simulated %", "Designed %", "% within the level of the first"),
      digits = c(0, 0, 0, 0, 3, 3, 1))
 ```
 
@@ -666,7 +715,7 @@ show(dependent, "f_dependent",
 include_graphics(feat_fig("02 dependent features"))
 ```
 
-Cramer's V (`r tab_ref("f_cramer")`) is `r num(cramer[cramer$feature == leg, inj], 3)` for Legal Representation with Injury Severity and `r num(cramer[cramer$feature == veh, bus], 3)` for Vehicle type with Business use, and at most `r num(max(as.matrix(cramer[, -1])[as.matrix(cramer[, -1]) < 0.1]), 4)` for every other pair, including each feature with the accident year. The V of Legal Representation with Injury Severity looks modest although the dependence is total for unrepresented claims, because they are only `r num(lv(mix, leg, "N", "share_pct"), 1)`% of the claims.
+Cramer's V (`r tab_ref("f_cramer")`) is `r num(cramer[cramer$feature == leg, inj], 3)` for Legal Representation with Injury Severity and `r num(cramer[cramer$feature == veh, bus], 3)` for Vehicle type with Business use, and at most `r num(ceiling(1e4 * max(as.matrix(cramer[, -1])[as.matrix(cramer[, -1]) < 0.1])) / 1e4, 4)` for every other pair, including each feature with the accident year. The V of Legal Representation with Injury Severity looks modest although the dependence is total for unrepresented claims, because they are only `r num(lv(mix, leg, "N", "share_pct"), 1)`% of the claims.
 
 ```{r f-cramer}
 show(cramer, "f_cramer",
@@ -677,10 +726,12 @@ show(cramer, "f_cramer",
 
 ## Combinations of levels
 
-`r num(cmb[["observed"]])` of the `r num(cmb[["with a positive designed probability"]])` possible combinations occur (`r tab_ref("f_combos")`); those that do not occur have an expected number of claims of at most `r num(cmb[["largest expected number of claims of those not observed"]], 1)`. The feature space is thin: `r num(cmb[["observed with fewer than 100 claims"]])` of the observed combinations have fewer than 100 claims, and the `r num(cmb[["cells accident year x combination with claims"]])` cells of accident year and combination, the units of the NN chain ladder, hold a median of `r num(cmb[["median number of claims per cell"]])` claims.
+`r num(cmb[["occurring"]])` of the `r num(cmb[["with a positive designed probability"]])` possible combinations occur (`r tab_ref("f_combos")`); those that do not occur have an expected number of claims of at most `r num(ceiling(10 * cmb[["largest expected number of claims of those not occurring"]]) / 10, 1)`. `r num(cmb[["possible with an expected number of claims below 5"]])` of the possible combinations have an expected number of claims below 5, so the p-value of the chi-square test is approximate. The feature space is thin: `r num(cmb[["occurring with fewer than 100 claims"]])` of the occurring combinations have fewer than 100 claims, and the `r num(cmb[["cells accident year x combination with claims"]])` cells of accident year and combination, the units of the NN chain ladder, hold a median of `r num(cmb[["median number of claims per cell"]])` claims.
 
 ```{r f-combos}
-kable(data.frame(combos$quantity, smart(combos$value)),
+kable(data.frame(combos$quantity,
+                 ifelse(grepl("rescaling", combos$quantity),
+                        num(combos$value, 4), smart(combos$value))),
       col.names = c("Quantity", "Value"), align = "lr",
       caption = tab_cap("f_combos"))
 ```
@@ -697,7 +748,7 @@ show(top_combos, "f_top",
 
 ## Stability over the accident years
 
-The mix of the levels does not drift (`r tab_ref("f_stability")`, `r fig_ref("f_mix_ay")`): the p-values of the chi-square tests of level against accident year are between `r num(min(stability$chi2_p_value), 2)` and `r num(max(stability$chi2_p_value), 2)`. This is why the features do not bias the chain ladder of the whole triangle. The shares of the cost are less stable than the shares of the claims, because few large claims move them: the share of Heavy goods in the nominal ultimate of an accident year ranges from `r num(lv(stability, veh, "Heavy goods", "ultimate_pct_min"), 1)`% to `r num(lv(stability, veh, "Heavy goods", "ultimate_pct_max"), 1)`%.
+The mix of the levels does not drift (`r tab_ref("f_stability")`, `r fig_ref("f_mix_ay")`): the p-values of the chi-square tests of level against accident year are between `r num(min(stability$chi2_p_value), 2)` and `r num(max(stability$chi2_p_value), 2)`. A stable mix gives the chain ladder of the whole triangle no reason for a systematic error from the features. The shares of the cost are less stable than the shares of the claims, because few large claims move them: the share of Heavy goods in the nominal ultimate of an accident year ranges from `r num(lv(stability, veh, "Heavy goods", "ultimate_pct_min"), 1)`% to `r num(lv(stability, veh, "Heavy goods", "ultimate_pct_max"), 1)`%.
 
 ```{r f-stability}
 show(stability, "f_stability",
@@ -715,7 +766,7 @@ include_graphics(feat_fig("13 mix by accident year"))
 
 ## Claim size
 
-`r tab_ref("f_size")` and `r fig_ref("f_size")` give the claim size by level. A level moves the whole distribution without changing its shape: the quartile range has about the same width on the log scale in every level. The ratio of the share of the cost to the share of the claims runs from `r num(min(size_level$cost_to_claims), 2)` (`r size_level$feature[which.min(size_level$cost_to_claims)]` `r size_level$level[which.min(size_level$cost_to_claims)]`) to `r num(max(size_level$cost_to_claims), 1)` (`r size_level$feature[which.max(size_level$cost_to_claims)]` `r size_level$level[which.max(size_level$cost_to_claims)]`). Injury Severity 6 has the lowest relativity of its feature: the feature is a code, not a scale on which size rises.
+`r tab_ref("f_size")` and `r fig_ref("f_size")` give the claim size by level. A level moves the whole distribution without changing its shape much: the upper quartile is `r num(min(iq_ratio), 1)` to `r num(max(iq_ratio), 1)` times the lower quartile in every level (the extremes are small levels). The ratio of the share of the cost to the share of the claims runs from `r num(min(size_level$cost_to_claims), 2)` (`r size_level$feature[which.min(size_level$cost_to_claims)]` `r size_level$level[which.min(size_level$cost_to_claims)]`) to `r num(max(size_level$cost_to_claims), 1)` (`r size_level$feature[which.max(size_level$cost_to_claims)]` `r size_level$level[which.max(size_level$cost_to_claims)]`). Injury Severity 6 has the lowest relativity of its feature: the feature is a code, not a scale on which size rises.
 
 ```{r f-size}
 show(size_level, "f_size",
@@ -729,29 +780,30 @@ show(size_level, "f_size",
 include_graphics(feat_fig("04 claim size by level"))
 ```
 
-`r tab_ref("f_sev")` and `r fig_ref("f_sev")` are the central table and figure on the claim size. For every level other than the reference level they compare three numbers: the designed relativity; the one-way ratio (the mean, and the geometric mean, of the level over that of the reference level); and the all-else-equal estimate, the exponential of the coefficient of the linear model of the log claim size on the five features, with its 95% interval. That model is the structure of the simulator itself: the log claim size is the log size before the features plus the sum of the log relativities.
+`r tab_ref("f_sev")` and `r fig_ref("f_sev")` are the central table and figure on the claim size. For every level other than the reference level they compare three numbers: the designed relativity; the one-way ratio (the mean, and the geometric mean, of the level over that of the reference level); and the all-else-equal estimate, the exponential of the coefficient of the linear model of the log claim size on the five features, with its 95% interval. That model is the structure of the simulator itself, apart from the small interaction of Injury Severity with Age of Claimant: the log claim size is the log size before the features plus the sum of the log relativities. For Injury Severity 4 and 5 the designed relativity in the table is the one for the ages up to 50.
 
-The all-else-equal estimates recover the design: `r sev_inside` of the `r n_ref` intervals contain the designed relativity. The one-way ratios do not where the features depend on each other: Legal Representation N (`r num(lv(sev_effects, leg, "N", "ratio_of_means"), 3)` against `r num(lv(sev_effects, leg, "N", "design"), 2)`), Business use Y (`r num(lv(sev_effects, bus, "Y", "ratio_of_means"), 3)` against `r num(lv(sev_effects, bus, "Y", "design"), 2)`) and the three commercial vehicle types. For Heavy goods the one-way ratio of the means (`r num(lv(sev_effects, veh, "Heavy goods", "ratio_of_means"), 1)`) also carries the largest claim of the portfolio.
+The all-else-equal estimates recover the design: `r sum(sev_in)` of the `r n_ref` intervals contain the designed relativity (those of `r sev_miss` miss it by at most `r num(max(pmax(sev_effects$lower - sev_effects$design, sev_effects$design - sev_effects$upper)[!sev_in]), 4)`). The one-way ratios do not where the features depend on each other: Legal Representation N (`r num(lv(sev_effects, leg, "N", "ratio_of_means"), 3)` against `r num(lv(sev_effects, leg, "N", "design"), 2)`), Business use Y (`r num(lv(sev_effects, bus, "Y", "ratio_of_means"), 3)` against `r num(lv(sev_effects, bus, "Y", "design"), 2)`) and the three commercial vehicle types. For Heavy goods the one-way ratio of the means (`r num(lv(sev_effects, veh, "Heavy goods", "ratio_of_means"), 1)`) also carries the largest claim of the portfolio.
 
 ```{r f-sev}
 show(sev_effects, "f_sev",
      c("Feature", "Level", "Designed", "One-way, ratio of means",
        "One-way, ratio of geometric means", "All else equal",
        "95% interval, lower", "95% interval, upper"),
-     digits = c(0, 0, 3, 3, 3, 3, 3, 3))
+     digits = c(0, 0, 3, 3, 3, 3, 4, 4))
 ```
 
 ```{r fig-f-sev, out.width = "4.72in", fig.cap = fig_cap("f_sev")}
 include_graphics(feat_fig("05 severity relativities"))
 ```
 
-`r tab_ref("f_injury_age")` and `r fig_ref("f_injury_age")` look at the two features with a designed severity interaction. The median claim size runs from `r num(min(injury_age$median_size))` to `r num(max(injury_age$median_size))` over the 30 cells. The column "against main effects" is the geometric mean of the cell over the fit of the two main effects; the designed interaction (0.90 to 0.97 in four cells) is of the same size as the noise of the cells of Injury Severity 5 and 6, which have `r num(min(injury_age$n[injury_age$injury %in% 5:6]))` to `r num(max(injury_age$n[injury_age$injury %in% 5:6]))` claims each. The interaction is too small to be seen in the data.
+`r tab_ref("f_injury_age")` and `r fig_ref("f_injury_age")` look at the two features with a designed severity interaction. The median claim size runs from `r num(min(injury_age$median_size))` to `r num(max(injury_age$median_size))` over the 30 cells. The column "against main effects" is the geometric mean of the cell over the fit of the two main effects. The next column is the same for the designed relativities of the claims, that is, what the first would be without noise: it is closer to 1 than the designed interaction itself (`r num(min(injury_age$design), 2)` to `r num(max(injury_age$design[designed]), 2)` in `r sum(designed)` cells), because the fit of the main effects takes up part of it. In the cells without a designed interaction the two columns differ by up to `r num(100 * max(abs(injury_age$ratio_to_main_effects / injury_age$design_ratio - 1)[!designed]), 0)`%, as much as the designed effect: the cells of Injury Severity 5 and 6 have `r num(min(injury_age$n[injury_age$injury %in% 5:6]))` to `r num(max(injury_age$n[injury_age$injury %in% 5:6]))` claims each. The interaction cannot be read off the single cells.
 
 ```{r f-injury-age}
 show(injury_age, "f_injury_age",
      c("Injury Severity", "Age of Claimant", "Claims", "Median size",
-       "Against main effects", "Designed interaction"),
-     digits = c(0, 0, 0, 0, 3, 2), align = "rrrrrr")
+       "Against main effects", "The same without noise",
+       "Designed interaction"),
+     digits = c(0, 0, 0, 0, 3, 3, 2), align = "rrrrrrr")
 ```
 
 ```{r fig-f-injury-age, out.width = "4.72in", fig.cap = fig_cap("f_injury_age")}
@@ -775,13 +827,14 @@ show(tail_level[, c("feature", "level", "claims_pct", "top_1pct_pct", "lift",
 
 ```{r f-delays}
 show(delay_level, "f_delays",
-     c("Feature", "Level", "Notification: mean", "median", "mean multiplier",
-       "% reported in the AY", "base", "Settlement: mean", "median", "90%",
-       "mean multiplier", "% over 5 years", "base"),
+     c("Feature", "Level", "Notif. mean", "Notif. median",
+       "Notif. mean multiplier", "% reported in the AY", "Notif. base",
+       "Settl. mean", "Settl. median", "Settl. 90%", "Settl. mean multiplier",
+       "% over 5 years", "Settl. base"),
      digits = c(0, 0, 3, 3, 3, 1, 3, 2, 2, 2, 3, 1, 3))
 ```
 
-`r tab_ref("f_delay_mult")` and `r fig_ref("f_delay_mult")` compare the designed multipliers with the one-way ratios of the means and with the all-else-equal estimates of the log-linear model (a multiplier scales the Weibull scale, so the log delay is a constant plus the sum of the log multipliers plus an error with the same distribution for every claim). `r delay_inside` of the `r nrow(delay_effects)` intervals contain the designed multiplier. The settlement delay is moved by Injury Severity (`r num(lv(design, inj, "1", "setldel_mult"), 2)` to `r num(lv(design, inj, "5", "setldel_mult"), 2)`), by the age band 0-15 (`r num(lv(design, age, "0-15", "setldel_mult"), 2)`) and by Legal Representation N (`r num(lv(design, leg, "N", "setldel_mult"), 2)`); the multipliers of Vehicle type and Business use are close to 1. The notification multipliers are between `r num(min(design$notidel_mult), 2)` and `r num(max(design$notidel_mult), 2)`, but they act on a delay of about a month and a half: the share of the claims reported in the accident year only ranges from `r num(min(delay_level$same_year_pct), 1)`% to `r num(max(delay_level$same_year_pct), 1)`% over the 19 levels.
+`r tab_ref("f_delay_mult")` and `r fig_ref("f_delay_mult")` compare the designed multipliers with the one-way ratios of the means and with the all-else-equal estimates of the log-linear model (a multiplier scales the Weibull scale, so the log delay is a constant plus the sum of the log multipliers plus an error with the same distribution for every claim). `r delay_inside` of the `r nrow(delay_effects)` intervals contain the designed multiplier. The settlement delay is moved by Injury Severity (`r num(min(design$setldel_mult[design$feature == inj]), 2)` to `r num(max(design$setldel_mult[design$feature == inj]), 2)`), by the age band 0-15 (`r num(lv(design, age, "0-15", "setldel_mult"), 2)`) and by Legal Representation N (`r num(lv(design, leg, "N", "setldel_mult"), 2)`); the multipliers of Vehicle type and Business use are close to 1. The notification multipliers are between `r num(min(design$notidel_mult), 2)` and `r num(max(design$notidel_mult), 2)`, but they act on a delay of about a month and a half: the share of the claims reported in the accident year only ranges from `r num(min(delay_level$same_year_pct), 1)`% to `r num(max(delay_level$same_year_pct), 1)`% over the 19 levels.
 
 ```{r f-delay-mult}
 show(delay_effects, "f_delay_mult",
@@ -805,7 +858,7 @@ show(truncation, "f_truncation",
 
 ## Number of payments
 
-The features have no direct effect on the number of payments: SynthETIC draws it from the claim size (`r tab_ref("f_pay_band")`). A level with larger claims therefore has more payments (`r tab_ref("f_pay_level")`): the mean runs from `r num(min(payments_level$mean_no_payment), 2)` to `r num(max(payments_level$mean_no_payment), 2)`, and in every level it agrees with the mean of the designed number given the claim sizes of its claims. `r fig_ref("f_np")` shows the same: at a given claim size all levels of Injury Severity lie on the designed curve.
+The features have no direct effect on the number of payments: SynthETIC draws it from the claim size (`r tab_ref("f_pay_band")`). A level with larger claims therefore has more payments (`r tab_ref("f_pay_level")`): the mean runs from `r num(min(payments_level$mean_no_payment), 2)` to `r num(max(payments_level$mean_no_payment), 2)`, and in every level it agrees with the mean of the designed number given the claim sizes of its claims within sampling error (the largest difference is `r payments_level$feature[np_gap]` `r payments_level$level[np_gap]`: `r num(payments_level$mean_no_payment[np_gap], 2)` against `r num(payments_level$mean_np_design[np_gap], 2)`). `r fig_ref("f_np")` shows the same: at a given claim size all levels of Injury Severity lie on the designed curve.
 
 ```{r f-pay-band}
 show(payments_band, "f_pay_band",
@@ -835,9 +888,9 @@ show(payments_r2, "f_pay_r2", c("Model", "Variance explained %"), digits = 2)
 
 ## Variance explained
 
-`r tab_ref("f_variance")` and `r fig_ref("f_variance")` put the features on one scale for five outcomes. One-way is the share of the variance explained by the feature alone; drop-one is the loss when the feature is left out of the model with all five. The two differ for the dependent features (Legal Representation, Vehicle type, Business use), whose one-way shares include part of their partner's effect.
+`r tab_ref("f_variance")` and `r fig_ref("f_variance")` compare the features for five outcomes (every panel of the figure has its own scale: the shares differ by a factor of 100 between the outcomes). One-way is the share of the variance explained by the feature alone; drop-one is the loss when the feature is left out of the model with all five. The two differ for the features of the two dependent pairs, whose one-way shares include part of their partner's effect; for Age of Claimant, which is independent of the others, they agree.
 
-Injury Severity leads for every outcome. For the claim size the order is Injury Severity (`r num(r2("log claim size", inj), 1)` points), Vehicle type (`r num(r2("log claim size", veh), 1)`), Age of Claimant (`r num(r2("log claim size", age), 1)`), Legal Representation (`r num(r2("log claim size", leg), 2)`) and Business use (`r num(r2("log claim size", bus), 2)`). For the settlement delay and the payment lag the order changes: Injury Severity, then Age of Claimant, then Legal Representation; Vehicle type and Business use explain nothing.
+Injury Severity leads for every outcome. For the claim size the order is Injury Severity (`r num(r2("log claim size", inj), 1)` points), Vehicle type (`r num(r2("log claim size", veh), 1)`), Age of Claimant (`r num(r2("log claim size", age), 1)`), Legal Representation (`r num(r2("log claim size", leg), 2)`) and Business use (`r num(r2("log claim size", bus), 2)`). For the settlement delay and the payment lag the order changes: Injury Severity, then Age of Claimant, then Legal Representation; Vehicle type and Business use explain almost nothing (at most `r num(max(r2("log settlement delay", veh), r2("log settlement delay", bus), r2("log payment lag", veh), r2("log payment lag", bus)), 2)` points).
 
 The features explain little of the variation between single claims: `r num(r2("log claim size", "additive", "r2"), 1)`% of the variance of the log claim size, `r num(r2("log settlement delay", "additive", "r2"), 1)`% for the log settlement delay and `r num(r2("log notification delay", "additive", "r2"), 2)`% for the log notification delay. The rest is the randomness of the generator. A small share of the variance does not mean a small effect on the portfolio: Injury Severity explains `r num(r2("log settlement delay", inj), 1)`% of the variance of the log settlement delay, yet the mean settlement delay of level 5 is `r num(lv(delay_level, inj, "5", "mean_setldel") / lv(delay_level, inj, "1", "mean_setldel"), 2)` times that of level 1. The saturated model (one mean per combination) explains hardly more than the additive one, so the features act almost multiplicatively, as designed. The last rows are the check: the features explain none of the variance of the claim size before the features.
 
@@ -846,7 +899,7 @@ terms <- c(leg, inj, age, veh, bus)
 variance_tab <- do.call(rbind, lapply(unique(variance$outcome), function(o) {
   v <- variance[variance$outcome == o, ]
   data.frame(outcome = o,
-             measure = c("one-way", "drop-one"),
+             measure = c("one\u2011way", "drop\u2011one"),
              rbind(100 * v$one_way[match(terms, v$term)],
                    100 * v$drop_one[match(terms, v$term)]),
              additive = c(NA, 100 * v$r2[v$term == "additive"]),
@@ -869,7 +922,7 @@ include_graphics(feat_fig("07 variance explained"))
 
 `r tab_ref("f_pattern")` and `r fig_ref("f_pattern")` give the payment pattern of every level: the cumulative share of its nominal ultimate paid by development year, all accident years together. `r tab_ref("f_timing")` adds the amount-weighted mean payment lag, the mean time from the occurrence to the payment weighted by the nominal amounts.
 
-Three features change the timing. Injury Severity: the lag rises from `r num(lv(timing, inj, "1", "lag"), 2)` years (level 1) to `r num(lv(timing, inj, "5", "lag"), 2)` years (level 5), and the share paid in the accident year falls from `r num(lv(timing, inj, "1", "dev_1"), 1)`% to `r num(lv(timing, inj, "5", "dev_1"), 1)`%. Age of Claimant: the band 0-15 has a lag of `r num(lv(timing, age, "0-15", "lag"), 2)` years against `r num(lv(timing, age, "over 65", "lag"), 2)` for over 65. Legal Representation: unrepresented claims are paid fastest (`r num(lv(timing, leg, "N", "lag"), 2)` years; `r num(lv(timing, leg, "N", "dev_2"), 1)`% by the end of development year 2), which is partly the effect of Injury Severity 1. Vehicle type and Business use leave the pattern where it is: the lags of Passenger and Light Commerical are `r num(lv(timing, veh, "Passenger", "lag"), 2)` and `r num(lv(timing, veh, "Light Commerical", "lag"), 2)` years. The patterns of Medium goods and Heavy goods are irregular because few large claims carry them.
+Three features change the timing. Injury Severity: the lag rises from `r num(lv(timing, inj, "1", "lag"), 2)` years (level 1) to `r num(lv(timing, inj, "5", "lag"), 2)` years (level 5), and the share paid in the accident year falls from `r num(lv(timing, inj, "1", "dev_1"), 1)`% to `r num(lv(timing, inj, "5", "dev_1"), 1)`%. Age of Claimant: the band 0-15 has a lag of `r num(lv(timing, age, "0-15", "lag"), 2)` years against `r num(lv(timing, age, "over 65", "lag"), 2)` for over 65. Legal Representation: unrepresented claims are paid fastest (`r num(lv(timing, leg, "N", "lag"), 2)` years; `r num(lv(timing, leg, "N", "dev_2"), 1)`% by the end of development year 2), which is partly the effect of Injury Severity 1. Vehicle type and Business use hardly change the timing (their settlement multipliers are `r num(min(design$setldel_mult[design$feature %in% c(veh, bus)]), 2)` to `r num(max(design$setldel_mult[design$feature %in% c(veh, bus)]), 2)`): the lags of Passenger and Light Commerical are `r num(lv(timing, veh, "Passenger", "lag"), 2)` and `r num(lv(timing, veh, "Light Commerical", "lag"), 2)` years, those of Business use N and Y `r num(lv(timing, bus, "N", "lag"), 2)` and `r num(lv(timing, bus, "Y", "lag"), 2)` years. The patterns of Medium goods and Heavy goods are irregular because few large claims carry them.
 
 ```{r f-pattern}
 show(pattern[, c("feature", "level",
@@ -893,7 +946,7 @@ show(timing, "f_timing",
 
 ## Exposure and outstanding
 
-`r tab_ref("f_exposure")` and `r fig_ref("f_shares")` are the reserving view of the features: the weight of each level in the claims, in the cost and in the true outstanding. A level is over-represented in the outstanding when its claims are large or slow. Injury Severity 5 is `r num(lv(exposure, inj, "5", "claims_pct"), 2)`% of the claims and `r num(lv(exposure, inj, "5", "outstanding_pct"), 1)`% of the outstanding; Injury Severity 1 is `r num(lv(exposure, inj, "1", "claims_pct"), 1)`% of the claims and `r num(lv(exposure, inj, "1", "outstanding_pct"), 1)`% of the outstanding. The paid ratio falls from `r num(lv(exposure, inj, "1", "paid_pct"), 1)`% (level 1) to `r num(lv(exposure, inj, "5", "paid_pct"), 1)`% (level 5). Light Commerical vehicles and Business use Y are over-represented because of their size only: their paid ratios (`r num(lv(exposure, veh, "Light Commerical", "paid_pct"), 1)`% and `r num(lv(exposure, bus, "Y", "paid_pct"), 1)`%) are those of the portfolio (`r num(p[["paid to the valuation date (% of the ultimate)"]], 1)`%).
+`r tab_ref("f_exposure")` and `r fig_ref("f_shares")` are the reserving view of the features: the weight of each level in the claims, in the cost and in the true outstanding. A level is over-represented in the outstanding when its claims are large or slow. Injury Severity 5 is `r num(lv(exposure, inj, "5", "claims_pct"), 2)`% of the claims and `r num(lv(exposure, inj, "5", "outstanding_pct"), 1)`% of the outstanding; Injury Severity 1 is `r num(lv(exposure, inj, "1", "claims_pct"), 1)`% of the claims and `r num(lv(exposure, inj, "1", "outstanding_pct"), 1)`% of the outstanding. The paid ratio falls from `r num(lv(exposure, inj, "1", "paid_pct"), 1)`% (level 1) to `r num(lv(exposure, inj, "5", "paid_pct"), 1)`% (level 5). Light Commerical vehicles and Business use Y are over-represented because of their size only: their paid ratios (`r num(lv(exposure, veh, "Light Commerical", "paid_pct"), 1)`% and `r num(lv(exposure, bus, "Y", "paid_pct"), 1)`%) are close to that of the portfolio (`r num(p[["paid to the valuation date (% of the ultimate)"]], 1)`%).
 
 ```{r f-exposure}
 show(exposure, "f_exposure",
@@ -907,30 +960,30 @@ show(exposure, "f_exposure",
 include_graphics(feat_fig("03 shares by level"))
 ```
 
-`r tab_ref("f_open")` splits the outstanding of each level into open and unreported claims. The levels differ far more in the outstanding per open claim (`r num(min(open_level$os_per_open_claim))` to `r num(max(open_level$os_per_open_claim))`) than in the share of their outstanding that is on unreported claims. `r tab_ref("f_os_injury")` shows the outstanding by accident year and Injury Severity: in the older accident years it is almost all on the high severities, while in accident year 20 every severity still has claims to pay.
+`r tab_ref("f_open")` splits the outstanding of each level into open and unreported claims. The levels differ far more in the outstanding per open claim (`r num(min(open_level$os_per_open_claim))` to `r num(max(open_level$os_per_open_claim))`) than in the share of their outstanding that is on unreported claims. `r tab_ref("f_os_injury")` shows the outstanding by accident year and Injury Severity: in accident years 1 to 10, `r num(os_share("1-10"), 1)`% of it is on Injury Severity 3 to 5, in accident year 15 `r num(os_share("15"), 1)`% and in accident year 20 `r num(os_share("20"), 1)`%, where every severity still has claims to pay.
 
 ```{r f-open}
 show(open_level, "f_open",
      c("Feature", "Level", "Open claims", "% of the level's claims",
        "Not yet reported", "Outstanding, open",
        "Outstanding, not yet reported", "% of outstanding not yet reported",
-       "Outstanding per open claim"),
+       "Outstanding per open claim (units)"),
      digits = c(0, 0, 0, 1, 0, 1, 1, 1, 0))
 ```
 
 ```{r f-os-injury}
 show(os_injury, "f_os_injury",
      c("AY", paste("Injury", 1:6), "Total"),
-     digits = 1)
+     digits = 1, align = "rrrrrrrr")
 ```
 
 ## Chain ladder by level
 
-`r tab_ref("f_cl_factors")` and `r fig_ref("f_factors")` give the chain-ladder factors of each level's own observed triangle. They are the quantity the NN chain ladder of Wuthrich (2018) models as a function of the features. The first factor rises with Injury Severity from `r num(lv(factors_level, inj, "1", "f_1"), 3)` to `r num(lv(factors_level, inj, "5", "f_1"), 3)` and is `r num(lv(factors_level, age, "0-15", "f_1"), 3)` for the age band 0-15 against `r num(lv(factors_level, age, "over 65", "f_1"), 3)` for over 65; for Passenger and Light Commerical it is the same (`r num(lv(factors_level, veh, "Passenger", "f_1"), 3)` and `r num(lv(factors_level, veh, "Light Commerical", "f_1"), 3)`). The last three columns show how far a level can be trusted: Heavy goods has as few as `r num(lv(factors_level, veh, "Heavy goods", "min_claims"))` claims in an accident year and `r num(lv(factors_level, veh, "Heavy goods", "zero_cells"))` of its 210 observed cells are empty, and the standard deviation of its individual first factors is `r num(lv(factors_level, veh, "Heavy goods", "sd_f_1"), 1)`.
+`r tab_ref("f_cl_factors")` and `r fig_ref("f_factors")` give the chain-ladder factors of each level's own observed triangle. They are the quantity the NN chain ladder of Wuthrich (2018) models as a function of the features. The first factor rises from `r num(lv(factors_level, inj, "1", "f_1"), 3)` for Injury Severity 1 to `r num(lv(factors_level, inj, "5", "f_1"), 3)` for level 5 (level 6 has `r num(lv(factors_level, inj, "6", "f_1"), 3)`) and is `r num(lv(factors_level, age, "0-15", "f_1"), 3)` for the age band 0-15 against `r num(lv(factors_level, age, "over 65", "f_1"), 3)` for over 65; for Passenger and Light Commerical it is almost the same (`r num(lv(factors_level, veh, "Passenger", "f_1"), 3)` and `r num(lv(factors_level, veh, "Light Commerical", "f_1"), 3)`). The column "Paid % in DY 1, chain ladder" is the share the factors imply; it differs from the true share of `r tab_ref("f_timing")`. The last three columns show how far a level can be trusted: Heavy goods has as few as `r num(lv(factors_level, veh, "Heavy goods", "min_claims"))` claims in an accident year and `r num(lv(factors_level, veh, "Heavy goods", "zero_cells"))` of its 210 observed cells are empty, and the standard deviation of its individual first factors is `r num(lv(factors_level, veh, "Heavy goods", "sd_f_1"), 1)`.
 
 ```{r f-cl-factors}
 show(factors_level, "f_cl_factors",
-     c("Feature", "Level", paste0("f", 1:8), "Paid % in DY 1",
+     c("Feature", "Level", paste0("f", 1:8), "Paid % in DY 1, chain ladder",
        "SD of individual f1", "Fewest claims in an AY", "Empty cells"),
      digits = c(0, 0, rep(3, 8), 1, 2, 0, 0))
 ```
@@ -939,37 +992,44 @@ show(factors_level, "f_cl_factors",
 include_graphics(feat_fig("10 chain-ladder factors"))
 ```
 
-`r tab_ref("f_cl_reserves")` and `r fig_ref("f_cl_error")` apply Mack's chain ladder to each level's own triangle. The reserves of the large levels are within a few percent of the truth; those of the small or slow levels are not (Injury Severity 5 `r num(lv(cl_level, inj, "5", "error_pct"), 1)`%, Legal Representation N `r num(lv(cl_level, leg, "N", "error_pct"), 1)`%, Medium goods `r num(lv(cl_level, veh, "Medium goods", "error_pct"), 1)`%), and for Heavy goods the sqrt(msep) is larger than the reserve itself. These errors are single draws of one simulation, not biases.
+`r tab_ref("f_cl_reserves")` and `r fig_ref("f_cl_error")` apply Mack's chain ladder to each level's own triangle and compare the reserve with the level's true reserve (its true outstanding of development years 1 to 20, as in `r tab_ref("cl_reserves")`; the outstanding of `r tab_ref("f_exposure")` to `r tab_ref("f_os_injury")` also holds the payments after development year 20). The reserves of the `r sum(big)` levels with a true reserve of at least 1,000 million are within `r num(max(abs(cl_level$error_pct[big])), 1)`% of the truth; those of the smaller levels are up to `r num(max(abs(cl_level$error_pct[!big])), 1)`% off (`r cl_level$feature[worst]` `r cl_level$level[worst]`; Injury Severity 5 `r num(lv(cl_level, inj, "5", "error_pct"), 1)`%, Medium goods `r num(lv(cl_level, veh, "Medium goods", "error_pct"), 1)`%), and for Heavy goods the sqrt(msep) is larger than the reserve itself. These errors are single draws of one simulation, not biases.
+
+The last two columns of `r tab_ref("f_cl_reserves")` are the benchmark without the feature: the reserve of the level when the factors of the whole triangle are applied to its latest diagonal. For the features that change the timing this is far off: `r num(lv(cl_level, inj, "1", "portfolio_factors_error_pct"), 0)`% for Injury Severity 1, `r num(lv(cl_level, inj, "5", "portfolio_factors_error_pct"), 0)`% for Injury Severity 5 and `r num(lv(cl_level, age, "0-15", "portfolio_factors_error_pct"), 0)`% for the age band 0-15, against `r num(lv(cl_level, inj, "1", "error_pct"), 1)`%, `r num(lv(cl_level, inj, "5", "error_pct"), 1)`% and `r num(lv(cl_level, age, "0-15", "error_pct"), 1)`% with the level's own factors. For Legal Representation N it is `r num(lv(cl_level, leg, "N", "portfolio_factors_error_pct"), 0)`%. For the levels of Vehicle type and Business use the two reserves are of the same order.
 
 ```{r f-cl-reserves}
 show(cl_level, "f_cl_reserves",
      c("Feature", "Level", "Paid", "Chain-ladder reserve", "sqrt(msep)",
-       "True outstanding", "Error", "Error %", "Error / sqrt(msep)"),
-     digits = c(0, 0, 1, 1, 1, 1, 1, 1, 2))
+       "True reserve", "Error", "Error %", "Error / sqrt(msep)",
+       "Reserve with the factors of the whole triangle", "Its error %"),
+     digits = c(0, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1))
 ```
 
 ```{r fig-f-cl-error, out.width = "4.72in", fig.cap = fig_cap("f_cl_error")}
 include_graphics(feat_fig("12 chain-ladder reserves by level"))
 ```
 
-`r tab_ref("f_cl_split")` answers whether a split by one feature brings the total closer to the truth. It does not in this simulation: the totals range from `r num(min(cl_split$CL_reserves[-1]), 1)` to `r num(max(cl_split$CL_reserves[-1]), 1)` million against `r num(cl_split$CL_reserves[1], 1)` million for the whole triangle and the true `r num(cl_split$true_reserves[1], 1)` million. The differences between the rows are small against the sqrt(msep) of `r num(cl_split$msep_sqrt_whole_triangle[1], 1)` million, so the table cannot rank the splits; that would need repeated simulations. What the split does change is the sum of the absolute errors of the segments, which is the price of thinner triangles.
+`r tab_ref("f_cl_split")` answers whether a split by one feature brings the total closer to the truth. One simulation cannot tell: the totals range from `r num(min(cl_split$CL_reserves[-1]), 1)` to `r num(max(cl_split$CL_reserves[-1]), 1)` million against `r num(cl_split$CL_reserves[1], 1)` million for the whole triangle and the true `r num(cl_split$true_reserves[1], 1)` million, so `r sum(split_err < whole_err)` splits are closer to the truth and `r sum(split_err > whole_err)` further away. All errors are below the sqrt(msep) of the whole triangle (`r num(cl_split$msep_sqrt_whole_triangle[1], 1)` million) and the totals differ from the reserve of the whole triangle by at most `r num(max(abs(cl_split$CL_reserves[-1] - cl_split$CL_reserves[1])), 1)` million; ranking the splits would need repeated simulations.
+
+The last two columns are the sum of the absolute errors of the level reserves, with the levels' own factors and with the factors of the whole triangle. For Injury Severity, Age of Claimant and Legal Representation the levels' own factors reduce it (for Injury Severity from `r num(split_row(inj)$sum_abs_errors_portfolio_factors, 0)` to `r num(split_row(inj)$sum_abs_errors, 0)` million); for Vehicle type and Business use they do not (for Business use `r num(split_row(bus)$sum_abs_errors_portfolio_factors, 0)` against `r num(split_row(bus)$sum_abs_errors, 0)` million): there the split only adds the noise of thinner triangles.
 
 ```{r f-cl-split}
 show(cl_split[, c("split", "segments", "CL_reserves", "true_reserves",
-                  "error", "error_pct", "sum_abs_errors")],
+                  "error", "error_pct", "sum_abs_errors",
+                  "sum_abs_errors_portfolio_factors")],
      "f_cl_split",
-     c("Split", "Triangles", "Sum of the reserves", "True outstanding",
-       "Error", "Error %", "Sum of absolute errors"),
-     digits = c(0, 0, 1, 1, 1, 2, 1))
+     c("Split", "Triangles", "Sum of the reserves", "True reserve",
+       "Error", "Error %", "Sum of absolute level errors, own factors",
+       "Sum of absolute level errors, factors of the whole triangle"),
+     digits = c(0, 0, 1, 1, 1, 2, 1, 1))
 ```
 
 # What this means for the models
 
-- The whole triangle is well behaved: no drift in the mix, a stable pattern, inflation constant in calendar time. The chain ladder is hard to beat on the total reserve of this portfolio, and one simulation cannot show a difference of a percent or two between two methods.
-- The features carry real information about the development. Injury Severity, the age band 0-15 and Legal Representation change the payment pattern and the chain-ladder factors by more than their noise; Vehicle type and Business use change the size of the claims but not their timing. A model with features can therefore be expected to improve the reserves of groups of claims rather than the total.
+- The whole triangle is well behaved: no drift in the mix, a stable pattern, inflation constant in calendar time. In this simulation the chain ladder is `r num(whole_err, 2)`% below the true reserve, and one simulation cannot show a difference of a percent or two between two methods.
+- The features carry information about the development. Injury Severity, Age of Claimant and Legal Representation change the payment pattern: with the factors of the whole triangle the reserves of their levels are far off, with the levels' own factors much less (`r tab_ref("f_cl_reserves")`, `r tab_ref("f_cl_split")`). Vehicle type and Business use change the size of the claims and hardly their timing. In this portfolio a model with features has more to gain on the reserves of groups of claims than on the total.
 - The feature space is thin. Splitting the triangle by one feature already gives noisy reserves for the small levels, and the cells of the NN chain ladder hold a median of `r num(cmb[["median number of claims per cell"]])` claims. The gain from features has to come from pooling across levels, which is what the neural networks do.
 - `r num(100 * st_total$os_unreported / (st_total$os_open + st_total$os_unreported), 1)`% of the true outstanding is on claims whose features are not known at the valuation date.
-- Effects of the features must be measured all else equal. The one-way tables are confounded for Legal Representation, Vehicle type and Business use, and effects on delays estimated on closed claims are biased towards no effect.
+- Effects of the features must be measured all else equal. The one-way tables are confounded for the features of the two dependent pairs, and effects on delays estimated on closed claims are biased towards no effect.
 
 # Appendix: tables, figures and how to reproduce them
 
@@ -981,7 +1041,7 @@ Run from the project root, in this order (about half a minute and one minute):
 
 The Word format is that of `project_folder_guide.docx`: `thesis/guide_reference.docx` holds its styles (built by `thesis/make_guide_reference.R`) and `thesis/guide_tables.lua` gives every table the guide's table style.
 
-Tables 2 to 20 are the files `synthetic_data_t01_...csv` to `synthetic_data_t19_...csv` in `output/tables/00_claim-simulation/data-description/`, in the same order. Tables 21 to 47 are `synthetic_features_t01_...csv` to `synthetic_features_t27_...csv` in `output/tables/00_claim-simulation/feature-impact/`, in the same order except that the two tables on the variance explained (t18 and t19) appear as Tables 39 and 38. The tables in the files are not rounded. The figures are the PNG files in `output/figures/00_claim-simulation/data-description/` and `feature-impact/`; their file names start with "SynthETIC data Fig" and "SynthETIC features Fig".
+Tables 2 to 20 are the files `synthetic_data_t01_...csv` to `synthetic_data_t19_...csv` in `output/tables/00_claim-simulation/data-description/`, in the same order. Tables 21 to 47 are `synthetic_features_t01_...csv` to `synthetic_features_t27_...csv` in `output/tables/00_claim-simulation/feature-impact/`, in the same order except that the two tables on the variance explained (t18 and t19) appear as Tables 39 and 38. The tables in the files are not rounded. The figures are the PNG files in `output/figures/00_claim-simulation/data-description/` and `feature-impact/`; their file names start with "SynthETIC data Fig" and "SynthETIC features Fig" and are numbered within each script, not in the order of this report. When the Word file is opened, Word may ask whether to update the fields of the table of contents: answer yes.
 
 The functions are in `R/claims_description.R` (portfolio at the valuation date, relativity of a combination, chain-ladder factors, Cramer's V, Gini coefficient, log-linear effects, variance explained) and `R/plots_claims_description.R` (figures), with checks in `tests/testthat/test-claims_description.R`.
 

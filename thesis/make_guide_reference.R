@@ -9,7 +9,9 @@
 guide_path <- here::here("project_folder_guide.docx")
 out_path <- here::here("thesis", "guide_reference.docx")
 
+##########################################
 #########  read the styles of the guide
+##########################################
 
 tmp <- file.path(tempdir(), "guide_reference")
 unlink(tmp, recursive = TRUE)
@@ -47,7 +49,9 @@ heading_font <- paste0(
 )
 accent <- "<w:color w:val=\"4F81BD\" w:themeColor=\"accent1\"/>"
 
+##########################################
 #########  table styles
+##########################################
 
 ## Light Grid Accent 1 of the guide; pandoc always writes the table look
 ## firstRow = 1, firstColumn = 0, noHBand = 0, noVBand = 0, the guide has
@@ -78,7 +82,9 @@ table_tight <- sub("<w:name w:val=\"Light Grid Accent 1\"/>",
 table_tight <- gsub("<w:(left|right) w:w=\"108\" w:type=\"dxa\"/>",
                     "<w:\\1 w:w=\"43\" w:type=\"dxa\"/>", table_tight)
 
+##########################################
 #########  paragraph and character styles of pandoc
+##########################################
 
 ## body text as the Normal paragraphs of the guide (11 pt, 10 pt after)
 styles <- sub("(w:styleId=\"BodyText\".*?)<w:pPr><w:spacing[^>]*/></w:pPr>",
@@ -154,7 +160,9 @@ styles <- sub("</w:styles>",
               paste0(paste(new_styles[!has_id], collapse = ""), "</w:styles>"),
               styles, fixed = TRUE)
 
+##########################################
 #########  write the reference document
+##########################################
 
 con <- file(styles_path, open = "wb", encoding = "UTF-8")
 writeLines(styles, con, useBytes = FALSE)

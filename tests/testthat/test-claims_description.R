@@ -1,6 +1,5 @@
 ##########################################
-#########  checks of the claims description functions in
-#########  R/claims_description.R
+#########  checks of the functions of the claims description
 #########  from the project root: Rscript tests/testthat.R
 ##########################################
 
@@ -53,18 +52,6 @@ test_that("Cramer's V is 0 for independent and 1 for identical variables", {
 test_that("the Gini coefficient is 0 for equal amounts", {
   expect_equal(gini(rep(5, 10)), 0)
   expect_equal(gini(c(0, 0, 0, 1)), 0.75)        # (n - 1) / n: one has all
-})
-
-test_that("the summaries by level stack the rows once per feature", {
-  d <- data.table(a = factor(c("x", "y", "x"), levels = c("y", "x")),
-                  b = factor(c("u", "u", "v"), levels = c("u", "v")),
-                  amount = 1:3)
-  long <- level_long(d, c("a", "b"))
-  expect_equal(nrow(long), 6)
-  expect_equal(levels(long$level), c("y", "x", "u", "v"))
-  tab <- long[, .(amount = sum(amount)), keyby = .(feature, level)]
-  expect_equal(as.character(tab$level), c("y", "x", "u", "v"))
-  expect_equal(tab$amount, c(2, 4, 3, 3))
 })
 
 test_that("the log-linear model recovers multiplicative effects", {

@@ -95,7 +95,7 @@ default:
       momentum: 0.9      # sgd_momentum and sgd_nesterov
       training: [paper, cl_start]  # paper: Listing 2 (100 epochs, random start);
                          # cl_start: early stopping from the homogeneous CL factor (as S3)
-      seeds: 10          # fits per run that differ in the seed only: seed, seed + 1, ...
+      seeds: 20          # fits per run that differ in the seed only: seed, seed + 1, ...
       nagging: 10        # networks of a nagging predictor (Richman & Wuthrich 2020):
                          # the CL factors averaged over 10 seeds, one predictor per
                          # block of 10 seeds
