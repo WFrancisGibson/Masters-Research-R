@@ -417,8 +417,9 @@ for (tr in unique(grid$training)) {
                       colour = "black",
                       size = 2.2) +
            scale_y_continuous(transform = scales::pseudo_log_trans(sigma = 5),
-                              breaks = c(-10, -5, -2, 0, 2, 5, 10, 20, 50,
-                                         100, 200, 500, 1000)) +
+                              breaks = c(-100, -50, -20, -10, -5, -2, 0, 2, 5,
+                                         10, 20, 50, 100, 200, 500, 1000,
+                                         10000, 100000)) +
            guides(fill = "none") +
            labs(x = NULL,
                 y = "bias (% of the true reserves)",
