@@ -15,6 +15,11 @@ n_ay <- cfg$data$n_dev                         # I = 20, J = I - 1 = 19
 units <- cfg$data$scale                        # tables in millions
 features <- c("Legal Representation", "Injury Severity", "Age of Claimant",
               "Vehicle type", "Business use")
+## Age of Claimant as four dummies or as an ordinal score
+## (R_CONFIG_ACTIVE=age_numeric); the fits of the two codings are saved apart
+## (tag)
+age <- cfg$nncl$synthetic$age
+tag <- cfg$nncl$synthetic$tag
 
 ## hyper-parameters of Listing 2 (Appendix 2) and of the sensitivity runs
 ## S1-S3 at q_main, each adding one change; S4 (balance correction) below
@@ -125,18 +130,30 @@ rm(claims, trans, paid)
 #########  feature pre-processing (Section 3.3)
 ##########################################
 
-## (i) dummy coding of the five covariates, reference label the one with the
-## most reported claims; (ii) none of them is continuous: no MinMaxScaler
+## (i) dummy coding of the covariates, reference label the one with the most
+## reported claims; (ii) age "dummy": none of them is continuous, no
+## MinMaxScaler; age "numeric": Age of Claimant is an ordinal score in place
+## of its four dummies, the midpoint of its band scaled to [-1, 1] by the
+## MinMaxScaler (3.8) (used as for a continuous feature, but the input still
+## takes five values: the simulation has no age within a band)
 x <- NULL
 for (v in features) {
-  n_lab <- cells[, .(n = sum(n_reported)), by = v]
-  ref <- n_lab[[v]][which.max(n_lab$n)]
-  cat(v, ": ", nrow(n_lab), " labels, reference label ", ref, "\n", sep = "")
-  lab <- relevel(factor(cells[[v]]), ref = as.character(ref))
-  x <- cbind(x, model.matrix(~lab)[, -1])
+  if (v == "Age of Claimant" && age == "numeric") {
+    x_v <- unlist(cfg$nncl$synthetic$age_midpoints)[cells[[v]]]
+    x_v <- 2 * (x_v - min(x_v)) / (max(x_v) - min(x_v)) - 1
+    cat(v, ": numeric, scaled midpoints ",
+        paste(round(sort(unique(x_v)), 3), collapse = " "), "\n", sep = "")
+    x <- cbind(x, unname(x_v))
+  } else {
+    n_lab <- cells[, .(n = sum(n_reported)), by = v]
+    ref <- n_lab[[v]][which.max(n_lab$n)]
+    cat(v, ": ", nrow(n_lab), " labels, reference label ", ref, "\n", sep = "")
+    lab <- relevel(factor(cells[[v]]), ref = as.character(ref))
+    x <- cbind(x, model.matrix(~lab)[, -1])
+  }
 }
-d <- ncol(x)            # 14 dummies: 1, 5, 4, 3 and 1 of the five covariates
-d
+d <- ncol(x)            # dummy: 14 = 1, 5, 4, 3 and 1 of the five covariates;
+d                       # numeric: 11 = 1, 5, 1, 3 and 1
 
 ## learning cells of development period j: i <= I - j, C_{i,j-1}(x) > 0;
 ## part-1 diagonal cells: accident years i > 1 with C_{i,I-i}(x) > 0
@@ -187,12 +204,12 @@ range(cells$i[r[-seq_len(floor(length(r) *
 ##########################################
 
 ## one network per development period j; a finished run (its .rds) is not
-## refitted; the networks of the first seed go to models/nncl_synthetic/
-model_dir <- file.path(paths$models, "nncl_synthetic")
+## refitted; the networks of the first seed go to models/<tag>/
+model_dir <- file.path(paths$models, tag)
 dir.create(model_dir, showWarnings = FALSE)
 for (run_name in names(runs)) {
   run_file <- file.path(paths$processed,
-                        paste0("nncl_synthetic_fit_", run_name, ".rds"))
+                        paste0(tag, "_fit_", run_name, ".rds"))
   if (file.exists(run_file)) next
   run <- runs[[run_name]]
   fits <- list()
@@ -230,15 +247,19 @@ for (run_name in names(runs)) {
                 fit$loss / units,
                 homogeneous$loss[j] / units))
   }
-  saveRDS(list(run = run_name, q = run$q, param = run$param, fits = fits),
+  saveRDS(list(run = run_name,
+               age = age,
+               q = run$q,
+               param = run$param,
+               fits = fits),
           run_file)
 }
 
 ## S4: the networks of S3 with the balance correction
 ## c_j = sum C_{i,j}(x) / sum f(x) C_{i,j-1}(x) over the training rows, so
 ## that the average factor (3.9) there is the homogeneous CL factor
-s3_file <- file.path(paths$processed, "nncl_synthetic_fit_s3_cl_start.rds")
-s4_file <- file.path(paths$processed, "nncl_synthetic_fit_s4_balance.rds")
+s3_file <- file.path(paths$processed, paste0(tag, "_fit_s3_cl_start.rds"))
+s4_file <- file.path(paths$processed, paste0(tag, "_fit_s4_balance.rds"))
 if (file.exists(s3_file) && !file.exists(s4_file)) {
   s4 <- readRDS(s3_file)
   s4$run <- "s4_balance"

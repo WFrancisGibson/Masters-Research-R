@@ -110,8 +110,9 @@ the individual claims of the Gabrielli & Wuthrich (2018) simulation machine (Ris
 The same networks, runs and zero claims rules on the SynthETIC portfolio (annual 20 x 20,
 `data/raw/claim-simulation-annual/`; settings from the `data:` and `nncl:` blocks):
 1. `.../trackA_wuthrich2018/NN chain ladder SynthETIC fit.R` (~3 h on CPU for the seven
-   runs and one seed of the grid): cells (accident year, feature value) of the five covariates, all categorical
-   (14 dummies, no LoB); 3,342 cells, 226 of the 480 feature values occur. Besides the
+   runs and one seed of the grid): cells (accident year, feature value) of the five
+   covariates, all categorical (14 dummies, no LoB; item 3: Age of Claimant as an
+   ordinal score); 3,342 cells, 226 of the 480 feature values occur. Besides the
    seven runs of the machine data it fits a grid of my own design (`nncl: synthetic:` in
    `config.yml`): hidden layers (20), (20, 20, 15) and (20, 15, 10) x ten optimisers
    (SGD, SGD with momentum, Nesterov, Adagrad, Adadelta, RMSprop, Adam, AdamW, Adamax,
@@ -119,9 +120,11 @@ The same networks, runs and zero claims rules on the SynthETIC portfolio (annual
    homogeneous CL factor, as S3), each combination with `seeds` seeds (2026, 2027, ...).
    The networks are fitted on the payments in millions (SGD needs moderate gradients).
    Runs saved to `data/processed/nncl_synthetic_fit_<run>.rds`, the networks of the
-   first seed to `models/nncl_synthetic/`. With 20 seeds that is 1,200 grid runs: about
+   first seed to `models/nncl_synthetic/`. The 20 seeds are 1,200 grid runs: about
    20 times as long when the script runs them one after the other (the saved runs were
-   fitted in about 7 h by ten R sessions, each on its own share of the runs)
+   fitted in about 10 h by up to 20 R sessions, each on its own share of the runs and
+   pinned over all cores: Windows keeps background R sessions on the efficiency cores
+   otherwise; the helper scripts are in `Claude outputs/nncl-parallel-workers/`)
 2. `.../trackA_wuthrich2018/NN chain ladder SynthETIC analysis.R` (no Keras): reserves
    (5.1) against the true reserves and Mack's CL, the analogues of EAJ Tables 2-5 and
    Figures 2-4 and 7-9, the zero claims cells by accident year, and for the hidden
@@ -132,6 +135,39 @@ The same networks, runs and zero claims rules on the SynthETIC portfolio (annual
    a figure of the bias per training
    (`output/tables/04_NN-chain-ladder/synthetic/`,
    `output/figures/04_NN-chain-ladder/synthetic/`)
+3. Age of Claimant as an ordinal score instead of four dummies, a sensitivity run (the
+   dummy coding stays the main model): the midpoint of the age band (`age_midpoints` in
+   `config.yml`) scaled to [-1, 1] by the MinMaxScaler (3.8), so the networks have 11
+   inputs instead of 14 (261 instead of 321 parameters for one layer of 20). The input
+   still takes five values: the simulation has no age within a band, so the feature is
+   not continuous. "over 65" is taken as 65 to 85 (midpoint 75); the choice hardly
+   matters, equally spaced scores differ by at most 0.06 on [-1, 1]. The data, the cells
+   and the rows of Keras's split are the same.
+   The profile `age_numeric` switches the coding together with the place of its fits and
+   outputs (do not edit `age` in the default block): `R_CONFIG_ACTIVE=age_numeric
+   Rscript ...` in bash, `$env:R_CONFIG_ACTIVE = "age_numeric"` in PowerShell (it stays
+   set for the session: `Remove-Item Env:R_CONFIG_ACTIVE` afterwards). The fits are
+   saved apart (`data/processed/nncl_synthetic_age_numeric_fit_<run>.rds`,
+   `models/nncl_synthetic_age_numeric/`) and the outputs of the analysis script go to
+   `output/tables|figures/04_NN-chain-ladder/synthetic-age-numeric/`, so the fits and
+   outputs of the dummy coding stay as they are. The parallel helper scripts stop
+   before S4: when they have ended, run the fit script once under the profile (it skips
+   the saved runs and writes S4), then the analysis script under the profile.
+   `.../trackA_wuthrich2018/NN chain ladder SynthETIC age coding.R` (no Keras, either
+   profile) compares the two codings on the runs fitted under both, paired by run (same
+   seed; the grid on the seeds fitted in full). Under the CL start the coding moves
+   reserves between the age bands and hardly moves the total, so the codings are judged
+   on the reserves by age band (error per band, sum of the absolute errors, root mean
+   squared error by accident year and band) against three benchmarks with age the only
+   feature: the homogeneous CL factors, CL factors log-linear in the age score and one
+   CL factor per age band. Next to it the error of the total (`error_pct`, the
+   `bias_pct` of item 2: one simulated portfolio, so an error and not a bias), the
+   losses of the networks j = 2..8 on the learning cells and on the true lower triangle,
+   the share of the networks that keep the CL start, paired differences over the seeds
+   with intervals (CL start; the errors of the paper's training are heavy-tailed, medians
+   only), the nagging predictors (blocks of 10 seeds, as in item 2) and the CL factors by
+   age band the networks learn
+   (`output/tables|figures/04_NN-chain-ladder/synthetic-age-coding/`)
 
 What differs from the machine data: with at most 2,952 learning cells per development
 period the batch of 10,000 holds all rows, so an epoch is one gradient step and a paper

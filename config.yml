@@ -99,6 +99,29 @@ default:
       nagging: 10        # networks of a nagging predictor (Richman & Wuthrich 2020):
                          # the CL factors averaged over 10 seeds, one predictor per
                          # block of 10 seeds
+      age: dummy         # Age of Claimant in the networks: four dummies. Leave it:
+                         # the profile age_numeric below switches to numeric (one
+                         # input, an ordinal score: the midpoint of the band by the
+                         # MinMaxScaler (3.8)) together with tag and out_dir
+      age_midpoints:     # numeric: midpoint of the band in years
+        "0-15": 7.5
+        "15-30": 22.5
+        "30-50": 40
+        "50-65": 57.5
+        "over 65": 75    # 65 to 85
+      tag: nncl_synthetic    # the fits of a coding: data/processed/<tag>_fit_<run>.rds,
+                             # models/<tag>/
+      out_dir: synthetic     # and its outputs: output/tables|figures/04_NN-chain-ladder/
+                             # <out_dir>
+
+age_numeric:             # R_CONFIG_ACTIVE=age_numeric: the NN chain ladder SynthETIC
+                         # scripts with Age of Claimant as an ordinal score; its fits
+                         # and outputs apart from those of the dummy coding
+  nncl:
+    synthetic:
+      age: numeric
+      tag: nncl_synthetic_age_numeric
+      out_dir: synthetic-age-numeric
 
 quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of the ODP GLM and bCCNN
                          # scripts, its outputs and bootstrap cache apart

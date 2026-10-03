@@ -5,9 +5,14 @@
 #########  reserving, EAJ 8:407-436, Tables 2-5 and Figures 2-4, 7-9
 ##########################################
 
-## reads the fits of "NN chain ladder SynthETIC fit.R" (no Keras needed)
+## reads the fits of "NN chain ladder SynthETIC fit.R" (no Keras needed);
+## Age of Claimant as four dummies or as an ordinal score
+## (R_CONFIG_ACTIVE=age_numeric): the fits (tag) and outputs (out_dir) of
+## the two codings are apart
 source(here::here("analysis", "00_setup.R"))
-tab_dir <- file.path(paths$tables, "04_NN-chain-ladder/synthetic")
+tag <- cfg$nncl$synthetic$tag
+out_dir <- file.path("04_NN-chain-ladder", cfg$nncl$synthetic$out_dir)
+tab_dir <- file.path(paths$tables, out_dir)
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
 n_ay <- cfg$data$n_dev                         # I = 20, J = I - 1 = 19
@@ -57,8 +62,7 @@ homogeneous <- readRDS(file.path(paths$processed,
                                  "nncl_synthetic_homogeneous.rds"))
 zero <- readRDS(file.path(paths$processed, "nncl_synthetic_zero_claims.rds"))
 fits <- lapply(setNames(nm = c(run_names, grid$run)), function(r) {
-  readRDS(file.path(paths$processed,
-                    paste0("nncl_synthetic_fit_", r, ".rds")))$fits
+  readRDS(file.path(paths$processed, paste0(tag, "_fit_", r, ".rds")))$fits
 })
 
 ## learning cells of development period j and part-1 diagonal cells, as in
@@ -311,7 +315,7 @@ fwrite(zero_cells, file.path(tab_dir, "nncl_synthetic_zero_claims_cells.csv"))
 #########  figures (EAJ Figures 2-4 and 7-9)
 ##########################################
 
-fig_dir <- file.path(paths$figures, "04_NN-chain-ladder/synthetic")
+fig_dir <- file.path(paths$figures, out_dir)
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
 ## Figs. 2-4: part-1 NN reserves (q_main) by label against the true
