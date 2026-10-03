@@ -2,7 +2,12 @@
 ## yet, in the order of the seeds; any number of these share the runs through
 ## lock directories (<run file>.lock): a free worker takes the next run no
 ## other worker has taken. Start them with run_queue.sh (it clears the locks
-## of a stopped run first); no arguments
+## of a stopped run first); argument: the number of runs after which the
+## worker quits (default: no limit), as the memory of an R session that
+## fits Keras networks grows with every run (about 0.1 GB a run); exit
+## status 3: no run was left to take
+max_runs <- as.numeric(commandArgs(trailingOnly = TRUE)[1])
+if (is.na(max_runs)) max_runs <- Inf
 f <- file.path("analysis/04_nn-chain-ladder/trackA_wuthrich2018",
                "NN chain ladder SynthETIC fit.R")
 l <- readLines(f)
@@ -18,12 +23,16 @@ sub <- c(
   "  paste0(tag, '_fit_', names(runs), '.rds')))",
   "runs <- runs[todo]",
   "runs <- runs[order(sapply(runs, function(run) run$param$seed))]",
-  "print(length(runs))"
+  "print(length(runs))",
+  "n_taken <- 0"
 )
-lock <- paste("  if (!dir.create(paste0(run_file, '.lock'),",
-              "showWarnings = FALSE)) next")
+lock <- c("  if (n_taken >= max_runs) break",
+          paste("  if (!dir.create(paste0(run_file, '.lock'),",
+                "showWarnings = FALSE)) next"),
+          "  n_taken <- n_taken + 1")
 keep <- setdiff(seq_len(cut - 1), drop)
 l2 <- c(l[keep[keep < loop]], sub,
         l[keep[keep >= loop & keep <= skip]], lock,
         l[keep[keep > skip]])
 eval(parse(text = l2), envir = globalenv())
+quit(status = if (n_taken == 0) 3 else 0)
