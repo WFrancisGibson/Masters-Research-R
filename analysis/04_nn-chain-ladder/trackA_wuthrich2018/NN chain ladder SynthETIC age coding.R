@@ -323,6 +323,7 @@ num_cols <- c("mean_dummy", "mean_numeric", "mean_diff", "lower", "upper")
 cbind(by_seed[!ratio, "measure"],
       round(by_seed[!ratio, num_cols, with = FALSE], 2),
       by_seed[!ratio, c("seeds", "numeric_smaller")],
+      p_wilcoxon = signif(by_seed$p_wilcoxon[!ratio], 2),
       p_holm = signif(by_seed$p_holm[!ratio], 2))
 cbind(by_seed[ratio, "measure"],
       round(by_seed[ratio, num_cols, with = FALSE], 4),
