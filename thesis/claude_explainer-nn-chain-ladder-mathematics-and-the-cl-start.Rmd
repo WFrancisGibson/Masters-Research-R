@@ -640,7 +640,7 @@ The optimiser formulas of Section 9.1 and the nagging statements of Section 11 a
 
 # The fitted results in the terms of this document
 
-The two tables below are read from `output/tables/04_NN-chain-ladder/synthetic/nncl_synthetic_seed_spread.csv` when this document is rendered. Every row is one combination of hidden layers and optimiser; the bias is the reserve less the true outstanding payments in percent of the latter ($R^{\text{true}} = 9{,}626.8$ million; Mack's chain ladder: $-1.5\%$). "Closer than CL" is the share of the seeds whose absolute bias is smaller than Mack's. There is one nagging column per block of ten seeds, the predictor (22) of that block. With the 20 seeds 2026-2045 there are two: nagging 1 from the seeds 2026-2035 and nagging 2 from the seeds 2036-2045. The two share no network, so their difference shows how much a nagging predictor of ten networks still depends on the seeds.
+The three tables below are read from `output/tables/04_NN-chain-ladder/synthetic/nncl_synthetic_seed_spread.csv` when this document is rendered. Every row is one combination of hidden layers and optimiser; the bias is the reserve less the true outstanding payments in percent of the latter ($R^{\text{true}} = 9{,}626.8$ million; Mack's chain ladder: $-1.5\%$). "Closer than CL" is the share of the seeds whose absolute bias is smaller than Mack's. There is one nagging column per block of ten seeds, the predictor (22) of that block. With the 20 seeds 2026-2045 there are two: nagging 1 from the seeds 2026-2035 and nagging 2 from the seeds 2036-2045. The two share no network, so their difference shows how much a nagging predictor of ten networks still depends on the seeds.
 
 ```{r results-setup, eval = TRUE, echo = FALSE}
 spread <- read.csv(file.path("..", "output", "tables", "04_NN-chain-ladder",
@@ -661,6 +661,15 @@ show <- function(training, cols, names) {
 
 ```{r results-cl, eval = TRUE, echo = FALSE}
 show("cl_start",
+     c("seeds", "bias_pct_mean", "bias_pct_sd", "bias_pct_min", "bias_pct_max",
+       "closer_than_cl"),
+     c("seeds", "mean", "sd", "min", "max", "closer than CL"))
+```
+
+**Early stopping from the random start** (`early_stop`, variant B of the fitting procedure: as the chain-ladder start, but with Keras's random initial weights and without the rule that keeps the start), bias in %:
+
+```{r results-early-stop, eval = TRUE, echo = FALSE}
+show("early_stop",
      c("seeds", "bias_pct_mean", "bias_pct_sd", "bias_pct_min", "bias_pct_max",
        "closer_than_cl"),
      c("seeds", "mean", "sd", "min", "max", "closer than CL"))
