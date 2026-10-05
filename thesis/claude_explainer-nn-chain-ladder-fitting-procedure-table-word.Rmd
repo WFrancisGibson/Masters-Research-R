@@ -1,0 +1,71 @@
+---
+title: "Training and validation rows of the neural network chain ladder"
+subtitle: "The split of the learning cells by development period"
+author: "Prepared for Francis"
+date: "4 October 2026"
+output:
+  word_document: default
+---
+
+```{r setup, include = FALSE}
+## after rendering to .docx, run
+## python "Claude outputs/nncl-word-tables/format_word_tables.py" <file.docx>
+##   720,920,880,1050,950,1050,1050,950,1050,1018 18
+## which sets the borders, fonts (9 pt) and column widths of the table
+knitr::opts_chunk$set(echo = FALSE)
+suppressPackageStartupMessages(library(data.table))
+
+cells <- readRDS(file.path("..", "data", "interim",
+                           "nncl_synthetic_cells.rds"))
+n_ay <- 20
+cum <- as.matrix(cells[, paste0("cum_", 0:(n_ay - 1)), with = FALSE])
+
+## thousands separated by a non-breaking space
+num <- function(v, digits) {
+  format(round(v, digits), nsmall = digits, big.mark = " ", trim = TRUE)
+}
+ay_range <- function(ay) {
+  if (min(ay) == max(ay)) as.character(min(ay)) else
+    paste(min(ay), max(ay), sep = "-")
+}
+
+## learning cells of development period j, Keras's split (the last 10% of
+## the rows are the validation rows) and the homogeneous CL factors
+split <- rbindlist(lapply(1:(n_ay - 1), function(j) {
+  r <- which(cells$i <= n_ay - j & cum[, j] > 0)
+  train <- r[seq_len(floor(0.9 * length(r)))]
+  vali <- setdiff(r, train)
+  factor <- function(rows) sum(cum[rows, j + 1]) / sum(cum[rows, j])
+  data.table(j = j,
+             learn = num(length(r), 0),
+             train = num(length(train), 0),
+             vali = num(length(vali), 0),
+             ay_learn = ay_range(cells$i[r]),
+             ay_vali = ay_range(cells$i[vali]),
+             share = paste0(num(100 * sum(cum[vali, j]) / sum(cum[r, j]), 1),
+                            "%"),
+             f_train = num(factor(train), 5),
+             f_vali = num(factor(vali), 5),
+             f_learn = num(factor(r), 5))
+}))
+```
+
+Neural network chain ladder on the SynthETIC portfolio. Network *j* estimates the factor from development year *j* - 1 to *j*. Its learning cells are ordered by accident year and then by the covariates; the first 90% are the training rows and the last 10% the validation rows. The volume share is the share of the cumulative payments at development year *j* - 1 that lies in the validation rows. A factor is the sum of the cumulative payments at development year *j* over the sum at development year *j* - 1, taken over the rows named.
+
+```{r}
+knitr::kable(
+  split,
+  format = "pipe",
+  align = "rrrrccrrrr",
+  col.names = c("Period j",
+                "Learning cells",
+                "Training rows",
+                "Validation rows",
+                "Accident years, learning cells",
+                "Accident years, validation rows",
+                "Volume share of validation rows",
+                "Factor on training rows",
+                "Factor on validation rows",
+                "Factor on all learning cells")
+)
+```

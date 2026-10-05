@@ -1,0 +1,107 @@
+---
+title: "The optimisers under the chain-ladder start"
+subtitle: "Validation loss, reserve stability and training length by optimiser"
+author: "Prepared for Francis"
+date: "4 October 2026"
+output:
+  word_document: default
+---
+
+```{r setup, include = FALSE}
+## after rendering to .docx, run
+## python "Claude outputs/nncl-word-tables/format_word_tables.py" <file.docx>
+##   1060,1020,1020,1020,1020,1400,1020,1020,1058 18
+## which sets the borders, fonts (9 pt) and column widths of the tables
+knitr::opts_chunk$set(echo = FALSE)
+suppressPackageStartupMessages(library(data.table))
+
+## all runs of the grid; here the training cl_start only
+grid <- fread(file.path("..", "output", "tables", "04_NN-chain-ladder",
+                        "synthetic", "nncl_synthetic_layers_optimisers.csv"))
+grid <- grid[training == "cl_start"]
+n_seeds <- uniqueN(grid$seed)
+
+## validation loss of the chain-ladder start: the homogeneous factor of the
+## training rows on the validation rows, summed over the development periods
+cells <- readRDS(file.path("..", "data", "interim",
+                           "nncl_synthetic_cells.rds"))
+n_ay <- 20
+units <- 1e6
+cum <- as.matrix(cells[, paste0("cum_", 0:(n_ay - 1)), with = FALSE])
+start_vali <- sum(sapply(1:(n_ay - 1), function(j) {
+  r <- which(cells$i <= n_ay - j & cum[, j] > 0)
+  train <- seq_len(floor(0.9 * length(r)))
+  f_start <- sum(cum[r[train], j + 1]) / sum(cum[r[train], j])
+  sum(((cum[r, j + 1] - f_start * cum[r, j])^2 / cum[r, j])[-train])
+})) / units
+
+## true outstanding payments: C_{i,J}(x) - C_{i,I-i}(x) of the accident
+## years 2..I (the lower triangle)
+true_reserve <- sum((cum[, n_ay] - cells$c_diag)[cells$i > 1]) / units
+
+## the five optimisers of the thesis tables, in their order
+optimisers <- c(sgd = "SGD", sgd_momentum = "Momentum SGD",
+                rmsprop = "RMSprop", adam = "Adam", nadam = "Nadam")
+## rounds halves up (the csv values are already rounded to one decimal);
+## thousands separated by a non-breaking space
+num <- function(v, digits) {
+  format(round(v + 1e-9, digits), nsmall = digits, big.mark = " ",
+         trim = TRUE)
+}
+optimiser_table <- function(h) {
+  s <- grid[hidden == h,
+            .(vali_mean = mean(loss_vali),
+              vali_sd = sd(loss_vali),
+              vali_min = min(loss_vali),
+              vali_max = max(loss_vali),
+              reserve_mean = mean(reserve),
+              reserve_sd = sd(reserve),
+              steps = mean(epochs_used)),
+            by = optimizer]
+  s <- s[match(names(optimisers), optimizer)]
+  knitr::kable(
+    data.frame(optimisers[s$optimizer],
+               num(s$vali_mean, 1),
+               num(s$vali_sd, 1),
+               num(s$vali_min, 1),
+               num(s$vali_max, 1),
+               paste0(num(100 * (1 - s$vali_mean / start_vali), 2), "%"),
+               num(s$reserve_sd, 1),
+               # bias of the reserve averaged over the seeds
+               paste0(num(100 * (s$reserve_mean / true_reserve - 1), 2), "%"),
+               num(s$steps, 0)),
+    format = "pipe",
+    row.names = FALSE,
+    align = "lrrrrrrrr",
+    col.names = c("Optimiser",
+                  "Mean validation loss",
+                  "Sample standard deviation of validation loss",
+                  "Minimum validation loss",
+                  "Maximum validation loss",
+                  "Proportion below the homogeneous chain ladder",
+                  "Sample standard deviation of reserves (millions)",
+                  "Bias of mean reserve (% of true reserve)",
+                  "Steps used per run")
+  )
+}
+```
+
+Neural network chain ladder on the SynthETIC portfolio with the chain-ladder start (training `cl_start`), `r n_seeds` seeds per optimiser. Amounts are in millions. The validation loss is summed over the 19 development periods; the homogeneous chain ladder (the start of every network) scores `r num(start_vali, 1)`. The bias is the reserve averaged over the `r n_seeds` seeds less the true outstanding payments of `r num(true_reserve, 1)`, in percent of the latter; Mack's chain ladder on the same triangle has a bias of -1.53%.
+
+## One hidden layer of 20 neurons
+
+```{r}
+optimiser_table("20")
+```
+
+## Three hidden layers of 20, 20 and 15 neurons
+
+```{r}
+optimiser_table("20-20-15")
+```
+
+## Three hidden layers of 20, 15 and 10 neurons
+
+```{r}
+optimiser_table("20-15-10")
+```

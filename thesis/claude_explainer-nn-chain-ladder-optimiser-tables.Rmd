@@ -1,0 +1,225 @@
+---
+title: "The optimisers under the chain-ladder start: validation loss, reserve stability and training length"
+subtitle: "Three tables from `nncl_synthetic_layers_optimisers.csv` and what each of their columns means"
+author: "Prepared for Francis"
+date: "4 October 2026"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+papersize: a4
+geometry: "left=2.2cm,right=2.2cm,top=2.2cm,bottom=2.4cm"
+fontsize: 11pt
+header-includes:
+  - \usepackage{amsmath,amssymb,booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE)
+suppressPackageStartupMessages(library(data.table))
+
+## all runs of the grid; here the training cl_start only
+grid <- fread(file.path("..", "output", "tables", "04_NN-chain-ladder",
+                        "synthetic", "nncl_synthetic_layers_optimisers.csv"))
+grid <- grid[training == "cl_start"]
+n_seeds <- uniqueN(grid$seed)
+
+## validation loss of the chain-ladder start: the homogeneous factor of the
+## training rows on the validation rows, summed over the development periods
+cells <- readRDS(file.path("..", "data", "interim",
+                           "nncl_synthetic_cells.rds"))
+n_ay <- 20
+units <- 1e6
+cum <- as.matrix(cells[, paste0("cum_", 0:(n_ay - 1)), with = FALSE])
+start_vali <- sum(sapply(1:(n_ay - 1), function(j) {
+  r <- which(cells$i <= n_ay - j & cum[, j] > 0)
+  train <- seq_len(floor(0.9 * length(r)))
+  f_start <- sum(cum[r[train], j + 1]) / sum(cum[r[train], j])
+  sum(((cum[r, j + 1] - f_start * cum[r, j])^2 / cum[r, j])[-train])
+})) / units
+
+optimisers <- c(sgd = "SGD", sgd_momentum = "SGD momentum",
+                sgd_nesterov = "SGD Nesterov", adagrad = "Adagrad",
+                adadelta = "Adadelta", rmsprop = "RMSprop", adam = "Adam",
+                adamw = "AdamW", adamax = "Adamax", nadam = "Nadam")
+## rounds halves up (the csv values are already rounded to one decimal)
+num <- function(v, digits) {
+  format(round(v + 1e-9, digits), nsmall = digits, big.mark = ",", trim = TRUE)
+}
+optimiser_table <- function(h) {
+  s <- grid[hidden == h,
+            .(vali_mean = mean(loss_vali),
+              vali_sd = sd(loss_vali),
+              vali_min = min(loss_vali),
+              vali_max = max(loss_vali),
+              reserve_sd = sd(reserve),
+              steps = mean(epochs_used)),
+            by = optimizer]
+  s <- s[match(names(optimisers), optimizer)]
+  knitr::kable(
+    data.frame(optimisers[s$optimizer],
+               num(s$vali_mean, 1),
+               num(s$vali_sd, 1),
+               num(s$vali_min, 1),
+               num(s$vali_max, 1),
+               paste0(num(100 * (1 - s$vali_mean / start_vali), 2), "\\%"),
+               num(s$reserve_sd, 1),
+               num(s$steps, 0)),
+    format = "latex",
+    booktabs = TRUE,
+    escape = FALSE,
+    linesep = "",
+    row.names = FALSE,
+    align = "lrrrrrrr",
+    col.names = c("optimiser",
+                  "\\shortstack[r]{validation\\\\loss, mean}",
+                  "sd",
+                  "min",
+                  "max",
+                  "\\shortstack[r]{below\\\\the start}",
+                  "\\shortstack[r]{reserve sd\\\\(millions)}",
+                  "\\shortstack[r]{steps used\\\\per run}")
+  )
+}
+```
+
+\newpage
+
+# What the tables show
+
+Each table is for one architecture of the neural network chain ladder on the SynthETIC portfolio, fitted with the **chain-ladder start** (training `cl_start`: the output neuron is started in the chain-ladder factor of the training rows, and training is stopped early on the validation rows). A row is one optimiser. Every optimiser was fitted with `r n_seeds` seeds, and a row summarises those `r n_seeds` runs.
+
+A **run** is a complete model: $J = 19$ networks, one per development period $j = 1,\dots,19$, all with the same architecture, optimiser and seed. So a row of a table rests on $19 \times `r n_seeds` = `r 19 * n_seeds`$ fitted networks.
+
+The notation is that of the two companion explainers (*The mathematics behind the neural network chain ladder and its chain-ladder start* and *The fitting procedure of the neural network chain ladder*); the symbols needed here are repeated in Section 3. All amounts are in millions.
+
+For scale: the validation loss of the chain-ladder start itself is `r num(start_vali, 1)` million (the same for every optimiser and seed), the true outstanding payments are 9,626.8 million, Mack's chain-ladder reserve is 9,479.4 million and Mack's standard error of that reserve is 285.4 million.
+
+# The three tables
+
+## One hidden layer of 20 neurons
+
+```{r}
+optimiser_table("20")
+```
+
+## Three hidden layers of 20, 20 and 15 neurons
+
+```{r}
+optimiser_table("20-20-15")
+```
+
+## Three hidden layers of 20, 15 and 10 neurons
+
+```{r}
+optimiser_table("20-15-10")
+```
+
+\newpage
+
+# What each column means
+
+## The quantities behind the columns
+
+For development period $j$, the learning cells $\mathcal{L}_j$ are the cells (accident year, feature value) with $C_{i,j-1}(\boldsymbol{x}) > 0$ and $C_{i,j}(\boldsymbol{x})$ observed. Row $r$ of $\mathcal{L}_j$ has the volume $c_r = C_{i,j-1}(\boldsymbol{x})$, the response $d_r = C_{i,j}(\boldsymbol{x})$ and the feature $\boldsymbol{x}_r$. Keras cuts the rows, in their stored order, into the **training rows** $\mathcal{T}_j$ (the first 90%) and the **validation rows** $\mathcal{V}_j$ (the last 10%, which are the latest accident years of that development period). Only the training rows enter the gradient.
+
+For a seed $s$, network $j$ ends at parameters $\hat\theta_j^{(s)}$ after $t^{*(s)}_j$ gradient steps, and gives the factors $\hat f^{(s)}_r = f\big(\boldsymbol{x}_r; \hat\theta_j^{(s)}\big)$. From these, three numbers are computed for the run with seed $s$:
+
+$$
+L^{\mathcal{V}}_{(s)} = \frac{1}{u} \sum_{j=1}^{J} \sum_{r \in \mathcal{V}_j} \frac{\big( d_r - \hat f^{(s)}_r\, c_r \big)^2}{c_r},
+\qquad
+\hat R_{(s)} = \text{the total reserve of the run (written out below)},
+\qquad
+t^{*}_{(s)} = \sum_{j=1}^{J} t^{*(s)}_j , \tag{1}
+$$
+
+with $u = 10^6$. The reserve $\hat R_{(s)}$ is the model's estimate of all payments still to come, computed from the 19 fitted networks of the run:
+
+$$
+\hat R_{(s)} = \frac{1}{u} \left[ \sum_{i=2}^{I} \; \sum_{\boldsymbol{x}:\, C_{i,I-i}(\boldsymbol{x}) > 0} C_{i,I-i}(\boldsymbol{x}) \left( \prod_{j = I-i+1}^{J} f\big(\boldsymbol{x}; \hat\theta_j^{(s)}\big) - 1 \right) + \hat R_2 \right] .
+$$
+
+For every cell with a positive latest cumulative payment $C_{i,I-i}(\boldsymbol{x})$, that payment is multiplied by the fitted factors of the development periods the cell still has to run through, which gives its predicted ultimate; subtracting the payment itself leaves what is still to be paid. $\hat R_2$ is the reserve of the cells that have paid nothing yet (the zero claims features); it does not depend on the networks and is 75.3 million in every run. This is formula (5.1) of Wuthrich (2018), and equations (25)-(26) of the first companion.
+
+In the file `nncl_synthetic_layers_optimisers.csv` these are the columns `loss_vali`, `reserve` and `epochs_used` of the row of that run. Each table column is a summary of one of them over the $S = `r n_seeds`$ seeds $s = 2026,\dots,`r 2026 + n_seeds - 1`$.
+
+## Column 1: optimiser
+
+The rule that turns the gradient of the training loss into a parameter update. It is the only thing that differs between the rows of a table: the data, the split, the architecture, the starting factor, the seeds and the stopping rule are the same in every row.
+
+Each optimiser runs at one learning rate, set in `config.yml` (`nncl: synthetic: optimizers`): 0.001 for SGD, SGD with momentum (momentum 0.9), Nesterov, RMSprop, Adam, AdamW, Adamax and Nadam; 0.01 for Adagrad; 1 for Adadelta. These are the Keras defaults except for the three SGD variants (default 0.01, at which they diverged in trial fits), Adagrad and Adadelta (default 0.001, at which they hardly move). The update rules are written out in Section 9 of the first companion.
+
+## Column 2: validation loss, mean
+
+$$
+\bar L^{\mathcal{V}} = \frac{1}{S} \sum_{s} L^{\mathcal{V}}_{(s)} . \tag{2}
+$$
+
+$L^{\mathcal{V}}_{(s)}$ in (1) is the weighted squared error of the fitted factors on the validation rows, added over the 19 development periods. Three things about it:
+
+- **What is being measured.** For each validation cell the network predicts $\hat f_r c_r$ for the payment $d_r$. The squared error is divided by the volume $c_r$, because under the chain-ladder model the variance of $d_r$ is proportional to $c_r$; this is the same loss the network is trained on, evaluated on rows it was not trained on.
+- **Why it is in millions.** A term $(d - \hat f c)^2 / c$ is a payment squared over a payment, so the loss has the unit of the payments. It is not a percentage and has no meaning as an absolute number; it is only comparable with other losses on the same rows.
+- **Why it is a sum over $j$.** The 19 networks are separate models with separate validation rows. Adding their losses gives one figure per run. The early development periods dominate it: the first period alone contributes about 12,170 of the roughly 15,210.
+
+A lower value means the factors fit the held-out cells (the latest accident years of each period) better. Because the validation rows also choose the stopping step, the value is slightly optimistic as a forecast of the error on new data; between rows of a table that affects all optimisers alike.
+
+## Column 3: sd
+
+$$
+\operatorname{sd}\big(L^{\mathcal{V}}\big) = \sqrt{ \frac{1}{S-1} \sum_{s} \big( L^{\mathcal{V}}_{(s)} - \bar L^{\mathcal{V}} \big)^2 } , \tag{3}
+$$
+
+the sample standard deviation of the validation loss over the seeds. The seed fixes the random starting weights of the hidden layers and nothing else: the data and the split are the same for every seed. So this column measures how much the validation fit depends on the random start of the optimisation. It is not a standard error of the mean (that would be the sd divided by $\sqrt{S}$) and it says nothing about the randomness of the claims.
+
+It is the yardstick for column 2: two optimisers whose means differ by less than about one sd cannot be told apart by their validation loss.
+
+## Columns 4 and 5: min and max
+
+$$
+\min_{s} L^{\mathcal{V}}_{(s)} \qquad \text{and} \qquad \max_{s} L^{\mathcal{V}}_{(s)} , \tag{4}
+$$
+
+the best and the worst validation loss among the `r n_seeds` seeds. Together they give the range, which shows whether the sd is driven by one unusual seed. By the stopping rule (Column 6) no value can exceed the loss of the chain-ladder start, `r num(start_vali, 1)`, beyond rounding.
+
+## Column 6: below the start
+
+$$
+1 - \frac{\bar L^{\mathcal{V}}}{L^{\mathcal{V}}_{0}},
+\qquad
+L^{\mathcal{V}}_{0} = \frac{1}{u} \sum_{j=1}^{J} \sum_{r \in \mathcal{V}_j} \frac{\big( d_r - \hat f^{\,\mathcal{T}}_{j-1}\, c_r \big)^2}{c_r} = `r num(start_vali, 1)`,
+\qquad
+\hat f^{\,\mathcal{T}}_{j-1} = \frac{\sum_{r \in \mathcal{T}_j} d_r}{\sum_{r \in \mathcal{T}_j} c_r} . \tag{5}
+$$
+
+$L^{\mathcal{V}}_{0}$ is the validation loss of the networks *before any training*: every network starts as the plain chain-ladder factor $\hat f^{\,\mathcal{T}}_{j-1}$ of its training rows, the same factor for every feature value. It does not depend on the optimiser or the seed.
+
+The column is the relative reduction of the validation loss that training achieves on average: how much better than the plain chain ladder the covariate-dependent factors predict the held-out cells. It cannot be negative, because a network that never beats its start on the validation rows is put back to the start. Values around 0.2% say that the networks improve on the chain ladder, but by very little.
+
+## Column 7: reserve sd (millions)
+
+$$
+\operatorname{sd}\big(\hat R\big) = \sqrt{ \frac{1}{S-1} \sum_{s} \big( \hat R_{(s)} - \bar R \big)^2 } , \qquad \bar R = \frac{1}{S} \sum_{s} \hat R_{(s)} , \tag{6}
+$$
+
+the standard deviation over the seeds of the total reserve. The reserve of a run is the sum over the diagonal cells of the latest payment times the product of the fitted factors of the remaining development periods, less the latest payment, plus the zero claims reserve.
+
+This is the only column that is about the reserve, the quantity the model exists for. It answers: if I fit the same model again with another seed, by how much does my reserve change? It is a measure of the stability of the optimiser, not of its accuracy: it does not involve the true outstanding payments, and a model can be stable and biased.
+
+Two reference points: Mack's standard error of the chain-ladder reserve is 285.4 million, so a reserve sd of 20 to 60 is small against the uncertainty of the reserve itself, while 140 to 260 (RMSprop, Adadelta) is of the same order; and 1% of the true reserve is 96 million.
+
+The column also shows that a small spread of the validation loss does not imply a small spread of the reserve. The reserve multiplies up to 19 factors per cell and is dominated by the cells with the largest volumes, so small differences in the factors of single cells, which hardly move the summed loss, can move the reserve.
+
+## Column 8: steps used per run
+
+$$
+\bar t^{*} = \frac{1}{S} \sum_{s} t^{*}_{(s)} = \frac{1}{S} \sum_{s} \sum_{j=1}^{J} t^{*(s)}_j . \tag{7}
+$$
+
+$t^{*(s)}_j$ is the number of gradient steps after which network $j$ had its smallest validation loss; the weights of that step are the ones kept. It is $0$ if no step improved on the start (the network stays the chain-ladder factor) and at most 500, the cap on the number of epochs. With a batch that holds all training rows one epoch is one step, so "epochs" and "steps" are the same here. The column adds the 19 networks of a run and averages over the seeds, so its maximum is $19 \times 500 = 9{,}500$.
+
+It measures how far each optimiser travels before early stopping ends it, which is its speed in the sense of training effort. It is not the number of steps actually computed: training runs 20 further steps after the best one before it stops (the patience), so the computed steps are larger (the column `epochs_run` of the file). A large value combined with a high validation loss, as for SGD, indicates an optimiser that is still improving slowly when it reaches the cap.
+
+# Reading one row
+
+Take Adam with one hidden layer of 20 in the first table. Over the `r n_seeds` seeds the 19 networks have a validation loss of 15,213.0 million on average (column 2), with a standard deviation of 1.9 across the seeds (column 3) and values between 15,208.1 and 15,215.9 (columns 4 and 5). The chain-ladder start has `r num(start_vali, 1)`, so training reduces the validation loss by 0.23% (column 6). The reserves of the `r n_seeds` runs have a standard deviation of 46.4 million (column 7), about a sixth of Mack's standard error. A run uses 405 gradient steps in total over its 19 networks (column 8), about 21 per network, far below the cap of 500.
