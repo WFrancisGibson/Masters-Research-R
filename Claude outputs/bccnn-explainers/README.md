@@ -1,35 +1,66 @@
-# bCCNN explainers: numerical checks and build tooling
+# bCCNN explainers: sources, checks and build tooling
 
-Four explainers in `thesis/`:
+The four explainers are in `thesis/`, as Word documents on the Department template with a PDF of each. They follow the Research Assignment Guide (Department of Statistics and Actuarial Science, 2026), Chapter 5 and Appendix D.
 
-| file | covers |
-|:--|:--|
-| `claude_explainer-bccnn-mathematics-model-and-ccodp-start.{md,pdf}` | the ccODP model and its chain-ladder equivalence (with proof), the network of `bccnn_model()`, the Keras loss, the gradients, the three properties of the ccODP start |
-| `claude_explainer-bccnn-fitting-procedure-and-training.{md,pdf}` | the data parts, Paper C's 50/50 claims split, RMSprop, early stopping, the refit, the outputs, the procedure in Paper C / Härkönen / Al-Mudafer et al. vs the code |
-| `claude_explainer-bccnn-time-aware-rolling-origin-split.{md,pdf}` | `rolling_origin_sets()` cell by cell, its guarantees, the out-of-time scoring and the test error (4.4) |
-| `claude_explainer-bccnn-as-a-whole-interpretation-evaluation-uncertainty.{md,pdf}` | what the bCCNN estimates, early stopping as shrinkage, how the reserve is judged, MSEP / bootstrap / nagging for the bCCNN |
+| Companion | Files in `thesis/` | Covers |
+|:--|:--|:--|
+| I | `claude_explainer-bccnn-mathematics-model-and-ccodp-start.{docx,pdf}` | The ccODP model and the proof that it is the chain ladder; the network of `bccnn_model()`; the Keras loss; the gradients; the three properties of the ccODP start. |
+| II | `claude_explainer-bccnn-fitting-procedure-and-training.{docx,pdf}` | The data parts; the 50/50 claims split; RMSprop; early stopping; the refit; the outputs; the procedure in Paper C, Härkönen and Al-Mudafer *et al.* against the code. |
+| III | `claude_explainer-bccnn-as-a-whole-interpretation-evaluation-uncertainty.{docx,pdf}` | What the bCCNN estimates; early stopping as shrinkage towards the chain ladder; how the reserve is judged; MSEP, bootstrap and nagging. |
+| IV | `claude_explainer-bccnn-time-aware-rolling-origin-split.{docx,pdf}` | `rolling_origin_sets()` cell by cell; its guarantees and cell counts; out-of-time scoring and the test error. |
 
-Figures used by the four documents are in `thesis/figures/bccnn-explainers/`.
+`thesis/figures/bccnn-explainers/` holds two editable figures, both laid out to the Guide:
 
-## Numerical checks (Python, no Keras, no R)
+- `bccnn_network_diagram.docx` is Figure 3.1 of companion I, drawn as Word shapes.
+- `rolling_origin_partitions.docx` is Figure 2.2 of companion IV, drawn as Word tables.
 
-* `bccnn_check.py` re-implements `fit_odp_glm()` (IWLS), `bccnn_model()` / `fit_bccnn()` (forward pass, back-propagation, Keras RMSprop, inverted dropout) in numpy on a synthetic 20 x 20 triangle, and checks: chain-ladder equivalence, marginal totals, the unit of the payments, parameter counts, the start property, analytic gradients vs finite differences, the Keras loss / deviance identity, the first RMSprop step, a toy early-stopping run on two claims halves, the refit, and (optionally) a parametric bootstrap and a seed study.
-  Environment variables: `GAMMA`, `JCUT` (interaction the ccODP cannot represent), `PHI`, `MU11`, `MAXEP`, `BOOT` (bootstrap replicates), `SEEDS` (seed study), `OUTDIR`.
-  The run used in the documents: `GAMMA=0.004 JCUT=12 PHI=0.3 MAXEP=3000 MU11=100 BOOT=20 SEEDS=10 python3 bccnn_check.py` (the formula checks of document 1 use the defaults). Writes `results.json` and `figures/*.png`. The JSON files kept here are: `results_formula-checks_default.json` (defaults; the numbers of document 1, Section 11), `results_toy-run_bootstrap-seeds.json` (the run above with `BOOT=20 SEEDS=10`; documents 2 and 3), `results_toy-run_figures.json` (the same run without bootstrap, used for the heat map), `rolling_origin_counts.json` (document 4, Table 1).
-* `rolling_origin_check.py` replicates `rolling_origin_sets()` for the `config.yml` values (n = 20, test_periods c(5, 2), vali_periods 2, exclude 2), prints the cell counts and guarantees (`rolling_origin.json`), and draws the partition tiles, the calendar-diagonal figure, the claims-split schematic and the network diagram.
+The same folder holds the chart images.
 
-Requirements: `python3 -m pip install numpy matplotlib`.
+The explainers were prepared with the generative AI tool Claude as study material. Each says so on its title page and in its opening note. Section 2.6.3 of the Guide does not allow AI-generated content in work submitted for assessment, so the plagiarism and AI-use declarations of the template are left out.
 
-## Building the PDFs
+## What the formatting follows
 
-`build.sh in.md out.pdf` runs pandoc (Markdown + LaTeX math -> HTML with KaTeX) and prints the HTML to PDF with headless Chromium through Playwright (`render.js`); `style.css` is the page style. It needs `pandoc`, `node` with the `playwright` package and a Chromium it can launch, and a local copy of KaTeX (`npm install katex@0.16.11` next to `build.sh`, so that `node_modules/katex/dist/` exists). Run it from the directory of the `.md` file so that `figures/...` resolves (in `thesis/` the images are under `figures/bccnn-explainers/`). The renderer lays the page out at the printable width and prints a list of any element wider than the page: Chromium would otherwise shrink the whole document to fit the widest element, so a long display equation must be broken into an `aligned` block until the report says `no overflow`.
+- **Page, font and spacing.** A4, with margins of 25 mm on the left and 20 mm elsewhere, so the text is 16.5 cm wide. Body text is Cambria 11 pt, justified, with 1.5 line spacing and no indents.
+- **Page numbers.** Page numbers are centred at the top. The front pages use Roman numerals, with none shown on the title page; Chapter 1 starts at page 1.
+- **Front pages.** Title page, note on preparation, abstract with key words, table of contents, list of tables, list of figures, and list of abbreviations.
+- **Chapters.** Chapters are headed "CHAPTER n" and the title, centred, 14 pt and bold. Each chapter opens with an introduction and closes with a summary.
+- **Headings and lists.** Headings are numbered 1.1 (upper case), 1.1.1 and 1.1.1.1. Bullets use the template styles; numbered steps run i), ii), iii).
+- **Equations.** Equations are numbered (chapter.n) at the right margin, in the template's two-column layout. They are referred to as "(2.7)" without the word "equation".
+- **Tables.** Tables are 16.5 cm wide and centred, with the caption above and 10 pt text. Headers are bold, numbers are right-aligned, and thousands are separated by spaces. The header row repeats when a table runs over a page.
+- **Figures.** The caption sits below the figure. Charts are redrawn in Caladea, which has the same metrics as Cambria, at text width with labelled axes.
+- **Language and citations.** Writing is in the third person with UK spelling. Citations are Harvard, with pages for quotations and *et al.* in italics. The References list is alphabetical, followed by the list of symbols as Appendix A.
 
-## Editable Word diagram of the network
+## Numerical checks (Python, no Keras or R)
 
-`thesis/figures/bccnn-explainers/bccnn_network_diagram.docx` holds the network figure as native Word shapes in one group (11 boxes, 12 arrows, a legend), with the maths typed as text (italics, sub- and superscripts), so every label, colour and position can be edited in Word. It is not a SmartArt object: SmartArt layouts are fixed lists, processes, hierarchies and cycles, none of which can hold two merging branches plus a skip connection.
+- `bccnn_check.py` re-implements `fit_odp_glm()` and the bCCNN in numpy: the IWLS fit, the forward and backward pass, Keras's RMSprop and dropout. It checks every formula of companion I. It also runs the toy early-stopping example and the refit, and, when asked, a bootstrap and a seed study.
+  - Environment variables: `GAMMA`, `JCUT`, `PHI`, `MU11`, `MAXEP`, `BOOT`, `SEEDS`, `OUTDIR`.
+  - The run used in companions II and III is `GAMMA=0.004 JCUT=12 PHI=0.3 MAXEP=3000 MU11=100 BOOT=20 SEEDS=10`.
+  - `bccnn_check_guide.py` is the same script with the figure style of the Guide.
+- `rolling_origin_check.py` replicates `rolling_origin_sets()` for the values in `config.yml` and draws the calendar-diagonal figure and the claims-split schematic. `rolling_origin_check_guide.py` is its Guide-style version.
+- The `results_*.json` and `rolling_origin_counts.json` files hold the numbers quoted in the explainers.
 
-Rebuild: `node word-diagram/base.js` (landscape page, title, caption, placeholder), unzip `base.docx`, `python3 word-diagram/make_diagram.py unpacked/word/document.xml` (box positions, texts and arrow routes are the lists at the top of the script), zip again.
+## Rebuilding the documents (`guide-build/`)
 
-## Editable Word figure of the rolling-origin partitions
+- **Sources.** `src/d1.md` to `src/d4.md` hold the text, with tokens for cross-references, equation numbers and captions. `SPEC.md` describes them.
+- **Template.** `template/template.docx` is the Department template.
 
-`thesis/figures/bccnn-explainers/rolling_origin_partitions.docx` holds the three partitions (valuation years 15, 18, 20) as three 20 x 20 Word tables: each table cell is a triangle cell and its shading is its role, the thick border is the partition's square, and the titles, axis labels, legend and caption are ordinary text. Rebuild with `node word-diagram/rolling_origin_word.js`; it recomputes the roles with the rule of `rolling_origin_sets()` (n = 20, test_periods c(5, 2), vali_periods 2, exclude 2) and prints the cell counts (97/23/60, 142/29/33, 177/33).
+```
+cd guide-build
+python3 tools/resolve.py            # numbers chapters, sections, equations, tables, figures across d1..d4
+python3 tools/build.py d1 d2 d3 d4  # pandoc on the template, then the Guide formatting -> out/dX.docx
+python3 tools/lo_export.py out/d1.docx out/d2.docx out/d3.docx out/d4.docx   # update fields, export PDF
+```
+
+Requirements:
+
+- pandoc 3.1;
+- Python 3 with lxml;
+- for the PDFs, LibreOffice with its Math component and Python UNO (`libreoffice-math`, `python3-uno`), plus the Caladea and Carlito fonts (`fonts-crosextra-caladea`, `fonts-crosextra-carlito`).
+
+`build/fig_network.md` and `build/fig_partitions.md` hold the two standalone figure files. To build one, write `{"meta": {}}` to `build/<name>.json` and run `python3 tools/build.py <name>`.
+
+`build.py` rewrites a few equation constructs that LibreOffice cannot import. These are a leading relation symbol, empty cells in `aligned` blocks, a bare `*` or `|`, `\underbrace`, and brackets inside `\text{}`. Each rewrite leaves Word's rendering unchanged or improves it.
+
+`tools/mathprobe2.py dX` renders every formula of `out/dX.docx` on its own page in LibreOffice and lists any that fail. The current documents have none.
+
+Word refreshes the table of contents and the lists of tables and figures when a document is opened, and asks before doing so. Answer Yes.
