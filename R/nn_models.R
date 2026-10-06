@@ -163,6 +163,27 @@ bccnn_phi <- function(phi_odp, decrease_vali) {
 
 
 ###############################################
+#########  periods without payments
+###############################################
+
+# Sets to NA the cells of `m` in the accident and development periods that
+# have no payments in the cells `fit` was fitted on. Their ccODP effect is
+# -Inf (glm() reports about -30, fitted means ~e^-30), so a positive payment
+# scored against them adds roughly 30 x payment to the deviance, and the
+# network's embedding input of that period is far outside the range of the
+# others: nothing fitted on those cells carries over to them. Not in Paper C
+# or Harkonen (2021), whose triangles have payments in every period.
+mask_zero_periods <- function(m, fit) {
+  if (is.null(m)) return(m)
+  stopifnot(nrow(m) == length(fit$zero_origin),
+            ncol(m) == length(fit$zero_dev))
+  m[fit$zero_origin, ] <- NA
+  m[, fit$zero_dev] <- NA
+  m
+}
+
+
+###############################################
 #########  early stopping 1: 50/50 claims split
 ###############################################
 
@@ -174,11 +195,9 @@ bccnn_validation <- function(train,
                              scale = 1,
                              phi = "deviance", ...) {
   odp <- suppressWarnings(fit_odp_glm(train, scale = scale, phi = phi))
-  vali <- upper(vali / scale)
-  # no payments in the training half (tail development years): ccODP effect
-  # -Inf, nothing carries over, so leave these validation cells out
-  vali[odp$zero_origin, ] <- NA
-  vali[, odp$zero_dev] <- NA
+  # no payments in the training half (tail development years): leave these
+  # validation cells out (mask_zero_periods())
+  vali <- mask_zero_periods(upper(vali / scale), odp)
 
   h <- fit_bccnn(odp, epochs = max_epochs, track = list(vali = vali),
                  ...)$history
@@ -198,6 +217,14 @@ bccnn_validation <- function(train,
 # the reported model ("refit": bCCNN from the chain ladder at the valuation
 # date, all cells, `best` steps; "partition": the early-stopped network),
 # next to the chain ladder at that date and the ccODP on the training cells.
+# Periods without payments (mask_zero_periods()): validation cells in a
+# period with no payments in the training cells are left out of the stopping
+# rule, as in the claims split; test cells in a period with no payments in
+# any cell observed at the valuation date are left out of the test error (no
+# model fitted at that date can forecast them). Test cells in a period that
+# has payments only in the validation cells stay in: the chain ladder at
+# that date does know that period, so a procedure that loses it is scored
+# for it. n_vali and n_test count the cells scored.
 bccnn_ro_partition <- function(part,
                                truth = NULL,
                                max_epochs = 1000,
@@ -207,10 +234,12 @@ bccnn_ro_partition <- function(part,
                                keep_mu = FALSE, ...) {
 
   odp <- fit_odp_glm(part$y, scale = scale, phi = phi, cells = part$train)
+  # chain ladder at the valuation date c (all cells observed at c)
+  cl <- if (!part$final) fit_odp_glm(part$y, scale = scale, phi = phi)
 
-  track <- list(vali = ifelse(part$vali, odp$y, NA))
+  track <- list(vali = mask_zero_periods(ifelse(part$vali, odp$y, NA), odp))
 
-  if (!part$final) track$test <- part$test / scale
+  if (!part$final) track$test <- mask_zero_periods(part$test / scale, cl)
   track$truth <- truth
 
   nn <- fit_bccnn(odp, epochs = max_epochs, track = track, keep_mu = keep_mu,
@@ -220,8 +249,8 @@ bccnn_ro_partition <- function(part,
   out <- list(origin = part$origin,
               final = part$final,
               n_train = sum(part$train),
-              n_vali = sum(part$vali),
-              n_test = sum(!is.na(part$test)),
+              n_vali = sum(!is.na(track$vali)),
+              n_test = sum(!is.na(track$test)),
               history = h,
               best_epoch = best,
               decrease = loss_decrease(h, best),
@@ -231,7 +260,6 @@ bccnn_ro_partition <- function(part,
 
   if (!part$final) {
     at <- function(col, e) h[[col]][h$epoch == e]
-    cl <- fit_odp_glm(part$y, scale = scale, phi = phi)  # chain ladder at c
     if (final_fit == "refit") {
       rf <- fit_bccnn(cl, epochs = best, track = list(test = track$test),
                       ...)$history

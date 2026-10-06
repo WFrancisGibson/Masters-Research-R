@@ -104,7 +104,9 @@ so the MLE on one half estimates the same $\alpha$ and $\beta$ as the full trian
 
 ## Cells without payments in the training half
 
-A development period in which the training half has no payments at all has ccODP effect $-\infty$ (companion, Section 3.9), and the network's means there are $\approx 0$, so a validation cell in that period would contribute $y \log(y / \mu) \to \infty$ to the deviance for any $y > 0$. `bccnn_validation()` therefore drops from the validation matrix every row in `odp$zero_origin` and every column in `odp$zero_dev` (sets them to `NA`): the validation deviance is taken over the cells of $\mathcal{D}^{V}$ whose accident and development periods have payments in $\mathcal{D}^{T}$. On the annual triangle this affects at most the last development periods.
+A development period in which the training half has no payments at all has ccODP effect $-\infty$ (companion, Section 3.9), and the network's means there are $\approx 0$, so a validation cell in that period would contribute $y \log(y / \mu) \to \infty$ to the deviance for any $y > 0$. `bccnn_validation()` therefore drops from the validation matrix every row in `odp$zero_origin` and every column in `odp$zero_dev` (sets them to `NA`): the validation deviance is taken over the cells of $\mathcal{D}^{V}$ whose accident and development periods have payments in $\mathcal{D}^{T}$. It does so through the helper `mask_zero_periods()`, which the rolling-origin partitions also use (companion on the time-aware split, Section 7). On the annual triangle this affects at most the last development periods.
+
+This masking is the code's own. Neither Paper C nor Härkönen discusses periods without payments: with their large portfolios and claims splits balanced by accident year, every period has payments in both halves (companion I, Section 3.9).
 
 # The training problem
 
@@ -208,7 +210,7 @@ all with the losses expressed as deviances. The third one averages Keras's noisy
 
 ## The same rule on the rolling-origin partitions
 
-Under `validation: rolling_origin` the run of Section 7.1 is made on each partition: the ccODP is fitted on the partition's training cells, the network is trained on them for $T_{\max}$ steps, and $D_V(t)$ is the deviance on the partition's validation cells (the latest calendar periods of that partition). The step used for the final fit is the $t^*$ of the *final* partition, the one whose triangle is all of $\mathcal{D}$; the test partitions, which end earlier, serve to score the procedure out of time. Everything from Section 8 on is the same; the companion on the time-aware split has the details and the counts.
+Under `validation: rolling_origin` the run of Section 7.1 is made on each partition: the ccODP is fitted on the partition's training cells, the network is trained on them for $T_{\max}$ steps, and $D_V(t)$ is the deviance on the partition's validation cells (the latest calendar periods of that partition). The step used for the final fit is the $t^*$ of the *final* partition, the one whose triangle is all of $\mathcal{D}$; the test partitions, which end earlier, serve to score the procedure out of time. Validation cells in periods with no payments in a partition's training cells are masked exactly as under the claims split. Everything from Section 8 on is the same; the companion on the time-aware split has the details and the counts.
 
 # The final fit
 
@@ -289,7 +291,7 @@ Table 2: The fitting procedure in the three references and in the code. Entries 
 |:--|:--|
 | the three parts of the data, Table 1 | `triangle_sets()` in `R/triangles.R`; `sets$upper`, `sets$train`, `sets$vali`, `sets$test`, `sets$tail_o` |
 | the claims split (1)-(2) | `triangle_sets()`: `alloc[order(occurrence_period, claim_no), ]`, `alloc$half <- rep(1:2, length.out = nrow(alloc))`, `square_of(half == 1L)`, `stopifnot(all.equal(train_full + vali_full, full))` |
-| masking of zero periods, Section 3.3 | `bccnn_validation()`: `vali[odp$zero_origin, ] <- NA`, `vali[, odp$zero_dev] <- NA` |
+| masking of zero periods, Section 3.3 | `bccnn_validation()`: `vali <- mask_zero_periods(upper(vali / scale), odp)`; the helper sets the rows in `odp$zero_origin` and the columns in `odp$zero_dev` to `NA` |
 | the training problem (4), full batch | `fit_bccnn()`: `fit(x_fit, y_fit, epochs, batch_size = batch_size %||% nrow(y_fit))`; `compile(loss = "poisson")` |
 | RMSprop (5) | `optimizer_rmsprop(learning_rate, rho, epsilon)`; `config.yml` `bccnn: training:` |
 | seed and initialisation, Section 6 | `bccnn_model()`: `clear_session()`, `set_random_seed(seed)`; Keras defaults for `layer_dense()` |

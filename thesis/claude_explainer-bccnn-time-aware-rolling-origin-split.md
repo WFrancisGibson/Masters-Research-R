@@ -116,7 +116,7 @@ Each partition is returned as a list with the $\tau \times \tau$ matrix of payme
 | test 2 | 18 | $18 \times 18$ | 171 | 142 | 29 (27 + 2) | $k = 17$: 13, $k = 18$: 14, $k = 7$: 1, $k = 13$: 1 | 33 ($k = 19, 20$) |
 | final | 20 | $20 \times 20$ | 210 | 177 | 33 (31 + 2) | $k = 19$: 15, $k = 20$: 16, $k = 7$: 1, $k = 15$: 1 | none |
 
-Table 1: Cells of the three partitions (Python replication of `rolling_origin_sets()`). The test partitions together hold 93 test cells.
+Table 1: Cells of the three partitions (Python replication of `rolling_origin_sets()`), before the masking of periods without payments (Section 7). The test partitions together hold 93 test cells.
 
 # Properties of the split
 
@@ -168,6 +168,8 @@ $$
 
 the decreases `loss_decrease(h, best)` and the ccODP are kept. Because the partition's batch is its $|\mathcal{U}_\tau|$ training cells, each partition is a separate Keras model built with the same seed: the same initial hidden-layer weights, but, since the batch sizes differ, different dropout mask sequences. For the final partition the whole path of mean squares is kept (`keep_mu = TRUE` when `final_fit = "partition"`), so that its early-stopped network can be reported without retraining (Section 10).
 
+**Periods without payments.** Property (a) guarantees each period a training *cell*, not a training *payment*. If all training cells of a development period hold zero, for instance a late development period whose only payment of the partition sits on a validation diagonal, the ccODP on the training cells gives that period an effect of about $-30$ and fitted means of order $e^{-30}$ (companion I, Section 3.9). A validation cell with a positive payment there would add about $30\,y$ to $D_{V,\tau}(t)$ at every step, and could decide $t^*_\tau$ by itself. `bccnn_ro_partition()` therefore applies `mask_zero_periods()` with the training-cell ccODP: those validation cells are left out of (7), as they are under the claims split, and $\mathcal{V}_\tau$ in (7)-(8) means the validation cells actually scored. Neither Al-Mudafer et al. nor Paper C nor Härkönen discuss this case.
+
 # Scoring the test partitions out of time
 
 A test partition answers: had the procedure been applied at valuation date $\tau$, how well would it have forecast the next $n - \tau$ calendar periods? `bccnn_ro_partition()` scores two things on $\mathcal{T}_\tau$, with `final_fit` deciding which network stands for the procedure:
@@ -183,6 +185,8 @@ A test partition answers: had the procedure been applied at valuation date $\tau
   This is a genuine out-of-time back-test of the whole chain "choose $t^*$ on the latest diagonals, refit on everything, forecast": every number in (9) could have been produced at $\tau$.
 * `final_fit = "partition"` (Al-Mudafer et al.): the early-stopped network of the partition itself, $\theta_{t^*_\tau}$ trained on $\mathcal{U}_\tau$, is scored: the test loss and test prediction are read from the history at step $t^*_\tau$.
 
+Test cells get the same treatment with a different reference. A test cell is left out if its accident or development period has no payments in *any* cell observed at $\tau$, that is, if the chain ladder at $\tau$ flags it: no model fitted at $\tau$ could forecast it. A test cell in a period that has payments only in the validation cells stays in. The chain ladder at $\tau$ does know that period, so a variant that loses it, such as the `partition` network started from the training-cell ccODP, is scored for the loss. All three models are scored on the same test cells, and `n_test` counts them.
+
 Next to the bCCNN, the partition records the actual test sum $\sum_{\mathcal{T}_\tau} y_{i,j}$, the chain ladder at $\tau$ (its test sum and test deviance) and the training-cell ccODP (its test sum and test deviance from the history at step 0). The code's comment names which baseline is like-for-like with which variant: the chain ladder at $\tau$ for `refit`, the training-cell ccODP for `partition`.
 
 # The test error (Al-Mudafer et al., eq. (4.4))
@@ -196,7 +200,7 @@ M &\in \{\text{ccODP (chain ladder at } \tau), \ \text{ccODP on } \mathcal{U}_\t
 \end{aligned} \tag{10}
 $$
 
-with $60 + 33 = 93$ test cells in the denominator. It is cell-weighted, so the long-horizon partition ($\tau = 15$, five calendar years ahead) weighs almost twice the short-horizon one; Al-Mudafer et al.'s (4.4) averages the negative log-likelihood of their density forecasts in the same way, and the code uses the deviance because the bCCNN is a mean model. `bccnn_tables()` prints the per-partition losses, their per-cell versions, and the pooled row labelled "test error (4.4)".
+with $60 + 33 = 93$ test cells in the denominator (fewer if a test partition has a period without payments by $\tau$, Section 8). It is cell-weighted, so the long-horizon partition ($\tau = 15$, five calendar years ahead) weighs almost twice the short-horizon one; Al-Mudafer et al.'s (4.4) averages the negative log-likelihood of their density forecasts in the same way, and the code uses the deviance because the bCCNN is a mean model. `bccnn_tables()` prints the per-partition losses, their per-cell versions, and the pooled row labelled "test error (4.4)".
 
 What the test error is for. In Al-Mudafer et al. it is the objective of the hyperparameter search ("The MDN's architecture was selected using an algorithm that successively optimised one hyper-parameter at a time", §3.2), averaged over several seeds to damp the initialisation. In the code the architecture is fixed by `config.yml`, so $\bar D$ is *reported*, not optimised: it tells you whether the bCCNN procedure beat the chain ladder out of time at two earlier valuation dates, in the same units as the in-sample and out-of-sample deviances of the final fit, before the true lower triangle is looked at. It is a single realisation per seed (the comment in `bccnn_rolling_origin()`: "the results depend on the seed"); comparing designs by it would need the seed averaging Al-Mudafer et al. do.
 
@@ -244,6 +248,7 @@ Neither signal measures what the back-test measures, the deviance on the true lo
 | training and test cells, (2) | `train <- known & !vali`; `test <- if (c0 < n) ifelse(cal > c0, ys, NA) else NULL` (the `NA`s of `ys` beyond $k = n$ keep the test inside $\mathcal{D}$) |
 | size check, property (g) | `if (any(origins - vali_periods < 2 * exclude + 1)) stop(...)` |
 | ccODP on the training cells, Section 6 | `bccnn_ro_partition()`: `odp <- fit_odp_glm(part$y, scale, phi, cells = part$train)`; `cl <- fit_odp_glm(part$y, ...)` for the chain ladder at $\tau$ |
+| masking of periods without payments, Sections 7-8 | `bccnn_ro_partition()`: `cl <- fit_odp_glm(part$y, ...)` first, then `track$vali <- mask_zero_periods(ifelse(part$vali, odp$y, NA), odp)`, `track$test <- mask_zero_periods(part$test / scale, cl)`; `n_vali`, `n_test` count the scored cells |
 | the run (7)-(8) | `nn <- fit_bccnn(odp, epochs = max_epochs, track = track, keep_mu = keep_mu)`, `best <- h$epoch[which.min(h$vali)]` |
 | scoring (9) | `if (final_fit == "refit") rf <- fit_bccnn(cl, epochs = best, track = list(test = track$test))` else `at("test", best)`; the `out$test` vector |
 | test error (10) | `bccnn_rolling_origin()`: `test_error <- c(ccODP = ..., ccODP_train = ..., bCCNN = ...) / sum(tst$n_test)`; `bccnn_tables()` row "test error (4.4)" |

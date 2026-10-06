@@ -43,7 +43,7 @@ Abbreviations: ccODP, cross-classified over-dispersed Poisson; bCCNN, blended cr
 
 This explainer writes out, formula by formula, what the bCCNN code computes on one $20 \times 20$ annual triangle: the cross-classified over-dispersed Poisson model that the chain ladder rests on, the neural network that is wrapped around it, the loss as Keras sees it, the gradients, and the properties of the starting point of gradient descent. The fitting procedure (which cells train, which cells stop the training, how the final network is chosen) is in the companion *The fitting procedure and training of the bCCNN*; the time-aware split is in *The time-aware split for the bCCNN*; interpretation, evaluation and uncertainty are in *The bCCNN as a whole*. The four documents share the notation above.
 
-Two things in the code are not in Paper C and are marked where they appear: the rolling-origin early stopping (companion documents) and the fact that the hidden layers use Keras's default initialiser (Section 4.6, your `INFERRED` comment).
+Three things in the code are not in Paper C and are marked where they appear: the rolling-origin early stopping (companion documents), the fact that the hidden layers use Keras's default initialiser (Section 4.6, your `INFERRED` comment), and the handling of accident or development periods without payments (Section 3.9), which is in neither Paper C nor Härkönen.
 
 **How the maths was checked.** Every formula of Sections 3 to 9 was recomputed in plain numpy, without Keras, on a synthetic $20 \times 20$ triangle with the dimensions of your data (210 observed cells, payments in millions), and the two implementations were compared. The results are in Section 11. In short: the IWLS fit of Section 3 reproduces the chain-ladder reserve to a relative error of $5 \times 10^{-15}$ and satisfies the marginal-total equations to $10^{-11}$; the network at its starting point reproduces the ccODP means to $10^{-14}$; the analytic gradients of Section 6 agree with central finite differences to a relative error of $10^{-7}$ or better in every parameter group; the parameter count agrees with Keras's 547; and the predicted behaviour of the first RMSprop step (Section 6.5) is observed exactly.
 
@@ -232,7 +232,21 @@ The Pearson residual $(y - \mu) / \sqrt{\phi \mu}$ is invariant ($u$ cancels), a
 
 ## Periods without payments
 
-If an accident period or a development period has no payments in the fitted cells, its MLE is $-\infty$: the deviance keeps decreasing as the effect goes to $-\infty$, and `glm()` stops at a large negative value (about $-30$) that it reports as converged, with fitted means of order $e^{-30}$. `fit_odp_glm()` flags these as `zero_origin` and `zero_dev` and warns. They matter for the network because the embedding of that period is then $\approx -30$, far outside the range of the other effects, and because a validation cell in such a period would be scored with $\mu \approx 0$: `bccnn_validation()` therefore sets those validation cells to `NA` (companion document, Section 3). On the full annual triangle every period has payments.
+**What happens.** If an accident period or a development period has no payments in the fitted cells, its MLE is $-\infty$. In the row or column equation (12) every fitted mean of that period must sum to zero, which only $e^{-\infty} = 0$ achieves, so the deviance keeps decreasing as the effect goes to $-\infty$. `glm()` stops at a large negative value (about $-30$) that it reports as converged, with fitted means of order $e^{-30}$. `fit_odp_glm()` flags these periods as `zero_origin` and `zero_dev` and warns.
+
+**For the chain ladder this is harmless.** A development period with no payments has chain-ladder factor exactly 1, and the ccODP limit $\mu = 0$ for that column predicts the same. The difficulty is purely numerical, and it matters in two places:
+
+* **As a network input.** The embedding of that period is then $\approx -30$, far outside the range of the other effects (companion II, Section 6, on the raw inputs). The hidden layers see a value they were never trained near.
+* **In the deviance.** A cell with $y > 0$ scored against $\mu \approx e^{-30}$ adds $y \log(y / \mu) \approx 30\, y$ to the deviance. One such cell can dominate a validation or test loss: in the check of the code change, a single validation cell raised the starting validation deviance of a partition from $32$ to $3{,}047$. `poisson_deviance()` does not catch it, because $e^{-30}$ is positive and finite.
+
+**What Paper C and Härkönen do.** Neither discusses it. Härkönen replaces negative aggregated payments with zero so that the Poisson loss applies (her Sections 3.1 and 4.1), which makes every cell valid but does nothing about a period summing to zero. When she removes the last diagonal she notes that the networks "require input values for each accident year, reporting delay and payment delay" and declares them "not applicable" (Section 3.2), instead of handling the gap. Her triangles have 12 accident years and portfolios of about 100,000 to over a million claims, and Paper C's six simulated lines of business are of the same kind, so every period has payments in both halves of their balanced claims splits. Paper C's Listing 4 sets the embeddings to the GLM estimates with no guard. (Paper C is cited here through the quotations in your hyperparameter notes.)
+
+**What the code does.** The helper `mask_zero_periods(m, fit)` in `R/nn_models.R` sets to `NA` the cells of `m` in the periods `fit` flags, so they are left out of the deviance:
+
+* under the claims split, `bccnn_validation()` masks the validation cells in periods with no payments in the training half (companion II, Section 3.3);
+* under the rolling origin, `bccnn_ro_partition()` masks the validation cells in periods with no payments in the partition's training cells, and the test cells in periods with no payments in *any* cell observed at the valuation date (companion III, Section 7). `n_vali` and `n_test` count the cells actually scored.
+
+The network input itself is left as it is. On the full annual triangle every period has payments; whether a training half or a rolling-origin partition has an empty period depends on how sparse the last development years are.
 
 # The bCCNN network
 
@@ -500,6 +514,7 @@ is the multiplicative correction of Section 4.4 minus one, shown as a heat map o
 | (7) Poisson deviance | `poisson_deviance()` in `R/loss functions.R` |
 | (11)-(13) MLE by IWLS | inside `stats::glm()`, `glm.control(epsilon = 1e-12, maxit = 100)` |
 | (14) chain-ladder equivalence | asserted in `bCCNN fit.R`: `all.equal(res$odp$reserve * scale, cl$total[["ibnr"]])`, with `fit_chainladder()` in `R/classical_models.R` |
+| Section 3.9, periods without payments | `fit_odp_glm()`: `zero_origin`, `zero_dev`; `mask_zero_periods()` in `R/nn_models.R` |
 | (18) dispersion | `fit_odp_glm()`: `phi_deviance`, `phi_pearson`, `n_par <- 2L * n - 1L` |
 | (19) unit of the payments | `fit_odp_glm(scale = )`, `dat_cfg$scale`; every output in those units |
 | (20)-(21) embeddings and skip connection | `layer_embedding(input_dim = n, output_dim = 1, trainable = ...)`, `set_weights(list(as.matrix(odp$alpha)))`, `layer_add(..., name = "cc0")` |
