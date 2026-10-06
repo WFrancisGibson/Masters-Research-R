@@ -321,8 +321,9 @@ Keras builds the model with its default initialisers: Glorot-uniform weights, $W
 
 $$
 \begin{aligned}
-\theta_0: \qquad &\mathrm{AY\_embed} = \hat\alpha, \quad \mathrm{DY\_embed} = \hat\beta, \quad w = 1, \quad c = \hat c, \quad B = 0 \in \mathbb{R}^{10}, \\
-&(W^{(h)}, b^{(h)}) \ \text{random: Glorot-uniform weights, zero biases}, \quad h = 1, 2, 3 .
+\theta_0: \qquad &\mathrm{AY\_embed} = \hat\alpha, \qquad \mathrm{DY\_embed} = \hat\beta, \\
+&w = 1, \qquad c = \hat c, \qquad B = 0 \in \mathbb{R}^{10}, \\
+&(W^{(h)}, b^{(h)}) \ \text{random: Glorot-uniform weights, zero biases}, \qquad h = 1, 2, 3 .
 \end{aligned} \tag{26}
 $$
 
