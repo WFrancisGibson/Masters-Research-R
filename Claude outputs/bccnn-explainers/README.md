@@ -23,3 +23,9 @@ Requirements: `python3 -m pip install numpy matplotlib`.
 ## Building the PDFs
 
 `build.sh in.md out.pdf` runs pandoc (Markdown + LaTeX math -> HTML with KaTeX) and prints the HTML to PDF with headless Chromium through Playwright (`render.js`); `style.css` is the page style. It needs `pandoc`, `node` with the `playwright` package and a Chromium it can launch, and a local copy of KaTeX (`npm install katex@0.16.11` next to `build.sh`, so that `node_modules/katex/dist/` exists). Run it from the directory of the `.md` file so that `figures/...` resolves (in `thesis/` the images are under `figures/bccnn-explainers/`). The renderer lays the page out at the printable width and prints a list of any element wider than the page: Chromium would otherwise shrink the whole document to fit the widest element, so a long display equation must be broken into an `aligned` block until the report says `no overflow`.
+
+## Editable Word diagram of the network
+
+`thesis/figures/bccnn-explainers/bccnn_network_diagram.docx` holds the network figure as native Word shapes in one group (11 boxes, 12 arrows, a legend), with the maths typed as text (italics, sub- and superscripts), so every label, colour and position can be edited in Word. It is not a SmartArt object: SmartArt layouts are fixed lists, processes, hierarchies and cycles, none of which can hold two merging branches plus a skip connection.
+
+Rebuild: `node word-diagram/base.js` (landscape page, title, caption, placeholder), unzip `base.docx`, `python3 word-diagram/make_diagram.py unpacked/word/document.xml` (box positions, texts and arrow routes are the lists at the top of the script), zip again.
