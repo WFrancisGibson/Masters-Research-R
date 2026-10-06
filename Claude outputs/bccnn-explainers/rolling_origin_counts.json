@@ -1,0 +1,140 @@
+{
+ "summary": [
+  {
+   "origin": 15,
+   "final": false,
+   "square": "15 x 15",
+   "n_known": 120,
+   "n_train": 97,
+   "n_vali": 23,
+   "n_test": 60,
+   "vali_diagonals": [
+    14,
+    15
+   ],
+   "vali_on_diagonals": 21,
+   "vali_by_calendar": {
+    "6": 1,
+    "11": 1,
+    "14": 10,
+    "15": 11
+   },
+   "extra_cells": [
+    [
+     5,
+     2,
+     6
+    ],
+    [
+     10,
+     2,
+     11
+    ]
+   ],
+   "lo": 3,
+   "hi": 12,
+   "every_row_has_train": true,
+   "every_col_has_train": true,
+   "test_calendar": [
+    16,
+    17,
+    18,
+    19,
+    20
+   ],
+   "train_rows_last_two": [
+    1,
+    2
+   ],
+   "vali_share_of_known": 0.19166666666666668
+  },
+  {
+   "origin": 18,
+   "final": false,
+   "square": "18 x 18",
+   "n_known": 171,
+   "n_train": 142,
+   "n_vali": 29,
+   "n_test": 33,
+   "vali_diagonals": [
+    17,
+    18
+   ],
+   "vali_on_diagonals": 27,
+   "vali_by_calendar": {
+    "7": 1,
+    "13": 1,
+    "17": 13,
+    "18": 14
+   },
+   "extra_cells": [
+    [
+     6,
+     2,
+     7
+    ],
+    [
+     12,
+     2,
+     13
+    ]
+   ],
+   "lo": 3,
+   "hi": 15,
+   "every_row_has_train": true,
+   "every_col_has_train": true,
+   "test_calendar": [
+    19,
+    20
+   ],
+   "train_rows_last_two": [
+    1,
+    2
+   ],
+   "vali_share_of_known": 0.1695906432748538
+  },
+  {
+   "origin": 20,
+   "final": true,
+   "square": "20 x 20",
+   "n_known": 210,
+   "n_train": 177,
+   "n_vali": 33,
+   "n_test": 0,
+   "vali_diagonals": [
+    19,
+    20
+   ],
+   "vali_on_diagonals": 31,
+   "vali_by_calendar": {
+    "7": 1,
+    "15": 1,
+    "19": 15,
+    "20": 16
+   },
+   "extra_cells": [
+    [
+     6,
+     2,
+     7
+    ],
+    [
+     14,
+     2,
+     15
+    ]
+   ],
+   "lo": 3,
+   "hi": 17,
+   "every_row_has_train": true,
+   "every_col_has_train": true,
+   "test_calendar": [],
+   "train_rows_last_two": [
+    1,
+    2
+   ],
+   "vali_share_of_known": 0.15714285714285714
+  }
+ ],
+ "total_test_cells": 93
+}
