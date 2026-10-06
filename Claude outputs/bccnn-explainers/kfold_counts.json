@@ -1,0 +1,129 @@
+{
+ "cells": 210,
+ "per_partition": {
+  "15": {
+   "train": 97,
+   "validation": 23,
+   "test": 60,
+   "outside": 30
+  },
+  "18": {
+   "train": 142,
+   "validation": 29,
+   "test": 33,
+   "outside": 6
+  },
+  "20": {
+   "train": 177,
+   "validation": 33,
+   "test": 0,
+   "outside": 0
+  }
+ },
+ "test_by_calendar": {
+  "15": {
+   "16": 14,
+   "17": 13,
+   "18": 12,
+   "19": 11,
+   "20": 10
+  },
+  "18": {
+   "19": 17,
+   "20": 16
+  }
+ },
+ "T15_and_T18": 21,
+ "T15_and_T18_by_calendar": {
+  "19": 11,
+  "20": 10
+ },
+ "V15_in_U18": 23,
+ "V15_in_U20": 23,
+ "V18_in_U20": 28,
+ "V18_and_V20": [
+  [
+   6,
+   2
+  ]
+ ],
+ "T15_in_U18": 14,
+ "T15_in_V18": 25,
+ "T15_in_U20": 39,
+ "T15_in_V20": 21,
+ "T18_in_U20": [
+  [
+   2,
+   18
+  ],
+  [
+   18,
+   2
+  ]
+ ],
+ "T18_in_V20": 31,
+ "ever_validation": 84,
+ "ever_test": 72,
+ "ever_held_out": 100,
+ "never_held_out": 110,
+ "never_held_out_in_border": 65,
+ "held_out_multiplicity": {
+  "0": 110,
+  "1": 43,
+  "2": 36,
+  "3": 21
+ },
+ "training_multiplicity": {
+  "0": 31,
+  "1": 36,
+  "2": 49,
+  "3": 94
+ },
+ "singleton_periods": {
+  "accident period 20": [
+   [
+    20,
+    1
+   ]
+  ],
+  "development period 20": [
+   [
+    1,
+    20
+   ]
+  ]
+ },
+ "kfold_seed2026": {
+  "1": {
+   "held_out": 42,
+   "accident_periods_without_training_cell": [
+    20
+   ],
+   "development_periods_without_training_cell": []
+  },
+  "2": {
+   "held_out": 42,
+   "accident_periods_without_training_cell": [],
+   "development_periods_without_training_cell": []
+  },
+  "3": {
+   "held_out": 42,
+   "accident_periods_without_training_cell": [],
+   "development_periods_without_training_cell": [
+    20
+   ]
+  },
+  "4": {
+   "held_out": 42,
+   "accident_periods_without_training_cell": [],
+   "development_periods_without_training_cell": []
+  },
+  "5": {
+   "held_out": 42,
+   "accident_periods_without_training_cell": [],
+   "development_periods_without_training_cell": []
+  }
+ },
+ "kfold_folds_with_lost_period": 2,
+ "kfold_share_of_assignments_with_lost_period": 1.0
+}

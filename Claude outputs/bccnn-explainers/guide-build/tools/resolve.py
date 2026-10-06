@@ -18,7 +18,7 @@ import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC, OUT = os.path.join(ROOT, "src"), os.path.join(ROOT, "build")
-DOCS = [d for d in ["d1", "d2", "d3", "d4"] if os.path.exists(os.path.join(SRC, d + ".md"))]
+DOCS = [d for d in ["d1", "d2", "d3", "d4", "d5"] if os.path.exists(os.path.join(SRC, d + ".md"))]
 
 HEAD = re.compile(r"^(#{1,4})\s+(.*?)\s*(?:\{([^}]*)\})?\s*$")
 EQ = re.compile(r"^⟦eq:([^⟧|]+)⟧\s*$")

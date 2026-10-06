@@ -1,6 +1,6 @@
 # bCCNN explainers: sources, checks and build tooling
 
-The four explainers are in `thesis/`, as Word documents on the Department template with a PDF of each. They follow the Research Assignment Guide (Department of Statistics and Actuarial Science, 2026), Chapter 5 and Appendix D.
+The five explainers are in `thesis/`, as Word documents on the Department template with a PDF of each. They follow the Research Assignment Guide (Department of Statistics and Actuarial Science, 2026), Chapter 5 and Appendix D.
 
 | Companion | Files in `thesis/` | Covers |
 |:--|:--|:--|
@@ -8,6 +8,9 @@ The four explainers are in `thesis/`, as Word documents on the Department templa
 | II | `claude_explainer-bccnn-fitting-procedure-and-training.{docx,pdf}` | The data parts; the 50/50 claims split; RMSprop; early stopping; the refit; the outputs; the procedure in Paper C, Härkönen and Al-Mudafer *et al.* against the code. |
 | III | `claude_explainer-bccnn-as-a-whole-interpretation-evaluation-uncertainty.{docx,pdf}` | What the bCCNN estimates; early stopping as shrinkage towards the chain ladder; how the reserve is judged; MSEP, bootstrap and nagging. |
 | IV | `claude_explainer-bccnn-time-aware-rolling-origin-split.{docx,pdf}` | `rolling_origin_sets()` cell by cell; its guarantees and cell counts; out-of-time scoring and the test error. |
+| V | `claude_explainer-bccnn-rolling-origin-versus-k-fold-cross-validation.{docx,pdf}` | How each of the three rolling-origin partitions is used and which results reach the reserve; K-fold and time-series cross-validation defined; why the procedure is not K-fold cross-validation, and why K-fold over the cells is infeasible with the chain-ladder start; the claims split and Härkönen's reversed split in the same frame. |
+
+Companions I to IV were written as a set of four and do not refer to companion V; companion V refers to them.
 
 `thesis/figures/bccnn-explainers/` holds two editable figures, both laid out to the Guide:
 
@@ -36,19 +39,20 @@ The explainers were prepared with the generative AI tool Claude as study materia
   - Environment variables: `GAMMA`, `JCUT`, `PHI`, `MU11`, `MAXEP`, `BOOT`, `SEEDS`, `OUTDIR`.
   - The run used in companions II and III is `GAMMA=0.004 JCUT=12 PHI=0.3 MAXEP=3000 MU11=100 BOOT=20 SEEDS=10`.
   - `bccnn_check_guide.py` is the same script with the figure style of the Guide.
+- `kfold_check_guide.py` rebuilds the three partitions and counts how their cells move between roles, how often each cell is held out, and which periods a random five-fold split of the cells leaves without a training cell. It draws the two figures of companion V and writes `kfold_counts.json`.
 - `rolling_origin_check.py` replicates `rolling_origin_sets()` for the values in `config.yml` and draws the calendar-diagonal figure and the claims-split schematic. `rolling_origin_check_guide.py` is its Guide-style version.
-- The `results_*.json` and `rolling_origin_counts.json` files hold the numbers quoted in the explainers.
+- The `results_*.json`, `rolling_origin_counts.json` and `kfold_counts.json` files hold the numbers quoted in the explainers.
 
 ## Rebuilding the documents (`guide-build/`)
 
-- **Sources.** `src/d1.md` to `src/d4.md` hold the text, with tokens for cross-references, equation numbers and captions. `SPEC.md` describes them.
+- **Sources.** `src/d1.md` to `src/d5.md` hold the text, with tokens for cross-references, equation numbers and captions. `SPEC.md` describes them.
 - **Template.** `template/template.docx` is the Department template.
 
 ```
 cd guide-build
-python3 tools/resolve.py            # numbers chapters, sections, equations, tables, figures across d1..d4
-python3 tools/build.py d1 d2 d3 d4  # pandoc on the template, then the Guide formatting -> out/dX.docx
-python3 tools/lo_export.py out/d1.docx out/d2.docx out/d3.docx out/d4.docx   # update fields, export PDF
+python3 tools/resolve.py               # numbers chapters, sections, equations, tables, figures across d1..d5
+python3 tools/build.py d1 d2 d3 d4 d5  # pandoc on the template, then the Guide formatting -> out/dX.docx
+python3 tools/lo_export.py out/d1.docx out/d2.docx out/d3.docx out/d4.docx out/d5.docx   # update fields, export PDF
 ```
 
 Requirements:
