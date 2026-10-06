@@ -1,0 +1,12 @@
+# Line endings: LF in the repository on every platform (the laptop is Windows, the
+# cloud fits run on Linux); shell scripts are checked out with LF too, or bash
+# in a container refuses them.
+*       text=auto
+*.sh    text eol=lf
+# Binaries: never diffed, merged or line-ending normalised as text.
+*.rds   binary
+*.RData binary
+*.keras binary
+*.pdf   binary
+*.docx  binary
+*.png   binary

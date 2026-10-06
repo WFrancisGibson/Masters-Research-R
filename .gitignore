@@ -8,6 +8,9 @@ Thumbs.db
 # data and regenerable outputs
 data/raw/*
 data/interim/*
+# the laptop's cells for a cloud fit of the NN chain ladder (data/raw is not in
+# git): the one tracked file under data/, see Claude outputs/nncl-parallel-workers/
+!data/interim/nncl_synthetic_cells.rds
 data/processed/*
 models/*
 output/*
