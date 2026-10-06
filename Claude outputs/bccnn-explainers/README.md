@@ -29,3 +29,7 @@ Requirements: `python3 -m pip install numpy matplotlib`.
 `thesis/figures/bccnn-explainers/bccnn_network_diagram.docx` holds the network figure as native Word shapes in one group (11 boxes, 12 arrows, a legend), with the maths typed as text (italics, sub- and superscripts), so every label, colour and position can be edited in Word. It is not a SmartArt object: SmartArt layouts are fixed lists, processes, hierarchies and cycles, none of which can hold two merging branches plus a skip connection.
 
 Rebuild: `node word-diagram/base.js` (landscape page, title, caption, placeholder), unzip `base.docx`, `python3 word-diagram/make_diagram.py unpacked/word/document.xml` (box positions, texts and arrow routes are the lists at the top of the script), zip again.
+
+## Editable Word figure of the rolling-origin partitions
+
+`thesis/figures/bccnn-explainers/rolling_origin_partitions.docx` holds the three partitions (valuation years 15, 18, 20) as three 20 x 20 Word tables: each table cell is a triangle cell and its shading is its role, the thick border is the partition's square, and the titles, axis labels, legend and caption are ordinary text. Rebuild with `node word-diagram/rolling_origin_word.js`; it recomputes the roles with the rule of `rolling_origin_sets()` (n = 20, test_periods c(5, 2), vali_periods 2, exclude 2) and prints the cell counts (97/23/60, 142/29/33, 177/33).
