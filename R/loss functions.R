@@ -1,25 +1,20 @@
-############################# LOSS FUNCTIONS ###################################
-# R/losses.R -- functions only, no top-level code.
-# Poisson deviance loss
+##########################################
+#########  Loss functions
+##########################################
 
+## Poisson deviance loss D(y, mu), Paper C eq. (4): data y first (the course's
+## version has the prediction first); summed over the cells where y is observed
 poisson_deviance <- function(y, mu) {
-  y  <- as.vector(as.matrix(y))
-  mu <- as.vector(as.matrix(mu))
-  stopifnot(length(y) == length(mu))
-  ok <- !is.na(y)
-  y  <- y[ok]
-  mu <- mu[ok]
-  if (any(!is.finite(mu) | mu <= 0)) {
-    stop("poisson_deviance():
-          mu must be positive and finite on the scored cells",
-         call. = FALSE)
-  }
+  keep <- which(!is.na(y))
+  y <- y[keep]
+  mu <- mu[keep]
   2 * sum(mu - y + ifelse(y > 0, y * log(y / mu), 0))
 }
 
-
-# Keras "poisson" loss -> Poisson deviance
-keras_poisson_to_deviance <- function(loss, y) {
-  y <- y[!is.na(y)]
+## Keras 'poisson' loss = mean(mu - y * log(mu)) over the N cells,
+## so the Poisson deviance expressed as
+## 2 * sum(mu - y + y * log(y / mu)) #nolint
+## = 2 * N * loss + 2 * sum(y * log(y) - y)
+keras_to_deviance <- function(loss, y) {
   2 * length(y) * loss + 2 * sum(ifelse(y > 0, y * log(y), 0) - y)
 }

@@ -1,0 +1,574 @@
+---
+title: "The mathematics behind the RMSEP and variance code: Mack chain ladder and the ODP model"
+subtitle: "Explainer for `analysis/01_Mack model/Mack chainladder fit.R`, `analysis/02_ODP glm model/ODP glm fit plot.R`, `R/fit ODP GLM.R` and `R/reserves.R`"
+author: "Prepared for Francis"
+date: "2 October 2026"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+\ifdefined\newgeometry\newgeometry{left=1.8cm,right=1.8cm,top=1.7cm,bottom=1.9cm}\else\newpage\fi
+
+# Notation used in this document {-}
+
+Symbols are grouped by where they first appear; the last column gives the section that defines them.
+
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{4pt}
+
+| Symbol | Meaning | § |
+|:------------------|:----------------------------------------------------------------------|:---------|
+| | **Triangle and reserves** | |
+| $n$ | number of accident years and of development years, $n = 20$ | 2 |
+| $i$; $j$, $j'$, $l$ | accident year (row), $1,\dots,n$; development year (column), $1,\dots,n$ | 2 |
+| $Y_{i,j}$, $C_{i,j}$ | incremental payment in cell $(i,j)$; cumulative payment $C_{i,j} = \sum_{l \le j} Y_{i,l}$ | 2 |
+| $\mathcal{D}$, $\mathcal{D}^{c}$, $\lvert\mathcal{D}\rvert$ | observed cells ($i + j \le n + 1$); future cells; number of observed cells, $210$ | 2 |
+| $j_i$ | latest observed development year of accident year $i$, $j_i = n + 1 - i$ | 2 |
+| $R_i$, $R$ | outstanding payments of accident year $i$ and in total (unknown; being predicted) | 2 |
+| $R_i^{\text{true}}$, $R^{\text{true}}$ | the same amounts as realised in the simulated data (column `true`) | 3.6, 4.8 |
+| $\hat{\ }$ (hat) | an estimate or fitted value: $\hat R_i$ reserve estimate, $\hat C_{i,n}$ estimated ultimate | all |
+| $\mathbb{E}[\,\cdot \mid \mathcal{D}]$, $\operatorname{Var}(\cdot \mid \mathcal{D})$ | expectation and variance given the observed triangle | 2.1 |
+| $\operatorname{msep}$, $\operatorname{rmsep}$ | mean squared error of prediction; its square root (wide hat: their estimates) | 2.1 |
+| $I$, $J$, $S^I_j$ | Hindley's indices of the last row and column, $I = J = n - 1$; his column sum | 2 |
+| | **Mack chain ladder** | |
+| $f_j$, $\hat f_j$ | development factor from development year $j$ to $j+1$; its chain-ladder estimate | 3.1, 3.2 |
+| $\sigma_j^2$, $\hat\sigma_j^2$ | Mack variance parameter of development year $j$; its estimate | 3.1, 3.3 |
+| $S_j$ | sum of column $j$ over accident years $1,\dots,n-j$ (excludes the diagonal cell) | 3.2 |
+| $\hat C_{i,j}$ | cumulative payment in the completed triangle (projected below the diagonal) | 3.2 |
+| $\widehat{\operatorname{Var}}(\hat f_j)$ | estimated variance of the development factor, $\hat\sigma_j^2 / S_j$ | 3.3 |
+| $P_{i,j}$, $Q_{i,j}$ | process variance and estimation variance of $\hat C_{i,j}$ in the recursion | 3.4 |
+| $A_j$ | sum of $\hat C_{i,j}$ over accident years $i \ge n + 1 - j$ (column $j+1$ is projected) | 3.5 |
+| $T_j$ | MSEP of the total accumulated up to development year $j$; $T_n = \widehat{\operatorname{msep}}(\hat R)$ | 3.5 |
+| | **ODP model** | |
+| $\mu_{i,j}$, $\hat\mu_{i,j}$ | mean of $Y_{i,j}$; its fitted value | 4.1 |
+| $c$, $\alpha_i$, $\beta_j$ | intercept; accident-year and development-year parameters ($\alpha_1 = \beta_1 = 0$) | 4.1 |
+| $\boldsymbol\beta$, $\hat{\boldsymbol\beta}$, $p$ | regression parameters; their estimate; number of parameters, $p = 2n - 1 = 39$ | 4.1 |
+| $\boldsymbol{x}_{i,j}$, $\eta_{i,j}$ | design-matrix row of cell $(i,j)$; linear predictor $\eta_{i,j} = \boldsymbol{x}_{i,j}^{\top}\boldsymbol\beta = \log\mu_{i,j}$ | 4.1 |
+| $X$, $W$ | design matrix of the observed cells ($210 \times 39$); weight matrix $\operatorname{diag}(\hat\mu_{i,j})$ | 4.3 |
+| $\phi$; $\hat\phi_P$, $\hat\phi_D$ | dispersion, $\operatorname{Var}(Y_{i,j}) = \phi\,\mu_{i,j}$; its Pearson and deviance estimates | 4.1, 4.2 |
+| $\hat\phi_{\text{glm}}$, $\hat\phi_k$ | dispersion taken from `glmReserve` ($= \hat\phi_P$); estimate $k \in \{\text{Pearson}, \text{deviance}\}$ | 4.2, 4.4 |
+| $r_{i,j}$ | unscaled Pearson residual, $(Y_{i,j} - \hat\mu_{i,j})/\hat\mu_{i,j}^{1/2}$ | 4.2 |
+| $V(\mu)$, $w_{i,j}$, df | variance function ($= \mu$); GLM working weights; degrees of freedom ($= 171$) | 4.2 |
+| $s$; superscripts $(s)$, $(k)$ | unit of the amounts, $s = 10^6$; computed on the data $Y_{i,j}/s$; computed under $\hat\phi_k$ | 4.2, 4.4 |
+| $\boldsymbol{m}_i$, $\boldsymbol{m}$ | gradient of $\hat R_i$ in $\boldsymbol\beta$, $\sum_{j > j_i}\hat\mu_{i,j}\,\boldsymbol{x}_{i,j}$; its sum over the accident years | 4.3 |
+| $\widehat{\operatorname{Cov}}(\cdot)$, $\widehat{\operatorname{Var}}(\hat R_i)$ | estimated covariance (of $\hat{\boldsymbol\beta}$, or of two $\hat\eta_{i,j}$); estimation variance of the reserve | 4.3 |
+| $\text{se}_i$ | standard error returned by `glmReserve`, in units of $s$ | 4.4 |
+| | **Bootstrap** | |
+| $B$, $b$ | number of bootstrap samples, $1{,}000$; index of a sample | 4.5 |
+| superscript $*$ | a quantity of a bootstrap sample (pseudo data, or re-estimated from it) | 4.5 |
+| $Y^{*}_{i,j}$, $r^{*}_{i,j}$ | pseudo payment in cell $(i,j)$; residual drawn with replacement | 4.6 |
+| $r^{\text{adj}}_{i,j}$ | Pearson residual multiplied by $(\lvert\mathcal{D}\rvert/(\lvert\mathcal{D}\rvert - p))^{1/2}$ | 4.7 |
+| $R^{*}_{b,i}$, $R^{*}_{b}$, $\bar R^{*}_{i}$ | reserve of year $i$ re-estimated in sample $b$; its sum over $i$; its mean over $b$ | 4.5 |
+| $\operatorname{Var}_b(\cdot)$, $\hat V_i$ | sample variance over the $B$ samples; bootstrap estimation variance | 4.5 |
+| factor | multiplier of the bootstrap variance: $1$, or $\lvert\mathcal{D}\rvert/(\lvert\mathcal{D}\rvert - p) = 210/171$ | 4.5, 4.6 |
+| $\hat m_2$, $\hat m_4$, $g(V)$ | 2nd and 4th central moments of the bootstrap reserves; $g(V) = (\phi\hat R_i + V)^{1/2}$ | 4.5 |
+| $N_{i,j}$, $N_{b,i,j}$, $\operatorname{Poi}(\lambda)$ | independent Poisson random variables; the Poisson distribution with mean $\lambda$ | 4.6, 4.7 |
+| $\hat\mu^{*}_{b,i,j}$, $\hat\phi^{*}_{b}$ | fitted mean and dispersion re-estimated on pseudo triangle $b$ | 4.6, 4.7 |
+| $R^{\text{mean}}_{b,i}$, $R^{\text{pred}}_{b,i}$ | `glmReserve` bootstrap: re-estimated reserve; same with simulated process error | 4.7 |
+| | **Columns of the saved tables, and names in the R check** | |
+| process, estimation sd | square roots of the two variances (`process_sd`, `estimation_sd`) | 4.4–4.7 |
+| rmsep, se; mc se | estimated RMSEP (`rmsep`, `se`, `S.E`); its Monte Carlo standard error (`mc_se`) | 2.1, 4.5 |
+| cv, bias, dev. to date | $\widehat{\operatorname{rmsep}}/\hat R$; $\hat R - R^{\text{true}}$; development to date $C_{i,j_i}/\hat C_{i,n}$ (`dev_to_date`) | 3.6, 4.8 |
+| phi, boot mean | dispersion used in the row (`phi`); mean of the bootstrap reserves (`boot_mean`) | 4.5, 4.7 |
+| `Chat`, `sigma2`, `Tt`, `U`, `V` | in the R check: $\hat C_{i,j}$, $\hat\sigma_j^2$, $T_j$, the estimation part of $T_j$, $\widehat{\operatorname{Cov}}(\hat{\boldsymbol\beta})$ | 6 |
+
+Abbreviations: MSEP and RMSEP, mean squared error of prediction and its root; ODP, over-dispersed Poisson; ccODP, cross-classified ODP; GLM, generalised linear model; CL, chain ladder; CV, coefficient of variation; MC, Monte Carlo; E&V, England and Verrall. [H], [WM] and [AIT] are the textbooks listed in Section 1.
+
+\endgroup
+
+\ifdefined\restoregeometry\restoregeometry\else\newpage\fi
+
+# What this document covers
+
+This explainer writes out, formula by formula, what the code in the `Masters-Research-R` project computes when it produces the variance and the root mean squared error of prediction (RMSEP) of the reserves, first for the Mack chain ladder and then for the over-dispersed Poisson (ODP) model. Each formula is tied to the line of code that computes it and to the textbook passage where it is derived.
+
+The code I read is the Mack script (58 lines), the ODP script (282 lines), the ccODP functions in `R/fit ODP GLM.R`, the helper `rmsep_table()` in `R/reserves.R`, the triangle builders in `R/triangles.R` and the Poisson deviance in `R/loss functions.R`, as they stand at commit `c4fda0c`.
+
+Textbook abbreviations: **[H]** Hindley, *Claims Reserving in General Insurance* (2017); **[WM]** Wüthrich and Merz, *Statistical Foundations of Actuarial Learning and its Applications* (2023); **[AIT]** *AI Tools for Actuaries* (January 2026). Goodfellow et al. does not treat reserving variance, so it is not cited here.
+
+**How the maths was checked.** I recomputed the Mack and the analytic ODP standard errors by hand from the formulas below on your triangle `data/interim/tri_mack.csv` and compared them with the tables your scripts saved. The Mack standard errors agree to a relative difference of $4\times10^{-10}$ by accident year and in total, the analytic ODP standard errors to $1\times10^{-7}$ (the size of the GLM convergence tolerance), and both dispersion estimates to all printed digits. Section 6 gives the base R code for that check. What I could not do in this session is open the source of the `ChainLadder` package itself, so the description of the internals of `glmReserve`'s bootstrap in Section 4.7 rests on the comments in your script and on how the script uses the objects that `glmReserve` returns; it is flagged there.
+
+# Set-up: the triangle and the reserves
+
+The triangle has $n = 20$ accident years $i = 1,\dots,n$ (rows) and development years $j = 1,\dots,n$ (columns). $Y_{i,j}$ is the incremental payment in cell $(i,j)$ and $C_{i,j} = \sum_{l=1}^{j} Y_{i,l}$ the cumulative payment. The observed cells and the future cells are
+
+$$
+\mathcal{D} = \{(i,j) : i + j \le n + 1\}, \qquad \mathcal{D}^{c} = \{(i,j) : i + j > n + 1,\; j \le n\}, \qquad |\mathcal{D}| = \tfrac{1}{2}n(n+1) = 210 .
+$$
+
+The latest observed development year of accident year $i$ is $j_i = n + 1 - i$, so the latest cumulative payment is $C_{i,j_i}$. The outstanding payments and the reserve estimate of accident year $i$ are
+
+$$
+R_i = \sum_{j = j_i + 1}^{n} Y_{i,j} = C_{i,n} - C_{i,j_i}, \qquad R = \sum_{i=1}^{n} R_i .
+$$
+
+In the code, `sets$upper` holds $Y_{i,j}$ on $\mathcal{D}$, `tri` holds $C_{i,j}$ on $\mathcal{D}$ (`incr2cum`), `latest` holds $C_{i,j_i}$, and `rowSums(sets$test)` holds the true $R_i$ of the simulated data (payments after development year $n$ are not in any triangle; they are reported apart as `tail`).
+
+[H] indexes rows and columns from $0$ with $I = J = n - 1$, so [H]'s $\hat f_j$, $\hat\sigma^2_j$ and $S^I_j$ are this document's $\hat f_{j+1}$, $\hat\sigma^2_{j+1}$ and $S_{j+1}$.
+
+## The quantity both scripts estimate
+
+For a predictor $\hat R_i$ of $R_i$ built from the observed data, the conditional mean squared error of prediction is ([H] eq. (4.1), p. 152; eqs. (4.13)–(4.15), p. 161)
+
+$$
+\operatorname{msep}(\hat R_i) = \mathbb{E}\!\left[(R_i - \hat R_i)^2 \,\middle|\, \mathcal{D}\right]
+= \underbrace{\operatorname{Var}(R_i \mid \mathcal{D})}_{\text{process variance}}
++ \underbrace{\left(\hat R_i - \mathbb{E}[R_i \mid \mathcal{D}]\right)^2}_{\text{estimation variance}},
+\qquad
+\operatorname{rmsep}(\hat R_i) = \sqrt{\operatorname{msep}(\hat R_i)} .
+$$
+
+Every number called `se`, `S.E` or `rmsep` in the two scripts is an estimate of this RMSEP. It is a prediction error, holding both components, and not the standard error of an estimator in the narrow sense ([H] pp. 151–152 discusses exactly this terminology). The decomposition is derived in [H] Appendix A, eqs. (A.1)–(A.7), pp. 465–466, and eqs. (A.20)–(A.21), p. 469. The two models differ only in how they estimate the two terms.
+
+# Mack chain ladder
+
+Script: `analysis/01_Mack model/Mack chainladder fit.R`. The whole calculation is the single call on line 28,
+
+```{r}
+mack <- MackChainLadder(tri, est.sigma = "Mack")
+```
+
+with the package defaults `alpha = 1`, `weights = 1`, `tail = FALSE` and `mse.method = "Mack"`. The sections below are what that call computes.
+
+## Model assumptions
+
+Mack's distribution-free model ([H] §4.2.2, eqs. (4.3)–(4.5), p. 159) assumes that the accident years are independent and that, for $j = 1,\dots,n-1$,
+
+$$
+\mathbb{E}\!\left[C_{i,j+1} \mid C_{i,1},\dots,C_{i,j}\right] = f_j\, C_{i,j},
+\qquad
+\operatorname{Var}\!\left(C_{i,j+1} \mid C_{i,1},\dots,C_{i,j}\right) = \sigma_j^2\, C_{i,j} .
+$$
+
+There is one variance parameter $\sigma_j^2$ per development year. This is the main structural difference from the ODP model, which has a single dispersion $\phi$ for the whole triangle.
+
+## Development factors, completed triangle and reserves
+
+With $S_j = \sum_{i=1}^{n-j} C_{i,j}$ (the sum of column $j$ without its diagonal element), the chain-ladder factors are ([H] eq. (4.6), p. 160)
+
+$$
+\hat f_j = \frac{\sum_{i=1}^{n-j} C_{i,j+1}}{\sum_{i=1}^{n-j} C_{i,j}} = \frac{\sum_{i=1}^{n-j} C_{i,j+1}}{S_j},
+\qquad j = 1,\dots,n-1 .
+$$
+
+The package obtains $\hat f_j$ as a weighted regression of $C_{i,j+1}$ on $C_{i,j}$ through the origin with weights $1/C_{i,j}$, which is the same estimator ([H] eq. (3.13), p. 57). The lower triangle is filled recursively from the diagonal, `mack$FullTriangle`,
+
+$$
+\hat C_{i,j_i} = C_{i,j_i}, \qquad \hat C_{i,j+1} = \hat f_j\, \hat C_{i,j} \quad (j \ge j_i),
+\qquad\text{so}\qquad
+\hat C_{i,n} = C_{i,j_i} \prod_{j = j_i}^{n-1} \hat f_j ,
+$$
+
+and lines 32–36 of the script form the reserve ([H] eqs. (4.11)–(4.12), p. 161)
+
+$$
+\hat R_i = \hat C_{i,n} - C_{i,j_i}, \qquad \hat R = \sum_{i=1}^{n} \hat R_i .
+$$
+
+## Variance parameters: the "variance" of the Mack model
+
+For $j = 1,\dots,n-2$ the variance parameters are estimated by ([H] eq. (4.8), p. 160)
+
+$$
+\hat\sigma_j^2 = \frac{1}{n - j - 1} \sum_{i=1}^{n-j} C_{i,j} \left( \frac{C_{i,j+1}}{C_{i,j}} - \hat f_j \right)^{2} .
+$$
+
+Column $j$ has $n - j$ observed development factors and one estimated parameter, hence the divisor $n - j - 1$. For the last development year, $j = n - 1$, there is only one observed factor and the formula cannot be used. The argument `est.sigma = "Mack"` selects Mack's extrapolation ([H] eq. (4.10), p. 161):
+
+$$
+\hat\sigma_{n-1}^2 = \min\!\left\{ \frac{\hat\sigma_{n-2}^4}{\hat\sigma_{n-3}^2},\; \min\!\left(\hat\sigma_{n-3}^2,\, \hat\sigma_{n-2}^2\right) \right\} .
+$$
+
+On your triangle $\hat\sigma^2_{17} = 12{,}266$, $\hat\sigma^2_{18} = 0.1106$ and the extrapolated value is $\hat\sigma^2_{19} = \hat\sigma^4_{18}/\hat\sigma^2_{17} = 9.98\times10^{-7}$. (The package default would have been `est.sigma = "log-linear"`, a regression of $\log\hat\sigma_j$ on $j$; your script overrides it.)
+
+The variance of an estimated development factor follows from the regression ([H] eq. (4.25), p. 171):
+
+$$
+\widehat{\operatorname{Var}}(\hat f_j) = \frac{\hat\sigma_j^2}{S_j} = \frac{\hat\sigma_j^2}{\sum_{i=1}^{n-j} C_{i,j}} .
+$$
+
+In the fitted object, `mack$sigma` is $\hat\sigma_j$ and `mack$f.se` is $\sqrt{\hat\sigma_j^2/S_j}$.
+
+## MSEP of one accident year
+
+The package builds the two components recursively across the development years ([H] §4.2.4, eqs. (4.23)–(4.28), pp. 171–172). Write $P_{i,j}$ for the process variance and $Q_{i,j}$ for the estimation variance of $\hat C_{i,j}$. Both start at zero on the diagonal, $P_{i,j_i} = Q_{i,j_i} = 0$, and for $j = j_i,\dots,n-1$
+
+$$
+\begin{aligned}
+P_{i,j+1} &= \hat f_j^{\,2}\, P_{i,j} + \hat\sigma_j^2\, \hat C_{i,j}, \\[4pt]
+Q_{i,j+1} &= \hat f_j^{\,2}\, Q_{i,j} + \hat C_{i,j}^{\,2}\, \frac{\hat\sigma_j^2}{S_j} .
+\end{aligned}
+$$
+
+Each step carries the variance accumulated so far forward by the factor $\hat f_j^{\,2}$ and adds the new variance of that development step: $\hat\sigma_j^2 \hat C_{i,j}$ is the process variance of $C_{i,j+1}$ given $C_{i,j}$, and $\hat C_{i,j}^{\,2}\,\widehat{\operatorname{Var}}(\hat f_j)$ is the variance from estimating $f_j$. The estimated MSEP and the number stored in `se` (line 35, `mack$Mack.S.E[, n]`) are
+
+$$
+\widehat{\operatorname{msep}}(\hat R_i) = P_{i,n} + Q_{i,n},
+\qquad
+\widehat{\operatorname{rmsep}}(\hat R_i) = \sqrt{P_{i,n} + Q_{i,n}} .
+$$
+
+Unrolling the recursions (using $\hat C_{i,n}/\hat C_{i,j+1} = \prod_{l > j}\hat f_l$) gives Mack's closed formula ([H] eqs. (4.17)–(4.18), p. 162):
+
+$$
+\widehat{\operatorname{msep}}(\hat R_i)
+= \underbrace{\hat C_{i,n}^{\,2} \sum_{j = j_i}^{n-1} \frac{\hat\sigma_j^2}{\hat f_j^{\,2}}\, \frac{1}{\hat C_{i,j}}}_{\text{process variance } P_{i,n}}
++ \underbrace{\hat C_{i,n}^{\,2} \sum_{j = j_i}^{n-1} \frac{\hat\sigma_j^2}{\hat f_j^{\,2}}\, \frac{1}{S_j}}_{\text{estimation variance } Q_{i,n}} .
+$$
+
+Because the paid amount $C_{i,j_i}$ is known, the MSEP of the reserve equals the MSEP of the ultimate ([H] eq. (4.15), p. 161). Accident year 1 is fully developed, so its reserve and its standard error are zero.
+
+## MSEP of the total reserve
+
+The accident years are independent, so the process variances add. The estimation errors do not, because every accident year uses the same $\hat f_j$. Let $A_j = \sum_{i = n+1-j}^{n} \hat C_{i,j}$ be the sum of column $j$ over the accident years whose column $j+1$ is a projection. The package's recursion for the total, with $T_1 = 0$ and $j = 1,\dots,n-1$, is ([H] eqs. (4.29)–(4.33), pp. 172–173)
+
+$$
+T_{j+1} = \hat f_j^{\,2}\, T_j + \hat\sigma_j^2\, A_j + A_j^{\,2}\, \frac{\hat\sigma_j^2}{S_j},
+\qquad
+\widehat{\operatorname{msep}}(\hat R) = T_n,
+\qquad
+\widehat{\operatorname{rmsep}}(\hat R) = \sqrt{T_n} .
+$$
+
+The middle term is the process variance, the last term the estimation variance. $\sqrt{T_n}$ is `mack$Total.Mack.S.E`, the `se` of the total on line 39. In closed form this is Mack's total formula with its covariance term ([H] eq. (4.19), p. 163):
+
+$$
+\widehat{\operatorname{msep}}(\hat R) = \sum_{i=2}^{n} \left\{ \widehat{\operatorname{msep}}(\hat R_i) + \hat C_{i,n} \left( \sum_{l = i+1}^{n} \hat C_{l,n} \right) \sum_{j = j_i}^{n-1} \frac{2\,\hat\sigma_j^2}{\hat f_j^{\,2}\, S_j} \right\} .
+$$
+
+## What the script stores
+
+`reserves_table()` and `reserves_total()` in `R/reserves.R` add three derived columns, by accident year and in total:
+
+$$
+\text{cv}_i = \frac{\widehat{\operatorname{rmsep}}(\hat R_i)}{\hat R_i}, \qquad
+\text{bias}_i = \hat R_i - R_i^{\text{true}}, \qquad
+\text{development to date}_i = \frac{C_{i,j_i}}{\hat C_{i,n}} .
+$$
+
+The script saves only the combined RMSEP. The split is available in the fitted object as `mack$Mack.ProcessRisk[, n]`, `mack$Mack.ParameterRisk[, n]`, `mack$Total.ProcessRisk[n]` and `mack$Total.ParameterRisk[n]`, which are $\sqrt{P_{i,n}}$, $\sqrt{Q_{i,n}}$ and their totals.
+
+[H] works a complete numerical example of all of the above on the Taylor and Ashe triangle: $\hat\sigma^2_j$ in Tables 4.8–4.9 (p. 167), process error in Tables 4.10–4.11 (p. 168), estimation error in Tables 4.12–4.13 (p. 169), the covariance term and the summary in Tables 4.14–4.15 (p. 170), and the recursive version in §4.2.5 (p. 173 onwards).
+
+# The ODP model
+
+Script: `analysis/02_ODP glm model/ODP glm fit plot.R`, with the functions `ccodp_fit()`, `odp_sample()`, `ccodp_bootstrap()`, `cl_reserves()` and `ev_bootstrap()` in `R/fit ODP GLM.R` and `rmsep_table()` in `R/reserves.R`. The script computes one analytic RMSEP and three bootstrap RMSEPs, each under one or two dispersion estimates, which gives the seven rows of `odp_rmsep_total.csv`.
+
+## Model and fit
+
+The cross-classified ODP model ([H] §4.3.2, eqs. (4.49)–(4.50), p. 186; the comment on line 7 of `R/fit ODP GLM.R`) assumes independent incremental payments with
+
+$$
+\mathbb{E}[Y_{i,j}] = \mu_{i,j} = \exp\!\left(c + \alpha_i + \beta_j\right), \qquad \alpha_1 = \beta_1 = 0, \qquad \operatorname{Var}(Y_{i,j}) = \phi\, \mu_{i,j} .
+$$
+
+There are $p = 1 + (n-1) + (n-1) = 2n - 1 = 39$ regression parameters, written $\boldsymbol\beta = (c, \alpha_2,\dots,\alpha_n, \beta_2,\dots,\beta_n)^{\top}$, and the linear predictor is $\eta_{i,j} = \boldsymbol{x}_{i,j}^{\top}\boldsymbol\beta$ with $\boldsymbol{x}_{i,j}$ the row of the design matrix for cell $(i,j)$. Both `glmReserve(tri)` (line 33) and `glm(Y ~ AY + DY, family = quasipoisson())` inside `ccodp_fit()` solve the quasi-Poisson score equations on the observed cells,
+
+$$
+\sum_{(i,j)\in\mathcal{D}} \boldsymbol{x}_{i,j}\left(Y_{i,j} - \hat\mu_{i,j}\right) = \boldsymbol{0},
+$$
+
+which do not involve $\phi$. These equations say that the fitted row sums and column sums equal the observed ones, and that is why the ODP reserves equal the chain-ladder reserves ([H] p. 221 and p. 273); lines 41–42 of the script check this. The reserve (`reserve_o` in `ccodp_fit()`) is
+
+$$
+\hat R_i = \sum_{j = j_i + 1}^{n} \hat\mu_{i,j}, \qquad \hat R = \sum_{i=2}^{n} \hat R_i .
+$$
+
+So the ODP and the Mack model give the same point estimate on your triangle; only the variance model differs.
+
+## Dispersion: the "variance" of the ODP model
+
+The degrees of freedom are $|\mathcal{D}| - p = 210 - 39 = 171$ (`df` in `ccodp_fit()`). The code computes two estimates of $\phi$ ([WM] eq. (5.30), p. 143, gives both side by side; [AIT] eqs. (5.22)–(5.23), p. 111, gives Pearson's).
+
+Pearson's estimate, used by `glmReserve` and by England and Verrall (1999) ([H] eq. (4.70), p. 192, and eq. (4.101), p. 213), is built from the unscaled Pearson residuals $r_{i,j}$ ([H] eq. (4.99), p. 213):
+
+$$
+r_{i,j} = \frac{Y_{i,j} - \hat\mu_{i,j}}{\sqrt{\hat\mu_{i,j}}}, \qquad
+\hat\phi_{P} = \frac{1}{|\mathcal{D}| - p} \sum_{(i,j)\in\mathcal{D}} r_{i,j}^{\,2}
+= \frac{1}{|\mathcal{D}| - p} \sum_{(i,j)\in\mathcal{D}} \frac{\left(Y_{i,j} - \hat\mu_{i,j}\right)^2}{\hat\mu_{i,j}} .
+$$
+
+The deviance estimate, which the script attributes to Paper C eq. (5), replaces the Pearson statistic by the unscaled Poisson deviance (`poisson_deviance()`; [WM] Example 5.17, p. 144):
+
+$$
+\hat\phi_{D} = \frac{1}{|\mathcal{D}| - p} \sum_{(i,j)\in\mathcal{D}} 2\left[\hat\mu_{i,j} - Y_{i,j} + Y_{i,j} \log\!\frac{Y_{i,j}}{\hat\mu_{i,j}}\right],
+$$
+
+where the term $Y\log(Y/\hat\mu)$ is set to zero when $Y_{i,j} = 0$.
+
+Line 76 recovers $\hat\phi_P$ from the `glm` object inside `glmReserve`. For a log link and variance function $V(\mu) = \mu$, the working weights are $w_{i,j} = \hat\mu_{i,j}$ and the working residuals are $(Y_{i,j} - \hat\mu_{i,j})/\hat\mu_{i,j}$, so
+
+$$
+\frac{\sum_{\mathcal{D}} w_{i,j}\,(\text{working residual}_{i,j})^2}{\text{df}}
+= \frac{1}{|\mathcal{D}| - p}\sum_{\mathcal{D}} \hat\mu_{i,j}\, \frac{(Y_{i,j} - \hat\mu_{i,j})^2}{\hat\mu_{i,j}^{\,2}} = \hat\phi_P .
+$$
+
+**Units.** `ccodp_fit()` is run on $Y_{i,j}/s$ with $s = 10^6$ (`cfg$data$scale`), while `glmReserve` is run on the raw amounts. Dividing the data by $s$ divides $\hat\mu$ by $s$, and both the Pearson statistic and the Poisson deviance are homogeneous of degree one ([WM] Remarks 11.1 and eq. (11.4), p. 456, with [WM]'s power variance parameter equal to $1$), so
+
+$$
+\hat\phi^{(s)} = \frac{\hat\phi}{s}, \qquad \hat R^{(s)} = \frac{\hat R}{s}, \qquad \text{and} \qquad \hat\phi^{(s)}\hat R^{(s)} = \frac{\hat\phi\,\hat R}{s^2} .
+$$
+
+That is why line 76 divides by `scale` and line 126 divides the `glmReserve` standard errors by `scale`. On your triangle, in millions: Pearson statistic $456.50$, deviance $444.75$, $\hat\phi_P = 2.6696$, $\hat\phi_D = 2.6009$.
+
+## Analytic RMSEP: what `glmReserve(tri)` returns as `S.E`
+
+The process variance of the reserve is the sum of the cell variances, because future cells are independent:
+
+$$
+\operatorname{Var}(R_i) = \sum_{j > j_i} \phi\,\mu_{i,j} = \phi \sum_{j > j_i} \mu_{i,j}, \qquad \text{estimated by} \qquad \hat\phi\, \hat R_i .
+$$
+
+The estimation variance comes from the delta method (a first-order Taylor expansion of $\hat R_i$ in $\hat{\boldsymbol\beta}$). The estimated covariance matrix of the parameters is ([H] eq. (4.74), p. 193)
+
+$$
+\widehat{\operatorname{Cov}}(\hat{\boldsymbol\beta}) = \hat\phi \left( X^{\top} W X \right)^{-1}, \qquad W = \operatorname{diag}\!\left(\hat\mu_{i,j}\right)_{(i,j)\in\mathcal{D}},
+$$
+
+with $X$ the $210 \times 39$ design matrix of the observed cells. Since $\partial \hat\mu_{i,j}/\partial\boldsymbol\beta = \hat\mu_{i,j}\,\boldsymbol{x}_{i,j}$, the gradient of the reserve is
+
+$$
+\boldsymbol{m}_i = \frac{\partial \hat R_i}{\partial \boldsymbol\beta} = \sum_{j > j_i} \hat\mu_{i,j}\, \boldsymbol{x}_{i,j},
+\qquad
+\widehat{\operatorname{Var}}(\hat R_i) \approx \boldsymbol{m}_i^{\top}\, \widehat{\operatorname{Cov}}(\hat{\boldsymbol\beta})\, \boldsymbol{m}_i
+= \sum_{j > j_i}\sum_{j' > j_i} \hat\mu_{i,j}\,\hat\mu_{i,j'}\, \widehat{\operatorname{Cov}}\!\left(\hat\eta_{i,j}, \hat\eta_{i,j'}\right) .
+$$
+
+The right-hand side is the estimation part of the formula of Renshaw (1994) and England and Verrall (2002) as printed in [H] eq. (4.72), p. 193. Hence
+
+$$
+\begin{gathered}
+\widehat{\operatorname{msep}}(\hat R_i) = \underbrace{\hat\phi_P\, \hat R_i}_{\text{process}} + \underbrace{\hat\phi_P\; \boldsymbol{m}_i^{\top} \left(X^{\top} W X\right)^{-1} \boldsymbol{m}_i}_{\text{estimation}}, \\[6pt]
+\widehat{\operatorname{msep}}(\hat R) = \hat\phi_P\, \hat R + \hat\phi_P\; \boldsymbol{m}^{\top} \left(X^{\top} W X\right)^{-1} \boldsymbol{m}, \qquad \boldsymbol{m} = \sum_{i=2}^{n} \boldsymbol{m}_i .
+\end{gathered}
+$$
+
+The total is [H] eq. (4.73), p. 193; the single-cell version is [H] eqs. (4.63)–(4.69), pp. 191–192. `odp$summary[, "S.E"]` is the square root of these, by accident year and for the row `"total"`. [H] §4.3.8 works the matrices through on a $3\times3$ triangle (eqs. (4.83)–(4.89), pp. 198–199), and [H] Appendix B.3.2, pp. 474–475, runs the same `glmReserve(..., mse.method = "formula")` call.
+
+## The same analytic RMSEP under each dispersion (lines 124–142)
+
+Both terms above are proportional to $\hat\phi$. Writing $\text{se}_i$ for the `glmReserve` standard error in units of $s$ and $\hat\phi_{\text{glm}}$ for line 76's dispersion, the loop over $k \in \{\text{Pearson}, \text{deviance}\}$ computes
+
+$$
+\begin{aligned}
+\text{process sd}_{i}^{(k)} &= \sqrt{\hat\phi_k\, \hat R_i}, \\[4pt]
+\text{estimation sd}_{i}^{(k)} &= \sqrt{\frac{\hat\phi_k}{\hat\phi_{\text{glm}}} \left( \text{se}_i^{\,2} - \hat\phi_{\text{glm}}\, \hat R_i \right)}, \\[4pt]
+\text{rmsep}_{i}^{(k)} &= \text{se}_i \sqrt{\frac{\hat\phi_k}{\hat\phi_{\text{glm}}}},
+\end{aligned}
+$$
+
+for $i = 2,\dots,n$ and for the total. The second line backs the estimation variance out of the `glmReserve` standard error by subtracting the process variance, and then rescales it to the dispersion $\hat\phi_k$. These are the columns `process_sd`, `estimation_sd` and `rmsep`, and by construction $\text{rmsep}^2 = (\text{process sd})^2 + (\text{estimation sd})^2$ in these two rows.
+
+## The bootstrap RMSEP formula in `rmsep_table()`
+
+All three bootstraps estimate the estimation variance by the spread of re-estimated reserves over $B = 1{,}000$ pseudo triangles (`cfg$odp$nsim`). Let $R^{*}_{b,i}$ be the reserve of accident year $i$ in bootstrap sample $b$ (the matrix `boot`, $B \times n$), $R^{*}_{b} = \sum_i R^{*}_{b,i}$ its row sum, and $\bar R^{*}_{i}$ the mean over $b$. For each accident year with $\hat R_i > 0$ and for the total, `rmsep_table(method, phi, reserve, boot, factor)` computes
+
+$$
+\hat V_i = \text{factor} \times \frac{1}{B-1} \sum_{b=1}^{B} \left( R^{*}_{b,i} - \bar R^{*}_{i} \right)^2,
+\qquad
+\widehat{\operatorname{rmsep}}(\hat R_i) = \sqrt{\underbrace{\phi\, \hat R_i}_{\text{process}} + \underbrace{\hat V_i}_{\text{estimation}}} ,
+$$
+
+which the code attributes to Paper C eq. (6) and eqs. (15)–(16), and which is the process-plus-estimation split of [H] eq. (4.103), p. 213. The bootstrap variance estimator itself is [WM] §4.3.1, p. 108. The process variance is added analytically; these bootstraps do not simulate it.
+
+The column `mc_se` is the Monte Carlo standard error of that RMSEP. With central moments $\hat m_2 = \frac1B\sum_b (R^{*}_{b,i} - \bar R^{*}_i)^2$ and $\hat m_4 = \frac1B\sum_b (R^{*}_{b,i} - \bar R^{*}_i)^4$, the standard error of a sample variance is $\sqrt{(\hat m_4 - \hat m_2^{\,2})/B}$, and the delta method applied to $g(V) = \sqrt{\phi\hat R_i + V}$, with $g'(V) = 1/(2\,\text{rmsep})$, gives
+
+$$
+\text{mc se}_i = \frac{\text{factor} \times \sqrt{\left(\hat m_4 - \hat m_2^{\,2}\right)/B}}{2\; \widehat{\operatorname{rmsep}}(\hat R_i)} .
+$$
+
+It measures only the noise from using $B = 1{,}000$ samples, not the uncertainty of the RMSEP as an estimate.
+
+## The two bootstraps written in the project
+
+**England and Verrall (1999) residual bootstrap, `ev_bootstrap()`.** The $210$ unscaled Pearson residuals $r_{i,j}$ are resampled with replacement, $r^{*}_{i,j}$, and inverted to pseudo data ([H] eq. (4.100), p. 213; the residual bootstrap in general is [WM] p. 108):
+
+$$
+Y^{*}_{i,j} = \hat\mu_{i,j} + r^{*}_{i,j}\sqrt{\hat\mu_{i,j}}, \qquad (i,j)\in\mathcal{D} .
+$$
+
+Negative pseudo increments are kept. $R^{*}_{b,i}$ is the chain-ladder reserve of the cumulated pseudo triangle (`cl_reserves()`), which stands in for refitting the GLM. The script reports it twice, both with $\phi = \hat\phi_P$, as the rows `E&V 1999` (unadjusted) and `E&V 1999 x n/(n-p)` (adjusted):
+
+$$
+\text{unadjusted:}\;\; \sqrt{\hat\phi_P \hat R_i + \operatorname{Var}_b\!\left(R^{*}_{b,i}\right)},
+\qquad
+\text{adjusted:}\;\; \sqrt{\hat\phi_P \hat R_i + \frac{|\mathcal{D}|}{|\mathcal{D}| - p}\operatorname{Var}_b\!\left(R^{*}_{b,i}\right)} .
+$$
+
+The factor $|\mathcal{D}|/(|\mathcal{D}| - p) = 210/171 = 1.228$ (`boot_factor^2`) is the degrees-of-freedom adjustment of [H] eq. (4.104), p. 214: the bootstrap variance does not know that $p$ parameters were fitted, so it is scaled up to align with the analytic formula. The second row is the one England and Verrall prescribe; the first is the same bootstrap without the adjustment.
+
+**Paper C parametric bootstrap, `ccodp_bootstrap()` with `odp_sample()`.** Pseudo triangles are simulated from the fitted model itself (parametric bootstrap: [WM] §4.3.2, pp. 109–110; [AIT] pp. 31–32; [H] p. 237):
+
+$$
+Y^{*}_{i,j} = \phi\, N_{i,j}, \qquad N_{i,j} \overset{\text{ind.}}{\sim} \operatorname{Poi}\!\left(\frac{\hat\mu_{i,j}}{\phi}\right), \qquad (i,j)\in\mathcal{D},
+$$
+
+so that $\mathbb{E}[Y^{*}_{i,j}] = \hat\mu_{i,j}$ and $\operatorname{Var}(Y^{*}_{i,j}) = \phi^2\,\hat\mu_{i,j}/\phi = \phi\,\hat\mu_{i,j}$, which is the ODP mean and variance. Each pseudo triangle is refitted with `ccodp_fit()`, giving $R^{*}_{b,i} = \sum_{j>j_i}\hat\mu^{*}_{b,i,j}$, and
+
+$$
+\widehat{\operatorname{rmsep}}(\hat R_i) = \sqrt{\phi\,\hat R_i + \operatorname{Var}_b\!\left(R^{*}_{b,i}\right)}, \qquad \phi \in \{\hat\phi_P,\ \hat\phi_D\},
+$$
+
+with no further factor: here $\phi$ enters twice, once in the process term and once in how widely the pseudo triangles are spread.
+
+## `glmReserve`'s own bootstrap (lines 36–38 and 144–159)
+
+*The internals in this paragraph are taken from the comments in your script (lines 34–35 and 79–83) and from the way it uses the returned objects; I could not open the package source in this session.* `glmReserve(tri, mse.method = "bootstrap")` resamples the adjusted Pearson residuals
+
+$$
+r^{\text{adj}}_{i,j} = \sqrt{\frac{|\mathcal{D}|}{|\mathcal{D}| - p}}\; r_{i,j}, \qquad Y^{*}_{i,j} = \hat\mu_{i,j} + r^{\text{adj}*}_{i,j}\sqrt{\hat\mu_{i,j}},
+$$
+
+([H] eq. (4.71), p. 192, and the worked example on p. 222, where each residual is multiplied by $\sqrt{n/(n-p)}$), redrawing until no pseudo cell is negative. It refits the GLM to get $\hat\mu^{*}_{b}$ and $\hat\phi^{*}_{b}$, and then, unlike the two bootstraps above, simulates the process error for every future cell ([H] "Incorporating Process Error", steps (a)–(b), pp. 216–217):
+
+$$
+R^{\text{mean}}_{b,i} = \sum_{j > j_i} \hat\mu^{*}_{b,i,j}, \qquad
+R^{\text{pred}}_{b,i} = \sum_{j > j_i} \hat\phi^{*}_{b}\, N_{b,i,j}, \quad N_{b,i,j} \sim \operatorname{Poi}\!\left(\frac{\hat\mu^{*}_{b,i,j}}{\hat\phi^{*}_{b}}\right) .
+$$
+
+These are `sims.reserve.mean`, `sims.reserve.pred` and `sims.par[, "phi"]`. Because the predictive draws already contain the process error, the RMSEP is their standard deviation, which is why the script passes `phi = 0` to `rmsep_table()`:
+
+$$
+\widehat{\operatorname{rmsep}}(\hat R_i) = \sqrt{\operatorname{Var}_b\!\left(R^{\text{pred}}_{b,i}\right)} .
+$$
+
+I confirmed that this row equals the `S.E` column of the bootstrap `glmReserve` summary exactly. The script then splits it by the law of total variance, $\operatorname{Var}(R^{\text{pred}}) = \mathbb{E}\!\left[\operatorname{Var}(R^{\text{pred}} \mid b)\right] + \operatorname{Var}\!\left(\mathbb{E}[R^{\text{pred}} \mid b]\right)$, with $\operatorname{Var}(R^{\text{pred}}_{b,i} \mid b) = \hat\phi^{*}_{b} R^{\text{mean}}_{b,i}$:
+
+$$
+\begin{gathered}
+\text{process sd}_i = \sqrt{\frac{1}{B}\sum_{b=1}^{B} \hat\phi^{*}_{b}\, R^{\text{mean}}_{b,i}}, \qquad
+\text{estimation sd}_i = \sqrt{\operatorname{Var}_b\!\left(R^{\text{mean}}_{b,i}\right)}, \\[6pt]
+\text{phi} = \frac{1}{B}\sum_{b=1}^{B}\hat\phi^{*}_{b}, \qquad
+\text{boot mean}_i = \frac{1}{B}\sum_{b=1}^{B} R^{\text{mean}}_{b,i} .
+\end{gathered}
+$$
+
+## Totals table (lines 187–194)
+
+For each method's total row the script adds
+
+$$
+\text{cv} = \frac{\widehat{\operatorname{rmsep}}(\hat R)}{\hat R}, \qquad \text{bias} = \hat R - R^{\text{true}}, \qquad R^{\text{true}} = \sum_{(i,j)\in\mathcal{D}^{c}} Y_{i,j} .
+$$
+
+# The numbers on your triangle
+
+All amounts are in millions. The reserve is $\hat R = 9{,}479.36$ for every row, the true outstanding amount is $9{,}626.78$, and the bias is $-147.42$. The Mack split is from my recomputation (Section 6); everything else is read from your saved `mack_raw_total.csv` and `odp_rmsep_total.csv`.
+
+| Method | Dispersion | Process sd | Estimation sd | RMSEP | MC s.e. | CV |
+|:--|--:|--:|--:|--:|--:|--:|
+| Mack chain ladder | $\hat\sigma^2_j$ by column | 248.03 | 141.13 | 285.37 | – | 3.01% |
+| ODP analytic, $\hat\phi_P$ | 2.6696 | 159.08 | 242.89 | 290.35 | – | 3.06% |
+| ODP analytic, $\hat\phi_D$ | 2.6009 | 157.02 | 239.75 | 286.59 | – | 3.02% |
+| `glmReserve` bootstrap | 2.5082 (mean $\hat\phi^{*}_b$) | 154.69 | 238.99 | 281.08 | 6.21 | 2.97% |
+| E&V 1999 | 2.6696 | 159.08 | 230.60 | 280.15 | 5.21 | 2.96% |
+| E&V 1999 $\times\, n/(n-p)$ | 2.6696 | 159.08 | 255.55 | 301.02 | 5.95 | 3.18% |
+| Paper C bootstrap, $\hat\phi_P$ | 2.6696 | 159.08 | 235.42 | 284.13 | 4.44 | 3.00% |
+| Paper C bootstrap, $\hat\phi_D$ | 2.6009 | 157.02 | 234.96 | 282.60 | 4.34 | 2.98% |
+
+Four things in this table follow directly from the mathematics above and are worth knowing when you write it up.
+
+First, the two models agree on the total RMSEP (285 against 290) but split it in opposite ways: Mack attributes most of it to process variance (248 against 141), the ODP model to estimation variance (159 against 243). The models have the same mean and differ in the variance assumption, $\sigma_j^2 C_{i,j}$ on cumulative amounts with one parameter per development year against a single $\phi$ times $\mu_{i,j}$ on increments, so a comparison of the components across the two models is a comparison of those assumptions.
+
+Second, in the `glmReserve` bootstrap row the three columns are estimated separately, so they do not satisfy $\text{rmsep}^2 = \text{process}^2 + \text{estimation}^2$ exactly: $\sqrt{154.69^2 + 238.99^2} = 284.69$ against $281.08$ in total, and by accident year the gap in the squared terms reaches about 13%. In the other six rows the identity holds to machine precision, by construction. The `phi` column of that row is the average re-estimated dispersion, not the dispersion of the original fit.
+
+Third, the "E&V 1999" row without the factor is not the England and Verrall formula; it is that bootstrap before the degrees-of-freedom adjustment of [H] eq. (4.104). The estimation standard deviations of the two rows differ by exactly $\sqrt{210/171} = 1.108$.
+
+Fourth, the last Mack variance parameter $\hat\sigma^2_{19}$ is extrapolated, not estimated, and on this triangle it is practically zero, so the final development step contributes almost nothing to the Mack RMSEP.
+
+# Base R check of the formulas
+
+This chunk recomputes the Mack recursions of Sections 3.4–3.5 and the analytic ODP formula of Section 4.3 without the `ChainLadder` package. On your triangle it returns, in millions, Mack $248.030 / 141.130 / 285.370$ and ODP $159.079 / 242.893 / 290.350$ for process, estimation and RMSEP, which match the saved outputs.
+
+```{r}
+## cumulative triangle, NA below the diagonal
+C <- as.matrix(read.csv(here::here("data", "interim", "tri_mack.csv"),
+                        check.names = FALSE)[, -1])
+n <- nrow(C)
+
+## Mack: development factors, variance parameters, completed triangle
+f <- S <- sigma2 <- rep(NA_real_, n - 1)
+for (j in 1:(n - 1)) {
+  i <- 1:(n - j)
+  S[j] <- sum(C[i, j])
+  f[j] <- sum(C[i, j + 1]) / S[j]
+  if (j <= n - 2) {
+    sigma2[j] <- sum(C[i, j] * (C[i, j + 1] / C[i, j] - f[j])^2) / (n - j - 1)
+  }
+}
+sigma2[n - 1] <- min(sigma2[n - 2]^2 / sigma2[n - 3], sigma2[n - 3], sigma2[n - 2])
+Chat <- C
+for (j in 1:(n - 1)) Chat[(n - j + 1):n, j + 1] <- f[j] * Chat[(n - j + 1):n, j]
+
+## Mack: recursions for the process (P) and estimation (Q) variance by accident
+## year, and for the total (Tt = both, U = estimation only)
+P <- Q <- matrix(0, n, n)
+Tt <- U <- rep(0, n)
+for (j in 1:(n - 1)) {
+  i <- (n - j + 1):n
+  P[i, j + 1] <- f[j]^2 * P[i, j] + sigma2[j] * Chat[i, j]
+  Q[i, j + 1] <- f[j]^2 * Q[i, j] + Chat[i, j]^2 * sigma2[j] / S[j]
+  A <- sum(Chat[i, j])
+  Tt[j + 1] <- f[j]^2 * Tt[j] + sigma2[j] * A + A^2 * sigma2[j] / S[j]
+  U[j + 1]  <- f[j]^2 * U[j] + A^2 * sigma2[j] / S[j]
+}
+mack_se <- sqrt(P[, n] + Q[, n])                      # = mack$Mack.S.E[, n]
+mack_total <- c(process = sqrt(sum(P[, n])),
+                estimation = sqrt(U[n]),
+                rmsep = sqrt(Tt[n]))                  # rmsep = mack$Total.Mack.S.E
+
+## ODP: quasi-Poisson GLM on the incremental cells, Pearson dispersion,
+## process variance phi * R and delta-method estimation variance
+Y <- cbind(C[, 1], t(apply(C, 1, diff)))
+d <- data.frame(Y = as.vector(Y),
+                AY = factor(as.vector(row(Y))),
+                DY = factor(as.vector(col(Y))))
+fit <- glm(Y ~ AY + DY, family = quasipoisson(), data = d[!is.na(d$Y), ],
+           control = glm.control(epsilon = 1e-12, maxit = 100))
+phi <- sum(residuals(fit, type = "pearson")^2) / fit$df.residual
+fut <- d[is.na(d$Y), ]
+Xf <- model.matrix(~ AY + DY, fut)
+mu <- as.vector(exp(Xf %*% coef(fit)))
+V <- phi * summary(fit)$cov.unscaled                  # phi * (X' W X)^{-1}
+m <- rowsum(mu * Xf, as.integer(fut$AY))              # m_i = sum_j mu_ij x_ij
+R <- as.vector(rowsum(mu, as.integer(fut$AY)))
+odp_se <- sqrt(phi * R + rowSums((m %*% V) * m))      # = odp$summary$S.E, AY 2..n
+m_tot <- colSums(m)
+odp_total <- c(process = sqrt(phi * sum(R)),
+               estimation = sqrt(drop(m_tot %*% V %*% m_tot)),
+               rmsep = sqrt(phi * sum(R) + drop(m_tot %*% V %*% m_tot)))
+
+round(rbind(mack = mack_total, odp = odp_total) / 1e6, 3)
+```
+
+# Where each step is in the textbooks
+
+| Step in the code | Formula | Source |
+|:--|:--|:--|
+| MSEP and RMSEP, process plus estimation | Section 2.1 | [H] §4.1.3, eqs. (4.1)–(4.2), p. 152; Appendix A, pp. 465–470 |
+| Mack assumptions | Section 3.1 | [H] §4.2.2, eqs. (4.3)–(4.5), p. 159 |
+| $\hat f_j$, $\hat\sigma^2_j$ | Sections 3.2–3.3 | [H] eqs. (4.6)–(4.8), p. 160 |
+| Last $\hat\sigma^2$ (`est.sigma = "Mack"`) | Section 3.3 | [H] eqs. (4.9)–(4.10), pp. 160–161 |
+| Mack MSEP by accident year, closed form | Section 3.4 | [H] eqs. (4.13)–(4.18), pp. 161–162 |
+| Mack MSEP of the total | Section 3.5 | [H] eq. (4.19), p. 163 |
+| Mack recursions (what the package runs) | Sections 3.4–3.5 | [H] §4.2.4, eqs. (4.23)–(4.33), pp. 171–173 |
+| Mack worked example | – | [H] §4.2.3, pp. 163–170 |
+| ODP model | Section 4.1 | [H] §4.3.2, eqs. (4.48)–(4.50), pp. 185–187 |
+| Pearson dispersion | Section 4.2 | [H] eq. (4.70), p. 192; [WM] eq. (5.30), p. 143; [AIT] eqs. (5.22)–(5.23), p. 111 |
+| Deviance dispersion, Poisson deviance | Section 4.2 | [WM] eq. (5.30), p. 143, and Example 5.17, p. 144 |
+| Effect of the unit of amounts on $\hat\phi$ | Section 4.2 | [WM] Remarks 11.1, eq. (11.4), p. 456 |
+| Analytic ODP MSEP, cell | Section 4.3 | [H] §4.3.5, eqs. (4.63)–(4.69), pp. 191–192 |
+| Analytic ODP MSEP, reserves | Section 4.3 | [H] §4.3.6, eqs. (4.72)–(4.74), p. 193; example pp. 198–199 |
+| Residual bootstrap, pseudo data | Section 4.6 | [H] §4.4.3, eqs. (4.96)–(4.103), pp. 212–213; [WM] §4.3.1, pp. 106–108 |
+| Degrees-of-freedom factor $n/(n-p)$ | Section 4.6 | [H] eq. (4.104), p. 214; eq. (4.71), p. 192 |
+| Process error added by simulation | Section 4.7 | [H] pp. 216–217 |
+| Parametric bootstrap | Section 4.6 | [WM] §4.3.2, pp. 109–110; [AIT] pp. 31–32; [H] p. 237 |
+| `glmReserve` in R | – | [H] Appendix B.3.2, pp. 474–475 |
+
+The equation numbers quoted for "Paper C" (eqs. (1), (3), (4), (5), (6) and (15)–(16)) are the ones your code comments use; I have not re-checked them against the paper for this explainer.
