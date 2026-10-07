@@ -6,6 +6,7 @@
 ##########################################
 
 source(here::here("analysis", "00_setup.R"))
+stopifnot(cfg$data$generator == "synthetic")
 tab_dir <- file.path(paths$tables, "00_claim-simulation/data-description")
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -17,10 +18,9 @@ ref_claim <- 200000          # SynthETIC's claim size scale (simulation script)
 #########  load data
 ##########################################
 
-## claims and payments of analysis/00_claim-simulation/short_tailed_claims.R;
-## 'true' quantities come from the full simulation and are not known at the
-## valuation date
-port <- synthetic_portfolio(file.path(paths$raw, cfg$data$annual_dir), n)
+## claims and payments of "SynthETIC claims simulation.R"; 'true' quantities
+## come from the full simulation and are not known at the valuation date
+port <- synthetic_portfolio(file.path(paths$raw, cfg$data$dir), n)
 claims <- port$claims
 trans <- port$trans
 claims$AY <- claims$occurrence_period
@@ -49,10 +49,11 @@ portfolio <- c(
   "paid to the valuation date (% of the ultimate)" =
     100 * sum(claims$paid) / sum(claims$ultimate),
   "true outstanding (millions)" = sum(claims$outstanding) / units,
-  "true outstanding, development years 1 to 20 (millions)" =
-    sum(sets$test, na.rm = TRUE) / units,
-  "true outstanding, after development year 20 (millions)" =
-    sum(sets$tail) / units,
+  setNames(c(sum(sets$test, na.rm = TRUE), sum(sets$tail)) / units,
+           paste("true outstanding,",
+                 c("development years 1 to", "after development year"),
+                 n,
+                 "(millions)")),
   "claims closed" = sum(claims$status == "closed"),
   "claims open" = sum(claims$status == "open"),
   "claims not yet reported" = sum(claims$status == "unreported"),
@@ -147,11 +148,13 @@ cbind(statistic = delay_dist$statistic, round(delay_dist[, -1], 4))
 ##########################################
 
 ## Table 3: reported claims by accident year and reporting delay T (years);
-## observed at the valuation date: AY + T <= n
-n_rep <- claims[, .N, keyby = .(AY, rep_delay)]
-tri_n <- matrix(0, n, n, dimnames = list(AY = 1:n, T = 0:(n - 1)))
+## observed at the valuation date: AY + T <= n. The last column, T = n,
+## holds the claims reported n years or more after the accident year (data
+## set long_reporting): not reported at the valuation date in any year
+n_rep <- claims[, .N, keyby = .(AY, rep_delay = pmin(rep_delay, n))]
+tri_n <- matrix(0, n, n + 1, dimnames = list(AY = 1:n, T = 0:n))
 tri_n[cbind(n_rep$AY, n_rep$rep_delay + 1)] <- n_rep$N
-t_max <- max(claims$rep_delay)
+t_max <- max(n_rep$rep_delay)
 reported <- data.frame(AY = 1:n,
                        upper_triangle(tri_n)[, 1:(t_max + 1)],
                        reported = rowSums(upper_triangle(tri_n), na.rm = TRUE),
@@ -162,8 +165,10 @@ names(reported)[2:(t_max + 2)] <- paste0("T", 0:t_max)
 reported
 
 ## Table 6: chain-ladder predicted IBNYR claim counts and Mack's sqrt(msep)
-## against the true counts (the factors after T = 7 are 1: Mack warns)
-mack_n <- suppressWarnings(nncl_mack(t(apply(tri_n, 1, cumsum))))
+## against the true counts (the factors after T = 7 are 1: Mack warns), on
+## the n x n triangle: the claims of the column T = n are in no triangle, as
+## the payments after development year n
+mack_n <- suppressWarnings(nncl_mack(t(apply(tri_n[, 1:n], 1, cumsum))))
 ibnyr <- data.frame(AY = as.character(1:n),
                     reported = mack_n$by_origin$latest,
                     CL_IBNYR = mack_n$by_origin$ibnr,
@@ -548,7 +553,7 @@ save_figure("SynthETIC data Fig 08 calendar years.png",
             width = 12)
 
 ## Fig. 9: the claims not closed at the valuation date and their true
-## outstanding, accident years 11 to 20
+## outstanding, the latest 10 accident years (11 to 20)
 groups <- c("open, payments made", "open, no payment yet", "not yet reported")
 claims$open_group <- factor(ifelse(claims$status == "unreported",
                                    groups[3],
@@ -578,10 +583,14 @@ save_figure("SynthETIC data Fig 09 open and unreported claims.png",
             height = 9)
 
 ## Fig. 10: true outstanding (bars) and chain-ladder reserves with two
-## standard errors (Mack) by accident year, in millions
-panels <- c("accident years 2 to 14", "accident years 15 to 20")
+## standard errors (Mack) by accident year, in millions; the latest 6
+## accident years (15 to 20) have their own panel and scale
+split_ay <- n - 5
+panels <- paste("accident years", c(2, split_ay), "to", c(split_ay - 1, n))
 res_fig <- data.frame(reserves[2:n, ],
-                      panel = factor(ifelse(2:n < 15, panels[1], panels[2]),
+                      panel = factor(ifelse(2:n < split_ay,
+                                            panels[1],
+                                            panels[2]),
                                      levels = panels))
 res_fig$AY <- factor(res_fig$AY, levels = 2:n)
 save_figure("SynthETIC data Fig 10 chain-ladder reserves.png",

@@ -27,6 +27,11 @@ test_that("the triangles by LoB give the true and the CL reserves", {
                matrix(c(8, 2, 10, 2),
                       2,
                       dimnames = list(c("1", "2"), c("true", "cl"))))
+  ## a run of "lines of business seed study.R": the claims next to the
+  ## reserves; its analysis script reads the rows by LoB and these columns
+  run <- cbind(claims = as.numeric(table(lob)), lob_reserves(tri))
+  expect_equal(dimnames(run), list(c("1", "2"), c("claims", "true", "cl")))
+  expect_equal(run[, "claims"], c("1" = 3, "2" = 2))
 })
 
 test_that("the check against a paper rounds by quantity", {
@@ -41,4 +46,18 @@ test_that("the check against a paper rounds by quantity", {
                rep(c("simulated", "paper", "difference"), times = 2))
   expect_equal(out[["LoB 1"]], c(1.3, 1.3, 0, 10, 10, 0))
   expect_equal(out[["LoB 2"]], c(2.3, 2.3, 0, 20, 21, -1))
+})
+
+test_that("the claims split alternates within LoB and accident year", {
+  ## seven claims in any order: sorted by LoB and accident year (ties in the
+  ## order given) they are the claims 2, 5, 1, 4, 3, 7, 6
+  lob <- c(1, 1, 2, 1, 1, 2, 2)
+  ay <- c(1995, 1994, 1994, 1995, 1994, 1995, 1994)
+  vali <- lob_split(lob, ay)
+  expect_equal(vali, c(1, 1, 1, 2, 2, 1, 2))
+  ## Paper C Listing 2: sort the claims, then alternate
+  o <- order(lob, ay)
+  expect_equal(vali[o], rep(c(1, 2), length.out = 7))
+  ## sorted claims get 1, 2, 1, 2, ... as "lines of business simulation.R"
+  expect_equal(lob_split(lob[o], ay[o]), rep(c(1, 2), length.out = 7))
 })

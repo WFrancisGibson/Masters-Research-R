@@ -1,11 +1,12 @@
 ##########################################
 #########  The SynthETIC claims portfolio: the covariates and their impact
 #########  covariates of SynthETIC (Avanzi, Taylor, Wang & Wong 2021) as
-#########  designed in analysis/00_claim-simulation/short_tailed_claims.R;
+#########  designed in "SynthETIC claims simulation.R";
 #########  figures after Wuthrich (2018), EAJ 8:407-436, Figures 5-6
 ##########################################
 
 source(here::here("analysis", "00_setup.R"))
+stopifnot(cfg$data$generator == "synthetic")
 tab_dir <- file.path(paths$tables, "00_claim-simulation/feature-impact")
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -19,10 +20,10 @@ ref <- c("Y", "2", "30-50", "Passenger", "N")
 #########  load data
 ##########################################
 
-## claims and payments of analysis/00_claim-simulation/short_tailed_claims.R
-## and the design of the covariates; all effects are measured on the full
-## simulation ('true'), not on the claims known at the valuation date
-data_dir <- file.path(paths$raw, cfg$data$annual_dir)
+## claims and payments of "SynthETIC claims simulation.R" and the design of
+## the covariates; all effects are measured on the full simulation ('true'),
+## not on the claims known at the valuation date
+data_dir <- file.path(paths$raw, cfg$data$dir)
 port <- synthetic_portfolio(data_dir, n)
 claims <- port$claims
 trans <- port$trans
@@ -489,7 +490,7 @@ pattern <- rbind(pattern, pattern_all)
 colnames(pattern) <- paste0("dev_", 1:n)
 key_all <- rbind(key, data.frame(feature = "portfolio", level = "all"))
 pattern <- data.frame(key_all, pattern)
-cbind(pattern[, 1:2], round(pattern[, 2 + c(1, 2, 3, 5, 10, 20)], 2))
+cbind(pattern[, 1:2], round(pattern[, 2 + c(1, 2, 3, 5, 10, n)], 2))
 
 ## payment timing by level: share of the ultimate, amount-weighted mean
 ## payment lag (years since the occurrence), median lag of a claim

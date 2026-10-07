@@ -4,18 +4,21 @@
 #########  Harkonen (2021), Section 3: Tables 1, 4, 5 and 12-17, Figure 3
 ##########################################
 
+## the data set of this script, all its LoBs: no unit, whatever the session
+## inherits (the paths of a unit are <dataset>/<unit>)
+Sys.setenv(DATASET = "lob6", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 lob_dir <- here::here("analysis", "00_claim-simulation", "lines-of-business")
-data_dir <- file.path(paths$raw, cfg$lob$data_dir)
+data_dir <- file.path(paths$raw, cfg$data$dir)
 tab_dir <- file.path(paths$tables, "00_claim-simulation/lines-of-business")
 fig_dir <- file.path(paths$figures, "00_claim-simulation/lines-of-business")
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
-n_ay <- cfg$lob$n_ay                           # I = 12, development years 0..11
-ay_lab <- cfg$lob$first_ay + 1:n_ay - 1        # 1994..2005
+n_ay <- cfg$data$n_dev                         # I = 12, development years 0..11
+ay_lab <- cfg$data$first_ay + 1:n_ay - 1       # 1994..2005
 last_ay <- max(ay_lab)                         # 2005, the valuation date I
-units <- cfg$lob$units                         # payments in 1'000
+units <- cfg$data$scale                        # payments in 1'000
 
 ##########################################
 #########  load data

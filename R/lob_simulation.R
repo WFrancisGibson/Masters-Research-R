@@ -61,6 +61,15 @@ lob_simulate <- function(sim, seed = sim$seed1) {
   rbind(out1, out2, out3)
 }
 
+## Listing 2: the claims, ordered by LoB and accident year, go alternately to
+## the training set (1) and the validation set (2); the set of every claim,
+## for claims in any order (ties stay in the order given)
+lob_split <- function(lob, ay) {
+  vali <- numeric(length(lob))
+  vali[order(lob, ay)] <- rep(c(1, 2), length.out = length(lob))
+  vali
+}
+
 ## Listing 3: the payments pay (claims x development years) added up by LoB
 ## and accident year; a list by LoB of the AY x DY squares (upper and lower
 ## triangle)

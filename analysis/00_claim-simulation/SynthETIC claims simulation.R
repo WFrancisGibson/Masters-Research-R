@@ -1,35 +1,43 @@
 ##########################################
-#########  Short tailed claims simulation with SynthETIC
+#########  Claims simulation with SynthETIC
 #########  Avanzi, Taylor, Wang & Wong (2021); environment 1 (simple, short
-#########  tail) of Al-Mudafer, Avanzi, Taylor & Wong (2021),
-#########  with 5 claim covariates
+#########  tail) of Al-Mudafer, Avanzi, Taylor & Wong (2021) with 5 claim
+#########  covariates; scenarios (own design): superimposed inflation by
+#########  calendar year and a longer mean notification delay
 ##########################################
 
 source(here::here("analysis", "00_setup.R"))
 library(SynthETIC)
+stopifnot(cfg$data$generator == "synthetic")
 
 ##########################################
 #########  settings
 ##########################################
 
-seed <- cfg$seed            # 2026
-time_unit <- 1              # 1 = annual (20 x 20), 1/4 = quarterly (40 x 40)
-years <- 20                 # quarterly: time_unit <- 1/4 and years <- 10
-delays <- "environment 1"   # delay means: "environment 1" or "claim size"
-# superimposed_inflation = TRUE: SynthETIC's default superimposed inflation
-superimposed_inflation <- FALSE
+## the scenario is the data set of this session (config.yml datasets:
+## baseline, si_calendar, long_reporting; environment variable DATASET)
+seed <- cfg$seed                  # 2026
+time_unit <- cfg$data$time_unit   # 1 = annual, 0.25 = quarterly
+sim_periods <- cfg$data$n_dev     # accident (and development) periods: 20
+years <- sim_periods * time_unit  # annual 20 x 20: 20; quarterly 40 x 40: 10
+delays <- cfg$data$delays         # delay means: environment 1 or claim size
+# superimposed inflation: "none", "synthetic" (SynthETIC's default) or
+# "calendar" (si_calendar_rate in every calendar year of payment)
+superimposed_inflation <- cfg$data$superimposed_inflation
+# p.a., on top of the base inflation; a vector gives one rate per calendar
+# year (2 * years of them)
+si_calendar_rate <- cfg$data$si_calendar_rate
+# mean notification (reporting) delay in quarters, environment 1 delays only;
+# environment 1: 0.49305517
+notidel_mean_q <- cfg$data$notidel_mean_q
 
 covariate_seed <- 100000L + seed
 ref_claim <- 200000              # SynthETIC's claim size scale
-sim_periods <- years / time_unit # number of accident (and development) periods
 set_parameters(ref_claim = ref_claim, time_unit = time_unit)
 set.seed(seed)
 
 ## output folder, e.g. data/raw/claim-simulation-annual
-folder <- if (time_unit == 1) "claim-simulation-annual" else "claim-simulation"
-if (delays == "claim size") folder <- paste0(folder, "-vignette")
-if (superimposed_inflation) folder <- paste0(folder, "-SI")
-out_dir <- file.path(paths$raw, folder)
+out_dir <- file.path(paths$raw, cfg$data$dir)
 
 ##########################################
 #########  SynthETIC modules
@@ -61,9 +69,10 @@ setldel_default <- function(claim_size, occurrence_period) {
 ## Module 3 and 4: mean notification and settlement delays (in periods) and
 ## their cvs
 if (delays == "environment 1") {
-  # environment 1: constant means, given in quarters
+  # environment 1: constant means, given in quarters; the longer notification
+  # delay keeps environment 1's cv (same Weibull shape, larger scale)
   notidel_mean <- function(claim_size, occurrence_period) {
-    0.49305517 / 4 / time_unit
+    notidel_mean_q / 4 / time_unit
   }
   setldel_mean <- function(claim_size, occurrence_period) {
     6.575582 / 4 / time_unit
@@ -141,10 +150,12 @@ param_pmntdel <- function(claim_size, setldel, occurrence_period, cov_mult) {
 ## whatever the time_unit, one entry per quarter over twice the simulated years
 base_inflation <- rep((1 + 0.02)^(1 / 4) - 1, 2 * 4 * years)
 
-## superimposed inflation: none, or SynthETIC's default (small claims occurring
+## superimposed inflation: none, SynthETIC's default (small claims occurring
 ## after quarter 20 cost up to 40% less, payments of small claims grow up to
-## 30% p.a.)
-if (superimposed_inflation) {
+## 30% p.a.) or a rate by calendar year of payment (all claims)
+si_occurrence <- function(occurrence_time, claim_size) 1
+si_payment <- function(payment_time, claim_size) 1
+if (superimposed_inflation == "synthetic") {
   si_occurrence <- function(occurrence_time, claim_size) {
     if (occurrence_time <= 20 / 4 / time_unit) return(1)
     1 - 0.4 * max(0, 1 - claim_size / (0.25 * ref_claim))
@@ -153,9 +164,16 @@ if (superimposed_inflation) {
     rate <- ((1 + 0.30)^time_unit - 1) * max(0, 1 - claim_size / ref_claim)
     (1 + rate)^payment_time
   }
-} else {
-  si_occurrence <- function(occurrence_time, claim_size) 1
-  si_payment <- function(payment_time, claim_size) 1
+}
+if (superimposed_inflation == "calendar") {
+  # log index at the end of calendar year 0, 1, ..., 2 * years, interpolated
+  # at the payment time: a constant rate r gives (1 + r)^(time in years)
+  si_rate <- rep_len(si_calendar_rate, 2 * years)
+  si_log_index <- c(0, cumsum(log(1 + si_rate)))
+  si_payment <- function(payment_time, claim_size) {
+    exp(approx(0:(2 * years), si_log_index, xout = payment_time * time_unit,
+               rule = 2)$y)
+  }
 }
 
 ##########################################
@@ -354,8 +372,14 @@ pay_claim <- transactions[, .(
 ), by = claim_no]
 claims <- merge(claims, pay_claim, by = "claim_no", all.x = TRUE)
 
+## claims not run off at the end of development period n: nothing is cut off
+## (adjust = FALSE), claims and transactions keep every payment at its own
+## payment time; SynthETIC inflates these payments only up to the end of
+## development period n
 ## incremental n x n triangle, the payments after the last period in the
-## last column
+## last column: cell (1, n) of the observed triangle then holds payments made
+## after the valuation date, so the fits build their triangles from the
+## transactions without them (claims_triangle, tail = FALSE)
 tri <- claims_triangle(transactions, sim_periods, tail = TRUE)
 
 ##########################################
@@ -406,6 +430,13 @@ for (fct in factor_names) {
 ## covariates) in periods
 observed <- row(tri) + col(tri) <= sim_periods + 1
 notified <- claims$occurrence_time + claims$notidel   # notification times
+settled <- notified + claims$setldel                  # last payment times
+# payments after development period n and the claims of accident period 1
+# (its development period n ends at the valuation date, time n)
+late <- which(transactions$payment_period - transactions$occurrence_period +
+                1 > sim_periods)
+late_1 <- late[which(transactions$occurrence_period[late] == 1)]
+ay_1 <- which(claims$occurrence_period == 1)
 portfolio <- data.frame(
   n_claims = n_claims,
   n_payments = nrow(transactions),
@@ -414,22 +445,27 @@ portfolio <- data.frame(
   median_size_raw = median(claims$claim_size_raw),
   median_size_adj = median(claims$claim_size),
   mean_notidel = mean(claims$notidel),
-  env1_target_notidel = mean(mapply(notidel_mean, unlist(claim_sizes),
+  target_mean_notidel = mean(mapply(notidel_mean, unlist(claim_sizes),
                                     occ_period)),
   mean_setldel = mean(claims$setldel),
-  env1_target_setldel = mean(mapply(setldel_mean, unlist(claim_sizes),
+  target_mean_setldel = mean(mapply(setldel_mean, unlist(claim_sizes),
                                     occ_period)),
   mean_no_payment = mean(claims$no_payment),
   triangle_total = sum(tri),
   pct_of_triangle_observed = sum(tri[observed]) / sum(tri),
   # claims notified and settled in the same period (never seen open)
-  share_no_observation = mean(floor(notified) ==
-                                floor(notified + claims$setldel))
+  share_no_observation = mean(floor(notified) == floor(settled)),
+  # run-off after development period n: all accident periods, and accident
+  # period 1 (claims not notified, notified but open, and their payments)
+  pct_paid_after_last_dev = sum(transactions$payment_inflated[late]) /
+    sum(tri),
+  ay1_claims = length(ay_1),
+  ay1_unreported_at_last_dev = sum(notified[ay_1] > sim_periods),
+  ay1_open_at_last_dev = sum(notified[ay_1] <= sim_periods &
+                               settled[ay_1] > sim_periods),
+  ay1_pct_paid_after_last_dev = sum(transactions$payment_inflated[late_1]) /
+    sum(tri[1, ])
 )
-# the claim size delays have claim specific target means
-if (delays == "claim size") {
-  names(portfolio) <- sub("env1_target", "target_mean", names(portfolio))
-}
 
 t(portfolio)
 cbind(impact_by_level[, 1:2], round(impact_by_level[, -(1:2)], 3))

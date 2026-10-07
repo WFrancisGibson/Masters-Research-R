@@ -1,5 +1,5 @@
 ##########################################
-#########  ODP GLM on the annual claims triangle
+#########  ODP GLM on the claims triangle of the data set
 #########  over-dispersed Poisson GLM, England & Verrall (1999, 2002);
 #########  dispersion and parametric bootstrap: Paper C (Gabrielli, Richman
 #########  & Wuthrich 2020) eq. (5) and Section 2.3
@@ -13,14 +13,12 @@ dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 #########  load data
 ##########################################
 
-## 20 x 20 incremental triangle at the valuation date (year 20),
-## development years 1..20;
-## the payments after development year 20 (sets$tail) are reported apart
+## n x n incremental triangle at the valuation date (period n), development
+## periods 1..n, of "claims triangles.R": one triangle, i.e. a SynthETIC
+## data set or one LoB of the six (DATASET=lob6 UNIT=lob1);
+## the payments after development period n (sets$tail) are reported apart
 n <- cfg$data$n_dev
-trans <- fread(file.path(paths$raw, cfg$data$annual_dir, "transactions.csv"),
-               select = c("claim_no", "occurrence_period", "payment_period",
-                          "payment_inflated"), data.table = FALSE)
-sets <- triangle_sets(trans, n)
+sets <- readRDS(file.path(paths$interim, "triangles.rds"))
 tri <- incr2cum(as.triangle(sets$upper))      # cumulative observed triangle
 latest <- as.numeric(getLatestCumulative(tri))
 
@@ -72,9 +70,10 @@ ccodp <- ccodp_fit(sets$upper / scale)
 phi <- c(pearson = ccodp$phi_pearson, deviance = ccodp$phi_deviance)
 
 ## glmReserve's phi: Pearson's statistic over |D_I| - (I + J) degrees of
-## freedom; its glm stops earlier (epsilon 1e-8, 6e-8 apart)
+## freedom; its glm stops earlier (epsilon 1e-8): 6e-8 apart on the SynthETIC
+## baseline, 4.6e-6 and 6.4e-6 on LoBs 1 and 4 of the six (three iterations)
 phi_glm <- with(odp$model, sum(weights * residuals^2) / df.residual) / scale
-stopifnot(isTRUE(all.equal(phi[["pearson"]], phi_glm, tolerance = 1e-6)))
+stopifnot(isTRUE(all.equal(phi[["pearson"]], phi_glm, tolerance = 1e-5)))
 
 ## bootstraps of the Pearson residuals r: glmReserve multiplies them by
 ## sqrt(|D_I| / (|D_I| - (I + J))) and redraws a pseudo triangle until no

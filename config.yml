@@ -31,7 +31,7 @@ default:
                          # development year 20 are reported apart (triangle.csv folds
                          # them into year 20, a leak into observed cell (1, 20))
       scale: 1000000     # fit in millions (Paper C fits in 1'000 CHF)
-      time_unit: 1       # 1 = annual; 1/4 = quarterly with n_dev: 40
+      time_unit: 1       # 1 = annual; 0.25 = quarterly with n_dev: 40
       delays: environment 1            # delay means: environment 1 or claim size
       superimposed_inflation: none     # none, synthetic (SynthETIC's default) or
                                        # calendar (si_calendar_rate per calendar year)

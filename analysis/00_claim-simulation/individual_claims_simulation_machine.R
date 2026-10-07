@@ -4,6 +4,9 @@
 #########  the portfolio of Wuthrich (2018), EAJ 8:407-436, Listing 1
 ##########################################
 
+## the data set of this script, all its LoBs: no unit, whatever the session
+## inherits (the paths of a unit are <dataset>/<unit>)
+Sys.setenv(DATASET = "machine4", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 library(MASS)          # mvrnorm in Feature.Generation
 library(doParallel)    # foreach and parallel in Simulation.Machine
@@ -12,8 +15,8 @@ sim <- cfg$nncl$simulation
 ## the original machine V1, unmodified
 machine_dir <- here::here("analysis", "00_claim-simulation",
                           "Simulation.Machine.V1")
-out_dir <- file.path(paths$raw, cfg$nncl$data_dir)
-last_ay <- cfg$nncl$first_ay + cfg$nncl$n_ay - 1   # 2005, the valuation date I
+out_dir <- file.path(paths$raw, cfg$data$dir)
+last_ay <- cfg$data$first_ay + cfg$data$n_dev - 1  # 2005, the valuation date I
 
 ##########################################
 #########  random number generator

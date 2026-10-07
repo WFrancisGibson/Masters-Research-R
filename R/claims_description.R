@@ -4,8 +4,9 @@
 #########  Gabrielli & Wuthrich (2018), Risks 6(2):29, Section 3
 ##########################################
 
-## claims and payments of analysis/00_claim-simulation/short_tailed_claims.R
-## at the valuation date (end of year n); per claim: ultimate = all its
+## claims and payments of analysis/00_claim-simulation/SynthETIC claims
+## simulation.R at the valuation date (end of year n); per claim: ultimate =
+## all its
 ## payments (nominal), paid = those up to year n, outstanding = those after,
 ## lag_paid = sum of payment x years since the occurrence, rep_delay = years
 ## to the notification (0 = accident year) and the status at the valuation

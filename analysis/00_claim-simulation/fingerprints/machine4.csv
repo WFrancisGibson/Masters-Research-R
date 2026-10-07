@@ -1,0 +1,1923 @@
+table,key,type,value
+claims by LoB,LoB 1,count,1752219
+claims by LoB,LoB 2,count,1001234
+claims by LoB,LoB 3,count,750312
+claims by LoB,LoB 4,count,1499439
+checksum,sum of ClNr x payments,value,2.36825857331034e+16
+incremental payments,LoB 1 AY 1994 DY 0,value,70865936
+incremental payments,LoB 1 AY 1995 DY 0,value,71258054
+incremental payments,LoB 1 AY 1996 DY 0,value,71025359
+incremental payments,LoB 1 AY 1997 DY 0,value,71567579
+incremental payments,LoB 1 AY 1998 DY 0,value,72721194
+incremental payments,LoB 1 AY 1999 DY 0,value,73395999
+incremental payments,LoB 1 AY 2000 DY 0,value,75342576
+incremental payments,LoB 1 AY 2001 DY 0,value,77976322
+incremental payments,LoB 1 AY 2002 DY 0,value,79531127
+incremental payments,LoB 1 AY 2003 DY 0,value,81354590
+incremental payments,LoB 1 AY 2004 DY 0,value,85371632
+incremental payments,LoB 1 AY 2005 DY 0,value,88804794
+incremental payments,LoB 1 AY 1994 DY 1,value,35816745
+incremental payments,LoB 1 AY 1995 DY 1,value,37600507
+incremental payments,LoB 1 AY 1996 DY 1,value,38037949
+incremental payments,LoB 1 AY 1997 DY 1,value,38610346
+incremental payments,LoB 1 AY 1998 DY 1,value,38968133
+incremental payments,LoB 1 AY 1999 DY 1,value,41004799
+incremental payments,LoB 1 AY 2000 DY 1,value,42700529
+incremental payments,LoB 1 AY 2001 DY 1,value,46084676
+incremental payments,LoB 1 AY 2002 DY 1,value,45920169
+incremental payments,LoB 1 AY 2003 DY 1,value,46756393
+incremental payments,LoB 1 AY 2004 DY 1,value,52733405
+incremental payments,LoB 1 AY 2005 DY 1,value,52612684
+incremental payments,LoB 1 AY 1994 DY 2,value,12018006
+incremental payments,LoB 1 AY 1995 DY 2,value,13124380
+incremental payments,LoB 1 AY 1996 DY 2,value,13088236
+incremental payments,LoB 1 AY 1997 DY 2,value,13782068
+incremental payments,LoB 1 AY 1998 DY 2,value,14147495
+incremental payments,LoB 1 AY 1999 DY 2,value,15189813
+incremental payments,LoB 1 AY 2000 DY 2,value,16007590
+incremental payments,LoB 1 AY 2001 DY 2,value,17687965
+incremental payments,LoB 1 AY 2002 DY 2,value,17269343
+incremental payments,LoB 1 AY 2003 DY 2,value,17586299
+incremental payments,LoB 1 AY 2004 DY 2,value,20291849
+incremental payments,LoB 1 AY 2005 DY 2,value,19592217
+incremental payments,LoB 1 AY 1994 DY 3,value,6932662
+incremental payments,LoB 1 AY 1995 DY 3,value,7498878
+incremental payments,LoB 1 AY 1996 DY 3,value,7460012
+incremental payments,LoB 1 AY 1997 DY 3,value,8027017
+incremental payments,LoB 1 AY 1998 DY 3,value,8175053
+incremental payments,LoB 1 AY 1999 DY 3,value,8663332
+incremental payments,LoB 1 AY 2000 DY 3,value,9108761
+incremental payments,LoB 1 AY 2001 DY 3,value,10006603
+incremental payments,LoB 1 AY 2002 DY 3,value,9747986
+incremental payments,LoB 1 AY 2003 DY 3,value,9797397
+incremental payments,LoB 1 AY 2004 DY 3,value,11357905
+incremental payments,LoB 1 AY 2005 DY 3,value,10758360
+incremental payments,LoB 1 AY 1994 DY 4,value,4583430
+incremental payments,LoB 1 AY 1995 DY 4,value,4991017
+incremental payments,LoB 1 AY 1996 DY 4,value,4923831
+incremental payments,LoB 1 AY 1997 DY 4,value,5321495
+incremental payments,LoB 1 AY 1998 DY 4,value,5477419
+incremental payments,LoB 1 AY 1999 DY 4,value,5710697
+incremental payments,LoB 1 AY 2000 DY 4,value,6061478
+incremental payments,LoB 1 AY 2001 DY 4,value,6703131
+incremental payments,LoB 1 AY 2002 DY 4,value,6310798
+incremental payments,LoB 1 AY 2003 DY 4,value,6400861
+incremental payments,LoB 1 AY 2004 DY 4,value,7402776
+incremental payments,LoB 1 AY 2005 DY 4,value,6771223
+incremental payments,LoB 1 AY 1994 DY 5,value,3505844
+incremental payments,LoB 1 AY 1995 DY 5,value,3660572
+incremental payments,LoB 1 AY 1996 DY 5,value,3568851
+incremental payments,LoB 1 AY 1997 DY 5,value,3699168
+incremental payments,LoB 1 AY 1998 DY 5,value,3918527
+incremental payments,LoB 1 AY 1999 DY 5,value,4048738
+incremental payments,LoB 1 AY 2000 DY 5,value,4255842
+incremental payments,LoB 1 AY 2001 DY 5,value,4741489
+incremental payments,LoB 1 AY 2002 DY 5,value,4299308
+incremental payments,LoB 1 AY 2003 DY 5,value,4438535
+incremental payments,LoB 1 AY 2004 DY 5,value,5091048
+incremental payments,LoB 1 AY 2005 DY 5,value,4566968
+incremental payments,LoB 1 AY 1994 DY 6,value,2623912
+incremental payments,LoB 1 AY 1995 DY 6,value,2825840
+incremental payments,LoB 1 AY 1996 DY 6,value,2779740
+incremental payments,LoB 1 AY 1997 DY 6,value,2801412
+incremental payments,LoB 1 AY 1998 DY 6,value,2943305
+incremental payments,LoB 1 AY 1999 DY 6,value,3090587
+incremental payments,LoB 1 AY 2000 DY 6,value,3283959
+incremental payments,LoB 1 AY 2001 DY 6,value,3587329
+incremental payments,LoB 1 AY 2002 DY 6,value,3150842
+incremental payments,LoB 1 AY 2003 DY 6,value,3174551
+incremental payments,LoB 1 AY 2004 DY 6,value,3663647
+incremental payments,LoB 1 AY 2005 DY 6,value,3381963
+incremental payments,LoB 1 AY 1994 DY 7,value,2112756
+incremental payments,LoB 1 AY 1995 DY 7,value,2181745
+incremental payments,LoB 1 AY 1996 DY 7,value,2256068
+incremental payments,LoB 1 AY 1997 DY 7,value,2225702
+incremental payments,LoB 1 AY 1998 DY 7,value,2277143
+incremental payments,LoB 1 AY 1999 DY 7,value,2423518
+incremental payments,LoB 1 AY 2000 DY 7,value,2559400
+incremental payments,LoB 1 AY 2001 DY 7,value,2703599
+incremental payments,LoB 1 AY 2002 DY 7,value,2266311
+incremental payments,LoB 1 AY 2003 DY 7,value,2402959
+incremental payments,LoB 1 AY 2004 DY 7,value,2951706
+incremental payments,LoB 1 AY 2005 DY 7,value,2455293
+incremental payments,LoB 1 AY 1994 DY 8,value,1664694
+incremental payments,LoB 1 AY 1995 DY 8,value,1696401
+incremental payments,LoB 1 AY 1996 DY 8,value,1729135
+incremental payments,LoB 1 AY 1997 DY 8,value,1682300
+incremental payments,LoB 1 AY 1998 DY 8,value,1862378
+incremental payments,LoB 1 AY 1999 DY 8,value,1896302
+incremental payments,LoB 1 AY 2000 DY 8,value,1963303
+incremental payments,LoB 1 AY 2001 DY 8,value,2148150
+incremental payments,LoB 1 AY 2002 DY 8,value,1742798
+incremental payments,LoB 1 AY 2003 DY 8,value,1842517
+incremental payments,LoB 1 AY 2004 DY 8,value,2254145
+incremental payments,LoB 1 AY 2005 DY 8,value,1925651
+incremental payments,LoB 1 AY 1994 DY 9,value,1424701
+incremental payments,LoB 1 AY 1995 DY 9,value,1512161
+incremental payments,LoB 1 AY 1996 DY 9,value,1454419
+incremental payments,LoB 1 AY 1997 DY 9,value,1476699
+incremental payments,LoB 1 AY 1998 DY 9,value,1477511
+incremental payments,LoB 1 AY 1999 DY 9,value,1543021
+incremental payments,LoB 1 AY 2000 DY 9,value,1681608
+incremental payments,LoB 1 AY 2001 DY 9,value,1699901
+incremental payments,LoB 1 AY 2002 DY 9,value,1446707
+incremental payments,LoB 1 AY 2003 DY 9,value,1571237
+incremental payments,LoB 1 AY 2004 DY 9,value,1947173
+incremental payments,LoB 1 AY 2005 DY 9,value,1533092
+incremental payments,LoB 1 AY 1994 DY 10,value,1267566
+incremental payments,LoB 1 AY 1995 DY 10,value,1268669
+incremental payments,LoB 1 AY 1996 DY 10,value,1279456
+incremental payments,LoB 1 AY 1997 DY 10,value,1249440
+incremental payments,LoB 1 AY 1998 DY 10,value,1221014
+incremental payments,LoB 1 AY 1999 DY 10,value,1315943
+incremental payments,LoB 1 AY 2000 DY 10,value,1435098
+incremental payments,LoB 1 AY 2001 DY 10,value,1438894
+incremental payments,LoB 1 AY 2002 DY 10,value,1262616
+incremental payments,LoB 1 AY 2003 DY 10,value,1304810
+incremental payments,LoB 1 AY 2004 DY 10,value,1666195
+incremental payments,LoB 1 AY 2005 DY 10,value,1315236
+incremental payments,LoB 1 AY 1994 DY 11,value,1015437
+incremental payments,LoB 1 AY 1995 DY 11,value,1047364
+incremental payments,LoB 1 AY 1996 DY 11,value,1057941
+incremental payments,LoB 1 AY 1997 DY 11,value,1014410
+incremental payments,LoB 1 AY 1998 DY 11,value,998234
+incremental payments,LoB 1 AY 1999 DY 11,value,1135650
+incremental payments,LoB 1 AY 2000 DY 11,value,1205606
+incremental payments,LoB 1 AY 2001 DY 11,value,1249093
+incremental payments,LoB 1 AY 2002 DY 11,value,1018800
+incremental payments,LoB 1 AY 2003 DY 11,value,1120335
+incremental payments,LoB 1 AY 2004 DY 11,value,1483298
+incremental payments,LoB 1 AY 2005 DY 11,value,1067728
+incremental payments,LoB 2 AY 1994 DY 0,value,102185732
+incremental payments,LoB 2 AY 1995 DY 0,value,98294474
+incremental payments,LoB 2 AY 1996 DY 0,value,96593067
+incremental payments,LoB 2 AY 1997 DY 0,value,90397011
+incremental payments,LoB 2 AY 1998 DY 0,value,90203443
+incremental payments,LoB 2 AY 1999 DY 0,value,92431250
+incremental payments,LoB 2 AY 2000 DY 0,value,91362817
+incremental payments,LoB 2 AY 2001 DY 0,value,92500639
+incremental payments,LoB 2 AY 2002 DY 0,value,97415920
+incremental payments,LoB 2 AY 2003 DY 0,value,101666440
+incremental payments,LoB 2 AY 2004 DY 0,value,106343354
+incremental payments,LoB 2 AY 2005 DY 0,value,108877135
+incremental payments,LoB 2 AY 1994 DY 1,value,46441805
+incremental payments,LoB 2 AY 1995 DY 1,value,47014920
+incremental payments,LoB 2 AY 1996 DY 1,value,46808068
+incremental payments,LoB 2 AY 1997 DY 1,value,41737397
+incremental payments,LoB 2 AY 1998 DY 1,value,47154101
+incremental payments,LoB 2 AY 1999 DY 1,value,49289807
+incremental payments,LoB 2 AY 2000 DY 1,value,51319969
+incremental payments,LoB 2 AY 2001 DY 1,value,51774012
+incremental payments,LoB 2 AY 2002 DY 1,value,54611577
+incremental payments,LoB 2 AY 2003 DY 1,value,56923512
+incremental payments,LoB 2 AY 2004 DY 1,value,61989331
+incremental payments,LoB 2 AY 2005 DY 1,value,63575669
+incremental payments,LoB 2 AY 1994 DY 2,value,15524491
+incremental payments,LoB 2 AY 1995 DY 2,value,17553632
+incremental payments,LoB 2 AY 1996 DY 2,value,17345297
+incremental payments,LoB 2 AY 1997 DY 2,value,14989380
+incremental payments,LoB 2 AY 1998 DY 2,value,18089768
+incremental payments,LoB 2 AY 1999 DY 2,value,18996345
+incremental payments,LoB 2 AY 2000 DY 2,value,19993891
+incremental payments,LoB 2 AY 2001 DY 2,value,19869301
+incremental payments,LoB 2 AY 2002 DY 2,value,21551233
+incremental payments,LoB 2 AY 2003 DY 2,value,22496529
+incremental payments,LoB 2 AY 2004 DY 2,value,24835566
+incremental payments,LoB 2 AY 2005 DY 2,value,24153690
+incremental payments,LoB 2 AY 1994 DY 3,value,7070607
+incremental payments,LoB 2 AY 1995 DY 3,value,7655911
+incremental payments,LoB 2 AY 1996 DY 3,value,7764582
+incremental payments,LoB 2 AY 1997 DY 3,value,7238789
+incremental payments,LoB 2 AY 1998 DY 3,value,7979077
+incremental payments,LoB 2 AY 1999 DY 3,value,7983549
+incremental payments,LoB 2 AY 2000 DY 3,value,8089122
+incremental payments,LoB 2 AY 2001 DY 3,value,8532659
+incremental payments,LoB 2 AY 2002 DY 3,value,8897740
+incremental payments,LoB 2 AY 2003 DY 3,value,10077319
+incremental payments,LoB 2 AY 2004 DY 3,value,9338536
+incremental payments,LoB 2 AY 2005 DY 3,value,8876709
+incremental payments,LoB 2 AY 1994 DY 4,value,3637876
+incremental payments,LoB 2 AY 1995 DY 4,value,4100563
+incremental payments,LoB 2 AY 1996 DY 4,value,3980607
+incremental payments,LoB 2 AY 1997 DY 4,value,4222529
+incremental payments,LoB 2 AY 1998 DY 4,value,3961763
+incremental payments,LoB 2 AY 1999 DY 4,value,3850663
+incremental payments,LoB 2 AY 2000 DY 4,value,3945618
+incremental payments,LoB 2 AY 2001 DY 4,value,4256418
+incremental payments,LoB 2 AY 2002 DY 4,value,4350979
+incremental payments,LoB 2 AY 2003 DY 4,value,5287396
+incremental payments,LoB 2 AY 2004 DY 4,value,4548708
+incremental payments,LoB 2 AY 2005 DY 4,value,4211828
+incremental payments,LoB 2 AY 1994 DY 5,value,2223346
+incremental payments,LoB 2 AY 1995 DY 5,value,2655998
+incremental payments,LoB 2 AY 1996 DY 5,value,2261972
+incremental payments,LoB 2 AY 1997 DY 5,value,2705444
+incremental payments,LoB 2 AY 1998 DY 5,value,1888338
+incremental payments,LoB 2 AY 1999 DY 5,value,2234736
+incremental payments,LoB 2 AY 2000 DY 5,value,2380956
+incremental payments,LoB 2 AY 2001 DY 5,value,2435341
+incremental payments,LoB 2 AY 2002 DY 5,value,2343776
+incremental payments,LoB 2 AY 2003 DY 5,value,2906134
+incremental payments,LoB 2 AY 2004 DY 5,value,2770787
+incremental payments,LoB 2 AY 2005 DY 5,value,2840222
+incremental payments,LoB 2 AY 1994 DY 6,value,1518943
+incremental payments,LoB 2 AY 1995 DY 6,value,2056374
+incremental payments,LoB 2 AY 1996 DY 6,value,1673922
+incremental payments,LoB 2 AY 1997 DY 6,value,1570142
+incremental payments,LoB 2 AY 1998 DY 6,value,1456312
+incremental payments,LoB 2 AY 1999 DY 6,value,1256313
+incremental payments,LoB 2 AY 2000 DY 6,value,1515788
+incremental payments,LoB 2 AY 2001 DY 6,value,2017718
+incremental payments,LoB 2 AY 2002 DY 6,value,1187148
+incremental payments,LoB 2 AY 2003 DY 6,value,1850715
+incremental payments,LoB 2 AY 2004 DY 6,value,2103936
+incremental payments,LoB 2 AY 2005 DY 6,value,1757073
+incremental payments,LoB 2 AY 1994 DY 7,value,979914
+incremental payments,LoB 2 AY 1995 DY 7,value,1437118
+incremental payments,LoB 2 AY 1996 DY 7,value,1106156
+incremental payments,LoB 2 AY 1997 DY 7,value,1217801
+incremental payments,LoB 2 AY 1998 DY 7,value,1063305
+incremental payments,LoB 2 AY 1999 DY 7,value,1472733
+incremental payments,LoB 2 AY 2000 DY 7,value,877434
+incremental payments,LoB 2 AY 2001 DY 7,value,737996
+incremental payments,LoB 2 AY 2002 DY 7,value,832047
+incremental payments,LoB 2 AY 2003 DY 7,value,845087
+incremental payments,LoB 2 AY 2004 DY 7,value,1215577
+incremental payments,LoB 2 AY 2005 DY 7,value,1223913
+incremental payments,LoB 2 AY 1994 DY 8,value,798464
+incremental payments,LoB 2 AY 1995 DY 8,value,1233108
+incremental payments,LoB 2 AY 1996 DY 8,value,620680
+incremental payments,LoB 2 AY 1997 DY 8,value,774060
+incremental payments,LoB 2 AY 1998 DY 8,value,938504
+incremental payments,LoB 2 AY 1999 DY 8,value,871902
+incremental payments,LoB 2 AY 2000 DY 8,value,987854
+incremental payments,LoB 2 AY 2001 DY 8,value,881311
+incremental payments,LoB 2 AY 2002 DY 8,value,820257
+incremental payments,LoB 2 AY 2003 DY 8,value,955218
+incremental payments,LoB 2 AY 2004 DY 8,value,1147781
+incremental payments,LoB 2 AY 2005 DY 8,value,819324
+incremental payments,LoB 2 AY 1994 DY 9,value,765622
+incremental payments,LoB 2 AY 1995 DY 9,value,814893
+incremental payments,LoB 2 AY 1996 DY 9,value,795484
+incremental payments,LoB 2 AY 1997 DY 9,value,886349
+incremental payments,LoB 2 AY 1998 DY 9,value,771464
+incremental payments,LoB 2 AY 1999 DY 9,value,353698
+incremental payments,LoB 2 AY 2000 DY 9,value,648980
+incremental payments,LoB 2 AY 2001 DY 9,value,733189
+incremental payments,LoB 2 AY 2002 DY 9,value,450692
+incremental payments,LoB 2 AY 2003 DY 9,value,608070
+incremental payments,LoB 2 AY 2004 DY 9,value,897389
+incremental payments,LoB 2 AY 2005 DY 9,value,602410
+incremental payments,LoB 2 AY 1994 DY 10,value,506110
+incremental payments,LoB 2 AY 1995 DY 10,value,405500
+incremental payments,LoB 2 AY 1996 DY 10,value,554668
+incremental payments,LoB 2 AY 1997 DY 10,value,422247
+incremental payments,LoB 2 AY 1998 DY 10,value,600391
+incremental payments,LoB 2 AY 1999 DY 10,value,401505
+incremental payments,LoB 2 AY 2000 DY 10,value,620564
+incremental payments,LoB 2 AY 2001 DY 10,value,740460
+incremental payments,LoB 2 AY 2002 DY 10,value,320614
+incremental payments,LoB 2 AY 2003 DY 10,value,412809
+incremental payments,LoB 2 AY 2004 DY 10,value,833687
+incremental payments,LoB 2 AY 2005 DY 10,value,353240
+incremental payments,LoB 2 AY 1994 DY 11,value,-295699
+incremental payments,LoB 2 AY 1995 DY 11,value,88604
+incremental payments,LoB 2 AY 1996 DY 11,value,-478455
+incremental payments,LoB 2 AY 1997 DY 11,value,-11267
+incremental payments,LoB 2 AY 1998 DY 11,value,-363217
+incremental payments,LoB 2 AY 1999 DY 11,value,-296557
+incremental payments,LoB 2 AY 2000 DY 11,value,64881
+incremental payments,LoB 2 AY 2001 DY 11,value,336813
+incremental payments,LoB 2 AY 2002 DY 11,value,-170319
+incremental payments,LoB 2 AY 2003 DY 11,value,229651
+incremental payments,LoB 2 AY 2004 DY 11,value,224774
+incremental payments,LoB 2 AY 2005 DY 11,value,-73481
+incremental payments,LoB 3 AY 1994 DY 0,value,88735027
+incremental payments,LoB 3 AY 1995 DY 0,value,86903418
+incremental payments,LoB 3 AY 1996 DY 0,value,85845780
+incremental payments,LoB 3 AY 1997 DY 0,value,84423509
+incremental payments,LoB 3 AY 1998 DY 0,value,80764024
+incremental payments,LoB 3 AY 1999 DY 0,value,80212526
+incremental payments,LoB 3 AY 2000 DY 0,value,81434931
+incremental payments,LoB 3 AY 2001 DY 0,value,77781238
+incremental payments,LoB 3 AY 2002 DY 0,value,83478541
+incremental payments,LoB 3 AY 2003 DY 0,value,91806061
+incremental payments,LoB 3 AY 2004 DY 0,value,91127400
+incremental payments,LoB 3 AY 2005 DY 0,value,99323671
+incremental payments,LoB 3 AY 1994 DY 1,value,51955414
+incremental payments,LoB 3 AY 1995 DY 1,value,54434041
+incremental payments,LoB 3 AY 1996 DY 1,value,52973027
+incremental payments,LoB 3 AY 1997 DY 1,value,52591761
+incremental payments,LoB 3 AY 1998 DY 1,value,51426830
+incremental payments,LoB 3 AY 1999 DY 1,value,49834401
+incremental payments,LoB 3 AY 2000 DY 1,value,50385991
+incremental payments,LoB 3 AY 2001 DY 1,value,52941737
+incremental payments,LoB 3 AY 2002 DY 1,value,55202469
+incremental payments,LoB 3 AY 2003 DY 1,value,57850056
+incremental payments,LoB 3 AY 2004 DY 1,value,56343726
+incremental payments,LoB 3 AY 2005 DY 1,value,63720282
+incremental payments,LoB 3 AY 1994 DY 2,value,17862154
+incremental payments,LoB 3 AY 1995 DY 2,value,19340244
+incremental payments,LoB 3 AY 1996 DY 2,value,18216377
+incremental payments,LoB 3 AY 1997 DY 2,value,17613869
+incremental payments,LoB 3 AY 1998 DY 2,value,18493616
+incremental payments,LoB 3 AY 1999 DY 2,value,17802684
+incremental payments,LoB 3 AY 2000 DY 2,value,18725329
+incremental payments,LoB 3 AY 2001 DY 2,value,19901816
+incremental payments,LoB 3 AY 2002 DY 2,value,20740310
+incremental payments,LoB 3 AY 2003 DY 2,value,20856732
+incremental payments,LoB 3 AY 2004 DY 2,value,19085207
+incremental payments,LoB 3 AY 2005 DY 2,value,22666437
+incremental payments,LoB 3 AY 1994 DY 3,value,8852140
+incremental payments,LoB 3 AY 1995 DY 3,value,8238661
+incremental payments,LoB 3 AY 1996 DY 3,value,8809389
+incremental payments,LoB 3 AY 1997 DY 3,value,8131581
+incremental payments,LoB 3 AY 1998 DY 3,value,8593696
+incremental payments,LoB 3 AY 1999 DY 3,value,8483534
+incremental payments,LoB 3 AY 2000 DY 3,value,8401558
+incremental payments,LoB 3 AY 2001 DY 3,value,8248756
+incremental payments,LoB 3 AY 2002 DY 3,value,8725222
+incremental payments,LoB 3 AY 2003 DY 3,value,9406434
+incremental payments,LoB 3 AY 2004 DY 3,value,7191813
+incremental payments,LoB 3 AY 2005 DY 3,value,9667943
+incremental payments,LoB 3 AY 1994 DY 4,value,5166413
+incremental payments,LoB 3 AY 1995 DY 4,value,4915663
+incremental payments,LoB 3 AY 1996 DY 4,value,5132327
+incremental payments,LoB 3 AY 1997 DY 4,value,4496393
+incremental payments,LoB 3 AY 1998 DY 4,value,4761367
+incremental payments,LoB 3 AY 1999 DY 4,value,4668107
+incremental payments,LoB 3 AY 2000 DY 4,value,4536826
+incremental payments,LoB 3 AY 2001 DY 4,value,4150214
+incremental payments,LoB 3 AY 2002 DY 4,value,4778870
+incremental payments,LoB 3 AY 2003 DY 4,value,5094771
+incremental payments,LoB 3 AY 2004 DY 4,value,3775292
+incremental payments,LoB 3 AY 2005 DY 4,value,5346774
+incremental payments,LoB 3 AY 1994 DY 5,value,3342905
+incremental payments,LoB 3 AY 1995 DY 5,value,2995447
+incremental payments,LoB 3 AY 1996 DY 5,value,3362556
+incremental payments,LoB 3 AY 1997 DY 5,value,3086133
+incremental payments,LoB 3 AY 1998 DY 5,value,3182617
+incremental payments,LoB 3 AY 1999 DY 5,value,3066213
+incremental payments,LoB 3 AY 2000 DY 5,value,2438088
+incremental payments,LoB 3 AY 2001 DY 5,value,2357443
+incremental payments,LoB 3 AY 2002 DY 5,value,2394635
+incremental payments,LoB 3 AY 2003 DY 5,value,3373620
+incremental payments,LoB 3 AY 2004 DY 5,value,2096915
+incremental payments,LoB 3 AY 2005 DY 5,value,3151834
+incremental payments,LoB 3 AY 1994 DY 6,value,2371049
+incremental payments,LoB 3 AY 1995 DY 6,value,2280307
+incremental payments,LoB 3 AY 1996 DY 6,value,2157721
+incremental payments,LoB 3 AY 1997 DY 6,value,2083590
+incremental payments,LoB 3 AY 1998 DY 6,value,2272408
+incremental payments,LoB 3 AY 1999 DY 6,value,2221709
+incremental payments,LoB 3 AY 2000 DY 6,value,1605336
+incremental payments,LoB 3 AY 2001 DY 6,value,1832605
+incremental payments,LoB 3 AY 2002 DY 6,value,2029061
+incremental payments,LoB 3 AY 2003 DY 6,value,2381258
+incremental payments,LoB 3 AY 2004 DY 6,value,1658608
+incremental payments,LoB 3 AY 2005 DY 6,value,2269057
+incremental payments,LoB 3 AY 1994 DY 7,value,1782957
+incremental payments,LoB 3 AY 1995 DY 7,value,1691449
+incremental payments,LoB 3 AY 1996 DY 7,value,1915307
+incremental payments,LoB 3 AY 1997 DY 7,value,1305112
+incremental payments,LoB 3 AY 1998 DY 7,value,1587856
+incremental payments,LoB 3 AY 1999 DY 7,value,1321025
+incremental payments,LoB 3 AY 2000 DY 7,value,993714
+incremental payments,LoB 3 AY 2001 DY 7,value,1183886
+incremental payments,LoB 3 AY 2002 DY 7,value,1319034
+incremental payments,LoB 3 AY 2003 DY 7,value,1446008
+incremental payments,LoB 3 AY 2004 DY 7,value,1182688
+incremental payments,LoB 3 AY 2005 DY 7,value,1687579
+incremental payments,LoB 3 AY 1994 DY 8,value,1586192
+incremental payments,LoB 3 AY 1995 DY 8,value,1328649
+incremental payments,LoB 3 AY 1996 DY 8,value,1306623
+incremental payments,LoB 3 AY 1997 DY 8,value,1115139
+incremental payments,LoB 3 AY 1998 DY 8,value,1060364
+incremental payments,LoB 3 AY 1999 DY 8,value,1102270
+incremental payments,LoB 3 AY 2000 DY 8,value,1310372
+incremental payments,LoB 3 AY 2001 DY 8,value,772469
+incremental payments,LoB 3 AY 2002 DY 8,value,1220279
+incremental payments,LoB 3 AY 2003 DY 8,value,1256486
+incremental payments,LoB 3 AY 2004 DY 8,value,945344
+incremental payments,LoB 3 AY 2005 DY 8,value,1061596
+incremental payments,LoB 3 AY 1994 DY 9,value,1020642
+incremental payments,LoB 3 AY 1995 DY 9,value,1026622
+incremental payments,LoB 3 AY 1996 DY 9,value,1393198
+incremental payments,LoB 3 AY 1997 DY 9,value,920736
+incremental payments,LoB 3 AY 1998 DY 9,value,769426
+incremental payments,LoB 3 AY 1999 DY 9,value,1016134
+incremental payments,LoB 3 AY 2000 DY 9,value,812126
+incremental payments,LoB 3 AY 2001 DY 9,value,745904
+incremental payments,LoB 3 AY 2002 DY 9,value,1190898
+incremental payments,LoB 3 AY 2003 DY 9,value,926407
+incremental payments,LoB 3 AY 2004 DY 9,value,757103
+incremental payments,LoB 3 AY 2005 DY 9,value,1099115
+incremental payments,LoB 3 AY 1994 DY 10,value,1049089
+incremental payments,LoB 3 AY 1995 DY 10,value,843142
+incremental payments,LoB 3 AY 1996 DY 10,value,1097859
+incremental payments,LoB 3 AY 1997 DY 10,value,733850
+incremental payments,LoB 3 AY 1998 DY 10,value,730199
+incremental payments,LoB 3 AY 1999 DY 10,value,988635
+incremental payments,LoB 3 AY 2000 DY 10,value,755021
+incremental payments,LoB 3 AY 2001 DY 10,value,668866
+incremental payments,LoB 3 AY 2002 DY 10,value,824426
+incremental payments,LoB 3 AY 2003 DY 10,value,885851
+incremental payments,LoB 3 AY 2004 DY 10,value,774153
+incremental payments,LoB 3 AY 2005 DY 10,value,708419
+incremental payments,LoB 3 AY 1994 DY 11,value,600663
+incremental payments,LoB 3 AY 1995 DY 11,value,502347
+incremental payments,LoB 3 AY 1996 DY 11,value,436613
+incremental payments,LoB 3 AY 1997 DY 11,value,318369
+incremental payments,LoB 3 AY 1998 DY 11,value,512241
+incremental payments,LoB 3 AY 1999 DY 11,value,613604
+incremental payments,LoB 3 AY 2000 DY 11,value,356863
+incremental payments,LoB 3 AY 2001 DY 11,value,273843
+incremental payments,LoB 3 AY 2002 DY 11,value,444509
+incremental payments,LoB 3 AY 2003 DY 11,value,336187
+incremental payments,LoB 3 AY 2004 DY 11,value,337008
+incremental payments,LoB 3 AY 2005 DY 11,value,483670
+incremental payments,LoB 4 AY 1994 DY 0,value,80644931
+incremental payments,LoB 4 AY 1995 DY 0,value,79549348
+incremental payments,LoB 4 AY 1996 DY 0,value,82102213
+incremental payments,LoB 4 AY 1997 DY 0,value,80329726
+incremental payments,LoB 4 AY 1998 DY 0,value,80760715
+incremental payments,LoB 4 AY 1999 DY 0,value,84813527
+incremental payments,LoB 4 AY 2000 DY 0,value,83935928
+incremental payments,LoB 4 AY 2001 DY 0,value,85201980
+incremental payments,LoB 4 AY 2002 DY 0,value,89255522
+incremental payments,LoB 4 AY 2003 DY 0,value,96334871
+incremental payments,LoB 4 AY 2004 DY 0,value,98797277
+incremental payments,LoB 4 AY 2005 DY 0,value,103556175
+incremental payments,LoB 4 AY 1994 DY 1,value,48890504
+incremental payments,LoB 4 AY 1995 DY 1,value,49658088
+incremental payments,LoB 4 AY 1996 DY 1,value,53140833
+incremental payments,LoB 4 AY 1997 DY 1,value,51888875
+incremental payments,LoB 4 AY 1998 DY 1,value,54275808
+incremental payments,LoB 4 AY 1999 DY 1,value,56441417
+incremental payments,LoB 4 AY 2000 DY 1,value,57852526
+incremental payments,LoB 4 AY 2001 DY 1,value,57408988
+incremental payments,LoB 4 AY 2002 DY 1,value,61564014
+incremental payments,LoB 4 AY 2003 DY 1,value,67202843
+incremental payments,LoB 4 AY 2004 DY 1,value,68164988
+incremental payments,LoB 4 AY 2005 DY 1,value,73949158
+incremental payments,LoB 4 AY 1994 DY 2,value,18554469
+incremental payments,LoB 4 AY 1995 DY 2,value,18778572
+incremental payments,LoB 4 AY 1996 DY 2,value,20847480
+incremental payments,LoB 4 AY 1997 DY 2,value,20562727
+incremental payments,LoB 4 AY 1998 DY 2,value,22036040
+incremental payments,LoB 4 AY 1999 DY 2,value,23351230
+incremental payments,LoB 4 AY 2000 DY 2,value,24214070
+incremental payments,LoB 4 AY 2001 DY 2,value,23919087
+incremental payments,LoB 4 AY 2002 DY 2,value,26817120
+incremental payments,LoB 4 AY 2003 DY 2,value,29199602
+incremental payments,LoB 4 AY 2004 DY 2,value,29221692
+incremental payments,LoB 4 AY 2005 DY 2,value,31587344
+incremental payments,LoB 4 AY 1994 DY 3,value,10938465
+incremental payments,LoB 4 AY 1995 DY 3,value,10945543
+incremental payments,LoB 4 AY 1996 DY 3,value,12336685
+incremental payments,LoB 4 AY 1997 DY 3,value,12226713
+incremental payments,LoB 4 AY 1998 DY 3,value,12708317
+incremental payments,LoB 4 AY 1999 DY 3,value,13662294
+incremental payments,LoB 4 AY 2000 DY 3,value,14066393
+incremental payments,LoB 4 AY 2001 DY 3,value,13798738
+incremental payments,LoB 4 AY 2002 DY 3,value,15591679
+incremental payments,LoB 4 AY 2003 DY 3,value,17163916
+incremental payments,LoB 4 AY 2004 DY 3,value,16615189
+incremental payments,LoB 4 AY 2005 DY 3,value,17777556
+incremental payments,LoB 4 AY 1994 DY 4,value,7070881
+incremental payments,LoB 4 AY 1995 DY 4,value,7406241
+incremental payments,LoB 4 AY 1996 DY 4,value,8259698
+incremental payments,LoB 4 AY 1997 DY 4,value,8210928
+incremental payments,LoB 4 AY 1998 DY 4,value,8821398
+incremental payments,LoB 4 AY 1999 DY 4,value,9316489
+incremental payments,LoB 4 AY 2000 DY 4,value,9355248
+incremental payments,LoB 4 AY 2001 DY 4,value,8923659
+incremental payments,LoB 4 AY 2002 DY 4,value,10298814
+incremental payments,LoB 4 AY 2003 DY 4,value,11320764
+incremental payments,LoB 4 AY 2004 DY 4,value,10893773
+incremental payments,LoB 4 AY 2005 DY 4,value,11672089
+incremental payments,LoB 4 AY 1994 DY 5,value,5295958
+incremental payments,LoB 4 AY 1995 DY 5,value,5329893
+incremental payments,LoB 4 AY 1996 DY 5,value,6059530
+incremental payments,LoB 4 AY 1997 DY 5,value,5997055
+incremental payments,LoB 4 AY 1998 DY 5,value,6456993
+incremental payments,LoB 4 AY 1999 DY 5,value,6616979
+incremental payments,LoB 4 AY 2000 DY 5,value,6797596
+incremental payments,LoB 4 AY 2001 DY 5,value,6361202
+incremental payments,LoB 4 AY 2002 DY 5,value,7211940
+incremental payments,LoB 4 AY 2003 DY 5,value,8182801
+incremental payments,LoB 4 AY 2004 DY 5,value,7779839
+incremental payments,LoB 4 AY 2005 DY 5,value,8268929
+incremental payments,LoB 4 AY 1994 DY 6,value,4225634
+incremental payments,LoB 4 AY 1995 DY 6,value,4190511
+incremental payments,LoB 4 AY 1996 DY 6,value,4638532
+incremental payments,LoB 4 AY 1997 DY 6,value,4488304
+incremental payments,LoB 4 AY 1998 DY 6,value,4890013
+incremental payments,LoB 4 AY 1999 DY 6,value,5052469
+incremental payments,LoB 4 AY 2000 DY 6,value,5089277
+incremental payments,LoB 4 AY 2001 DY 6,value,4715865
+incremental payments,LoB 4 AY 2002 DY 6,value,5063271
+incremental payments,LoB 4 AY 2003 DY 6,value,6206394
+incremental payments,LoB 4 AY 2004 DY 6,value,5631218
+incremental payments,LoB 4 AY 2005 DY 6,value,6205139
+incremental payments,LoB 4 AY 1994 DY 7,value,3335313
+incremental payments,LoB 4 AY 1995 DY 7,value,3320538
+incremental payments,LoB 4 AY 1996 DY 7,value,3708217
+incremental payments,LoB 4 AY 1997 DY 7,value,3781924
+incremental payments,LoB 4 AY 1998 DY 7,value,3918977
+incremental payments,LoB 4 AY 1999 DY 7,value,4049081
+incremental payments,LoB 4 AY 2000 DY 7,value,4110109
+incremental payments,LoB 4 AY 2001 DY 7,value,3579883
+incremental payments,LoB 4 AY 2002 DY 7,value,4016548
+incremental payments,LoB 4 AY 2003 DY 7,value,4788261
+incremental payments,LoB 4 AY 2004 DY 7,value,4350398
+incremental payments,LoB 4 AY 2005 DY 7,value,4820139
+incremental payments,LoB 4 AY 1994 DY 8,value,2628725
+incremental payments,LoB 4 AY 1995 DY 8,value,2720020
+incremental payments,LoB 4 AY 1996 DY 8,value,3037471
+incremental payments,LoB 4 AY 1997 DY 8,value,2972891
+incremental payments,LoB 4 AY 1998 DY 8,value,3169326
+incremental payments,LoB 4 AY 1999 DY 8,value,3288825
+incremental payments,LoB 4 AY 2000 DY 8,value,3144599
+incremental payments,LoB 4 AY 2001 DY 8,value,2808598
+incremental payments,LoB 4 AY 2002 DY 8,value,3106337
+incremental payments,LoB 4 AY 2003 DY 8,value,3722397
+incremental payments,LoB 4 AY 2004 DY 8,value,3299192
+incremental payments,LoB 4 AY 2005 DY 8,value,3596318
+incremental payments,LoB 4 AY 1994 DY 9,value,2352615
+incremental payments,LoB 4 AY 1995 DY 9,value,2343856
+incremental payments,LoB 4 AY 1996 DY 9,value,2785624
+incremental payments,LoB 4 AY 1997 DY 9,value,2524243
+incremental payments,LoB 4 AY 1998 DY 9,value,2617934
+incremental payments,LoB 4 AY 1999 DY 9,value,2661175
+incremental payments,LoB 4 AY 2000 DY 9,value,2753449
+incremental payments,LoB 4 AY 2001 DY 9,value,2245030
+incremental payments,LoB 4 AY 2002 DY 9,value,2552467
+incremental payments,LoB 4 AY 2003 DY 9,value,2975507
+incremental payments,LoB 4 AY 2004 DY 9,value,2604633
+incremental payments,LoB 4 AY 2005 DY 9,value,2911452
+incremental payments,LoB 4 AY 1994 DY 10,value,2023869
+incremental payments,LoB 4 AY 1995 DY 10,value,1958433
+incremental payments,LoB 4 AY 1996 DY 10,value,2449431
+incremental payments,LoB 4 AY 1997 DY 10,value,2237663
+incremental payments,LoB 4 AY 1998 DY 10,value,2364381
+incremental payments,LoB 4 AY 1999 DY 10,value,2227417
+incremental payments,LoB 4 AY 2000 DY 10,value,2370799
+incremental payments,LoB 4 AY 2001 DY 10,value,1957087
+incremental payments,LoB 4 AY 2002 DY 10,value,2138831
+incremental payments,LoB 4 AY 2003 DY 10,value,2508044
+incremental payments,LoB 4 AY 2004 DY 10,value,2228505
+incremental payments,LoB 4 AY 2005 DY 10,value,2542760
+incremental payments,LoB 4 AY 1994 DY 11,value,1618128
+incremental payments,LoB 4 AY 1995 DY 11,value,1600327
+incremental payments,LoB 4 AY 1996 DY 11,value,1938705
+incremental payments,LoB 4 AY 1997 DY 11,value,1849860
+incremental payments,LoB 4 AY 1998 DY 11,value,1916650
+incremental payments,LoB 4 AY 1999 DY 11,value,1813304
+incremental payments,LoB 4 AY 2000 DY 11,value,1922670
+incremental payments,LoB 4 AY 2001 DY 11,value,1612544
+incremental payments,LoB 4 AY 2002 DY 11,value,1816143
+incremental payments,LoB 4 AY 2003 DY 11,value,2139362
+incremental payments,LoB 4 AY 2004 DY 11,value,1982792
+incremental payments,LoB 4 AY 2005 DY 11,value,2208444
+incremental payments of the training half,LoB 1 AY 1994 DY 0,value,35543172
+incremental payments of the training half,LoB 1 AY 1995 DY 0,value,35775254
+incremental payments of the training half,LoB 1 AY 1996 DY 0,value,35985048
+incremental payments of the training half,LoB 1 AY 1997 DY 0,value,35540248
+incremental payments of the training half,LoB 1 AY 1998 DY 0,value,36407010
+incremental payments of the training half,LoB 1 AY 1999 DY 0,value,36630447
+incremental payments of the training half,LoB 1 AY 2000 DY 0,value,37297904
+incremental payments of the training half,LoB 1 AY 2001 DY 0,value,39817958
+incremental payments of the training half,LoB 1 AY 2002 DY 0,value,39870111
+incremental payments of the training half,LoB 1 AY 2003 DY 0,value,41259343
+incremental payments of the training half,LoB 1 AY 2004 DY 0,value,42319059
+incremental payments of the training half,LoB 1 AY 2005 DY 0,value,44013762
+incremental payments of the training half,LoB 1 AY 1994 DY 1,value,17985166
+incremental payments of the training half,LoB 1 AY 1995 DY 1,value,18921512
+incremental payments of the training half,LoB 1 AY 1996 DY 1,value,18998487
+incremental payments of the training half,LoB 1 AY 1997 DY 1,value,19229892
+incremental payments of the training half,LoB 1 AY 1998 DY 1,value,19769123
+incremental payments of the training half,LoB 1 AY 1999 DY 1,value,20893925
+incremental payments of the training half,LoB 1 AY 2000 DY 1,value,20958243
+incremental payments of the training half,LoB 1 AY 2001 DY 1,value,23535385
+incremental payments of the training half,LoB 1 AY 2002 DY 1,value,23160572
+incremental payments of the training half,LoB 1 AY 2003 DY 1,value,24110099
+incremental payments of the training half,LoB 1 AY 2004 DY 1,value,25847651
+incremental payments of the training half,LoB 1 AY 2005 DY 1,value,25329527
+incremental payments of the training half,LoB 1 AY 1994 DY 2,value,6086513
+incremental payments of the training half,LoB 1 AY 1995 DY 2,value,6524223
+incremental payments of the training half,LoB 1 AY 1996 DY 2,value,6427390
+incremental payments of the training half,LoB 1 AY 1997 DY 2,value,6762038
+incremental payments of the training half,LoB 1 AY 1998 DY 2,value,7300714
+incremental payments of the training half,LoB 1 AY 1999 DY 2,value,7747420
+incremental payments of the training half,LoB 1 AY 2000 DY 2,value,7700842
+incremental payments of the training half,LoB 1 AY 2001 DY 2,value,9170215
+incremental payments of the training half,LoB 1 AY 2002 DY 2,value,8784212
+incremental payments of the training half,LoB 1 AY 2003 DY 2,value,9280331
+incremental payments of the training half,LoB 1 AY 2004 DY 2,value,9652874
+incremental payments of the training half,LoB 1 AY 2005 DY 2,value,9447014
+incremental payments of the training half,LoB 1 AY 1994 DY 3,value,3541817
+incremental payments of the training half,LoB 1 AY 1995 DY 3,value,3738868
+incremental payments of the training half,LoB 1 AY 1996 DY 3,value,3761287
+incremental payments of the training half,LoB 1 AY 1997 DY 3,value,3914967
+incremental payments of the training half,LoB 1 AY 1998 DY 3,value,4265921
+incremental payments of the training half,LoB 1 AY 1999 DY 3,value,4454484
+incremental payments of the training half,LoB 1 AY 2000 DY 3,value,4443519
+incremental payments of the training half,LoB 1 AY 2001 DY 3,value,5145868
+incremental payments of the training half,LoB 1 AY 2002 DY 3,value,4936308
+incremental payments of the training half,LoB 1 AY 2003 DY 3,value,5166886
+incremental payments of the training half,LoB 1 AY 2004 DY 3,value,5393485
+incremental payments of the training half,LoB 1 AY 2005 DY 3,value,5149886
+incremental payments of the training half,LoB 1 AY 1994 DY 4,value,2347974
+incremental payments of the training half,LoB 1 AY 1995 DY 4,value,2430752
+incremental payments of the training half,LoB 1 AY 1996 DY 4,value,2442262
+incremental payments of the training half,LoB 1 AY 1997 DY 4,value,2639899
+incremental payments of the training half,LoB 1 AY 1998 DY 4,value,2802555
+incremental payments of the training half,LoB 1 AY 1999 DY 4,value,2906983
+incremental payments of the training half,LoB 1 AY 2000 DY 4,value,2932141
+incremental payments of the training half,LoB 1 AY 2001 DY 4,value,3580548
+incremental payments of the training half,LoB 1 AY 2002 DY 4,value,3128511
+incremental payments of the training half,LoB 1 AY 2003 DY 4,value,3344376
+incremental payments of the training half,LoB 1 AY 2004 DY 4,value,3428618
+incremental payments of the training half,LoB 1 AY 2005 DY 4,value,3300073
+incremental payments of the training half,LoB 1 AY 1994 DY 5,value,1802259
+incremental payments of the training half,LoB 1 AY 1995 DY 5,value,1850373
+incremental payments of the training half,LoB 1 AY 1996 DY 5,value,1754217
+incremental payments of the training half,LoB 1 AY 1997 DY 5,value,1792188
+incremental payments of the training half,LoB 1 AY 1998 DY 5,value,2060357
+incremental payments of the training half,LoB 1 AY 1999 DY 5,value,2069404
+incremental payments of the training half,LoB 1 AY 2000 DY 5,value,1987987
+incremental payments of the training half,LoB 1 AY 2001 DY 5,value,2521950
+incremental payments of the training half,LoB 1 AY 2002 DY 5,value,2060730
+incremental payments of the training half,LoB 1 AY 2003 DY 5,value,2342719
+incremental payments of the training half,LoB 1 AY 2004 DY 5,value,2368728
+incremental payments of the training half,LoB 1 AY 2005 DY 5,value,2242011
+incremental payments of the training half,LoB 1 AY 1994 DY 6,value,1360611
+incremental payments of the training half,LoB 1 AY 1995 DY 6,value,1372682
+incremental payments of the training half,LoB 1 AY 1996 DY 6,value,1456792
+incremental payments of the training half,LoB 1 AY 1997 DY 6,value,1365264
+incremental payments of the training half,LoB 1 AY 1998 DY 6,value,1547335
+incremental payments of the training half,LoB 1 AY 1999 DY 6,value,1597227
+incremental payments of the training half,LoB 1 AY 2000 DY 6,value,1512662
+incremental payments of the training half,LoB 1 AY 2001 DY 6,value,1903416
+incremental payments of the training half,LoB 1 AY 2002 DY 6,value,1559459
+incremental payments of the training half,LoB 1 AY 2003 DY 6,value,1743243
+incremental payments of the training half,LoB 1 AY 2004 DY 6,value,1757722
+incremental payments of the training half,LoB 1 AY 2005 DY 6,value,1639439
+incremental payments of the training half,LoB 1 AY 1994 DY 7,value,1065379
+incremental payments of the training half,LoB 1 AY 1995 DY 7,value,1026487
+incremental payments of the training half,LoB 1 AY 1996 DY 7,value,1154162
+incremental payments of the training half,LoB 1 AY 1997 DY 7,value,1129915
+incremental payments of the training half,LoB 1 AY 1998 DY 7,value,1172803
+incremental payments of the training half,LoB 1 AY 1999 DY 7,value,1251812
+incremental payments of the training half,LoB 1 AY 2000 DY 7,value,1147759
+incremental payments of the training half,LoB 1 AY 2001 DY 7,value,1388942
+incremental payments of the training half,LoB 1 AY 2002 DY 7,value,1113841
+incremental payments of the training half,LoB 1 AY 2003 DY 7,value,1299574
+incremental payments of the training half,LoB 1 AY 2004 DY 7,value,1412210
+incremental payments of the training half,LoB 1 AY 2005 DY 7,value,1163539
+incremental payments of the training half,LoB 1 AY 1994 DY 8,value,852303
+incremental payments of the training half,LoB 1 AY 1995 DY 8,value,797366
+incremental payments of the training half,LoB 1 AY 1996 DY 8,value,876322
+incremental payments of the training half,LoB 1 AY 1997 DY 8,value,865676
+incremental payments of the training half,LoB 1 AY 1998 DY 8,value,978427
+incremental payments of the training half,LoB 1 AY 1999 DY 8,value,964135
+incremental payments of the training half,LoB 1 AY 2000 DY 8,value,876589
+incremental payments of the training half,LoB 1 AY 2001 DY 8,value,1148849
+incremental payments of the training half,LoB 1 AY 2002 DY 8,value,841915
+incremental payments of the training half,LoB 1 AY 2003 DY 8,value,989835
+incremental payments of the training half,LoB 1 AY 2004 DY 8,value,1042056
+incremental payments of the training half,LoB 1 AY 2005 DY 8,value,947497
+incremental payments of the training half,LoB 1 AY 1994 DY 9,value,742079
+incremental payments of the training half,LoB 1 AY 1995 DY 9,value,689856
+incremental payments of the training half,LoB 1 AY 1996 DY 9,value,741426
+incremental payments of the training half,LoB 1 AY 1997 DY 9,value,751163
+incremental payments of the training half,LoB 1 AY 1998 DY 9,value,751166
+incremental payments of the training half,LoB 1 AY 1999 DY 9,value,781251
+incremental payments of the training half,LoB 1 AY 2000 DY 9,value,785974
+incremental payments of the training half,LoB 1 AY 2001 DY 9,value,890570
+incremental payments of the training half,LoB 1 AY 2002 DY 9,value,725048
+incremental payments of the training half,LoB 1 AY 2003 DY 9,value,872501
+incremental payments of the training half,LoB 1 AY 2004 DY 9,value,922387
+incremental payments of the training half,LoB 1 AY 2005 DY 9,value,727614
+incremental payments of the training half,LoB 1 AY 1994 DY 10,value,631869
+incremental payments of the training half,LoB 1 AY 1995 DY 10,value,565830
+incremental payments of the training half,LoB 1 AY 1996 DY 10,value,648416
+incremental payments of the training half,LoB 1 AY 1997 DY 10,value,643966
+incremental payments of the training half,LoB 1 AY 1998 DY 10,value,662352
+incremental payments of the training half,LoB 1 AY 1999 DY 10,value,672030
+incremental payments of the training half,LoB 1 AY 2000 DY 10,value,687657
+incremental payments of the training half,LoB 1 AY 2001 DY 10,value,766018
+incremental payments of the training half,LoB 1 AY 2002 DY 10,value,618055
+incremental payments of the training half,LoB 1 AY 2003 DY 10,value,765808
+incremental payments of the training half,LoB 1 AY 2004 DY 10,value,771270
+incremental payments of the training half,LoB 1 AY 2005 DY 10,value,654252
+incremental payments of the training half,LoB 1 AY 1994 DY 11,value,506117
+incremental payments of the training half,LoB 1 AY 1995 DY 11,value,454816
+incremental payments of the training half,LoB 1 AY 1996 DY 11,value,525625
+incremental payments of the training half,LoB 1 AY 1997 DY 11,value,520871
+incremental payments of the training half,LoB 1 AY 1998 DY 11,value,517298
+incremental payments of the training half,LoB 1 AY 1999 DY 11,value,569937
+incremental payments of the training half,LoB 1 AY 2000 DY 11,value,555824
+incremental payments of the training half,LoB 1 AY 2001 DY 11,value,689121
+incremental payments of the training half,LoB 1 AY 2002 DY 11,value,492860
+incremental payments of the training half,LoB 1 AY 2003 DY 11,value,636179
+incremental payments of the training half,LoB 1 AY 2004 DY 11,value,656673
+incremental payments of the training half,LoB 1 AY 2005 DY 11,value,562011
+incremental payments of the training half,LoB 2 AY 1994 DY 0,value,52658580
+incremental payments of the training half,LoB 2 AY 1995 DY 0,value,50051084
+incremental payments of the training half,LoB 2 AY 1996 DY 0,value,48619901
+incremental payments of the training half,LoB 2 AY 1997 DY 0,value,46470418
+incremental payments of the training half,LoB 2 AY 1998 DY 0,value,45175755
+incremental payments of the training half,LoB 2 AY 1999 DY 0,value,47506024
+incremental payments of the training half,LoB 2 AY 2000 DY 0,value,45277831
+incremental payments of the training half,LoB 2 AY 2001 DY 0,value,46949409
+incremental payments of the training half,LoB 2 AY 2002 DY 0,value,48255472
+incremental payments of the training half,LoB 2 AY 2003 DY 0,value,52023326
+incremental payments of the training half,LoB 2 AY 2004 DY 0,value,55235073
+incremental payments of the training half,LoB 2 AY 2005 DY 0,value,53393980
+incremental payments of the training half,LoB 2 AY 1994 DY 1,value,25031972
+incremental payments of the training half,LoB 2 AY 1995 DY 1,value,24908528
+incremental payments of the training half,LoB 2 AY 1996 DY 1,value,25194499
+incremental payments of the training half,LoB 2 AY 1997 DY 1,value,21891890
+incremental payments of the training half,LoB 2 AY 1998 DY 1,value,24400408
+incremental payments of the training half,LoB 2 AY 1999 DY 1,value,25152401
+incremental payments of the training half,LoB 2 AY 2000 DY 1,value,25679306
+incremental payments of the training half,LoB 2 AY 2001 DY 1,value,26812303
+incremental payments of the training half,LoB 2 AY 2002 DY 1,value,27445728
+incremental payments of the training half,LoB 2 AY 2003 DY 1,value,29911219
+incremental payments of the training half,LoB 2 AY 2004 DY 1,value,33322865
+incremental payments of the training half,LoB 2 AY 2005 DY 1,value,31270619
+incremental payments of the training half,LoB 2 AY 1994 DY 2,value,8719305
+incremental payments of the training half,LoB 2 AY 1995 DY 2,value,9245674
+incremental payments of the training half,LoB 2 AY 1996 DY 2,value,9100274
+incremental payments of the training half,LoB 2 AY 1997 DY 2,value,7988200
+incremental payments of the training half,LoB 2 AY 1998 DY 2,value,9695015
+incremental payments of the training half,LoB 2 AY 1999 DY 2,value,9497079
+incremental payments of the training half,LoB 2 AY 2000 DY 2,value,9987819
+incremental payments of the training half,LoB 2 AY 2001 DY 2,value,10049788
+incremental payments of the training half,LoB 2 AY 2002 DY 2,value,11592392
+incremental payments of the training half,LoB 2 AY 2003 DY 2,value,12138859
+incremental payments of the training half,LoB 2 AY 2004 DY 2,value,13631488
+incremental payments of the training half,LoB 2 AY 2005 DY 2,value,11940106
+incremental payments of the training half,LoB 2 AY 1994 DY 3,value,3999094
+incremental payments of the training half,LoB 2 AY 1995 DY 3,value,4087279
+incremental payments of the training half,LoB 2 AY 1996 DY 3,value,4317665
+incremental payments of the training half,LoB 2 AY 1997 DY 3,value,3886181
+incremental payments of the training half,LoB 2 AY 1998 DY 3,value,3979212
+incremental payments of the training half,LoB 2 AY 1999 DY 3,value,4148298
+incremental payments of the training half,LoB 2 AY 2000 DY 3,value,4143582
+incremental payments of the training half,LoB 2 AY 2001 DY 3,value,4225173
+incremental payments of the training half,LoB 2 AY 2002 DY 3,value,4846985
+incremental payments of the training half,LoB 2 AY 2003 DY 3,value,5254983
+incremental payments of the training half,LoB 2 AY 2004 DY 3,value,5462808
+incremental payments of the training half,LoB 2 AY 2005 DY 3,value,3916780
+incremental payments of the training half,LoB 2 AY 1994 DY 4,value,2134953
+incremental payments of the training half,LoB 2 AY 1995 DY 4,value,2077135
+incremental payments of the training half,LoB 2 AY 1996 DY 4,value,2365018
+incremental payments of the training half,LoB 2 AY 1997 DY 4,value,2354306
+incremental payments of the training half,LoB 2 AY 1998 DY 4,value,2306472
+incremental payments of the training half,LoB 2 AY 1999 DY 4,value,1794641
+incremental payments of the training half,LoB 2 AY 2000 DY 4,value,1984106
+incremental payments of the training half,LoB 2 AY 2001 DY 4,value,2233498
+incremental payments of the training half,LoB 2 AY 2002 DY 4,value,2246186
+incremental payments of the training half,LoB 2 AY 2003 DY 4,value,2744531
+incremental payments of the training half,LoB 2 AY 2004 DY 4,value,2874424
+incremental payments of the training half,LoB 2 AY 2005 DY 4,value,1899332
+incremental payments of the training half,LoB 2 AY 1994 DY 5,value,1402308
+incremental payments of the training half,LoB 2 AY 1995 DY 5,value,1409852
+incremental payments of the training half,LoB 2 AY 1996 DY 5,value,1400620
+incremental payments of the training half,LoB 2 AY 1997 DY 5,value,1454016
+incremental payments of the training half,LoB 2 AY 1998 DY 5,value,952586
+incremental payments of the training half,LoB 2 AY 1999 DY 5,value,1255756
+incremental payments of the training half,LoB 2 AY 2000 DY 5,value,1284756
+incremental payments of the training half,LoB 2 AY 2001 DY 5,value,1293483
+incremental payments of the training half,LoB 2 AY 2002 DY 5,value,1121012
+incremental payments of the training half,LoB 2 AY 2003 DY 5,value,1696985
+incremental payments of the training half,LoB 2 AY 2004 DY 5,value,1903124
+incremental payments of the training half,LoB 2 AY 2005 DY 5,value,1452756
+incremental payments of the training half,LoB 2 AY 1994 DY 6,value,860324
+incremental payments of the training half,LoB 2 AY 1995 DY 6,value,884856
+incremental payments of the training half,LoB 2 AY 1996 DY 6,value,877237
+incremental payments of the training half,LoB 2 AY 1997 DY 6,value,894000
+incremental payments of the training half,LoB 2 AY 1998 DY 6,value,768005
+incremental payments of the training half,LoB 2 AY 1999 DY 6,value,618039
+incremental payments of the training half,LoB 2 AY 2000 DY 6,value,916835
+incremental payments of the training half,LoB 2 AY 2001 DY 6,value,769062
+incremental payments of the training half,LoB 2 AY 2002 DY 6,value,657188
+incremental payments of the training half,LoB 2 AY 2003 DY 6,value,1113367
+incremental payments of the training half,LoB 2 AY 2004 DY 6,value,1426112
+incremental payments of the training half,LoB 2 AY 2005 DY 6,value,936747
+incremental payments of the training half,LoB 2 AY 1994 DY 7,value,645396
+incremental payments of the training half,LoB 2 AY 1995 DY 7,value,571736
+incremental payments of the training half,LoB 2 AY 1996 DY 7,value,483391
+incremental payments of the training half,LoB 2 AY 1997 DY 7,value,720329
+incremental payments of the training half,LoB 2 AY 1998 DY 7,value,503322
+incremental payments of the training half,LoB 2 AY 1999 DY 7,value,833746
+incremental payments of the training half,LoB 2 AY 2000 DY 7,value,578986
+incremental payments of the training half,LoB 2 AY 2001 DY 7,value,278067
+incremental payments of the training half,LoB 2 AY 2002 DY 7,value,439842
+incremental payments of the training half,LoB 2 AY 2003 DY 7,value,526743
+incremental payments of the training half,LoB 2 AY 2004 DY 7,value,678545
+incremental payments of the training half,LoB 2 AY 2005 DY 7,value,602138
+incremental payments of the training half,LoB 2 AY 1994 DY 8,value,362218
+incremental payments of the training half,LoB 2 AY 1995 DY 8,value,551322
+incremental payments of the training half,LoB 2 AY 1996 DY 8,value,420752
+incremental payments of the training half,LoB 2 AY 1997 DY 8,value,462027
+incremental payments of the training half,LoB 2 AY 1998 DY 8,value,546098
+incremental payments of the training half,LoB 2 AY 1999 DY 8,value,489109
+incremental payments of the training half,LoB 2 AY 2000 DY 8,value,524006
+incremental payments of the training half,LoB 2 AY 2001 DY 8,value,375778
+incremental payments of the training half,LoB 2 AY 2002 DY 8,value,382784
+incremental payments of the training half,LoB 2 AY 2003 DY 8,value,529001
+incremental payments of the training half,LoB 2 AY 2004 DY 8,value,934795
+incremental payments of the training half,LoB 2 AY 2005 DY 8,value,429128
+incremental payments of the training half,LoB 2 AY 1994 DY 9,value,352537
+incremental payments of the training half,LoB 2 AY 1995 DY 9,value,380994
+incremental payments of the training half,LoB 2 AY 1996 DY 9,value,393843
+incremental payments of the training half,LoB 2 AY 1997 DY 9,value,581078
+incremental payments of the training half,LoB 2 AY 1998 DY 9,value,509819
+incremental payments of the training half,LoB 2 AY 1999 DY 9,value,264112
+incremental payments of the training half,LoB 2 AY 2000 DY 9,value,403457
+incremental payments of the training half,LoB 2 AY 2001 DY 9,value,387466
+incremental payments of the training half,LoB 2 AY 2002 DY 9,value,153010
+incremental payments of the training half,LoB 2 AY 2003 DY 9,value,359451
+incremental payments of the training half,LoB 2 AY 2004 DY 9,value,731489
+incremental payments of the training half,LoB 2 AY 2005 DY 9,value,426257
+incremental payments of the training half,LoB 2 AY 1994 DY 10,value,240044
+incremental payments of the training half,LoB 2 AY 1995 DY 10,value,373993
+incremental payments of the training half,LoB 2 AY 1996 DY 10,value,238479
+incremental payments of the training half,LoB 2 AY 1997 DY 10,value,210754
+incremental payments of the training half,LoB 2 AY 1998 DY 10,value,372196
+incremental payments of the training half,LoB 2 AY 1999 DY 10,value,101213
+incremental payments of the training half,LoB 2 AY 2000 DY 10,value,367295
+incremental payments of the training half,LoB 2 AY 2001 DY 10,value,311213
+incremental payments of the training half,LoB 2 AY 2002 DY 10,value,133580
+incremental payments of the training half,LoB 2 AY 2003 DY 10,value,262840
+incremental payments of the training half,LoB 2 AY 2004 DY 10,value,526146
+incremental payments of the training half,LoB 2 AY 2005 DY 10,value,337303
+incremental payments of the training half,LoB 2 AY 1994 DY 11,value,-298088
+incremental payments of the training half,LoB 2 AY 1995 DY 11,value,151798
+incremental payments of the training half,LoB 2 AY 1996 DY 11,value,58159
+incremental payments of the training half,LoB 2 AY 1997 DY 11,value,141696
+incremental payments of the training half,LoB 2 AY 1998 DY 11,value,-58064
+incremental payments of the training half,LoB 2 AY 1999 DY 11,value,52579
+incremental payments of the training half,LoB 2 AY 2000 DY 11,value,28729
+incremental payments of the training half,LoB 2 AY 2001 DY 11,value,27684
+incremental payments of the training half,LoB 2 AY 2002 DY 11,value,13503
+incremental payments of the training half,LoB 2 AY 2003 DY 11,value,82951
+incremental payments of the training half,LoB 2 AY 2004 DY 11,value,229322
+incremental payments of the training half,LoB 2 AY 2005 DY 11,value,-132470
+incremental payments of the training half,LoB 3 AY 1994 DY 0,value,43466374
+incremental payments of the training half,LoB 3 AY 1995 DY 0,value,41760064
+incremental payments of the training half,LoB 3 AY 1996 DY 0,value,44520040
+incremental payments of the training half,LoB 3 AY 1997 DY 0,value,41808645
+incremental payments of the training half,LoB 3 AY 1998 DY 0,value,40108212
+incremental payments of the training half,LoB 3 AY 1999 DY 0,value,39617161
+incremental payments of the training half,LoB 3 AY 2000 DY 0,value,41493886
+incremental payments of the training half,LoB 3 AY 2001 DY 0,value,38228928
+incremental payments of the training half,LoB 3 AY 2002 DY 0,value,41361129
+incremental payments of the training half,LoB 3 AY 2003 DY 0,value,46358978
+incremental payments of the training half,LoB 3 AY 2004 DY 0,value,46450792
+incremental payments of the training half,LoB 3 AY 2005 DY 0,value,48779897
+incremental payments of the training half,LoB 3 AY 1994 DY 1,value,24313934
+incremental payments of the training half,LoB 3 AY 1995 DY 1,value,25699054
+incremental payments of the training half,LoB 3 AY 1996 DY 1,value,27160118
+incremental payments of the training half,LoB 3 AY 1997 DY 1,value,25698567
+incremental payments of the training half,LoB 3 AY 1998 DY 1,value,26071819
+incremental payments of the training half,LoB 3 AY 1999 DY 1,value,24064913
+incremental payments of the training half,LoB 3 AY 2000 DY 1,value,25205232
+incremental payments of the training half,LoB 3 AY 2001 DY 1,value,25761410
+incremental payments of the training half,LoB 3 AY 2002 DY 1,value,26445709
+incremental payments of the training half,LoB 3 AY 2003 DY 1,value,29513114
+incremental payments of the training half,LoB 3 AY 2004 DY 1,value,29542856
+incremental payments of the training half,LoB 3 AY 2005 DY 1,value,30929176
+incremental payments of the training half,LoB 3 AY 1994 DY 2,value,7927127
+incremental payments of the training half,LoB 3 AY 1995 DY 2,value,8613912
+incremental payments of the training half,LoB 3 AY 1996 DY 2,value,9898141
+incremental payments of the training half,LoB 3 AY 1997 DY 2,value,8849003
+incremental payments of the training half,LoB 3 AY 1998 DY 2,value,10012137
+incremental payments of the training half,LoB 3 AY 1999 DY 2,value,8294587
+incremental payments of the training half,LoB 3 AY 2000 DY 2,value,9292536
+incremental payments of the training half,LoB 3 AY 2001 DY 2,value,10252117
+incremental payments of the training half,LoB 3 AY 2002 DY 2,value,9368319
+incremental payments of the training half,LoB 3 AY 2003 DY 2,value,11100124
+incremental payments of the training half,LoB 3 AY 2004 DY 2,value,9910116
+incremental payments of the training half,LoB 3 AY 2005 DY 2,value,10723297
+incremental payments of the training half,LoB 3 AY 1994 DY 3,value,3924706
+incremental payments of the training half,LoB 3 AY 1995 DY 3,value,3677491
+incremental payments of the training half,LoB 3 AY 1996 DY 3,value,4656414
+incremental payments of the training half,LoB 3 AY 1997 DY 3,value,4168671
+incremental payments of the training half,LoB 3 AY 1998 DY 3,value,4787508
+incremental payments of the training half,LoB 3 AY 1999 DY 3,value,3888410
+incremental payments of the training half,LoB 3 AY 2000 DY 3,value,4093396
+incremental payments of the training half,LoB 3 AY 2001 DY 3,value,4101609
+incremental payments of the training half,LoB 3 AY 2002 DY 3,value,3740267
+incremental payments of the training half,LoB 3 AY 2003 DY 3,value,5199155
+incremental payments of the training half,LoB 3 AY 2004 DY 3,value,3578862
+incremental payments of the training half,LoB 3 AY 2005 DY 3,value,4754857
+incremental payments of the training half,LoB 3 AY 1994 DY 4,value,2372733
+incremental payments of the training half,LoB 3 AY 1995 DY 4,value,2044802
+incremental payments of the training half,LoB 3 AY 1996 DY 4,value,2729647
+incremental payments of the training half,LoB 3 AY 1997 DY 4,value,2052930
+incremental payments of the training half,LoB 3 AY 1998 DY 4,value,2803827
+incremental payments of the training half,LoB 3 AY 1999 DY 4,value,2124057
+incremental payments of the training half,LoB 3 AY 2000 DY 4,value,2218598
+incremental payments of the training half,LoB 3 AY 2001 DY 4,value,2259400
+incremental payments of the training half,LoB 3 AY 2002 DY 4,value,1997045
+incremental payments of the training half,LoB 3 AY 2003 DY 4,value,2826988
+incremental payments of the training half,LoB 3 AY 2004 DY 4,value,1789160
+incremental payments of the training half,LoB 3 AY 2005 DY 4,value,2318256
+incremental payments of the training half,LoB 3 AY 1994 DY 5,value,1570088
+incremental payments of the training half,LoB 3 AY 1995 DY 5,value,1273074
+incremental payments of the training half,LoB 3 AY 1996 DY 5,value,1813603
+incremental payments of the training half,LoB 3 AY 1997 DY 5,value,1707429
+incremental payments of the training half,LoB 3 AY 1998 DY 5,value,1980665
+incremental payments of the training half,LoB 3 AY 1999 DY 5,value,1235918
+incremental payments of the training half,LoB 3 AY 2000 DY 5,value,1256549
+incremental payments of the training half,LoB 3 AY 2001 DY 5,value,1341999
+incremental payments of the training half,LoB 3 AY 2002 DY 5,value,1105708
+incremental payments of the training half,LoB 3 AY 2003 DY 5,value,1644724
+incremental payments of the training half,LoB 3 AY 2004 DY 5,value,1073034
+incremental payments of the training half,LoB 3 AY 2005 DY 5,value,1482420
+incremental payments of the training half,LoB 3 AY 1994 DY 6,value,1112406
+incremental payments of the training half,LoB 3 AY 1995 DY 6,value,1185021
+incremental payments of the training half,LoB 3 AY 1996 DY 6,value,1311237
+incremental payments of the training half,LoB 3 AY 1997 DY 6,value,1011152
+incremental payments of the training half,LoB 3 AY 1998 DY 6,value,1367331
+incremental payments of the training half,LoB 3 AY 1999 DY 6,value,1026337
+incremental payments of the training half,LoB 3 AY 2000 DY 6,value,836026
+incremental payments of the training half,LoB 3 AY 2001 DY 6,value,898102
+incremental payments of the training half,LoB 3 AY 2002 DY 6,value,764515
+incremental payments of the training half,LoB 3 AY 2003 DY 6,value,1013552
+incremental payments of the training half,LoB 3 AY 2004 DY 6,value,920811
+incremental payments of the training half,LoB 3 AY 2005 DY 6,value,979138
+incremental payments of the training half,LoB 3 AY 1994 DY 7,value,985004
+incremental payments of the training half,LoB 3 AY 1995 DY 7,value,807281
+incremental payments of the training half,LoB 3 AY 1996 DY 7,value,1099812
+incremental payments of the training half,LoB 3 AY 1997 DY 7,value,671900
+incremental payments of the training half,LoB 3 AY 1998 DY 7,value,910077
+incremental payments of the training half,LoB 3 AY 1999 DY 7,value,612605
+incremental payments of the training half,LoB 3 AY 2000 DY 7,value,455524
+incremental payments of the training half,LoB 3 AY 2001 DY 7,value,698792
+incremental payments of the training half,LoB 3 AY 2002 DY 7,value,687769
+incremental payments of the training half,LoB 3 AY 2003 DY 7,value,763837
+incremental payments of the training half,LoB 3 AY 2004 DY 7,value,722076
+incremental payments of the training half,LoB 3 AY 2005 DY 7,value,672309
+incremental payments of the training half,LoB 3 AY 1994 DY 8,value,790460
+incremental payments of the training half,LoB 3 AY 1995 DY 8,value,617293
+incremental payments of the training half,LoB 3 AY 1996 DY 8,value,807333
+incremental payments of the training half,LoB 3 AY 1997 DY 8,value,554167
+incremental payments of the training half,LoB 3 AY 1998 DY 8,value,668970
+incremental payments of the training half,LoB 3 AY 1999 DY 8,value,602156
+incremental payments of the training half,LoB 3 AY 2000 DY 8,value,698416
+incremental payments of the training half,LoB 3 AY 2001 DY 8,value,449664
+incremental payments of the training half,LoB 3 AY 2002 DY 8,value,438444
+incremental payments of the training half,LoB 3 AY 2003 DY 8,value,725479
+incremental payments of the training half,LoB 3 AY 2004 DY 8,value,584025
+incremental payments of the training half,LoB 3 AY 2005 DY 8,value,349363
+incremental payments of the training half,LoB 3 AY 1994 DY 9,value,560508
+incremental payments of the training half,LoB 3 AY 1995 DY 9,value,525904
+incremental payments of the training half,LoB 3 AY 1996 DY 9,value,911530
+incremental payments of the training half,LoB 3 AY 1997 DY 9,value,466564
+incremental payments of the training half,LoB 3 AY 1998 DY 9,value,389608
+incremental payments of the training half,LoB 3 AY 1999 DY 9,value,529878
+incremental payments of the training half,LoB 3 AY 2000 DY 9,value,344246
+incremental payments of the training half,LoB 3 AY 2001 DY 9,value,404204
+incremental payments of the training half,LoB 3 AY 2002 DY 9,value,408646
+incremental payments of the training half,LoB 3 AY 2003 DY 9,value,542162
+incremental payments of the training half,LoB 3 AY 2004 DY 9,value,437503
+incremental payments of the training half,LoB 3 AY 2005 DY 9,value,389061
+incremental payments of the training half,LoB 3 AY 1994 DY 10,value,547098
+incremental payments of the training half,LoB 3 AY 1995 DY 10,value,428218
+incremental payments of the training half,LoB 3 AY 1996 DY 10,value,732140
+incremental payments of the training half,LoB 3 AY 1997 DY 10,value,456038
+incremental payments of the training half,LoB 3 AY 1998 DY 10,value,431362
+incremental payments of the training half,LoB 3 AY 1999 DY 10,value,547253
+incremental payments of the training half,LoB 3 AY 2000 DY 10,value,336409
+incremental payments of the training half,LoB 3 AY 2001 DY 10,value,388727
+incremental payments of the training half,LoB 3 AY 2002 DY 10,value,307880
+incremental payments of the training half,LoB 3 AY 2003 DY 10,value,514790
+incremental payments of the training half,LoB 3 AY 2004 DY 10,value,413175
+incremental payments of the training half,LoB 3 AY 2005 DY 10,value,270035
+incremental payments of the training half,LoB 3 AY 1994 DY 11,value,355135
+incremental payments of the training half,LoB 3 AY 1995 DY 11,value,211217
+incremental payments of the training half,LoB 3 AY 1996 DY 11,value,378485
+incremental payments of the training half,LoB 3 AY 1997 DY 11,value,261936
+incremental payments of the training half,LoB 3 AY 1998 DY 11,value,309588
+incremental payments of the training half,LoB 3 AY 1999 DY 11,value,349495
+incremental payments of the training half,LoB 3 AY 2000 DY 11,value,46450
+incremental payments of the training half,LoB 3 AY 2001 DY 11,value,230554
+incremental payments of the training half,LoB 3 AY 2002 DY 11,value,176431
+incremental payments of the training half,LoB 3 AY 2003 DY 11,value,210913
+incremental payments of the training half,LoB 3 AY 2004 DY 11,value,116409
+incremental payments of the training half,LoB 3 AY 2005 DY 11,value,128179
+incremental payments of the training half,LoB 4 AY 1994 DY 0,value,40778270
+incremental payments of the training half,LoB 4 AY 1995 DY 0,value,39143490
+incremental payments of the training half,LoB 4 AY 1996 DY 0,value,41750652
+incremental payments of the training half,LoB 4 AY 1997 DY 0,value,40131291
+incremental payments of the training half,LoB 4 AY 1998 DY 0,value,39963330
+incremental payments of the training half,LoB 4 AY 1999 DY 0,value,41505712
+incremental payments of the training half,LoB 4 AY 2000 DY 0,value,41852785
+incremental payments of the training half,LoB 4 AY 2001 DY 0,value,42525376
+incremental payments of the training half,LoB 4 AY 2002 DY 0,value,45735927
+incremental payments of the training half,LoB 4 AY 2003 DY 0,value,47752128
+incremental payments of the training half,LoB 4 AY 2004 DY 0,value,48982038
+incremental payments of the training half,LoB 4 AY 2005 DY 0,value,51533498
+incremental payments of the training half,LoB 4 AY 1994 DY 1,value,24954180
+incremental payments of the training half,LoB 4 AY 1995 DY 1,value,24970306
+incremental payments of the training half,LoB 4 AY 1996 DY 1,value,27589962
+incremental payments of the training half,LoB 4 AY 1997 DY 1,value,25127755
+incremental payments of the training half,LoB 4 AY 1998 DY 1,value,27522480
+incremental payments of the training half,LoB 4 AY 1999 DY 1,value,27649005
+incremental payments of the training half,LoB 4 AY 2000 DY 1,value,29304487
+incremental payments of the training half,LoB 4 AY 2001 DY 1,value,28716460
+incremental payments of the training half,LoB 4 AY 2002 DY 1,value,31153940
+incremental payments of the training half,LoB 4 AY 2003 DY 1,value,33582419
+incremental payments of the training half,LoB 4 AY 2004 DY 1,value,32843615
+incremental payments of the training half,LoB 4 AY 2005 DY 1,value,38114159
+incremental payments of the training half,LoB 4 AY 1994 DY 2,value,9636066
+incremental payments of the training half,LoB 4 AY 1995 DY 2,value,9652465
+incremental payments of the training half,LoB 4 AY 1996 DY 2,value,11052951
+incremental payments of the training half,LoB 4 AY 1997 DY 2,value,10092153
+incremental payments of the training half,LoB 4 AY 1998 DY 2,value,11095700
+incremental payments of the training half,LoB 4 AY 1999 DY 2,value,11533431
+incremental payments of the training half,LoB 4 AY 2000 DY 2,value,12400208
+incremental payments of the training half,LoB 4 AY 2001 DY 2,value,12112943
+incremental payments of the training half,LoB 4 AY 2002 DY 2,value,13075341
+incremental payments of the training half,LoB 4 AY 2003 DY 2,value,14742970
+incremental payments of the training half,LoB 4 AY 2004 DY 2,value,13941298
+incremental payments of the training half,LoB 4 AY 2005 DY 2,value,16532028
+incremental payments of the training half,LoB 4 AY 1994 DY 3,value,5538976
+incremental payments of the training half,LoB 4 AY 1995 DY 3,value,5669553
+incremental payments of the training half,LoB 4 AY 1996 DY 3,value,6497568
+incremental payments of the training half,LoB 4 AY 1997 DY 3,value,6097552
+incremental payments of the training half,LoB 4 AY 1998 DY 3,value,6241396
+incremental payments of the training half,LoB 4 AY 1999 DY 3,value,6733616
+incremental payments of the training half,LoB 4 AY 2000 DY 3,value,7167647
+incremental payments of the training half,LoB 4 AY 2001 DY 3,value,6873358
+incremental payments of the training half,LoB 4 AY 2002 DY 3,value,7713941
+incremental payments of the training half,LoB 4 AY 2003 DY 3,value,8734845
+incremental payments of the training half,LoB 4 AY 2004 DY 3,value,8044671
+incremental payments of the training half,LoB 4 AY 2005 DY 3,value,9376599
+incremental payments of the training half,LoB 4 AY 1994 DY 4,value,3630030
+incremental payments of the training half,LoB 4 AY 1995 DY 4,value,3746260
+incremental payments of the training half,LoB 4 AY 1996 DY 4,value,4401258
+incremental payments of the training half,LoB 4 AY 1997 DY 4,value,4152447
+incremental payments of the training half,LoB 4 AY 1998 DY 4,value,4403230
+incremental payments of the training half,LoB 4 AY 1999 DY 4,value,4654841
+incremental payments of the training half,LoB 4 AY 2000 DY 4,value,4616958
+incremental payments of the training half,LoB 4 AY 2001 DY 4,value,4326042
+incremental payments of the training half,LoB 4 AY 2002 DY 4,value,5169404
+incremental payments of the training half,LoB 4 AY 2003 DY 4,value,5656707
+incremental payments of the training half,LoB 4 AY 2004 DY 4,value,5391803
+incremental payments of the training half,LoB 4 AY 2005 DY 4,value,5981681
+incremental payments of the training half,LoB 4 AY 1994 DY 5,value,2714378
+incremental payments of the training half,LoB 4 AY 1995 DY 5,value,2703383
+incremental payments of the training half,LoB 4 AY 1996 DY 5,value,3270493
+incremental payments of the training half,LoB 4 AY 1997 DY 5,value,2947380
+incremental payments of the training half,LoB 4 AY 1998 DY 5,value,3227263
+incremental payments of the training half,LoB 4 AY 1999 DY 5,value,3302459
+incremental payments of the training half,LoB 4 AY 2000 DY 5,value,3472030
+incremental payments of the training half,LoB 4 AY 2001 DY 5,value,3046530
+incremental payments of the training half,LoB 4 AY 2002 DY 5,value,3691405
+incremental payments of the training half,LoB 4 AY 2003 DY 5,value,4042619
+incremental payments of the training half,LoB 4 AY 2004 DY 5,value,3835493
+incremental payments of the training half,LoB 4 AY 2005 DY 5,value,4225763
+incremental payments of the training half,LoB 4 AY 1994 DY 6,value,2230444
+incremental payments of the training half,LoB 4 AY 1995 DY 6,value,2079091
+incremental payments of the training half,LoB 4 AY 1996 DY 6,value,2431468
+incremental payments of the training half,LoB 4 AY 1997 DY 6,value,2141650
+incremental payments of the training half,LoB 4 AY 1998 DY 6,value,2417719
+incremental payments of the training half,LoB 4 AY 1999 DY 6,value,2484845
+incremental payments of the training half,LoB 4 AY 2000 DY 6,value,2589067
+incremental payments of the training half,LoB 4 AY 2001 DY 6,value,2178061
+incremental payments of the training half,LoB 4 AY 2002 DY 6,value,2621605
+incremental payments of the training half,LoB 4 AY 2003 DY 6,value,3124412
+incremental payments of the training half,LoB 4 AY 2004 DY 6,value,2759844
+incremental payments of the training half,LoB 4 AY 2005 DY 6,value,3202508
+incremental payments of the training half,LoB 4 AY 1994 DY 7,value,1699718
+incremental payments of the training half,LoB 4 AY 1995 DY 7,value,1683205
+incremental payments of the training half,LoB 4 AY 1996 DY 7,value,1984370
+incremental payments of the training half,LoB 4 AY 1997 DY 7,value,1840224
+incremental payments of the training half,LoB 4 AY 1998 DY 7,value,1937188
+incremental payments of the training half,LoB 4 AY 1999 DY 7,value,1975896
+incremental payments of the training half,LoB 4 AY 2000 DY 7,value,2150368
+incremental payments of the training half,LoB 4 AY 2001 DY 7,value,1740394
+incremental payments of the training half,LoB 4 AY 2002 DY 7,value,2053292
+incremental payments of the training half,LoB 4 AY 2003 DY 7,value,2345309
+incremental payments of the training half,LoB 4 AY 2004 DY 7,value,2048847
+incremental payments of the training half,LoB 4 AY 2005 DY 7,value,2418368
+incremental payments of the training half,LoB 4 AY 1994 DY 8,value,1375788
+incremental payments of the training half,LoB 4 AY 1995 DY 8,value,1352343
+incremental payments of the training half,LoB 4 AY 1996 DY 8,value,1538880
+incremental payments of the training half,LoB 4 AY 1997 DY 8,value,1485878
+incremental payments of the training half,LoB 4 AY 1998 DY 8,value,1647837
+incremental payments of the training half,LoB 4 AY 1999 DY 8,value,1580327
+incremental payments of the training half,LoB 4 AY 2000 DY 8,value,1673549
+incremental payments of the training half,LoB 4 AY 2001 DY 8,value,1349586
+incremental payments of the training half,LoB 4 AY 2002 DY 8,value,1637999
+incremental payments of the training half,LoB 4 AY 2003 DY 8,value,1812323
+incremental payments of the training half,LoB 4 AY 2004 DY 8,value,1525384
+incremental payments of the training half,LoB 4 AY 2005 DY 8,value,1916354
+incremental payments of the training half,LoB 4 AY 1994 DY 9,value,1235843
+incremental payments of the training half,LoB 4 AY 1995 DY 9,value,1171253
+incremental payments of the training half,LoB 4 AY 1996 DY 9,value,1472955
+incremental payments of the training half,LoB 4 AY 1997 DY 9,value,1171560
+incremental payments of the training half,LoB 4 AY 1998 DY 9,value,1385567
+incremental payments of the training half,LoB 4 AY 1999 DY 9,value,1266879
+incremental payments of the training half,LoB 4 AY 2000 DY 9,value,1414808
+incremental payments of the training half,LoB 4 AY 2001 DY 9,value,1085793
+incremental payments of the training half,LoB 4 AY 2002 DY 9,value,1398230
+incremental payments of the training half,LoB 4 AY 2003 DY 9,value,1428439
+incremental payments of the training half,LoB 4 AY 2004 DY 9,value,1154264
+incremental payments of the training half,LoB 4 AY 2005 DY 9,value,1518211
+incremental payments of the training half,LoB 4 AY 1994 DY 10,value,1041213
+incremental payments of the training half,LoB 4 AY 1995 DY 10,value,932828
+incremental payments of the training half,LoB 4 AY 1996 DY 10,value,1292585
+incremental payments of the training half,LoB 4 AY 1997 DY 10,value,1057565
+incremental payments of the training half,LoB 4 AY 1998 DY 10,value,1240633
+incremental payments of the training half,LoB 4 AY 1999 DY 10,value,1058021
+incremental payments of the training half,LoB 4 AY 2000 DY 10,value,1220266
+incremental payments of the training half,LoB 4 AY 2001 DY 10,value,1010853
+incremental payments of the training half,LoB 4 AY 2002 DY 10,value,1141896
+incremental payments of the training half,LoB 4 AY 2003 DY 10,value,1226759
+incremental payments of the training half,LoB 4 AY 2004 DY 10,value,1019685
+incremental payments of the training half,LoB 4 AY 2005 DY 10,value,1372557
+incremental payments of the training half,LoB 4 AY 1994 DY 11,value,821264
+incremental payments of the training half,LoB 4 AY 1995 DY 11,value,797862
+incremental payments of the training half,LoB 4 AY 1996 DY 11,value,1026819
+incremental payments of the training half,LoB 4 AY 1997 DY 11,value,852066
+incremental payments of the training half,LoB 4 AY 1998 DY 11,value,1026575
+incremental payments of the training half,LoB 4 AY 1999 DY 11,value,805818
+incremental payments of the training half,LoB 4 AY 2000 DY 11,value,960698
+incremental payments of the training half,LoB 4 AY 2001 DY 11,value,820153
+incremental payments of the training half,LoB 4 AY 2002 DY 11,value,966224
+incremental payments of the training half,LoB 4 AY 2003 DY 11,value,1044994
+incremental payments of the training half,LoB 4 AY 2004 DY 11,value,860603
+incremental payments of the training half,LoB 4 AY 2005 DY 11,value,1222077
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 0,count,136174
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 1,count,9137
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 2,count,368
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 3,count,90
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 4,count,66
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 5,count,27
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 6,count,22
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 7,count,10
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 8,count,12
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 9,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 10,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 1994 RepDel 11,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 0,count,135900
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 1,count,9651
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 2,count,350
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 3,count,106
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 4,count,52
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 5,count,33
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 6,count,24
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 7,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 8,count,15
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 9,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 10,count,10
+claims by LoB accident year and reporting delay,LoB 1 AY 1995 RepDel 11,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 0,count,134918
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 1,count,9830
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 2,count,347
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 3,count,103
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 4,count,50
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 5,count,33
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 6,count,23
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 7,count,10
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 8,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 9,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 1996 RepDel 11,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 0,count,135238
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 1,count,9883
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 2,count,339
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 3,count,105
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 4,count,47
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 5,count,24
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 6,count,20
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 7,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 8,count,15
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 9,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 1997 RepDel 11,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 0,count,135863
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 1,count,9980
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 2,count,269
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 3,count,81
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 4,count,52
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 5,count,18
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 6,count,19
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 7,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 8,count,10
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 9,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 10,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 1998 RepDel 11,count,4
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 0,count,135770
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 1,count,9987
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 2,count,269
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 3,count,70
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 4,count,35
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 5,count,20
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 6,count,17
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 7,count,14
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 8,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 9,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 10,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 1999 RepDel 11,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 0,count,135719
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 1,count,9844
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 2,count,225
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 3,count,75
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 4,count,32
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 5,count,23
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 6,count,13
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 7,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 8,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 9,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 2000 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 0,count,135766
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 1,count,9928
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 2,count,241
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 3,count,58
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 4,count,31
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 5,count,14
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 6,count,9
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 7,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 8,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 1 AY 2001 RepDel 10,count,10
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 0,count,136539
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 1,count,9682
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 2,count,234
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 3,count,51
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 4,count,27
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 5,count,14
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 6,count,15
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 7,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 8,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 9,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 1 AY 2002 RepDel 11,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 0,count,136529
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 1,count,9554
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 2,count,202
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 3,count,49
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 4,count,28
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 5,count,27
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 6,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 7,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 8,count,4
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 1 AY 2003 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 0,count,136482
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 1,count,9121
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 2,count,186
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 3,count,66
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 4,count,21
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 5,count,8
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 6,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 7,count,5
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 8,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 9,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 2004 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 0,count,136411
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 1,count,8935
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 2,count,179
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 3,count,35
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 4,count,24
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 5,count,13
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 6,count,6
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 7,count,7
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 8,count,4
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 1 AY 2005 RepDel 11,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 0,count,77773
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 1,count,5221
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 2,count,201
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 3,count,62
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 4,count,30
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 5,count,16
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 6,count,16
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 7,count,10
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 8,count,16
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 9,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 1994 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 0,count,77518
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 1,count,5480
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 2,count,198
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 3,count,62
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 4,count,25
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 5,count,17
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 6,count,12
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 7,count,12
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 8,count,9
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 9,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 10,count,7
+claims by LoB accident year and reporting delay,LoB 2 AY 1995 RepDel 11,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 0,count,77775
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 1,count,5594
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 2,count,191
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 3,count,60
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 4,count,30
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 5,count,17
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 6,count,8
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 7,count,7
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 8,count,9
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 1996 RepDel 11,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 0,count,77304
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 1,count,5659
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 2,count,160
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 3,count,56
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 4,count,25
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 5,count,11
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 6,count,11
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 7,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 9,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 1997 RepDel 11,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 0,count,77438
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 1,count,5857
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 2,count,177
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 3,count,47
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 4,count,18
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 5,count,17
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 6,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 7,count,7
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 8,count,7
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 1998 RepDel 11,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 0,count,77511
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 1,count,5864
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 2,count,169
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 3,count,55
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 4,count,18
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 5,count,10
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 6,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 7,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 8,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 1999 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 0,count,77306
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 1,count,5825
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 2,count,141
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 3,count,38
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 4,count,20
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 5,count,12
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 6,count,7
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 7,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 8,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 9,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 2000 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 0,count,77606
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 1,count,5509
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 2,count,132
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 3,count,44
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 4,count,15
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 5,count,8
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 6,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 7,count,8
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 9,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2001 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 0,count,77700
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 1,count,5453
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 2,count,102
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 3,count,27
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 4,count,11
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 5,count,15
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 6,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 7,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 8,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 2002 RepDel 11,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 0,count,77800
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 1,count,5465
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 2,count,123
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 3,count,15
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 4,count,13
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 5,count,8
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 6,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 7,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 2 AY 2003 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 0,count,77717
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 1,count,5240
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 2,count,110
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 3,count,36
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 4,count,12
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 5,count,11
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 6,count,6
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 7,count,3
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 2004 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 0,count,78360
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 1,count,5224
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 2,count,101
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 3,count,23
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 4,count,11
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 5,count,10
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 6,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 7,count,1
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 8,count,5
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 2 AY 2005 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 0,count,57242
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 1,count,5385
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 2,count,211
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 3,count,63
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 4,count,27
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 5,count,15
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 6,count,7
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 7,count,15
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 8,count,5
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 1994 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 0,count,56860
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 1,count,5646
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 2,count,174
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 3,count,55
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 4,count,21
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 5,count,21
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 6,count,14
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 7,count,10
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 1995 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 0,count,56369
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 1,count,5788
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 2,count,183
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 3,count,42
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 4,count,27
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 5,count,21
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 6,count,7
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 7,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 10,count,8
+claims by LoB accident year and reporting delay,LoB 3 AY 1996 RepDel 11,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 0,count,56551
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 1,count,5807
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 2,count,174
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 3,count,42
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 4,count,19
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 5,count,9
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 6,count,9
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 7,count,11
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 9,count,5
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 1997 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 0,count,55629
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 1,count,5995
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 2,count,169
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 3,count,49
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 4,count,20
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 5,count,12
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 6,count,9
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 7,count,8
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 1998 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 0,count,56615
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 1,count,6143
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 2,count,138
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 3,count,47
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 4,count,27
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 5,count,12
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 6,count,7
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 7,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 9,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 10,count,5
+claims by LoB accident year and reporting delay,LoB 3 AY 1999 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 0,count,56589
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 1,count,6110
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 2,count,118
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 3,count,44
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 4,count,12
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 5,count,10
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 6,count,7
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 7,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2000 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 0,count,56260
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 1,count,5915
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 2,count,141
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 3,count,29
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 4,count,11
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 5,count,16
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 6,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 7,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 8,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 9,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2001 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 0,count,56079
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 1,count,5678
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 2,count,93
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 3,count,23
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 4,count,12
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 5,count,9
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 6,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 7,count,5
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 10,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2002 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 0,count,56852
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 1,count,5545
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 2,count,114
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 3,count,28
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 4,count,10
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 5,count,11
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 6,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 7,count,6
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 8,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 9,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2003 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 0,count,57074
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 1,count,5249
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 2,count,93
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 3,count,32
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 4,count,13
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 5,count,16
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 6,count,1
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 9,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 10,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 2004 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 0,count,57111
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 1,count,5011
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 2,count,79
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 3,count,17
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 4,count,8
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 5,count,7
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 6,count,3
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 7,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 10,count,2
+claims by LoB accident year and reporting delay,LoB 3 AY 2005 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 0,count,113759
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 1,count,10709
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 2,count,376
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 3,count,121
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 4,count,66
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 5,count,42
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 6,count,16
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 7,count,22
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 8,count,18
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 9,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 10,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 1994 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 0,count,112910
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 1,count,11081
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 2,count,400
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 3,count,107
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 4,count,63
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 5,count,28
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 6,count,21
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 7,count,17
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 8,count,14
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 9,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 10,count,5
+claims by LoB accident year and reporting delay,LoB 4 AY 1995 RepDel 11,count,10
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 0,count,113674
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 1,count,11505
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 2,count,419
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 3,count,118
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 4,count,51
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 5,count,27
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 6,count,16
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 7,count,21
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 8,count,11
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 9,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 10,count,15
+claims by LoB accident year and reporting delay,LoB 4 AY 1996 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 0,count,112013
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 1,count,11891
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 2,count,357
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 3,count,106
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 4,count,43
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 5,count,20
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 6,count,19
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 7,count,16
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 8,count,13
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 9,count,14
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 1997 RepDel 11,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 0,count,112173
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 1,count,12010
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 2,count,286
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 3,count,100
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 4,count,38
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 5,count,21
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 6,count,18
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 7,count,14
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 8,count,10
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 9,count,9
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 10,count,9
+claims by LoB accident year and reporting delay,LoB 4 AY 1998 RepDel 11,count,4
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 0,count,113001
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 1,count,11862
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 2,count,327
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 3,count,87
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 4,count,28
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 5,count,31
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 6,count,21
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 7,count,18
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 8,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 9,count,1
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 10,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 1999 RepDel 11,count,1
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 0,count,112824
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 1,count,12020
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 2,count,259
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 3,count,80
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 4,count,33
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 5,count,21
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 6,count,17
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 7,count,10
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 10,count,7
+claims by LoB accident year and reporting delay,LoB 4 AY 2000 RepDel 11,count,2
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 0,count,112369
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 1,count,11676
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 2,count,264
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 3,count,70
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 4,count,29
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 5,count,22
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 6,count,7
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 7,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 8,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 9,count,4
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 10,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 2001 RepDel 11,count,4
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 0,count,113207
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 1,count,11603
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 2,count,247
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 3,count,56
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 4,count,33
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 5,count,17
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 6,count,15
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 7,count,11
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 8,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 9,count,5
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 10,count,5
+claims by LoB accident year and reporting delay,LoB 4 AY 2002 RepDel 11,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 0,count,113644
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 1,count,10720
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 2,count,199
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 3,count,59
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 4,count,24
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 5,count,19
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 6,count,9
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 7,count,9
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 8,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 9,count,8
+claims by LoB accident year and reporting delay,LoB 4 AY 2003 RepDel 10,count,4
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 0,count,113818
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 1,count,10635
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 2,count,204
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 3,count,34
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 4,count,18
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 5,count,12
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 6,count,14
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 7,count,5
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 8,count,2
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 9,count,5
+claims by LoB accident year and reporting delay,LoB 4 AY 2004 RepDel 10,count,7
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 0,count,114368
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 1,count,10107
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 2,count,187
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 3,count,49
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 4,count,16
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 5,count,14
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 6,count,6
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 7,count,3
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 8,count,3
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 9,count,1
+claims by LoB accident year and reporting delay,LoB 4 AY 2005 RepDel 10,count,2
+payments by LoB and claims code,LoB 1 cc 1,value,15228358
+payments by LoB and claims code,LoB 1 cc 3,value,13760588
+payments by LoB and claims code,LoB 1 cc 4,value,11982549
+payments by LoB and claims code,LoB 1 cc 5,value,13443357
+payments by LoB and claims code,LoB 1 cc 6,value,183008766
+payments by LoB and claims code,LoB 1 cc 7,value,24445683
+payments by LoB and claims code,LoB 1 cc 8,value,13344660
+payments by LoB and claims code,LoB 1 cc 9,value,9275791
+payments by LoB and claims code,LoB 1 cc 10,value,11617519
+payments by LoB and claims code,LoB 1 cc 11,value,13202210
+payments by LoB and claims code,LoB 1 cc 12,value,14526681
+payments by LoB and claims code,LoB 1 cc 13,value,27806803
+payments by LoB and claims code,LoB 1 cc 14,value,82486602
+payments by LoB and claims code,LoB 1 cc 15,value,32798618
+payments by LoB and claims code,LoB 1 cc 16,value,11912745
+payments by LoB and claims code,LoB 1 cc 17,value,409048755
+payments by LoB and claims code,LoB 1 cc 18,value,24032062
+payments by LoB and claims code,LoB 1 cc 19,value,112072194
+payments by LoB and claims code,LoB 1 cc 20,value,65889733
+payments by LoB and claims code,LoB 1 cc 21,value,25150527
+payments by LoB and claims code,LoB 1 cc 22,value,44427776
+payments by LoB and claims code,LoB 1 cc 23,value,12231359
+payments by LoB and claims code,LoB 1 cc 24,value,11604539
+payments by LoB and claims code,LoB 1 cc 25,value,11358276
+payments by LoB and claims code,LoB 1 cc 26,value,50265924
+payments by LoB and claims code,LoB 1 cc 27,value,53764334
+payments by LoB and claims code,LoB 1 cc 28,value,18012251
+payments by LoB and claims code,LoB 1 cc 29,value,13132708
+payments by LoB and claims code,LoB 1 cc 30,value,18274412
+payments by LoB and claims code,LoB 1 cc 31,value,45563526
+payments by LoB and claims code,LoB 1 cc 32,value,15205700
+payments by LoB and claims code,LoB 1 cc 33,value,24175660
+payments by LoB and claims code,LoB 1 cc 34,value,13771681
+payments by LoB and claims code,LoB 1 cc 36,value,14083891
+payments by LoB and claims code,LoB 1 cc 37,value,13098866
+payments by LoB and claims code,LoB 1 cc 38,value,10942949
+payments by LoB and claims code,LoB 1 cc 39,value,36082396
+payments by LoB and claims code,LoB 1 cc 40,value,18640369
+payments by LoB and claims code,LoB 1 cc 41,value,32888039
+payments by LoB and claims code,LoB 1 cc 42,value,17875746
+payments by LoB and claims code,LoB 1 cc 43,value,21439599
+payments by LoB and claims code,LoB 1 cc 44,value,13489861
+payments by LoB and claims code,LoB 1 cc 45,value,69737847
+payments by LoB and claims code,LoB 1 cc 46,value,48540873
+payments by LoB and claims code,LoB 1 cc 47,value,121957451
+payments by LoB and claims code,LoB 1 cc 48,value,17230648
+payments by LoB and claims code,LoB 1 cc 49,value,21866033
+payments by LoB and claims code,LoB 1 cc 50,value,17408815
+payments by LoB and claims code,LoB 1 cc 51,value,24841245
+payments by LoB and claims code,LoB 1 cc 52,value,15083103
+payments by LoB and claims code,LoB 1 cc 53,value,28541816
+payments by LoB and claims code,LoB 2 cc 1,value,19665352
+payments by LoB and claims code,LoB 2 cc 3,value,18103939
+payments by LoB and claims code,LoB 2 cc 4,value,7289378
+payments by LoB and claims code,LoB 2 cc 5,value,18002992
+payments by LoB and claims code,LoB 2 cc 6,value,166183450
+payments by LoB and claims code,LoB 2 cc 7,value,24146572
+payments by LoB and claims code,LoB 2 cc 8,value,10919220
+payments by LoB and claims code,LoB 2 cc 9,value,10894849
+payments by LoB and claims code,LoB 2 cc 10,value,14313860
+payments by LoB and claims code,LoB 2 cc 11,value,15418644
+payments by LoB and claims code,LoB 2 cc 12,value,17598805
+payments by LoB and claims code,LoB 2 cc 13,value,22041626
+payments by LoB and claims code,LoB 2 cc 14,value,84512742
+payments by LoB and claims code,LoB 2 cc 15,value,34705678
+payments by LoB and claims code,LoB 2 cc 16,value,13482727
+payments by LoB and claims code,LoB 2 cc 17,value,562784860
+payments by LoB and claims code,LoB 2 cc 18,value,21202074
+payments by LoB and claims code,LoB 2 cc 19,value,124395510
+payments by LoB and claims code,LoB 2 cc 20,value,103618286
+payments by LoB and claims code,LoB 2 cc 21,value,27047829
+payments by LoB and claims code,LoB 2 cc 22,value,57969700
+payments by LoB and claims code,LoB 2 cc 23,value,15743638
+payments by LoB and claims code,LoB 2 cc 24,value,15658717
+payments by LoB and claims code,LoB 2 cc 25,value,8342171
+payments by LoB and claims code,LoB 2 cc 26,value,69517596
+payments by LoB and claims code,LoB 2 cc 27,value,48900311
+payments by LoB and claims code,LoB 2 cc 28,value,13953085
+payments by LoB and claims code,LoB 2 cc 29,value,14613591
+payments by LoB and claims code,LoB 2 cc 30,value,16525325
+payments by LoB and claims code,LoB 2 cc 31,value,50014290
+payments by LoB and claims code,LoB 2 cc 32,value,16411007
+payments by LoB and claims code,LoB 2 cc 33,value,31847800
+payments by LoB and claims code,LoB 2 cc 34,value,15731858
+payments by LoB and claims code,LoB 2 cc 36,value,23488847
+payments by LoB and claims code,LoB 2 cc 37,value,14944587
+payments by LoB and claims code,LoB 2 cc 38,value,6631417
+payments by LoB and claims code,LoB 2 cc 39,value,43111860
+payments by LoB and claims code,LoB 2 cc 40,value,25085450
+payments by LoB and claims code,LoB 2 cc 41,value,47061946
+payments by LoB and claims code,LoB 2 cc 42,value,13338681
+payments by LoB and claims code,LoB 2 cc 43,value,24523816
+payments by LoB and claims code,LoB 2 cc 44,value,16309040
+payments by LoB and claims code,LoB 2 cc 45,value,54859911
+payments by LoB and claims code,LoB 2 cc 46,value,50264223
+payments by LoB and claims code,LoB 2 cc 47,value,104902123
+payments by LoB and claims code,LoB 2 cc 48,value,19045046
+payments by LoB and claims code,LoB 2 cc 49,value,21602014
+payments by LoB and claims code,LoB 2 cc 50,value,21325955
+payments by LoB and claims code,LoB 2 cc 51,value,28610384
+payments by LoB and claims code,LoB 2 cc 52,value,18767002
+payments by LoB and claims code,LoB 2 cc 53,value,33965078
+payments by LoB and claims code,LoB 3 cc 1,value,26856078
+payments by LoB and claims code,LoB 3 cc 3,value,22666079
+payments by LoB and claims code,LoB 3 cc 4,value,18487299
+payments by LoB and claims code,LoB 3 cc 5,value,30401034
+payments by LoB and claims code,LoB 3 cc 6,value,116195588
+payments by LoB and claims code,LoB 3 cc 7,value,26625420
+payments by LoB and claims code,LoB 3 cc 8,value,21319315
+payments by LoB and claims code,LoB 3 cc 9,value,20828125
+payments by LoB and claims code,LoB 3 cc 10,value,22960914
+payments by LoB and claims code,LoB 3 cc 11,value,17065773
+payments by LoB and claims code,LoB 3 cc 12,value,17271731
+payments by LoB and claims code,LoB 3 cc 13,value,63954990
+payments by LoB and claims code,LoB 3 cc 14,value,47749581
+payments by LoB and claims code,LoB 3 cc 15,value,49997972
+payments by LoB and claims code,LoB 3 cc 16,value,21721266
+payments by LoB and claims code,LoB 3 cc 17,value,200013099
+payments by LoB and claims code,LoB 3 cc 18,value,17529193
+payments by LoB and claims code,LoB 3 cc 19,value,125937170
+payments by LoB and claims code,LoB 3 cc 20,value,61815882
+payments by LoB and claims code,LoB 3 cc 21,value,28559878
+payments by LoB and claims code,LoB 3 cc 22,value,51018674
+payments by LoB and claims code,LoB 3 cc 23,value,19813897
+payments by LoB and claims code,LoB 3 cc 24,value,18656039
+payments by LoB and claims code,LoB 3 cc 25,value,13214239
+payments by LoB and claims code,LoB 3 cc 26,value,57798046
+payments by LoB and claims code,LoB 3 cc 27,value,103455244
+payments by LoB and claims code,LoB 3 cc 28,value,21753047
+payments by LoB and claims code,LoB 3 cc 29,value,19601609
+payments by LoB and claims code,LoB 3 cc 30,value,24934758
+payments by LoB and claims code,LoB 3 cc 31,value,175982839
+payments by LoB and claims code,LoB 3 cc 32,value,18977276
+payments by LoB and claims code,LoB 3 cc 33,value,47681335
+payments by LoB and claims code,LoB 3 cc 34,value,25972891
+payments by LoB and claims code,LoB 3 cc 36,value,25230681
+payments by LoB and claims code,LoB 3 cc 37,value,16630586
+payments by LoB and claims code,LoB 3 cc 38,value,12801553
+payments by LoB and claims code,LoB 3 cc 39,value,88017241
+payments by LoB and claims code,LoB 3 cc 40,value,29457609
+payments by LoB and claims code,LoB 3 cc 41,value,53187019
+payments by LoB and claims code,LoB 3 cc 42,value,46180967
+payments by LoB and claims code,LoB 3 cc 43,value,23942080
+payments by LoB and claims code,LoB 3 cc 44,value,17693960
+payments by LoB and claims code,LoB 3 cc 45,value,49551936
+payments by LoB and claims code,LoB 3 cc 46,value,46590071
+payments by LoB and claims code,LoB 3 cc 47,value,29132324
+payments by LoB and claims code,LoB 3 cc 48,value,35846217
+payments by LoB and claims code,LoB 3 cc 49,value,38454314
+payments by LoB and claims code,LoB 3 cc 50,value,23378721
+payments by LoB and claims code,LoB 3 cc 51,value,32844775
+payments by LoB and claims code,LoB 3 cc 52,value,24748258
+payments by LoB and claims code,LoB 3 cc 53,value,40317038
+payments by LoB and claims code,LoB 4 cc 1,value,26980292
+payments by LoB and claims code,LoB 4 cc 3,value,30036262
+payments by LoB and claims code,LoB 4 cc 4,value,24879144
+payments by LoB and claims code,LoB 4 cc 5,value,30874909
+payments by LoB and claims code,LoB 4 cc 6,value,166608010
+payments by LoB and claims code,LoB 4 cc 7,value,30584347
+payments by LoB and claims code,LoB 4 cc 8,value,31315200
+payments by LoB and claims code,LoB 4 cc 9,value,19436968
+payments by LoB and claims code,LoB 4 cc 10,value,18844361
+payments by LoB and claims code,LoB 4 cc 11,value,18199458
+payments by LoB and claims code,LoB 4 cc 12,value,23395738
+payments by LoB and claims code,LoB 4 cc 13,value,83909763
+payments by LoB and claims code,LoB 4 cc 14,value,60981828
+payments by LoB and claims code,LoB 4 cc 15,value,61076223
+payments by LoB and claims code,LoB 4 cc 16,value,23949143
+payments by LoB and claims code,LoB 4 cc 17,value,205912979
+payments by LoB and claims code,LoB 4 cc 18,value,26588818
+payments by LoB and claims code,LoB 4 cc 19,value,135316961
+payments by LoB and claims code,LoB 4 cc 20,value,53865531
+payments by LoB and claims code,LoB 4 cc 21,value,38309287
+payments by LoB and claims code,LoB 4 cc 22,value,49007680
+payments by LoB and claims code,LoB 4 cc 23,value,26133838
+payments by LoB and claims code,LoB 4 cc 24,value,24716455
+payments by LoB and claims code,LoB 4 cc 25,value,17130497
+payments by LoB and claims code,LoB 4 cc 26,value,60848404
+payments by LoB and claims code,LoB 4 cc 27,value,126932321
+payments by LoB and claims code,LoB 4 cc 28,value,34959901
+payments by LoB and claims code,LoB 4 cc 29,value,25625262
+payments by LoB and claims code,LoB 4 cc 30,value,34464638
+payments by LoB and claims code,LoB 4 cc 31,value,230084190
+payments by LoB and claims code,LoB 4 cc 32,value,24637484
+payments by LoB and claims code,LoB 4 cc 33,value,38935476
+payments by LoB and claims code,LoB 4 cc 34,value,22005772
+payments by LoB and claims code,LoB 4 cc 36,value,19953859
+payments by LoB and claims code,LoB 4 cc 37,value,21148893
+payments by LoB and claims code,LoB 4 cc 38,value,19275941
+payments by LoB and claims code,LoB 4 cc 39,value,107034482
+payments by LoB and claims code,LoB 4 cc 40,value,31875612
+payments by LoB and claims code,LoB 4 cc 41,value,57525690
+payments by LoB and claims code,LoB 4 cc 42,value,84103100
+payments by LoB and claims code,LoB 4 cc 43,value,28393122
+payments by LoB and claims code,LoB 4 cc 44,value,23756161
+payments by LoB and claims code,LoB 4 cc 45,value,88394362
+payments by LoB and claims code,LoB 4 cc 46,value,53427241
+payments by LoB and claims code,LoB 4 cc 47,value,44773541
+payments by LoB and claims code,LoB 4 cc 48,value,36279382
+payments by LoB and claims code,LoB 4 cc 49,value,49545674
+payments by LoB and claims code,LoB 4 cc 50,value,23245347
+payments by LoB and claims code,LoB 4 cc 51,value,36409260
+payments by LoB and claims code,LoB 4 cc 52,value,26004705
+payments by LoB and claims code,LoB 4 cc 53,value,43281209
+md5 of the file,claims.csv,info,c954f5ee8daba2f297ea59205f5e2990

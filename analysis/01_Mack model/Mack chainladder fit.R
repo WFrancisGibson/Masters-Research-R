@@ -1,5 +1,5 @@
 ##########################################
-#########  Mack chain ladder on the annual claims triangle
+#########  Mack chain ladder on the claims triangle of the data set
 #########  Mack (1993), distribution-free chain ladder with standard errors
 ##########################################
 
@@ -11,14 +11,12 @@ dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 #########  load data
 ##########################################
 
-## 20 x 20 incremental triangle at the valuation date (year 20),
-## development years 1..20;
-## the payments after development year 20 (sets$tail) are reported apart
+## n x n incremental triangle at the valuation date (period n), development
+## periods 1..n, of "claims triangles.R": one triangle, i.e. a SynthETIC
+## data set or one LoB of the six (DATASET=lob6 UNIT=lob1);
+## the payments after development period n (sets$tail) are reported apart
 n <- cfg$data$n_dev
-trans <- fread(file.path(paths$raw, cfg$data$annual_dir, "transactions.csv"),
-               select = c("claim_no", "occurrence_period", "payment_period",
-                          "payment_inflated"), data.table = FALSE)
-sets <- triangle_sets(trans, n)
+sets <- readRDS(file.path(paths$interim, "triangles.rds"))
 tri <- incr2cum(as.triangle(sets$upper))       # cumulative observed triangle
 
 ##########################################
@@ -28,7 +26,7 @@ tri <- incr2cum(as.triangle(sets$upper))       # cumulative observed triangle
 mack <- MackChainLadder(tri, est.sigma = "Mack")
 mack
 
-## reserves and back-test against the true reserves to development year 20
+## reserves and back-test against the true reserves to development period n
 latest <- as.numeric(getLatestCumulative(tri))
 res <- reserves_table(latest,
                       ibnr = as.numeric(mack$FullTriangle[, n]) - latest,

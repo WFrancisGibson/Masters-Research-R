@@ -1,0 +1,775 @@
+table,key,type,value
+portfolio,claims,count,399568
+portfolio,payments,count,1931764
+checksum,sum of claim_no x claim_size,value,1.32541558218751e+16
+checksum,sum of row number x payment_inflated,value,8.70879289802693e+16
+incremental payments,AY 1 DY 1,value,793159887.13543
+incremental payments,AY 2 DY 1,value,744904947.945133
+incremental payments,AY 3 DY 1,value,801390376.9875
+incremental payments,AY 4 DY 1,value,820792910.921524
+incremental payments,AY 5 DY 1,value,833552011.107422
+incremental payments,AY 6 DY 1,value,872144533.378978
+incremental payments,AY 7 DY 1,value,898171758.704635
+incremental payments,AY 8 DY 1,value,886066201.357148
+incremental payments,AY 9 DY 1,value,891653814.452764
+incremental payments,AY 10 DY 1,value,897845215.623905
+incremental payments,AY 11 DY 1,value,940352313.35158
+incremental payments,AY 12 DY 1,value,952699068.330257
+incremental payments,AY 13 DY 1,value,999583325.887468
+incremental payments,AY 14 DY 1,value,921198847.63667
+incremental payments,AY 15 DY 1,value,978356785.75063
+incremental payments,AY 16 DY 1,value,989124153.610743
+incremental payments,AY 17 DY 1,value,1038111000.17178
+incremental payments,AY 18 DY 1,value,1072377844.91809
+incremental payments,AY 19 DY 1,value,1103014184.06436
+incremental payments,AY 20 DY 1,value,1055830962.38032
+incremental payments,AY 1 DY 2,value,1214977473.47203
+incremental payments,AY 2 DY 2,value,1218507071.18656
+incremental payments,AY 3 DY 2,value,1510135909.23463
+incremental payments,AY 4 DY 2,value,1202404585.07777
+incremental payments,AY 5 DY 2,value,1195385788.90413
+incremental payments,AY 6 DY 2,value,1273498504.33559
+incremental payments,AY 7 DY 2,value,1333737328.28836
+incremental payments,AY 8 DY 2,value,1317616726.06936
+incremental payments,AY 9 DY 2,value,1310266334.94733
+incremental payments,AY 10 DY 2,value,1371916661.04859
+incremental payments,AY 11 DY 2,value,1431130608.32014
+incremental payments,AY 12 DY 2,value,1464712987.55748
+incremental payments,AY 13 DY 2,value,1483295746.10518
+incremental payments,AY 14 DY 2,value,1579045864.99451
+incremental payments,AY 15 DY 2,value,1540313610.21047
+incremental payments,AY 16 DY 2,value,1495164518.76044
+incremental payments,AY 17 DY 2,value,1615947952.44212
+incremental payments,AY 18 DY 2,value,1593271741.20108
+incremental payments,AY 19 DY 2,value,1643130651.77836
+incremental payments,AY 20 DY 2,value,1667429329.23623
+incremental payments,AY 1 DY 3,value,605110287.920552
+incremental payments,AY 2 DY 3,value,648439384.350563
+incremental payments,AY 3 DY 3,value,657382978.625241
+incremental payments,AY 4 DY 3,value,670335722.867235
+incremental payments,AY 5 DY 3,value,664170903.553623
+incremental payments,AY 6 DY 3,value,736427838.530802
+incremental payments,AY 7 DY 3,value,706269788.618255
+incremental payments,AY 8 DY 3,value,694030012.833834
+incremental payments,AY 9 DY 3,value,721626912.683663
+incremental payments,AY 10 DY 3,value,807203671.237587
+incremental payments,AY 11 DY 3,value,786824422.165102
+incremental payments,AY 12 DY 3,value,835360597.662134
+incremental payments,AY 13 DY 3,value,811848108.77751
+incremental payments,AY 14 DY 3,value,755303157.033605
+incremental payments,AY 15 DY 3,value,900455178.845137
+incremental payments,AY 16 DY 3,value,839093692.700791
+incremental payments,AY 17 DY 3,value,843844311.560248
+incremental payments,AY 18 DY 3,value,869044517.900831
+incremental payments,AY 19 DY 3,value,877920998.17527
+incremental payments,AY 20 DY 3,value,957060950.622632
+incremental payments,AY 1 DY 4,value,389555652.93684
+incremental payments,AY 2 DY 4,value,355639443.396962
+incremental payments,AY 3 DY 4,value,418291895.502431
+incremental payments,AY 4 DY 4,value,373186755.387906
+incremental payments,AY 5 DY 4,value,363481284.161256
+incremental payments,AY 6 DY 4,value,376560033.840451
+incremental payments,AY 7 DY 4,value,376332007.050586
+incremental payments,AY 8 DY 4,value,406424796.318482
+incremental payments,AY 9 DY 4,value,493738075.107948
+incremental payments,AY 10 DY 4,value,414444913.26804
+incremental payments,AY 11 DY 4,value,421080560.242729
+incremental payments,AY 12 DY 4,value,427578985.865862
+incremental payments,AY 13 DY 4,value,433756106.120342
+incremental payments,AY 14 DY 4,value,460318686.154239
+incremental payments,AY 15 DY 4,value,459344419.881433
+incremental payments,AY 16 DY 4,value,493523314.924213
+incremental payments,AY 17 DY 4,value,447071818.557152
+incremental payments,AY 18 DY 4,value,569952160.936524
+incremental payments,AY 19 DY 4,value,537888783.814043
+incremental payments,AY 20 DY 4,value,532024521.025311
+incremental payments,AY 1 DY 5,value,176774072.324529
+incremental payments,AY 2 DY 5,value,198227505.163715
+incremental payments,AY 3 DY 5,value,256670889.197459
+incremental payments,AY 4 DY 5,value,240197783.732489
+incremental payments,AY 5 DY 5,value,237750639.397161
+incremental payments,AY 6 DY 5,value,259236110.606198
+incremental payments,AY 7 DY 5,value,254037798.125239
+incremental payments,AY 8 DY 5,value,233810614.689126
+incremental payments,AY 9 DY 5,value,251990184.793465
+incremental payments,AY 10 DY 5,value,295637128.48168
+incremental payments,AY 11 DY 5,value,302037398.560949
+incremental payments,AY 12 DY 5,value,275198754.864381
+incremental payments,AY 13 DY 5,value,275370768.195682
+incremental payments,AY 14 DY 5,value,279334936.394625
+incremental payments,AY 15 DY 5,value,255281454.061072
+incremental payments,AY 16 DY 5,value,254740125.432035
+incremental payments,AY 17 DY 5,value,264661469.927965
+incremental payments,AY 18 DY 5,value,253494862.569233
+incremental payments,AY 19 DY 5,value,295788187.57535
+incremental payments,AY 20 DY 5,value,324854070.003356
+incremental payments,AY 1 DY 6,value,124790603.765598
+incremental payments,AY 2 DY 6,value,120902908.897839
+incremental payments,AY 3 DY 6,value,135716566.843142
+incremental payments,AY 4 DY 6,value,177771121.561648
+incremental payments,AY 5 DY 6,value,123145254.824973
+incremental payments,AY 6 DY 6,value,140886912.093318
+incremental payments,AY 7 DY 6,value,180878636.035737
+incremental payments,AY 8 DY 6,value,198020368.74989
+incremental payments,AY 9 DY 6,value,159841133.866138
+incremental payments,AY 10 DY 6,value,152865652.371432
+incremental payments,AY 11 DY 6,value,139873600.999909
+incremental payments,AY 12 DY 6,value,150675249.778672
+incremental payments,AY 13 DY 6,value,144445206.926932
+incremental payments,AY 14 DY 6,value,207391259.035713
+incremental payments,AY 15 DY 6,value,149108471.325312
+incremental payments,AY 16 DY 6,value,205176664.079777
+incremental payments,AY 17 DY 6,value,220981994.250528
+incremental payments,AY 18 DY 6,value,207580652.681391
+incremental payments,AY 19 DY 6,value,126607036.648637
+incremental payments,AY 20 DY 6,value,185926571.366868
+incremental payments,AY 1 DY 7,value,77723029.3728974
+incremental payments,AY 2 DY 7,value,86127068.0675676
+incremental payments,AY 3 DY 7,value,68334199.845705
+incremental payments,AY 4 DY 7,value,76582999.212943
+incremental payments,AY 5 DY 7,value,68790721.6131274
+incremental payments,AY 6 DY 7,value,88032831.6229006
+incremental payments,AY 7 DY 7,value,109760273.497063
+incremental payments,AY 8 DY 7,value,74738497.2427149
+incremental payments,AY 9 DY 7,value,68407907.6737553
+incremental payments,AY 10 DY 7,value,95901642.029144
+incremental payments,AY 11 DY 7,value,98916346.1968678
+incremental payments,AY 12 DY 7,value,72710110.3569183
+incremental payments,AY 13 DY 7,value,96428273.6211232
+incremental payments,AY 14 DY 7,value,97611286.6846377
+incremental payments,AY 15 DY 7,value,83711737.7727753
+incremental payments,AY 16 DY 7,value,86841511.8140321
+incremental payments,AY 17 DY 7,value,97341258.6935444
+incremental payments,AY 18 DY 7,value,73273421.4795916
+incremental payments,AY 19 DY 7,value,121493131.013112
+incremental payments,AY 20 DY 7,value,130074703.121984
+incremental payments,AY 1 DY 8,value,58585836.6888382
+incremental payments,AY 2 DY 8,value,57095411.2697576
+incremental payments,AY 3 DY 8,value,62839555.6779464
+incremental payments,AY 4 DY 8,value,70393343.8774066
+incremental payments,AY 5 DY 8,value,54361372.6927563
+incremental payments,AY 6 DY 8,value,50386501.0518865
+incremental payments,AY 7 DY 8,value,51236797.7489616
+incremental payments,AY 8 DY 8,value,46152832.2388148
+incremental payments,AY 9 DY 8,value,76349837.38038
+incremental payments,AY 10 DY 8,value,48699532.7279477
+incremental payments,AY 11 DY 8,value,69121312.0283983
+incremental payments,AY 12 DY 8,value,56568243.6032708
+incremental payments,AY 13 DY 8,value,69685615.6207112
+incremental payments,AY 14 DY 8,value,81796004.3966758
+incremental payments,AY 15 DY 8,value,64328305.971207
+incremental payments,AY 16 DY 8,value,64770391.9705605
+incremental payments,AY 17 DY 8,value,50854425.7484994
+incremental payments,AY 18 DY 8,value,90236598.8513304
+incremental payments,AY 19 DY 8,value,51666433.6914077
+incremental payments,AY 20 DY 8,value,46782539.6560734
+incremental payments,AY 1 DY 9,value,19082431.4621002
+incremental payments,AY 2 DY 9,value,23562096.5040262
+incremental payments,AY 3 DY 9,value,30140566.2478151
+incremental payments,AY 4 DY 9,value,47506965.6115182
+incremental payments,AY 5 DY 9,value,42942176.7611043
+incremental payments,AY 6 DY 9,value,62362902.0677235
+incremental payments,AY 7 DY 9,value,24288381.0361398
+incremental payments,AY 8 DY 9,value,29338416.3992431
+incremental payments,AY 9 DY 9,value,38518278.3057667
+incremental payments,AY 10 DY 9,value,62291089.8094244
+incremental payments,AY 11 DY 9,value,45694117.9349061
+incremental payments,AY 12 DY 9,value,35524359.4361659
+incremental payments,AY 13 DY 9,value,24874561.8490728
+incremental payments,AY 14 DY 9,value,77045881.295115
+incremental payments,AY 15 DY 9,value,66566000.6160354
+incremental payments,AY 16 DY 9,value,45441733.8905181
+incremental payments,AY 17 DY 9,value,38699665.6144527
+incremental payments,AY 18 DY 9,value,36987921.2478378
+incremental payments,AY 19 DY 9,value,42883477.3310704
+incremental payments,AY 20 DY 9,value,41558995.4223822
+incremental payments,AY 1 DY 10,value,35170802.0873139
+incremental payments,AY 2 DY 10,value,25395689.7989854
+incremental payments,AY 3 DY 10,value,17355907.2789186
+incremental payments,AY 4 DY 10,value,43368373.0334628
+incremental payments,AY 5 DY 10,value,23200845.9502998
+incremental payments,AY 6 DY 10,value,28052084.9891498
+incremental payments,AY 7 DY 10,value,20026961.7565087
+incremental payments,AY 8 DY 10,value,11353319.0243514
+incremental payments,AY 9 DY 10,value,26311634.4163349
+incremental payments,AY 10 DY 10,value,29337519.8772341
+incremental payments,AY 11 DY 10,value,11925340.9628137
+incremental payments,AY 12 DY 10,value,11147639.7832971
+incremental payments,AY 13 DY 10,value,28805946.0524422
+incremental payments,AY 14 DY 10,value,27682018.2920481
+incremental payments,AY 15 DY 10,value,31274705.9428783
+incremental payments,AY 16 DY 10,value,47934157.0461315
+incremental payments,AY 17 DY 10,value,26427924.9186457
+incremental payments,AY 18 DY 10,value,27962883.3338439
+incremental payments,AY 19 DY 10,value,37082958.9673046
+incremental payments,AY 20 DY 10,value,28197692.9510072
+incremental payments,AY 1 DY 11,value,16246666.0929947
+incremental payments,AY 2 DY 11,value,16166712.4084481
+incremental payments,AY 3 DY 11,value,15923563.0520386
+incremental payments,AY 4 DY 11,value,27538586.8074453
+incremental payments,AY 5 DY 11,value,25841115.9664327
+incremental payments,AY 6 DY 11,value,20502779.5073204
+incremental payments,AY 7 DY 11,value,14921875.8948069
+incremental payments,AY 8 DY 11,value,21864713.4221908
+incremental payments,AY 9 DY 11,value,12370248.4921205
+incremental payments,AY 10 DY 11,value,52218770.5598765
+incremental payments,AY 11 DY 11,value,16269661.4182808
+incremental payments,AY 12 DY 11,value,14792833.2148514
+incremental payments,AY 13 DY 11,value,22424357.0461519
+incremental payments,AY 14 DY 11,value,31545031.8378859
+incremental payments,AY 15 DY 11,value,18549094.244085
+incremental payments,AY 16 DY 11,value,34550815.1532245
+incremental payments,AY 17 DY 11,value,18367808.1931297
+incremental payments,AY 18 DY 11,value,17929933.9151476
+incremental payments,AY 19 DY 11,value,12958221.1246856
+incremental payments,AY 20 DY 11,value,20254193.449225
+incremental payments,AY 1 DY 12,value,10330721.5374291
+incremental payments,AY 2 DY 12,value,14658441.1890848
+incremental payments,AY 3 DY 12,value,10455827.4442179
+incremental payments,AY 4 DY 12,value,5273869.24054534
+incremental payments,AY 5 DY 12,value,10966335.9711406
+incremental payments,AY 6 DY 12,value,6218519.29015604
+incremental payments,AY 7 DY 12,value,8468251.49214449
+incremental payments,AY 8 DY 12,value,7595438.61309838
+incremental payments,AY 9 DY 12,value,5155778.55154543
+incremental payments,AY 10 DY 12,value,12332416.4154033
+incremental payments,AY 11 DY 12,value,4087959.41140853
+incremental payments,AY 12 DY 12,value,17496275.4469451
+incremental payments,AY 13 DY 12,value,12030202.5758065
+incremental payments,AY 14 DY 12,value,6883662.62398433
+incremental payments,AY 15 DY 12,value,10975184.6298183
+incremental payments,AY 16 DY 12,value,13711488.1359071
+incremental payments,AY 17 DY 12,value,32692649.0934417
+incremental payments,AY 18 DY 12,value,6548870.44202748
+incremental payments,AY 19 DY 12,value,12329527.0498707
+incremental payments,AY 20 DY 12,value,4068977.20773868
+incremental payments,AY 1 DY 13,value,9164106.20468155
+incremental payments,AY 2 DY 13,value,8613085.64922139
+incremental payments,AY 3 DY 13,value,2064587.59430681
+incremental payments,AY 4 DY 13,value,15442579.2919381
+incremental payments,AY 5 DY 13,value,7075008.96931624
+incremental payments,AY 6 DY 13,value,10678059.9388667
+incremental payments,AY 7 DY 13,value,6396367.97644677
+incremental payments,AY 8 DY 13,value,8180006.2210246
+incremental payments,AY 9 DY 13,value,3530728.15157158
+incremental payments,AY 10 DY 13,value,20214668.6701654
+incremental payments,AY 11 DY 13,value,3884793.27796203
+incremental payments,AY 12 DY 13,value,11202813.7270287
+incremental payments,AY 13 DY 13,value,10651670.8234445
+incremental payments,AY 14 DY 13,value,17433008.6582695
+incremental payments,AY 15 DY 13,value,2506685.52488528
+incremental payments,AY 16 DY 13,value,10880062.6483149
+incremental payments,AY 17 DY 13,value,16708854.0367282
+incremental payments,AY 18 DY 13,value,3334985.10337058
+incremental payments,AY 19 DY 13,value,7394847.19105157
+incremental payments,AY 20 DY 13,value,14304523.3117156
+incremental payments,AY 1 DY 14,value,4742114.48357099
+incremental payments,AY 2 DY 14,value,4668316.21414315
+incremental payments,AY 3 DY 14,value,3204346.58146985
+incremental payments,AY 4 DY 14,value,1180161.10189435
+incremental payments,AY 5 DY 14,value,6215517.49254342
+incremental payments,AY 6 DY 14,value,10632245.8409665
+incremental payments,AY 7 DY 14,value,5885239.9142119
+incremental payments,AY 8 DY 14,value,5885110.72012657
+incremental payments,AY 9 DY 14,value,2429069.39243028
+incremental payments,AY 10 DY 14,value,3659065.02564882
+incremental payments,AY 11 DY 14,value,576227.911307486
+incremental payments,AY 12 DY 14,value,12844546.3197478
+incremental payments,AY 13 DY 14,value,2321633.43678087
+incremental payments,AY 14 DY 14,value,6358941.24400619
+incremental payments,AY 15 DY 14,value,24814190.2800985
+incremental payments,AY 16 DY 14,value,10955256.859154
+incremental payments,AY 17 DY 14,value,1564313.61068817
+incremental payments,AY 18 DY 14,value,4211862.23872076
+incremental payments,AY 19 DY 14,value,7996080.58996262
+incremental payments,AY 20 DY 14,value,2637265.54096328
+incremental payments,AY 1 DY 15,value,1267473.27476503
+incremental payments,AY 2 DY 15,value,4977716.12163717
+incremental payments,AY 3 DY 15,value,1193322.59214884
+incremental payments,AY 4 DY 15,value,3041122.34161462
+incremental payments,AY 5 DY 15,value,2660288.03194944
+incremental payments,AY 6 DY 15,value,2865460.80522727
+incremental payments,AY 7 DY 15,value,2218145.0414534
+incremental payments,AY 8 DY 15,value,2606201.03442418
+incremental payments,AY 9 DY 15,value,1722946.97753928
+incremental payments,AY 10 DY 15,value,7985972.68139986
+incremental payments,AY 11 DY 15,value,5720968.62999533
+incremental payments,AY 12 DY 15,value,5302246.5087768
+incremental payments,AY 13 DY 15,value,838040.869513733
+incremental payments,AY 14 DY 15,value,1889876.32175703
+incremental payments,AY 15 DY 15,value,7241453.71763528
+incremental payments,AY 16 DY 15,value,229026.425169932
+incremental payments,AY 17 DY 15,value,1137292.35926771
+incremental payments,AY 18 DY 15,value,17763114.6966988
+incremental payments,AY 19 DY 15,value,5292867.91756014
+incremental payments,AY 20 DY 15,value,272115.350258984
+incremental payments,AY 1 DY 16,value,1454286.4403423
+incremental payments,AY 2 DY 16,value,721312.962023103
+incremental payments,AY 3 DY 16,value,248428.131130898
+incremental payments,AY 4 DY 16,value,6595494.73252072
+incremental payments,AY 5 DY 16,value,407341.390765621
+incremental payments,AY 6 DY 16,value,2016466.23673826
+incremental payments,AY 7 DY 16,value,165273.457091368
+incremental payments,AY 8 DY 16,value,179015.265369424
+incremental payments,AY 9 DY 16,value,1686144.15034877
+incremental payments,AY 10 DY 16,value,642542.583932355
+incremental payments,AY 11 DY 16,value,1108596.6211859
+incremental payments,AY 12 DY 16,value,8092276.12662792
+incremental payments,AY 13 DY 16,value,2265516.3012374
+incremental payments,AY 14 DY 16,value,2368631.55180461
+incremental payments,AY 15 DY 16,value,3492346.09049457
+incremental payments,AY 16 DY 16,value,7287913.30148851
+incremental payments,AY 17 DY 16,value,6549477.8497554
+incremental payments,AY 18 DY 16,value,2515743.6206862
+incremental payments,AY 19 DY 16,value,7554232.19774233
+incremental payments,AY 20 DY 16,value,4856128.53621618
+incremental payments,AY 1 DY 17,value,4614217.22705334
+incremental payments,AY 2 DY 17,value,1620807.28213025
+incremental payments,AY 3 DY 17,value,2167227.86291206
+incremental payments,AY 4 DY 17,value,1376515.1614159
+incremental payments,AY 5 DY 17,value,2551867.45596585
+incremental payments,AY 6 DY 17,value,147111.368642108
+incremental payments,AY 7 DY 17,value,98849.3009302039
+incremental payments,AY 8 DY 17,value,1842449.11604987
+incremental payments,AY 9 DY 17,value,0
+incremental payments,AY 10 DY 17,value,971381.166227914
+incremental payments,AY 11 DY 17,value,466305.160090935
+incremental payments,AY 12 DY 17,value,767129.339260877
+incremental payments,AY 13 DY 17,value,1394766.78819491
+incremental payments,AY 14 DY 17,value,195853.713024128
+incremental payments,AY 15 DY 17,value,58563.7108312594
+incremental payments,AY 16 DY 17,value,1724132.14023328
+incremental payments,AY 17 DY 17,value,389989.983472299
+incremental payments,AY 18 DY 17,value,560115.758538799
+incremental payments,AY 19 DY 17,value,964144.848166654
+incremental payments,AY 20 DY 17,value,70127.5213315316
+incremental payments,AY 1 DY 18,value,266583.318120548
+incremental payments,AY 2 DY 18,value,11453576.2744187
+incremental payments,AY 3 DY 18,value,112216.235780729
+incremental payments,AY 4 DY 18,value,77102.9220825597
+incremental payments,AY 5 DY 18,value,205163.101548937
+incremental payments,AY 6 DY 18,value,297174.264480326
+incremental payments,AY 7 DY 18,value,519745.804243856
+incremental payments,AY 8 DY 18,value,43431.8651384206
+incremental payments,AY 9 DY 18,value,142328.200498361
+incremental payments,AY 10 DY 18,value,165141.924866608
+incremental payments,AY 11 DY 18,value,4167451.02847574
+incremental payments,AY 12 DY 18,value,4774491.89826671
+incremental payments,AY 13 DY 18,value,436914.126890625
+incremental payments,AY 14 DY 18,value,69200.5851144653
+incremental payments,AY 15 DY 18,value,8753061.13278592
+incremental payments,AY 16 DY 18,value,1791581.90855066
+incremental payments,AY 17 DY 18,value,142988.825359407
+incremental payments,AY 18 DY 18,value,784726.915151898
+incremental payments,AY 19 DY 18,value,4259991.43323754
+incremental payments,AY 20 DY 18,value,3505111.31919885
+incremental payments,AY 1 DY 19,value,28001.8209627302
+incremental payments,AY 2 DY 19,value,0
+incremental payments,AY 3 DY 19,value,281057.228014889
+incremental payments,AY 4 DY 19,value,0
+incremental payments,AY 5 DY 19,value,0
+incremental payments,AY 6 DY 19,value,76502.9462116599
+incremental payments,AY 7 DY 19,value,290894.259174453
+incremental payments,AY 8 DY 19,value,59551.8791965464
+incremental payments,AY 9 DY 19,value,7397.73395245456
+incremental payments,AY 10 DY 19,value,2683.18314677448
+incremental payments,AY 11 DY 19,value,372004.795248034
+incremental payments,AY 12 DY 19,value,337881.985744387
+incremental payments,AY 13 DY 19,value,384973.298161472
+incremental payments,AY 14 DY 19,value,1993099.02305859
+incremental payments,AY 15 DY 19,value,1715948.94754961
+incremental payments,AY 16 DY 19,value,177636.231162222
+incremental payments,AY 17 DY 19,value,11967.4178473796
+incremental payments,AY 18 DY 19,value,248015.20476009
+incremental payments,AY 19 DY 19,value,660968.965921102
+incremental payments,AY 20 DY 19,value,155392.706735302
+incremental payments,AY 1 DY 20,value,51105.9029975288
+incremental payments,AY 2 DY 20,value,308085.413804753
+incremental payments,AY 3 DY 20,value,40593.4889195082
+incremental payments,AY 4 DY 20,value,814569.264559773
+incremental payments,AY 5 DY 20,value,335240.740058831
+incremental payments,AY 6 DY 20,value,0
+incremental payments,AY 7 DY 20,value,1888385.59493251
+incremental payments,AY 8 DY 20,value,0
+incremental payments,AY 9 DY 20,value,9114.29912982988
+incremental payments,AY 10 DY 20,value,0
+incremental payments,AY 11 DY 20,value,1150682.17649637
+incremental payments,AY 12 DY 20,value,32552.856150012
+incremental payments,AY 13 DY 20,value,573487.982264099
+incremental payments,AY 14 DY 20,value,422026.756673059
+incremental payments,AY 15 DY 20,value,154602.164542024
+incremental payments,AY 16 DY 20,value,7605.0035523409
+incremental payments,AY 17 DY 20,value,0
+incremental payments,AY 18 DY 20,value,730800.049163205
+incremental payments,AY 19 DY 20,value,0
+incremental payments,AY 20 DY 20,value,0
+payments after the last development period,AY 1,value,1890010.62576451
+payments after the last development period,AY 2,value,30004.4584622271
+payments after the last development period,AY 3,value,0
+payments after the last development period,AY 4,value,516264.684714493
+payments after the last development period,AY 5,value,1877814.20078102
+payments after the last development period,AY 6,value,1648536.32862003
+payments after the last development period,AY 7,value,507016.687505781
+payments after the last development period,AY 8,value,5702990.77576109
+payments after the last development period,AY 9,value,0
+payments after the last development period,AY 10,value,0
+payments after the last development period,AY 11,value,1778040.39363213
+payments after the last development period,AY 12,value,831629.078628887
+payments after the last development period,AY 13,value,816990.9966504
+payments after the last development period,AY 14,value,362880.173672936
+payments after the last development period,AY 15,value,1690561.13928759
+payments after the last development period,AY 16,value,1919788.79106306
+payments after the last development period,AY 17,value,427581.150164606
+payments after the last development period,AY 18,value,2372384.37526416
+payments after the last development period,AY 19,value,13572.102840918
+payments after the last development period,AY 20,value,16132427.76548
+incremental payments of the training half,AY 1 DY 1,value,421512201.834526
+incremental payments of the training half,AY 2 DY 1,value,386891405.653642
+incremental payments of the training half,AY 3 DY 1,value,410588303.603458
+incremental payments of the training half,AY 4 DY 1,value,382776022.957815
+incremental payments of the training half,AY 5 DY 1,value,411429998.655566
+incremental payments of the training half,AY 6 DY 1,value,446189763.211538
+incremental payments of the training half,AY 7 DY 1,value,457869940.021467
+incremental payments of the training half,AY 8 DY 1,value,401881170.750238
+incremental payments of the training half,AY 9 DY 1,value,455499159.04383
+incremental payments of the training half,AY 10 DY 1,value,448539127.331778
+incremental payments of the training half,AY 11 DY 1,value,483086928.118028
+incremental payments of the training half,AY 12 DY 1,value,456729907.489391
+incremental payments of the training half,AY 13 DY 1,value,489256803.947378
+incremental payments of the training half,AY 14 DY 1,value,458431623.774744
+incremental payments of the training half,AY 15 DY 1,value,460706907.433145
+incremental payments of the training half,AY 16 DY 1,value,502919083.108689
+incremental payments of the training half,AY 17 DY 1,value,536684108.548101
+incremental payments of the training half,AY 18 DY 1,value,482117362.081824
+incremental payments of the training half,AY 19 DY 1,value,560419132.017395
+incremental payments of the training half,AY 20 DY 1,value,520425710.343899
+incremental payments of the training half,AY 1 DY 2,value,619319327.195662
+incremental payments of the training half,AY 2 DY 2,value,606690118.881516
+incremental payments of the training half,AY 3 DY 2,value,581648707.692002
+incremental payments of the training half,AY 4 DY 2,value,594241167.620151
+incremental payments of the training half,AY 5 DY 2,value,625777239.059173
+incremental payments of the training half,AY 6 DY 2,value,642470696.455333
+incremental payments of the training half,AY 7 DY 2,value,681609816.80952
+incremental payments of the training half,AY 8 DY 2,value,670369576.450454
+incremental payments of the training half,AY 9 DY 2,value,645658867.735757
+incremental payments of the training half,AY 10 DY 2,value,656041730.740084
+incremental payments of the training half,AY 11 DY 2,value,710439411.522252
+incremental payments of the training half,AY 12 DY 2,value,690290349.504999
+incremental payments of the training half,AY 13 DY 2,value,730495444.588957
+incremental payments of the training half,AY 14 DY 2,value,798086867.720035
+incremental payments of the training half,AY 15 DY 2,value,772986265.370927
+incremental payments of the training half,AY 16 DY 2,value,728678893.009484
+incremental payments of the training half,AY 17 DY 2,value,773397243.496013
+incremental payments of the training half,AY 18 DY 2,value,829256865.892161
+incremental payments of the training half,AY 19 DY 2,value,805925313.22096
+incremental payments of the training half,AY 1 DY 3,value,299869205.254361
+incremental payments of the training half,AY 2 DY 3,value,345501418.226009
+incremental payments of the training half,AY 3 DY 3,value,293716310.796936
+incremental payments of the training half,AY 4 DY 3,value,320956312.409143
+incremental payments of the training half,AY 5 DY 3,value,339903286.338955
+incremental payments of the training half,AY 6 DY 3,value,365876547.050166
+incremental payments of the training half,AY 7 DY 3,value,358704156.558821
+incremental payments of the training half,AY 8 DY 3,value,318876157.704039
+incremental payments of the training half,AY 9 DY 3,value,348914272.419133
+incremental payments of the training half,AY 10 DY 3,value,390320587.992233
+incremental payments of the training half,AY 11 DY 3,value,399059081.109809
+incremental payments of the training half,AY 12 DY 3,value,407039908.028565
+incremental payments of the training half,AY 13 DY 3,value,377932608.941814
+incremental payments of the training half,AY 14 DY 3,value,413584970.463592
+incremental payments of the training half,AY 15 DY 3,value,463644650.050814
+incremental payments of the training half,AY 16 DY 3,value,378392434.501139
+incremental payments of the training half,AY 17 DY 3,value,412192304.347635
+incremental payments of the training half,AY 18 DY 3,value,446693173.493911
+incremental payments of the training half,AY 1 DY 4,value,206628071.586631
+incremental payments of the training half,AY 2 DY 4,value,187117641.282811
+incremental payments of the training half,AY 3 DY 4,value,218769766.853061
+incremental payments of the training half,AY 4 DY 4,value,181127053.973169
+incremental payments of the training half,AY 5 DY 4,value,180837190.033396
+incremental payments of the training half,AY 6 DY 4,value,176915211.195651
+incremental payments of the training half,AY 7 DY 4,value,202504207.64173
+incremental payments of the training half,AY 8 DY 4,value,186751141.259874
+incremental payments of the training half,AY 9 DY 4,value,247189723.322789
+incremental payments of the training half,AY 10 DY 4,value,179587410.550517
+incremental payments of the training half,AY 11 DY 4,value,200957790.056389
+incremental payments of the training half,AY 12 DY 4,value,231464133.901589
+incremental payments of the training half,AY 13 DY 4,value,203767963.724136
+incremental payments of the training half,AY 14 DY 4,value,238858106.861625
+incremental payments of the training half,AY 15 DY 4,value,234551083.563853
+incremental payments of the training half,AY 16 DY 4,value,227193299.323265
+incremental payments of the training half,AY 17 DY 4,value,220930690.109538
+incremental payments of the training half,AY 1 DY 5,value,81471660.5070373
+incremental payments of the training half,AY 2 DY 5,value,94109792.240021
+incremental payments of the training half,AY 3 DY 5,value,102091348.639365
+incremental payments of the training half,AY 4 DY 5,value,124085629.136647
+incremental payments of the training half,AY 5 DY 5,value,141766262.767489
+incremental payments of the training half,AY 6 DY 5,value,109888073.141956
+incremental payments of the training half,AY 7 DY 5,value,94866783.2387207
+incremental payments of the training half,AY 8 DY 5,value,118010924.206507
+incremental payments of the training half,AY 9 DY 5,value,126712608.672771
+incremental payments of the training half,AY 10 DY 5,value,119289439.332259
+incremental payments of the training half,AY 11 DY 5,value,161045051.891655
+incremental payments of the training half,AY 12 DY 5,value,144294567.63306
+incremental payments of the training half,AY 13 DY 5,value,116085179.679067
+incremental payments of the training half,AY 14 DY 5,value,131041187.330836
+incremental payments of the training half,AY 15 DY 5,value,108236737.204791
+incremental payments of the training half,AY 16 DY 5,value,129213940.161664
+incremental payments of the training half,AY 1 DY 6,value,55440400.6730483
+incremental payments of the training half,AY 2 DY 6,value,43180459.8156831
+incremental payments of the training half,AY 3 DY 6,value,60242504.032735
+incremental payments of the training half,AY 4 DY 6,value,66243011.3284414
+incremental payments of the training half,AY 5 DY 6,value,61861312.327158
+incremental payments of the training half,AY 6 DY 6,value,76291812.9212065
+incremental payments of the training half,AY 7 DY 6,value,92626247.1940006
+incremental payments of the training half,AY 8 DY 6,value,75454683.8094898
+incremental payments of the training half,AY 9 DY 6,value,79267279.4574318
+incremental payments of the training half,AY 10 DY 6,value,84478298.7168041
+incremental payments of the training half,AY 11 DY 6,value,65586930.9648817
+incremental payments of the training half,AY 12 DY 6,value,75275695.815155
+incremental payments of the training half,AY 13 DY 6,value,49811397.6032304
+incremental payments of the training half,AY 14 DY 6,value,106121216.178855
+incremental payments of the training half,AY 15 DY 6,value,61975747.9832047
+incremental payments of the training half,AY 1 DY 7,value,34300226.593058
+incremental payments of the training half,AY 2 DY 7,value,42501094.7129614
+incremental payments of the training half,AY 3 DY 7,value,37704224.6239879
+incremental payments of the training half,AY 4 DY 7,value,33425072.5495753
+incremental payments of the training half,AY 5 DY 7,value,40808274.8205564
+incremental payments of the training half,AY 6 DY 7,value,50771023.8664453
+incremental payments of the training half,AY 7 DY 7,value,63200029.503112
+incremental payments of the training half,AY 8 DY 7,value,38879532.0007083
+incremental payments of the training half,AY 9 DY 7,value,33806535.6705149
+incremental payments of the training half,AY 10 DY 7,value,37174643.638364
+incremental payments of the training half,AY 11 DY 7,value,53481397.1484241
+incremental payments of the training half,AY 12 DY 7,value,31408864.447248
+incremental payments of the training half,AY 13 DY 7,value,32619841.4697681
+incremental payments of the training half,AY 14 DY 7,value,51236981.2263013
+incremental payments of the training half,AY 1 DY 8,value,26158072.397405
+incremental payments of the training half,AY 2 DY 8,value,24898600.6895138
+incremental payments of the training half,AY 3 DY 8,value,43892429.1781188
+incremental payments of the training half,AY 4 DY 8,value,40637078.0335714
+incremental payments of the training half,AY 5 DY 8,value,36253968.2353662
+incremental payments of the training half,AY 6 DY 8,value,28493068.3103298
+incremental payments of the training half,AY 7 DY 8,value,19730769.500445
+incremental payments of the training half,AY 8 DY 8,value,23080396.4978068
+incremental payments of the training half,AY 9 DY 8,value,27277813.3458763
+incremental payments of the training half,AY 10 DY 8,value,28622750.1034886
+incremental payments of the training half,AY 11 DY 8,value,41174898.1848807
+incremental payments of the training half,AY 12 DY 8,value,37819450.3518112
+incremental payments of the training half,AY 13 DY 8,value,30780723.8151201
+incremental payments of the training half,AY 1 DY 9,value,8841224.9238829
+incremental payments of the training half,AY 2 DY 9,value,10505266.7925697
+incremental payments of the training half,AY 3 DY 9,value,15777691.6513023
+incremental payments of the training half,AY 4 DY 9,value,12504725.9677546
+incremental payments of the training half,AY 5 DY 9,value,31358284.7825346
+incremental payments of the training half,AY 6 DY 9,value,31110553.2539254
+incremental payments of the training half,AY 7 DY 9,value,12018433.4805033
+incremental payments of the training half,AY 8 DY 9,value,16212761.3881724
+incremental payments of the training half,AY 9 DY 9,value,15292355.0588805
+incremental payments of the training half,AY 10 DY 9,value,14311881.0520141
+incremental payments of the training half,AY 11 DY 9,value,21288050.1130544
+incremental payments of the training half,AY 12 DY 9,value,17840581.3629754
+incremental payments of the training half,AY 1 DY 10,value,8175729.96548138
+incremental payments of the training half,AY 2 DY 10,value,13631995.87673
+incremental payments of the training half,AY 3 DY 10,value,4640564.42407048
+incremental payments of the training half,AY 4 DY 10,value,10685098.9490986
+incremental payments of the training half,AY 5 DY 10,value,9727767.23927594
+incremental payments of the training half,AY 6 DY 10,value,6756129.94587021
+incremental payments of the training half,AY 7 DY 10,value,12599842.151458
+incremental payments of the training half,AY 8 DY 10,value,5327998.68305477
+incremental payments of the training half,AY 9 DY 10,value,6038240.41249125
+incremental payments of the training half,AY 10 DY 10,value,22884793.949228
+incremental payments of the training half,AY 11 DY 10,value,7341056.78030813
+incremental payments of the training half,AY 1 DY 11,value,6760409.20835309
+incremental payments of the training half,AY 2 DY 11,value,6311021.03423046
+incremental payments of the training half,AY 3 DY 11,value,11140901.9981887
+incremental payments of the training half,AY 4 DY 11,value,12252762.8100029
+incremental payments of the training half,AY 5 DY 11,value,11271162.0858174
+incremental payments of the training half,AY 6 DY 11,value,11358594.8687507
+incremental payments of the training half,AY 7 DY 11,value,4815905.8902179
+incremental payments of the training half,AY 8 DY 11,value,15609849.2819358
+incremental payments of the training half,AY 9 DY 11,value,9260358.46541168
+incremental payments of the training half,AY 10 DY 11,value,47567911.1645552
+incremental payments of the training half,AY 1 DY 12,value,4835566.53263101
+incremental payments of the training half,AY 2 DY 12,value,5712462.78955723
+incremental payments of the training half,AY 3 DY 12,value,9248524.75132225
+incremental payments of the training half,AY 4 DY 12,value,2878519.76758884
+incremental payments of the training half,AY 5 DY 12,value,1682796.91148994
+incremental payments of the training half,AY 6 DY 12,value,2126392.39007179
+incremental payments of the training half,AY 7 DY 12,value,6228111.93204756
+incremental payments of the training half,AY 8 DY 12,value,4397946.0001379
+incremental payments of the training half,AY 9 DY 12,value,560452.618770103
+incremental payments of the training half,AY 1 DY 13,value,1083946.13214904
+incremental payments of the training half,AY 2 DY 13,value,1850641.73791817
+incremental payments of the training half,AY 3 DY 13,value,186185.852492664
+incremental payments of the training half,AY 4 DY 13,value,4175929.71824718
+incremental payments of the training half,AY 5 DY 13,value,616588.005783484
+incremental payments of the training half,AY 6 DY 13,value,10000188.9861555
+incremental payments of the training half,AY 7 DY 13,value,1795714.55837248
+incremental payments of the training half,AY 8 DY 13,value,1365794.04906753
+incremental payments of the training half,AY 1 DY 14,value,338311.609683956
+incremental payments of the training half,AY 2 DY 14,value,2902662.52774396
+incremental payments of the training half,AY 3 DY 14,value,2276619.2907993
+incremental payments of the training half,AY 4 DY 14,value,372839.483927576
+incremental payments of the training half,AY 5 DY 14,value,1345466.7781768
+incremental payments of the training half,AY 6 DY 14,value,4191073.94083525
+incremental payments of the training half,AY 7 DY 14,value,2263855.65018325
+incremental payments of the training half,AY 1 DY 15,value,56172.5248732922
+incremental payments of the training half,AY 2 DY 15,value,2804150.06537898
+incremental payments of the training half,AY 3 DY 15,value,10999.0490398516
+incremental payments of the training half,AY 4 DY 15,value,2577230.22540993
+incremental payments of the training half,AY 5 DY 15,value,19142.451132463
+incremental payments of the training half,AY 6 DY 15,value,1572703.31388299
+incremental payments of the training half,AY 1 DY 16,value,17940.4960266717
+incremental payments of the training half,AY 2 DY 16,value,3311.66974234
+incremental payments of the training half,AY 3 DY 16,value,4816.52472597685
+incremental payments of the training half,AY 4 DY 16,value,6515282.46618068
+incremental payments of the training half,AY 5 DY 16,value,47766.6981254489
+incremental payments of the training half,AY 1 DY 17,value,2860528.02734553
+incremental payments of the training half,AY 2 DY 17,value,1557875.15900156
+incremental payments of the training half,AY 3 DY 17,value,2152752.22376984
+incremental payments of the training half,AY 4 DY 17,value,601230.011458905
+incremental payments of the training half,AY 1 DY 18,value,0
+incremental payments of the training half,AY 2 DY 18,value,11446187.4412644
+incremental payments of the training half,AY 3 DY 18,value,112216.235780729
+incremental payments of the training half,AY 1 DY 19,value,0
+incremental payments of the training half,AY 2 DY 19,value,0
+incremental payments of the training half,AY 1 DY 20,value,0
+claims by accident period,AY 1,count,20073
+claims by accident period,AY 2,count,19847
+claims by accident period,AY 3,count,19723
+claims by accident period,AY 4,count,19905
+claims by accident period,AY 5,count,20070
+claims by accident period,AY 6,count,20145
+claims by accident period,AY 7,count,19948
+claims by accident period,AY 8,count,19932
+claims by accident period,AY 9,count,19942
+claims by accident period,AY 10,count,19968
+claims by accident period,AY 11,count,19847
+claims by accident period,AY 12,count,20190
+claims by accident period,AY 13,count,20087
+claims by accident period,AY 14,count,20030
+claims by accident period,AY 15,count,19886
+claims by accident period,AY 16,count,19981
+claims by accident period,AY 17,count,19976
+claims by accident period,AY 18,count,19743
+claims by accident period,AY 19,count,20006
+claims by accident period,AY 20,count,20269
+claims reported by the valuation date,AY 1,count,20073
+claims reported by the valuation date,AY 2,count,19847
+claims reported by the valuation date,AY 3,count,19723
+claims reported by the valuation date,AY 4,count,19905
+claims reported by the valuation date,AY 5,count,20070
+claims reported by the valuation date,AY 6,count,20145
+claims reported by the valuation date,AY 7,count,19948
+claims reported by the valuation date,AY 8,count,19932
+claims reported by the valuation date,AY 9,count,19942
+claims reported by the valuation date,AY 10,count,19968
+claims reported by the valuation date,AY 11,count,19847
+claims reported by the valuation date,AY 12,count,20190
+claims reported by the valuation date,AY 13,count,20087
+claims reported by the valuation date,AY 14,count,20030
+claims reported by the valuation date,AY 15,count,19886
+claims reported by the valuation date,AY 16,count,19979
+claims reported by the valuation date,AY 17,count,19970
+claims reported by the valuation date,AY 18,count,19720
+claims reported by the valuation date,AY 19,count,19894
+claims reported by the valuation date,AY 20,count,17811
+claim_size by accident period,AY 1,value,3380813976.56692
+claim_size by accident period,AY 2,value,3307656771.26439
+claim_size by accident period,AY 3,value,3663515830.14603
+claim_size by accident period,AY 4,value,3390499548.60423
+claim_size by accident period,AY 5,value,3227702215.17418
+claim_size by accident period,AY 6,value,3401607567.6718
+claim_size by accident period,AY 7,value,3385484850.52923
+claim_size by accident period,AY 8,value,3281443710.49936
+claim_size by accident period,AY 9,value,3309416677.44371
+claim_size by accident period,AY 10,value,3401255188.92812
+claim_size by accident period,AY 11,value,3354501035.29375
+claim_size by accident period,AY 12,value,3343835946.05876
+claim_size by accident period,AY 13,value,3328160692.88683
+claim_size by accident period,AY 14,value,3349986142.41363
+claim_size by accident period,AY 15,value,3325994093.21212
+claim_size by accident period,AY 16,value,3256241898.04201
+claim_size by accident period,AY 17,value,3279549651.59282
+claim_size by accident period,AY 18,value,3303951570.08803
+claim_size by accident period,AY 19,value,3271719575.26312
+claim_size by accident period,AY 20,value,3294011198.46353
+notidel by accident period,AY 1,value,2511.87370848133
+notidel by accident period,AY 2,value,2533.98139095247
+notidel by accident period,AY 3,value,2559.6378126459
+notidel by accident period,AY 4,value,2567.942847749
+notidel by accident period,AY 5,value,2553.31050335117
+notidel by accident period,AY 6,value,2547.78717742493
+notidel by accident period,AY 7,value,2505.56909654391
+notidel by accident period,AY 8,value,2520.36945514216
+notidel by accident period,AY 9,value,2608.2797077743
+notidel by accident period,AY 10,value,2520.76144143111
+notidel by accident period,AY 11,value,2541.90547631908
+notidel by accident period,AY 12,value,2566.69056425874
+notidel by accident period,AY 13,value,2594.6032511801
+notidel by accident period,AY 14,value,2543.80313997231
+notidel by accident period,AY 15,value,2501.74785568738
+notidel by accident period,AY 16,value,2538.20595083209
+notidel by accident period,AY 17,value,2540.91423677168
+notidel by accident period,AY 18,value,2538.38644033382
+notidel by accident period,AY 19,value,2518.55753486736
+notidel by accident period,AY 20,value,2538.2586269051
+setldel by accident period,AY 1,value,32698.0436910388
+setldel by accident period,AY 2,value,32778.5381302539
+setldel by accident period,AY 3,value,32265.4974534724
+setldel by accident period,AY 4,value,32901.9393378936
+setldel by accident period,AY 5,value,32825.9603264874
+setldel by accident period,AY 6,value,33082.1287571188
+setldel by accident period,AY 7,value,32220.5948213163
+setldel by accident period,AY 8,value,32141.1499032705
+setldel by accident period,AY 9,value,32814.1768561233
+setldel by accident period,AY 10,value,32397.3849671323
+setldel by accident period,AY 11,value,32423.4792904103
+setldel by accident period,AY 12,value,32613.1488379664
+setldel by accident period,AY 13,value,32546.8318186478
+setldel by accident period,AY 14,value,32754.3761699616
+setldel by accident period,AY 15,value,32698.0216667546
+setldel by accident period,AY 16,value,33003.5605649052
+setldel by accident period,AY 17,value,32531.2778184839
+setldel by accident period,AY 18,value,32366.3727806091
+setldel by accident period,AY 19,value,32811.3137331779
+setldel by accident period,AY 20,value,32789.3811445123
+claims by feature level,Legal Representation = N,count,10564
+claims by feature level,Legal Representation = Y,count,389004
+claims by feature level,Injury Severity = 1,count,212308
+claims by feature level,Injury Severity = 2,count,119489
+claims by feature level,Injury Severity = 3,count,40018
+claims by feature level,Injury Severity = 4,count,19829
+claims by feature level,Injury Severity = 5,count,3905
+claims by feature level,Injury Severity = 6,count,4019
+claims by feature level,Age of Claimant = 0-15,count,73127
+claims by feature level,Age of Claimant = 15-30,count,76623
+claims by feature level,Age of Claimant = 30-50,count,109409
+claims by feature level,Age of Claimant = 50-65,count,72002
+claims by feature level,Age of Claimant = over 65,count,68407
+claims by feature level,Vehicle type = Heavy goods,count,521
+claims by feature level,Vehicle type = Light Commerical,count,27272
+claims by feature level,Vehicle type = Medium goods,count,1075
+claims by feature level,Vehicle type = Passenger,count,370700
+claims by feature level,Business use = N,count,344023
+claims by feature level,Business use = Y,count,55545
+payments by feature level,Legal Representation = N,value,522498128.007888
+payments by feature level,Legal Representation = Y,value,84581569955.5785
+payments by feature level,Injury Severity = 1,value,20832148109.2106
+payments by feature level,Injury Severity = 2,value,24424599344.1997
+payments by feature level,Injury Severity = 3,value,16988898815.8102
+payments by feature level,Injury Severity = 4,value,16983764526.0028
+payments by feature level,Injury Severity = 5,value,5608289078.29519
+payments by feature level,Injury Severity = 6,value,266368210.069695
+payments by feature level,Age of Claimant = 0-15,value,19882865440.304
+payments by feature level,Age of Claimant = 15-30,value,18616305194.6626
+payments by feature level,Age of Claimant = 30-50,value,23551437693.3975
+payments by feature level,Age of Claimant = 50-65,value,12952985437.6666
+payments by feature level,Age of Claimant = over 65,value,10100474317.5573
+payments by feature level,Vehicle type = Heavy goods,value,1885917592.39947
+payments by feature level,Vehicle type = Light Commerical,value,16244563389.8916
+payments by feature level,Vehicle type = Medium goods,value,915310676.690764
+payments by feature level,Vehicle type = Passenger,value,66058276424.6052
+payments by feature level,Business use = N,value,64770413799.1501
+payments by feature level,Business use = Y,value,20333654284.4369
+md5 of the file,claims.csv,info,800a02db9ccfc747cc4d1621fef486fc
+md5 of the file,transactions.csv,info,09a720fc5f11198d9a57fa02971ef740

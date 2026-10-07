@@ -5,6 +5,9 @@
 #########  Master Thesis 2021:4, Stockholm University, Section 3.1
 ##########################################
 
+## the data set of this script, all its LoBs: no unit, whatever the session
+## inherits (the paths of a unit are <dataset>/<unit>)
+Sys.setenv(DATASET = "lob6", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 library(MASS)          # mvrnorm in Feature.Generation
 library(doParallel)    # foreach and parallel in Simulation.Machine
@@ -13,11 +16,11 @@ sim <- cfg$lob$simulation
 ## the original machine V1 of Gabrielli & Wuthrich (2018), unmodified
 machine_dir <- here::here("analysis", "00_claim-simulation",
                           "Simulation.Machine.V1")
-out_dir <- file.path(paths$raw, cfg$lob$data_dir)
-n_ay <- cfg$lob$n_ay                           # I = 12, development years 0..11
-ay_lab <- cfg$lob$first_ay + 1:n_ay - 1        # 1994..2005
+out_dir <- file.path(paths$raw, cfg$data$dir)
+n_ay <- cfg$data$n_dev                         # I = 12, development years 0..11
+ay_lab <- cfg$data$first_ay + 1:n_ay - 1       # 1994..2005
 last_ay <- max(ay_lab)                         # 2005, the valuation date I
-units <- cfg$lob$units                         # payments in 1'000
+units <- cfg$data$scale                        # payments in 1'000
 pay_cols <- sprintf("Pay%02d", 0:(n_ay - 1))
 
 ##########################################
@@ -91,6 +94,16 @@ tri_vali <- lob_triangles(pay[!train, ],
 stopifnot(sapply(c(tri_train, tri_vali), nrow) == n_ay,
           isTRUE(all.equal(unlist(tri_train) + unlist(tri_vali),
                            unlist(tri))))
+## smallest observed cell of the upper triangles by LoB, in 1'000 (own
+## check, not in the paper): recoveries can make a cell negative, and the
+## quasi-Poisson fits of the ccODP and the bCCNN stop at a negative cell
+min_cell <- sapply(list(all = tri, training = tri_train, validation = tri_vali),
+                   function(set) {
+                     sapply(set, function(y) {
+                       min(upper_triangle(y), na.rm = TRUE)
+                     })
+                   })
+round(min_cell / units, 3)
 ## one row per LoB, AY and DY, paid in 1'000 (line 5)
 dat0 <- data.frame(LoB = rep(as.integer(names(tri)), each = n_ay^2),
                    AY = rep(ay_lab, times = n_ay * length(tri)),
