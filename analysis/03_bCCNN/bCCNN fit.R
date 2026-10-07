@@ -24,13 +24,12 @@ phi_method <- cfg$odp$phi          # dispersion estimate: deviance or pearson
 train_cfg <- cfg$bccnn$training
 
 ## bCCNN hyper-parameters (Paper C Section 3.3)
-param <- list(hidden = cfg$bccnn$model$hidden, # neurons of the 3 hidden layers
+param <- list(hidden = cfg$bccnn$model$hidden,   # neurons of the hidden layers
               activation = cfg$bccnn$model$activation,
               dropout = cfg$bccnn$model$dropout,  # after every hidden layer
               trainable = cfg$bccnn$model$trainable_embeddings,
-              learning_rate = train_cfg$learning_rate,     # rmsprop
-              rho = train_cfg$rho,
-              epsilon = train_cfg$epsilon,
+              optimizer = train_cfg$optimizer,             # rmsprop
+              learning_rate = train_cfg$learning_rate,
               batch_size = train_cfg$batch_size,           # NULL = full batch
               seed = cfg$seed)
 

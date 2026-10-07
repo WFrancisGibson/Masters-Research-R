@@ -100,3 +100,40 @@ test_that("rolling-origin partitions split the observed cells", {
     if (!p$final) expect_false(any(known & !is.na(p$test)))
   }
 })
+
+test_that("periods without payments are masked", {
+  # the cells of the periods with no payments in y, fitted or not
+  m <- matrix(1, 4, 4)
+  y <- upper_triangle(matrix(c(1, 0, 1, 1), 4, 4))  # nothing paid in row 2
+  y[1, 4] <- 0                                     # ... and in column 4
+  masked <- mask_zero_periods(m, y)
+  expect_true(all(is.na(masked[2, ])) && all(is.na(masked[, 4])))
+  expect_equal(sum(is.na(masked)), 7)
+  #
+  # 20 x 20 triangle with payments in every cell: no cell is masked
+  y <- matrix(1, 20, 20)
+  parts <- rolling_origin(upper_triangle(y), c(5, 2), 2, 2)
+  expect_identical(mask_partitions(parts), parts)
+  #
+  # partition 1 (valuation date 15): development period 13 pays in its
+  # validation cell (3, 13) only, development period 14 in its test cells only
+  y[, 13:14] <- 0
+  y[3, 13] <- 50
+  y[3:7, 14] <- 40
+  parts <- rolling_origin(upper_triangle(y), c(5, 2), 2, 2)
+  masked <- mask_partitions(parts)
+  p1 <- parts[[1]]
+  m1 <- masked[[1]]
+  expect_true(p1$vali[3, 13] && !m1$vali[3, 13])
+  expect_equal(sum(m1$vali), sum(p1$vali) - 1)
+  # the chain ladder at 15 knows period 13 (test cells kept), not period 14
+  expect_equal(which(is.na(m1$test) & !is.na(p1$test), arr.ind = TRUE)[, 2],
+               rep(14, 5))
+  expect_identical(m1[c("y", "train")], p1[c("y", "train")])
+  # scored against the ccODP of the training cells, cell (3, 13) dominates
+  odp <- suppressWarnings(ccodp_fit(p1$y, cells = p1$train))
+  expect_gt(poisson_deviance(ifelse(p1$vali, p1$y, NA), odp$mu),
+            1000 * poisson_deviance(ifelse(m1$vali, p1$y, NA), odp$mu))
+  # by the final partition both periods have payments: no cell is masked
+  expect_identical(masked[[3]], parts[[3]])
+})

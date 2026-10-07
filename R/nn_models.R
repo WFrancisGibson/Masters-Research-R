@@ -29,25 +29,18 @@ bccnn_model <- function(odp, param) {
                     name = "DY_embed") %>%
     layer_flatten(name = "DY_flat")
   #
-  # the ccODP part alpha_i + beta_j and the 3 hidden layers of the NN part
+  # the ccODP part alpha_i + beta_j and the hidden layers of the NN part
+  # (Paper C: 3), one per element of param$hidden, each followed by dropout
   cc0 <- list(ay_embed, dy_embed) %>% layer_add(name = "CC0")
-  nn0 <- list(ay_embed, dy_embed) %>%
-    layer_concatenate(name = "concate0") %>%
-    layer_dense(units = q0[1],
-                activation = param$activation,
-                name = "hidden1") %>%
-    layer_dropout(rate = param$dropout,
-                  name = "dropout1") %>%
-    layer_dense(units = q0[2],
-                activation = param$activation,
-                name = "hidden2") %>%
-    layer_dropout(rate = param$dropout,
-                  name = "dropout2") %>%
-    layer_dense(units = q0[3],
-                activation = param$activation,
-                name = "hidden3") %>%
-    layer_dropout(rate = param$dropout,
-                  name = "dropout3")
+  nn0 <- list(ay_embed, dy_embed) %>% layer_concatenate(name = "concate0")
+  for (k in seq_along(q0)) {
+    nn0 <- nn0 %>%
+      layer_dense(units = q0[k],
+                  activation = param$activation,
+                  name = paste0("hidden", k)) %>%
+      layer_dropout(rate = param$dropout,
+                    name = paste0("dropout", k))
+  }
   #
   # the bCCNN with the skip connection for the CC part
   response <- list(cc0, nn0) %>%
@@ -58,19 +51,16 @@ bccnn_model <- function(odp, param) {
   model <- keras_model(inputs = list(accyear, devyear), outputs = response)
   #
   # start exactly in the ccODP model (14): alpha_i, beta_j in the embeddings;
-  # Response weights 1 on CC0 (w = 1) and 0 on the q0[3] NN0 neurons (B = 0),
-  # bias c = c_ODP
+  # Response weights 1 on CC0 (w = 1) and 0 on the neurons of the last hidden
+  # layer (B = 0), bias c = c_ODP
   get_layer(model, "AY_embed") %>% set_weights(list(as.matrix(odp$alpha)))
   get_layer(model, "DY_embed") %>% set_weights(list(as.matrix(odp$beta)))
   get_layer(model, "Response") %>%
-    set_weights(list(as.matrix(c(1, rep(0, q0[3]))), array(odp$intercept)))
+    set_weights(list(as.matrix(c(1, rep(0, q0[length(q0)]))),
+                     array(odp$intercept)))
   #
-  model %>% compile(
-    loss = "poisson",
-    optimizer = optimizer_rmsprop(learning_rate = param$learning_rate,
-                                  rho = param$rho,
-                                  epsilon = param$epsilon)
-  )
+  # Keras optimiser param$optimizer (Paper C: rmsprop), as the NN chain ladder
+  model %>% compile(loss = "poisson", optimizer = nncl_optimizer(param))
   model
 }
 
@@ -151,8 +141,10 @@ bccnn_bootstrap <- function(y_boot, b, cells, epochs, param) {
 ## rolling origin: per partition, ccODP and bCCNN on the training cells,
 ## early-stopped on the validation cells; a test partition also scores the
 ## network chosen by final_fit on its test cells (test error: their eq. (4.4))
+## and keeps its predicted triangle in mu_test (nagging predictors)
 rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
   summary <- NULL
+  mu_test <- list()
   for (k in seq_along(parts)) {
     part <- parts[[k]]
     odp <- ccodp_fit(part$y, cells = part$train)
@@ -181,13 +173,15 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
       if (final_fit == "refit") {
         # refit: bCCNN started in the chain ladder at c0, all cells,
         # 'best' steps
-        h_test <- bccnn_fit(cl,
-                            best,
-                            param,
-                            track = list(test = part$test))$history
-        h_test <- tail(h_test, 1)
+        nn_test <- bccnn_fit(cl,
+                             best,
+                             param,
+                             track = list(test = part$test))
+        h_test <- tail(nn_test$history, 1)
+        mu_test[[k]] <- nn_test$mu
       } else {
         h_test <- h[h$epoch == best, ]
+        mu_test[[k]] <- nn$mu_path[[best + 1]]
       }
       res$test_actual <- sum(part$test, na.rm = TRUE)
       res$test_ccODP <- sum(cl$mu[!is.na(part$test)])
@@ -200,5 +194,24 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
     summary <- rbind(summary, res)
   }
   list(summary = summary,
-       final = final)
+       final = final,
+       mu_test = mu_test)
+}
+
+## scores of a predicted triangle mu (a single network or a nagging
+## predictor): reserve, Poisson deviance losses on the observed triangle y
+## and on the true lower triangle, and the rolling-origin test error per
+## test cell (Al-Mudafer et al. eq. (4.4)) of the triangles mu_test predicted
+## at the test partitions; a diverged network (mu not finite) has no scores
+bccnn_scores <- function(mu, mu_test, y, truth, parts) {
+  test_loss <- sapply(seq_along(mu_test), function(k) {
+    poisson_deviance(parts[[k]]$test, mu_test[[k]])
+  })
+  n_test <- sapply(seq_along(mu_test), function(k) {
+    sum(!is.na(parts[[k]]$test))
+  })
+  data.frame(reserve = sum(mu[row(mu) + col(mu) > nrow(mu) + 1]),
+             loss_in = poisson_deviance(y, mu),
+             loss_out = poisson_deviance(truth, mu),
+             test_loss_per_cell = sum(test_loss) / sum(n_test))
 }

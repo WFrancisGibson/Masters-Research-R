@@ -91,3 +91,28 @@ rolling_origin <- function(y, test_periods, vali_periods, exclude) {
          test  = if (c0 < n) ifelse(cal > c0, y0, NA))
   })
 }
+
+## periods without payments (own addition, not in Paper C or Al-Mudafer et
+## al.): the ccODP effect of an accident or development period with no
+## payments in the cells it is fitted on is -Inf (glm: about -30, a mean of
+## e^-30), so a payment scored against it cannot be predicted; the cells of m
+## in the periods with no payments in y (NA = cell not fitted) are set to NA
+mask_zero_periods <- function(m, y) {
+  m[rowSums(y, na.rm = TRUE) == 0, ] <- NA
+  m[, colSums(y, na.rm = TRUE) == 0] <- NA
+  m
+}
+
+## rolling-origin partitions with these cells left out: validation cells in a
+## period with no payments in the training cells (early stopping), test cells
+## in a period with no payments in any cell observed at c0 (no model fitted
+## at c0 can forecast them); the test cells of a period with payments in its
+## validation cells only stay, the chain ladder at c0 knows that period
+mask_partitions <- function(parts) {
+  lapply(parts, function(part) {
+    train <- ifelse(part$train, part$y, NA)
+    part$vali <- part$vali & !is.na(mask_zero_periods(part$y, train))
+    if (!part$final) part$test <- mask_zero_periods(part$test, part$y)
+    part
+  })
+}

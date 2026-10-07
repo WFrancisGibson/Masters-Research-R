@@ -23,4 +23,3 @@ for (f in list.files(here::here("R"), pattern = "\\.R$", full.names = TRUE)) {
 ## package versions of the latest run (thesis appendix)
 writeLines(capture.output(sessionInfo()),
            file.path(paths$logs, "sessionInfo.txt"))
-

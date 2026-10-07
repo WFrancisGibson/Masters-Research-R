@@ -22,14 +22,14 @@ default:
                          # and Paper C Section 2.3 (1'000)
   bccnn:                 # Paper C: Gabrielli, Richman & Wuthrich (2020)
     model:               # eq. (13)-(14), Listing 4
-      hidden: [20, 15, 10]            # neurons of the 3 hidden layers
+      hidden: [20, 15, 10]            # neurons of the hidden layers (Paper C: 3 layers)
       activation: tanh
       dropout: 0.1                    # after every hidden layer
       trainable_embeddings: false     # ccODP alpha_i, beta_j stay fixed
-    training:            # Section 3.3; loss Poisson deviance, optimiser RMSprop
+    training:            # Section 3.3; loss Poisson deviance
+      optimizer: rmsprop # Keras optimiser of nncl_optimizer (R/nn_chain_ladder.R); Paper C:
+                         # RMSprop, Keras's defaults rho = 0.9 and epsilon = 1e-07
       learning_rate: 0.001
-      rho: 0.9
-      epsilon: 1.0e-07   # keep the ".0": YAML reads 1e-7 as text
       batch_size: ~      # ~ (null) = full batch: one gradient-descent step per epoch
       max_epochs: 1000   # length of each early-stopping run (Paper C Figure 2)
       epochs: ~          # ~ = step with the lowest validation loss; a number overrides
@@ -47,7 +47,33 @@ default:
     bootstrap:           # Paper C Section 3.3.4, eqs. (15)-(16): parametric bootstrap
       nsim: 1000         # bCCNN refits (Paper C: 1'000; ~13 s each on CPU, ~3.5 h), saved in
                          # data/processed and resumed after a stop; 0 = skip
-  nncl:                  # Wuthrich (2018) EAJ 8:407-436: neural network chain ladder
+    tuning:              # own design, not in Paper C: every combination of hidden layers,
+                         # activation, dropout, optimiser and batch size, as
+                         # nncl$synthetic; the embeddings stay fixed, early stopping
+                         # and final fit as in training and rolling_origin above
+      hidden: [[20], [20, 15], [20, 15, 10], [40, 30, 20]]  # neurons of the hidden
+                         # layers, any number of layers; [20, 15, 10] is Paper C's
+      activation: [tanh, relu]        # tanh is Paper C's
+      dropout: [0.0, 0.1, 0.2]        # after every hidden layer; 0.1 is Paper C's
+      optimizers:        # Keras optimiser: learning rate; any of nncl_optimizer
+        rmsprop: 0.001       # Paper C
+        adam: 0.001
+        sgd_momentum: 0.001
+      momentum: 0.9      # sgd_momentum and sgd_nesterov
+      batch_size: [0, 64]             # 0 = full batch (Paper C)
+      seeds: 20          # fits per combination that differ in the seed only: seed,
+                         # seed + 1, ...
+      nagging: [10, 20]  # networks of a nagging predictor (Richman & Wuthrich 2020): the
+                         # predicted triangles averaged over blocks of 10 and of 20
+                         # seeds (seeds: a multiple of both)
+    masking:             # own design, not in Paper C ("bCCNN masking sensitivity.R"): the
+                         # cells of accident and development periods without payments
+                         # left out of the early stopping and the test error, or scored;
+                         # the network of model and training above under three splits:
+                         # the claims split, and the rolling origin with final_fit
+                         # refit and partition
+      seeds: 20          # fits per split that differ in the seed only: seed, seed + 1, ...
+  nncl:                # Wuthrich (2018) EAJ 8:407-436: neural network chain ladder
     data_dir: claim-simulation-machine  # data/raw/<data_dir>: claims.csv, summary.csv
     simulation:          # Listing 1: Gabrielli & Wuthrich (2018) machine V1
       expected_claims: 5000000        # V
@@ -115,8 +141,37 @@ default:
                              # models/<tag>/
       out_dir: synthetic     # and its outputs: output/tables|figures/04_NN-chain-ladder/
                              # <out_dir>
+  lob:                   # Paper C (Gabrielli, Richman & Wuthrich 2020) Appendix A: the six
+                         # lines of business from the Gabrielli & Wuthrich (2018) machine
+                         # V1; also the simulated data of Harkonen (2021) Section 3
+    data_dir: claim-simulation-lob    # data/raw/<data_dir>: claims.csv, triangles.csv,
+                                      # counts.csv, payments.csv, summary.csv
+    simulation:          # Listing 1
+      seed1: 75          # lines 10, 14, 20, 28 and 31
+      std1: 0.85         # standard deviation of the log claim sizes
+      std2: 0.85         # standard deviation of the log recovery payments
+      large:             # lines 6-10: the portfolio of LoBs 1, 2, 4 and 5
+        expected_claims: 1000000      # V
+        lob_dist: [0.25, 0.25, 0.25, 0.25]
+        growth: [0.01, 0.01, 0.01, 0.01]  # 'inflation': growth of the claim counts
+      small:             # lines 24-28: the portfolio of LoBs 3 and 6. Keep the decimal
+                         # points: [0.5, 0, 0, 0.5] is read as a list, not as numbers
+        expected_claims: 200000
+        lob_dist: [0.5, 0.0, 0.0, 0.5]
+        growth: [0.05, 0.0, 0.0, 0.05]
+      rng_rounding: true # sample.kind "Rounding" of R < 3.6 (the paper is of 2018) in
+                         # the master and the workers
+      workers: 1         # PSOCK workers the machine starts (its own choice: all cores
+                         # but one); it simulates one block, on one worker, so the data
+                         # do not depend on this number
+    first_ay: 1994
+    n_ay: 12             # I = 12 accident years, development years j = 0..J = 11
+    units: 1000          # the tables of both papers are in 1'000
+    seed_study:          # Paper C Table 8 and Figures 9-10 (SSRN version: Table 7 and
+                         # Figures 7-8): the simulation repeated with other seeds
+      seeds: 100         # seed1 = 1, ..., 100 (and simulation: seed1, if not among them)
 
-age_numeric:             # R_CONFIG_ACTIVE=age_numeric: the NN chain ladder SynthETIC
+age_numeric:            # R_CONFIG_ACTIVE=age_numeric: the NN chain ladder SynthETIC
                          # scripts with Age of Claimant as an ordinal score; its fits
                          # and outputs apart from those of the dummy coding
   nncl:
@@ -140,4 +195,14 @@ quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of the ODP GL
       max_epochs: 100
     bootstrap:
       nsim: 4
+    tuning:              # one activation and dropout rate, 4 seeds
+      activation: [tanh]
+      dropout: [0.1]
+      seeds: 4
+      nagging: [2, 4]
+    masking:
+      seeds: 2
+  lob:
+    seed_study:
+      seeds: 2           # seeds 1, 2 and 75: three simulations
 
