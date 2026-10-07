@@ -144,6 +144,7 @@ bccnn_bootstrap <- function(y_boot, b, cells, epochs, param) {
 ## and keeps its predicted triangle in mu_test (nagging predictors)
 rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
   summary <- NULL
+  final <- NULL                     # no final partition: the test ones only
   mu_test <- list()
   for (k in seq_along(parts)) {
     part <- parts[[k]]
