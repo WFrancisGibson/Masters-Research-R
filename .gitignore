@@ -23,3 +23,6 @@ renv/python/
 # python side
 .venv/
 __pycache__/
+
+# settings of one computer (RAW_DIR, RETICULATE_PYTHON)
+.Renviron

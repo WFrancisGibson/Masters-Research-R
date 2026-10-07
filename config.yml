@@ -1,19 +1,90 @@
 default:
   seed: 2026
+  dataset: !expr Sys.getenv("DATASET", "baseline")  # the data set of this R session: a
+                         # name of datasets below, from the environment variable DATASET;
+                         # analysis/00_setup.R puts its block in cfg$data
+  unit: !expr Sys.getenv("UNIT", "")   # lob6 only (environment variable UNIT): lob1 ..
+                         # lob6, the triangle of one LoB, or lob_all, the six LoBs
+                         # jointly (Paper C Section 4); empty: the whole data set
+  run_root: !expr Sys.getenv("RUN_ROOT", ".")  # the interim files, fits and outputs of a
+                         # data set (and unit) are in <run_root>/<path>/<dataset>/<unit>;
+                         # the final run points RUN_ROOT to the worktree of the results
+                         # branch (analysis/06_final-run)
   paths:
-    raw: data/raw
+    raw: !expr Sys.getenv("RAW_DIR", "data/raw")  # the simulated claims of all data sets
     interim: data/interim
     processed: data/processed
     models: models
     tables: output/tables
     figures: output/figures
     logs: output/logs
-  data:
-    annual_dir: claim-simulation-annual  # data/raw/<annual_dir>: claims, transactions, triangle
-    n_dev: 20            # 20 accident years x 20 development years; payments after
+  datasets:              # dir: data/raw/<dir>; n_dev: accident and development periods;
+                         # scale: unit of the fits and tables; rolling_origin: Al-Mudafer
+                         # et al. (2021) Section 3.1, scaled from their 40 x 40 (test
+                         # partitions hold out the latest 10 and 4 of 40 quarters,
+                         # validation the latest 4, except the first 3 accident and
+                         # development periods)
+    baseline:            # SynthETIC, environment 1 of Al-Mudafer et al. (2021), annual
+      dir: claim-simulation-annual     # claims.csv, transactions.csv
+      generator: synthetic
+      n_dev: 20          # 20 accident years x 20 development years; payments after
                          # development year 20 are reported apart (triangle.csv folds
                          # them into year 20, a leak into observed cell (1, 20))
-    scale: 1000000       # fit in millions (Paper C fits in 1'000 CHF)
+      scale: 1000000     # fit in millions (Paper C fits in 1'000 CHF)
+      time_unit: 1       # 1 = annual; 1/4 = quarterly with n_dev: 40
+      delays: environment 1            # delay means: environment 1 or claim size
+      superimposed_inflation: none     # none, synthetic (SynthETIC's default) or
+                                       # calendar (si_calendar_rate per calendar year)
+      si_calendar_rate: 0.0
+      notidel_mean_q: 0.49305517       # mean notification delay in quarters
+      rolling_origin:
+        test_periods: [5, 2]           # latest 5 and 2 calendar years held out
+        vali_periods: 2                # validation: latest 2 calendar years ...
+        exclude: 2                     # ... except the first 2 accident and development years
+    si_calendar:         # baseline with 15% p.a. superimposed inflation by calendar year
+      dir: claim-simulation-annual-SI-calendar
+      generator: synthetic
+      n_dev: 20
+      scale: 1000000
+      time_unit: 1
+      delays: environment 1
+      superimposed_inflation: calendar
+      si_calendar_rate: 0.15           # p.a., on top of the base inflation of 2%
+      notidel_mean_q: 0.49305517
+      rolling_origin: {test_periods: [5, 2], vali_periods: 2, exclude: 2}
+    long_reporting:      # baseline with a mean notification delay of 2 years
+      dir: claim-simulation-annual-long-reporting
+      generator: synthetic
+      n_dev: 20
+      scale: 1000000
+      time_unit: 1
+      delays: environment 1
+      superimposed_inflation: none
+      si_calendar_rate: 0.0
+      notidel_mean_q: 8                # environment 1's cv is kept
+      rolling_origin: {test_periods: [5, 2], vali_periods: 2, exclude: 2}
+    lob6:                # Paper C Appendix A: six LoBs of the Gabrielli & Wuthrich
+                         # (2018) machine V1 (lob: below), AY 1994-2005, DY 0-11
+      dir: claim-simulation-lob        # claims.csv, triangles.csv, counts.csv,
+                                       # payments.csv, summary.csv
+      generator: machine
+      n_dev: 12          # I = 12 accident years, development years j = 0..J = 11
+      first_ay: 1994
+      lobs: 6            # units lob1 .. lob6 and lob_all
+      scale: 1000        # the fits and the tables of both papers are in 1'000
+      rolling_origin:    # 12 periods: 7, 9 and 10 validation cells, 21 and 10 test cells
+        test_periods: [3, 1]
+        vali_periods: 1
+        exclude: 1
+    machine4:            # Wuthrich (2018): four LoBs of the machine (nncl: below); the
+                         # NN chain ladder of the paper, not part of the final run
+      dir: claim-simulation-machine    # claims.csv, summary.csv
+      generator: machine
+      n_dev: 12
+      first_ay: 1994
+      lobs: 4
+      scale: 1           # fitted on the payments as simulated, as the paper
+      rolling_origin: {test_periods: [3, 1], vali_periods: 1, exclude: 1}
   odp:
     phi: deviance        # headline dispersion of the bCCNN script (Pearson residuals, phi of
                          # the bCCNN and its bootstrap): deviance (Paper C eq. (5)) or
@@ -21,7 +92,7 @@ default:
     nsim: 1000           # bootstrap samples: glmReserve, England & Verrall (1999) Section 4
                          # and Paper C Section 2.3 (1'000)
   bccnn:                 # Paper C: Gabrielli, Richman & Wuthrich (2020)
-    model:               # eq. (13)-(14), Listing 4
+    model:               # eq. (13)-(14), Listing 4; six LoBs jointly: eq. (22), Listing 5
       hidden: [20, 15, 10]            # neurons of the hidden layers (Paper C: 3 layers)
       activation: tanh
       dropout: 0.1                    # after every hidden layer
@@ -30,33 +101,38 @@ default:
       optimizer: rmsprop # Keras optimiser of nncl_optimizer (R/nn_chain_ladder.R); Paper C:
                          # RMSprop, Keras's defaults rho = 0.9 and epsilon = 1e-07
       learning_rate: 0.001
+      momentum: 0.9      # sgd_momentum and sgd_nesterov only
       batch_size: ~      # ~ (null) = full batch: one gradient-descent step per epoch
       max_epochs: 1000   # length of each early-stopping run (Paper C Figure 2)
       epochs: ~          # ~ = step with the lowest validation loss; a number overrides
                          # (at most max_epochs: the tables need its validation losses)
-      validation: rolling_origin  # early stopping: rolling_origin (Al-Mudafer et al. 2021)
-                                  # or claims_split (Paper C's 50/50 claims split)
-      final_fit: refit   # refit: train on the full triangle for the chosen steps
-                         # (Paper C); partition: keep the network trained on the final
-                         # partition's training cells (Al-Mudafer et al.; rolling origin only)
-    rolling_origin:      # Al-Mudafer et al. (2021) Section 3.1, scaled from their 40 x 40
-      test_periods: [5, 2]  # test partitions hold out the latest 5 and 2 calendar years
-                            # (theirs: 10 and 4 of 40 quarters)
-      vali_periods: 2       # validation: latest 2 calendar years of each partition (theirs: 4)
-      exclude: 2            # ... except the first 2 accident and development years (theirs: 3)
+      validation: !expr Sys.getenv("VALIDATION", "rolling_origin")  # early stopping:
+                         # rolling_origin (Al-Mudafer et al. 2021, cfg$data$rolling_origin)
+                         # or claims_split (Paper C's 50/50 claims split); environment
+                         # variable VALIDATION
+      final_fit: !expr Sys.getenv("FINAL_FIT", "refit")  # refit: train on the full
+                         # triangle for the chosen steps (Paper C); partition: keep the
+                         # network trained on the final partition's training cells
+                         # (Al-Mudafer et al.; rolling origin only); environment variable
+                         # FINAL_FIT. The fits and outputs of a pair carry the variant
+                         # <validation>_<final_fit> in their names
     bootstrap:           # Paper C Section 3.3.4, eqs. (15)-(16): parametric bootstrap
-      nsim: 1000         # bCCNN refits (Paper C: 1'000; ~13 s each on CPU, ~3.5 h), saved in
-                         # data/processed and resumed after a stop; 0 = skip
-    tuning:              # own design, not in Paper C: every combination of hidden layers,
-                         # activation, dropout, optimiser and batch size, as
-                         # nncl$synthetic; the embeddings stay fixed, early stopping
-                         # and final fit as in training and rolling_origin above
+      nsim: 1000         # bCCNN refits (Paper C: 1'000; ~13 s each on CPU, ~3.5 h for one
+                         # R session); 0 = skip
+      chunks: 20         # the refits are saved in this many files: a stopped run resumes
+                         # at the first missing one, and R sessions share them
+    grid:                # own design, not in Paper C: every combination of hidden layers,
+                         # activation, dropout, optimiser and batch size, as nncl$grid;
+                         # the embeddings stay fixed, early stopping by the rolling
+                         # origin and final fit as in training above
       hidden: [[20], [20, 15], [20, 15, 10], [40, 30, 20]]  # neurons of the hidden
                          # layers, any number of layers; [20, 15, 10] is Paper C's
       activation: [tanh, relu]        # tanh is Paper C's
       dropout: [0.0, 0.1, 0.2]        # after every hidden layer; 0.1 is Paper C's
-      optimizers:        # Keras optimiser: learning rate; any of nncl_optimizer
-        rmsprop: 0.001       # Paper C
+      optimizers: [rmsprop, adam, sgd_momentum]  # any of nncl_optimizer; rmsprop is
+                                                 # Paper C's
+      learning_rate:     # per optimiser
+        rmsprop: 0.001
         adam: 0.001
         sgd_momentum: 0.001
       momentum: 0.9      # sgd_momentum and sgd_nesterov
@@ -66,16 +142,32 @@ default:
       nagging: [10, 20]  # networks of a nagging predictor (Richman & Wuthrich 2020): the
                          # predicted triangles averaged over blocks of 10 and of 20
                          # seeds (seeds: a multiple of both)
-    masking:             # own design, not in Paper C ("bCCNN masking sensitivity.R"): the
-                         # cells of accident and development periods without payments
-                         # left out of the early stopping and the test error, or scored;
-                         # the network of model and training above under three splits:
-                         # the claims split, and the rolling origin with final_fit
-                         # refit and partition
+    tuning:              # hyperparameters chosen on the test partitions of the rolling
+                         # origin (Al-Mudafer et al. 2021 Section 3.2; R/tuning.R,
+                         # R/bccnn_tuning.R, "bCCNN hyperparameter search.R")
+      method: successive # successive: one hyperparameter at a time in `order`, starting
+                         # from model: and training: above (Al-Mudafer et al.);
+                         # grid: every combination of the candidates
+      seeds: [2026, 2027, 2028]  # score = pooled test error averaged over these seeds
+      order: [dropout, hidden, activation, learning_rate]
+      candidates:        # any element of param in "bCCNN fit.R": hidden, activation,
+                         # dropout, trainable, optimizer, learning_rate, momentum,
+                         # batch_size
+        dropout: [0.0, 0.1, 0.2]                   # Al-Mudafer et al.: 0, 0.1, 0.2
+        hidden: [[20], [20, 15], [20, 15, 10], [40, 30, 20], [20, 20, 20, 20]]
+                                                   # depth and widths of the hidden layers
+        activation: [tanh, sigmoid, relu]          # Paper C: tanh
+        learning_rate: [0.0005, 0.001, 0.002]
+    masking:             # own design, not in Paper C ("bCCNN masking fit.R"): the cells
+                         # of accident and development periods without payments left out
+                         # of the early stopping and the test error, or scored; the
+                         # network of model and training above under three splits: the
+                         # claims split, and the rolling origin with final_fit refit and
+                         # partition
       seeds: 20          # fits per split that differ in the seed only: seed, seed + 1, ...
   nncl:                # Wuthrich (2018) EAJ 8:407-436: neural network chain ladder
-    data_dir: claim-simulation-machine  # data/raw/<data_dir>: claims.csv, summary.csv
-    simulation:          # Listing 1: Gabrielli & Wuthrich (2018) machine V1
+    simulation:          # Listing 1: Gabrielli & Wuthrich (2018) machine V1, the data
+                         # set machine4
       expected_claims: 5000000        # V
       lob_dist: [0.35, 0.20, 0.15, 0.30]
       growth: [0, 0, 0, 0]
@@ -84,8 +176,6 @@ default:
       std2: 0.85
       rng_rounding: true # sample.kind "Rounding" of R < 3.6 in the master and the
                          # workers, to come close to the paper's data
-    first_ay: 1994
-    n_ay: 12             # I = 12 accident years, development years j = 0..J = 11
     model:               # Section 3, Listing 2
       q: [5, 10, 20]     # hidden neurons (Table 5)
       q_main: 20         # the reserves, Figs 8-9 and the sensitivity runs
@@ -103,11 +193,13 @@ default:
                          # networks to fit; s4_balance = s3_cl_start + balance
     units: 1000          # EAJ tables in 1'000
     risks_units: 10000   # Risks tables in 10'000
-    synthetic:           # SynthETIC portfolio only (own design, not in the paper): every
-                         # combination of hidden layers, optimiser and training
+    grid:                # own design, not in the paper: every combination of hidden
+                         # layers, optimiser and training, on every data set
       hidden: [[20], [20, 20, 15], [20, 15, 10]]  # neurons of the hidden layers; [20] is
                          # the paper's q = 20, [20, 15, 10] the layers of the bCCNN
-      optimizers:        # Keras optimiser: learning rate (Keras default unless noted)
+      optimizers: [sgd, sgd_momentum, sgd_nesterov, adagrad, adadelta, rmsprop, adam,
+                   adamw, adamax, nadam]  # any of nncl_optimizer
+      learning_rate:     # per optimiser (Keras default unless noted)
         sgd: 0.001           # Keras default 0.01: the networks of three hidden layers
         sgd_momentum: 0.001  # (sgd) and all networks (momentum) diverge in trial fits
         sgd_nesterov: 0.001
@@ -127,6 +219,7 @@ default:
       nagging: 10        # networks of a nagging predictor (Richman & Wuthrich 2020):
                          # the CL factors averaged over 10 seeds, one predictor per
                          # block of 10 seeds
+    synthetic:           # SynthETIC data sets only: the coding of Age of Claimant
       age: dummy         # Age of Claimant in the networks: four dummies. Leave it:
                          # the profile age_numeric below switches to numeric (one
                          # input, an ordinal score: the midpoint of the band by the
@@ -137,15 +230,50 @@ default:
         "30-50": 40
         "50-65": 57.5
         "over 65": 75    # 65 to 85
-      tag: nncl_synthetic    # the fits of a coding: data/processed/<tag>_fit_<run>.rds,
-                             # models/<tag>/
-      out_dir: synthetic     # and its outputs: output/tables|figures/04_NN-chain-ladder/
+      tag: nncl_synthetic    # the fits of a coding: <processed>/<tag>_fit_<run>.rds,
+                             # <models>/<tag>/
+      out_dir: synthetic     # and its outputs: <tables|figures>/04_NN-chain-ladder/
                              # <out_dir>
+    tuning:              # own design: hyperparameters of each training mode chosen on
+                         # rolling-origin folds, as bccnn: tuning (R/tuning.R,
+                         # R/nncl_tuning.R, the "... hyperparameter search.R" scripts;
+                         # run them with the mode as argument)
+      seeds: [2026, 2027, 2028]  # score = pooled test loss averaged over these seeds
+      final_seeds: 10    # the chosen setting refitted on the full triangle with seeds
+                         # seed, seed + 1, ...: reserves of each and of their average
+                         # (nagging predictor)
+      modes:             # one search per training mode of grid: training; tunable:
+                         # hidden, activation, dropout, optimizer, learning_rate, momentum,
+                         # epochs, patience, batch_size, validation_split; the folds are
+                         # the valuation years of cfg$data$rolling_origin$test_periods
+        cl_start:        # early stopping from the homogeneous CL factor (S3)
+          method: successive
+          order: [dropout, hidden, activation, optimizer, learning_rate]
+          candidates:
+            dropout: [0.0, 0.1, 0.2]
+            hidden: [[20], [20, 15, 10], [20, 20, 15]]
+            activation: [tanh, sigmoid, relu]
+            optimizer: [adam, rmsprop, nadam]
+            learning_rate: [0.0005, 0.001, 0.002]
+        paper:           # random start, a fixed number of epochs (Listing 2): every combination
+          method: grid
+          candidates:
+            dropout: [0.0, 0.1, 0.2]
+            hidden: [[20], [20, 15, 10], [20, 20, 15]]
+            activation: [tanh, sigmoid, relu]
+        early_stop:      # early stopping from the random start (S2)
+          method: successive
+          order: [dropout, hidden, activation, learning_rate, patience]
+          candidates:
+            dropout: [0.0, 0.1, 0.2]
+            hidden: [[20], [20, 15, 10], [20, 20, 15]]
+            activation: [tanh, sigmoid, relu]
+            learning_rate: [0.0005, 0.001, 0.002]
+            patience: [10, 20, 50]
   lob:                   # Paper C (Gabrielli, Richman & Wuthrich 2020) Appendix A: the six
                          # lines of business from the Gabrielli & Wuthrich (2018) machine
-                         # V1; also the simulated data of Harkonen (2021) Section 3
-    data_dir: claim-simulation-lob    # data/raw/<data_dir>: claims.csv, triangles.csv,
-                                      # counts.csv, payments.csv, summary.csv
+                         # V1, the data set lob6; also the simulated data of Harkonen
+                         # (2021) Section 3
     simulation:          # Listing 1
       seed1: 75          # lines 10, 14, 20, 28 and 31
       std1: 0.85         # standard deviation of the log claim sizes
@@ -164,9 +292,6 @@ default:
       workers: 1         # PSOCK workers the machine starts (its own choice: all cores
                          # but one); it simulates one block, on one worker, so the data
                          # do not depend on this number
-    first_ay: 1994
-    n_ay: 12             # I = 12 accident years, development years j = 0..J = 11
-    units: 1000          # the tables of both papers are in 1'000
     seed_study:          # Paper C Table 8 and Figures 9-10 (SSRN version: Table 7 and
                          # Figures 7-8): the simulation repeated with other seeds
       seeds: 100         # seed1 = 1, ..., 100 (and simulation: seed1, if not among them)
@@ -180,8 +305,11 @@ age_numeric:            # R_CONFIG_ACTIVE=age_numeric: the NN chain ladder Synth
       tag: nncl_synthetic_age_numeric
       out_dir: synthetic-age-numeric
 
-quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of the ODP GLM and bCCNN
-                         # scripts, its outputs and bootstrap cache apart
+quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of every script, its
+                         # fits and outputs apart. A profile replaces a vector of the
+                         # default block (optimizers, a single hidden: [20]) and merges a
+                         # map (learning_rate); a list of several vectors such as
+                         # hidden: [[20], [20, 15]] cannot be replaced by a shorter list
   paths:
     processed: data/processed/quick
     models: models/quick
@@ -194,15 +322,52 @@ quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of the ODP GL
     training:
       max_epochs: 100
     bootstrap:
-      nsim: 4
-    tuning:              # one activation and dropout rate, 4 seeds
+      nsim: 8
+      chunks: 2
+    grid:                # one hidden layer of 20 neurons, full batch and batches of 64:
+                         # two combinations, 4 seeds
+      hidden: [20]
       activation: [tanh]
       dropout: [0.1]
+      optimizers: [rmsprop]
       seeds: 4
       nagging: [2, 4]
+    tuning:              # one hyperparameter, one seed
+      seeds: [2026]
+      order: [dropout]
+      candidates:
+        dropout: [0.0, 0.1]
     masking:
       seeds: 2
+  nncl:
+    training:
+      epochs: 5
+    sensitivity:
+      max_epochs: 10
+      patience: 2
+    grid:                # one hidden layer of 20 neurons, two optimisers x three
+                         # trainings x 2 seeds
+      hidden: [20]
+      optimizers: [rmsprop, sgd]
+      seeds: 2
+      nagging: 2
+    tuning:              # one hyperparameter per mode, one seed
+      seeds: [2026]
+      final_seeds: 2
+      modes:
+        cl_start:
+          order: [dropout]
+          candidates:
+            dropout: [0.0, 0.1]
+        paper:           # grid: two combinations
+          candidates:
+            dropout: [0.0, 0.1]
+            hidden: [20]
+            activation: [tanh]
+        early_stop:
+          order: [dropout]
+          candidates:
+            dropout: [0.0, 0.1]
   lob:
     seed_study:
       seeds: 2           # seeds 1, 2 and 75: three simulations
-
