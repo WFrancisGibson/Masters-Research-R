@@ -80,8 +80,9 @@ test_that("hp_grid, hp_label and hp_check", {
 test_that("the bCCNN score uses the test partitions and the seeds", {
   parts <- rolling_origin(upper_triangle(matrix(1, 20, 20)), c(5, 2), 2, 2)
   seen <- NULL
-  stub <- function(parts, truth, param, max_epochs, final_fit) {
+  stub <- function(parts, truth, param, max_epochs, final_fit, mask = FALSE) {
     seen <<- rbind(seen, data.frame(seed = param$seed, dropout = param$dropout,
+                                    mask = mask,
                                     n_parts = length(parts),
                                     final = any(sapply(parts, `[[`, "final"))))
     n_test <- sapply(parts, function(p) sum(!is.na(p$test)))
@@ -94,8 +95,10 @@ test_that("the bCCNN score uses the test partitions and the seeds", {
                               test_ccODP = 1))
   }
   s <- bccnn_tscv_score(parts, list(dropout = 0.2), list(dropout = 0.1),
-                        seeds = c(5, 6), max_epochs = 10, fit = stub)
+                        seeds = c(5, 6), max_epochs = 10, mask = TRUE,
+                        fit = stub)
   expect_equal(seen$seed, c(5, 6))
+  expect_true(all(seen$mask))
   expect_true(all(seen$dropout == 0.2 & seen$n_parts == 2 & !seen$final))
   expect_equal(sum(s$runs$n_test[s$runs$seed == 5]), 93)
   expect_equal(s$score, 2)

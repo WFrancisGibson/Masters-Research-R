@@ -19,6 +19,9 @@
 ##    then the network of final_fit on the observed triangle (as in
 ##    "bCCNN fit.R"); next to the bCCNN with the settings of config.yml
 ## 5. tables to output/tables/03_bCCNN: bccnn_tuning_*.csv
+## Periods without payments are masked as in config bccnn$rolling_origin$mask;
+## R_CONFIG_ACTIVE=no_mask runs the search without it (outputs apart), and
+## "bCCNN masking comparison.R" compares the two.
 ##
 ## The test error is the selection criterion here, so its value for the
 ## chosen set is optimistic; the loss on the true lower triangle is the
@@ -73,7 +76,8 @@ search <- tune_search(
     bccnn_tscv_score(parts, hp, param,
                      seeds = unlist(tune_cfg$seeds),
                      max_epochs = train_cfg$max_epochs,
-                     final_fit = train_cfg$final_fit)
+                     final_fit = train_cfg$final_fit,
+                     mask = cfg$bccnn$rolling_origin$mask)
   },
   candidates = tune_cfg$candidates,
   method = tune_cfg$method,
@@ -93,7 +97,8 @@ message("chosen: ", hp_label(search$best))
 ## then refit on the observed triangle (or the network of the partition)
 bccnn_final <- function(p) {
   ro <- rolling_origin_fit(parts, truth, p, train_cfg$max_epochs,
-                           train_cfg$final_fit)
+                           train_cfg$final_fit,
+                           mask = cfg$bccnn$rolling_origin$mask)
   epochs <- ro$final$best_epoch
   mu <- if (train_cfg$final_fit == "refit") {
     bccnn_fit(ccodp_fit(dat_upper), epochs, p, track = list())$mu

@@ -13,13 +13,15 @@ bccnn_tunable <- c("hidden", "activation", "dropout", "trainable",
 ## (early stopping on each partition's validation cells, then the network
 ## chosen by final_fit scored on its test cells: their eq. (4.4)); baseline
 ## the chain ladder at each valuation date (refit) or the ccODP on the
-## training cells (partition); see tscv_summary()
+## training cells (partition); mask: rolling_origin_fit()'s masking of
+## periods without payments; see tscv_summary()
 bccnn_tscv_score <- function(parts,
                              hp,
                              param,
                              seeds,
                              max_epochs,
                              final_fit = "refit",
+                             mask = FALSE,
                              fit = rolling_origin_fit) {
   hp_check(hp, bccnn_tunable)
   tests <- Filter(function(p) !p$final, parts)
@@ -29,7 +31,7 @@ bccnn_tscv_score <- function(parts,
   runs <- do.call(rbind, lapply(seeds, function(s) {
     p <- modifyList(param, hp)
     p$seed <- s
-    ro <- fit(tests, NULL, p, max_epochs, final_fit)$summary
+    ro <- fit(tests, NULL, p, max_epochs, final_fit, mask = mask)$summary
     data.frame(seed = s,
                origin = ro$origin,
                n_test = ro$n_test,

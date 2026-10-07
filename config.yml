@@ -44,6 +44,10 @@ default:
                             # (theirs: 10 and 4 of 40 quarters)
       vali_periods: 2       # validation: latest 2 calendar years of each partition (theirs: 4)
       exclude: 2            # ... except the first 2 accident and development years (theirs: 3)
+      mask: true            # leave out cells of periods without payments: validation cells
+                            # whose period pays nothing in the training cells, test cells
+                            # whose period pays nothing by the valuation date (rolling_origin_fit());
+                            # the profile no_mask below runs the same analysis without it
     tuning:              # hyperparameters chosen on the test partitions of rolling_origin
                          # (Al-Mudafer et al. 2021 Section 3.2; R/tuning.R, R/bccnn_tuning.R,
                          # analysis/03_bCCNN/bCCNN hyperparameter search.R)
@@ -175,6 +179,20 @@ age_numeric:             # R_CONFIG_ACTIVE=age_numeric: the NN chain ladder Synt
       age: numeric
       tag: nncl_synthetic_age_numeric
       out_dir: synthetic-age-numeric
+
+no_mask:                 # R_CONFIG_ACTIVE=no_mask: the bCCNN scripts with every cell of the
+                         # rolling-origin partitions scored (no masking of periods without
+                         # payments); fits, tables and figures apart from the masked form
+                         # ("bCCNN masking comparison.R" compares the two)
+  paths:
+    processed: data/processed/no_mask
+    models: models/no_mask
+    tables: output/no_mask/tables
+    figures: output/no_mask/figures
+    logs: output/no_mask/logs
+  bccnn:
+    rolling_origin:
+      mask: false
 
 quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of the ODP GLM and bCCNN
                          # scripts, its outputs and bootstrap cache apart

@@ -67,7 +67,8 @@ if (train_cfg$validation == "rolling_origin") {
                                truth,
                                param,
                                train_cfg$max_epochs,
-                               train_cfg$final_fit)
+                               train_cfg$final_fit,
+                               mask = cfg$bccnn$rolling_origin$mask)
   val <- ro_fit$final
 } else {
   ## Paper C Section 3.3.2: ccODP and bCCNN on the training half of the
@@ -220,9 +221,12 @@ steps_chosen_by <- if (epochs == val$best_epoch) "lowest validation loss" else
   "override (config epochs)"
 tables <- list(
   settings = data.frame(setting = c("early stopping on", "final network",
-                                    "steps chosen by", "units"),
+                                    "steps chosen by",
+                                    "periods without payments masked",
+                                    "units"),
                         value = c(train_cfg$validation, train_cfg$final_fit,
                                   steps_chosen_by,
+                                  cfg$bccnn$rolling_origin$mask,
                                   format(scale, scientific = FALSE))),
   results = results,
   validation = validation,

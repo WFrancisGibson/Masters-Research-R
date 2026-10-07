@@ -143,25 +143,61 @@ bccnn_bootstrap <- function(y_boot, b, cells, epochs, param) {
   }))
 }
 
+## periods without payments in the cells 'cells' of y (row and column sums
+## 0): their ccODP effect on those cells is -Inf (glm() stops near -30, means
+## near e^-30), so a cell of theirs scored against it adds about 30 x its
+## payment to the deviance, and the network's embedding input of the period
+## is far outside the others' range
+zero_periods <- function(y, cells) {
+  y0 <- ifelse(cells, y, 0)
+  list(origin = rowSums(y0, na.rm = TRUE) == 0,
+       dev = colSums(y0, na.rm = TRUE) == 0)
+}
+
+## m with the cells of the periods z (zero_periods()) set to NA (not scored)
+mask_periods <- function(m, z) {
+  if (is.null(m)) return(m)
+  m[z$origin, ] <- NA
+  m[, z$dev] <- NA
+  m
+}
+
 ## rolling origin: per partition, ccODP and bCCNN on the training cells,
 ## early-stopped on the validation cells; a test partition also scores the
-## network chosen by final_fit on its test cells (test error: their eq. (4.4))
-rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
+## network chosen by final_fit on its test cells (test error: their eq. (4.4));
+## mask = TRUE leaves out (as the claims split of "bCCNN fit.R" does):
+## validation cells in a period with no payments in the training cells;
+## test cells in a period with no payments in any cell observed at c0 (no
+## model fitted at c0 can forecast them). Test cells in a period that pays
+## only in validation cells stay in: the chain ladder at c0 knows that
+## period. n_vali, n_test count the cells scored; n_*_masked those left out.
+## Not in Paper C, Harkonen (2021) or Al-Mudafer et al. (2021).
+rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit,
+                               mask = FALSE) {
   summary <- NULL
   final <- NULL                     # no final partition: the test ones only
   for (k in seq_along(parts)) {
     part <- parts[[k]]
     odp <- ccodp_fit(part$y, cells = part$train)
-    track <- list(vali = ifelse(part$vali, part$y, NA))
-    if (part$final) track$truth <- truth else track$test <- part$test
+    vali <- ifelse(part$vali, part$y, NA)
+    test <- part$test
+    if (mask) {
+      vali <- mask_periods(vali, zero_periods(part$y, part$train))
+      test <- mask_periods(test, zero_periods(part$y, !is.na(part$y)))
+    }
+    track <- list(vali = vali)
+    if (part$final) track$truth <- truth else track$test <- test
     nn <- bccnn_fit(odp, max_epochs, param, track = track)
     h <- nn$history
     best <- h$epoch[which.min(h$vali)]
     res <- data.frame(partition = if (part$final) "final" else as.character(k),
                       origin = part$origin,
                       n_train = sum(part$train),
-                      n_vali = sum(part$vali),
-                      n_test = sum(!is.na(part$test)),
+                      n_vali = sum(!is.na(vali)),
+                      n_test = sum(!is.na(test)),
+                      n_vali_masked = sum(part$vali) - sum(!is.na(vali)),
+                      n_test_masked = sum(!is.na(part$test)) -
+                        sum(!is.na(test)),
                       best_epoch = best,
                       test_actual = NA,
                       test_ccODP = NA,
@@ -180,16 +216,16 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
         h_test <- bccnn_fit(cl,
                             best,
                             param,
-                            track = list(test = part$test))$history
+                            track = list(test = test))$history
         h_test <- tail(h_test, 1)
       } else {
         h_test <- h[h$epoch == best, ]
       }
-      res$test_actual <- sum(part$test, na.rm = TRUE)
-      res$test_ccODP <- sum(cl$mu[!is.na(part$test)])
+      res$test_actual <- sum(test, na.rm = TRUE)
+      res$test_ccODP <- sum(cl$mu[!is.na(test)])
       res$test_ccODP_train <- h$test_pred[h$epoch == 0]
       res$test_bCCNN <- h_test$test_pred
-      res$test_loss_ccODP <- poisson_deviance(part$test, cl$mu)
+      res$test_loss_ccODP <- poisson_deviance(test, cl$mu)
       res$test_loss_ccODP_train <- h$test[h$epoch == 0]
       res$test_loss_bCCNN <- h_test$test
     }
@@ -197,4 +233,28 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
   }
   list(summary = summary,
        final = final)
+}
+
+## the cells that mask = TRUE leaves out, per partition (no Keras): the
+## periods and the numbers of validation and test cells
+rolling_origin_masked <- function(parts) {
+  do.call(rbind, lapply(parts, function(part) {
+    zv <- zero_periods(part$y, part$train)
+    zt <- zero_periods(part$y, !is.na(part$y))
+    vali <- ifelse(part$vali, part$y, NA)
+    data.frame(partition = if (part$final) "final" else
+                 as.character(part$origin),
+               origin = part$origin,
+               vali_zero_origins = paste(which(zv$origin), collapse = " "),
+               vali_zero_devs = paste(which(zv$dev), collapse = " "),
+               n_vali = sum(part$vali),
+               n_vali_masked = sum(part$vali) -
+                 sum(!is.na(mask_periods(vali, zv))),
+               test_zero_origins = paste(which(zt$origin), collapse = " "),
+               test_zero_devs = paste(which(zt$dev), collapse = " "),
+               n_test = sum(!is.na(part$test)),
+               n_test_masked = if (part$final) 0 else
+                 sum(!is.na(part$test)) -
+                   sum(!is.na(mask_periods(part$test, zt))))
+  }))
 }
