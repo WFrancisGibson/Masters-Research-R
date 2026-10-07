@@ -26,3 +26,8 @@ __pycache__/
 
 # settings of one computer (RAW_DIR, RETICULATE_PYTHON)
 .Renviron
+
+# left by a failing test run (testthat)
+tests/testthat/_problems/
+tests/testthat/_snaps/
+tests/testthat/testthat-problems.rds

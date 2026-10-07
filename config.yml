@@ -3,9 +3,9 @@ default:
   dataset: !expr Sys.getenv("DATASET", "baseline")  # the data set of this R session: a
                          # name of datasets below, from the environment variable DATASET;
                          # analysis/00_setup.R puts its block in cfg$data
-  unit: !expr Sys.getenv("UNIT", "")   # lob6 only (environment variable UNIT): lob1 ..
-                         # lob6, the triangle of one LoB, or lob_all, the six LoBs
-                         # jointly (Paper C Section 4); empty: the whole data set
+  unit: !expr Sys.getenv("UNIT", "")   # machine data sets only (environment variable
+                         # UNIT): lob1, lob2, ..., the triangle of one LoB; empty: the
+                         # whole data set (the SynthETIC data sets have one triangle)
   run_root: !expr Sys.getenv("RUN_ROOT", ".")  # the interim files, fits and outputs of a
                          # data set (and unit) are in <run_root>/<path>/<dataset>/<unit>;
                          # the final run points RUN_ROOT to the worktree of the results
@@ -64,7 +64,9 @@ default:
       notidel_mean_q: 8                # environment 1's cv is kept
       rolling_origin: {test_periods: [5, 2], vali_periods: 2, exclude: 2}
     lob6:                # Paper C Appendix A: six LoBs of the Gabrielli & Wuthrich
-                         # (2018) machine V1 (lob: below), AY 1994-2005, DY 0-11
+                         # (2018) machine V1 (lob: below), AY 1994-2005, DY 0-11.
+                         # Simulated and described only: no model is fitted on it and
+                         # it is not part of the final run
       dir: claim-simulation-lob        # claims.csv, triangles.csv, counts.csv,
                                        # payments.csv, summary.csv
       generator: machine
@@ -92,7 +94,7 @@ default:
     nsim: 1000           # bootstrap samples: glmReserve, England & Verrall (1999) Section 4
                          # and Paper C Section 2.3 (1'000)
   bccnn:                 # Paper C: Gabrielli, Richman & Wuthrich (2020)
-    model:               # eq. (13)-(14), Listing 4; six LoBs jointly: eq. (22), Listing 5
+    model:               # eq. (13)-(14), Listing 4
       hidden: [20, 15, 10]            # neurons of the hidden layers (Paper C: 3 layers)
       activation: tanh
       dropout: 0.1                    # after every hidden layer
@@ -142,6 +144,34 @@ default:
       nagging: [10, 20]  # networks of a nagging predictor (Richman & Wuthrich 2020): the
                          # predicted triangles averaged over blocks of 10 and of 20
                          # seeds (seeds: a multiple of both)
+    stopping:            # the grid: how the number of gradient descent steps is read off
+                         # the validation losses of a run. Every run of the grid trains
+                         # max_epochs steps once per partition and is then finished under
+                         # each rule (own design: the three papers' rules side by side)
+      rules: [minimum, fixed, moving_average, patience]
+                         # minimum: the step with the lowest validation loss within the
+                         #   first training$max_epochs steps (the rule of "bCCNN fit.R")
+                         # fixed: one number for all runs of a data set, as Paper C
+                         #   Section 3.3.2 (300 iterations read off its Figure 2 and
+                         #   used for every LoB): read off once per data set, the
+                         #   minimum rule's step of the network of model: and training:
+                         #   above with the first seed ("bCCNN fit.R" under the rolling
+                         #   origin), rounded to `round`
+                         # moving_average: the minimum of the central moving average of
+                         #   the validation losses, Harkonen (2021) Section 3.2
+                         # patience: training stops when the validation loss has set no
+                         #   new low for `patience` steps, and the step of the last low
+                         #   is used, Al-Mudafer et al. (2021) Section 4
+      max_epochs: 3000   # length of the validation runs of the grid (own choice for
+                         # the run time; Harkonen runs 10,000 epochs, Al-Mudafer et al.
+                         # cap at 10,000)
+      window: 100        # Harkonen: window size 100. Central: the steps 49 to
+                         # max_epochs - 50 can be chosen, never the ccODP start; at most
+                         # max_epochs + 1 (keep window and max_epochs together in a profile)
+      patience: 300      # Al-Mudafer et al.: no new low in the last 1,000 epochs of
+                         # at most 10,000; the same tenth of the 3,000 steps here
+      round: 100         # fixed: rounded to the nearest 100 steps; a lowest step below
+                         # round / 2 gives 0 steps, the chain ladder for every run
     tuning:              # hyperparameters chosen on the test partitions of the rolling
                          # origin (Al-Mudafer et al. 2021 Section 3.2; R/tuning.R,
                          # R/bccnn_tuning.R, "bCCNN hyperparameter search.R")
@@ -158,13 +188,13 @@ default:
                                                    # depth and widths of the hidden layers
         activation: [tanh, sigmoid, relu]          # Paper C: tanh
         learning_rate: [0.0005, 0.001, 0.002]
-    masking:             # own design, not in Paper C ("bCCNN masking fit.R"): the cells
-                         # of accident and development periods without payments left out
-                         # of the early stopping and the test error, or scored; the
-                         # network of model and training above under three splits: the
-                         # claims split, and the rolling origin with final_fit refit and
-                         # partition
-      seeds: 20          # fits per split that differ in the seed only: seed, seed + 1, ...
+    masking:             # own design, not in Paper C ("bCCNN masking fit.R"): the
+                         # validation cells of accident and development periods without
+                         # payments in the training half left out of the early stopping,
+                         # or scored; the network of model and training above under
+                         # Paper C's claims split (the rolling origin masks no cell of
+                         # any data set and is not part of the study)
+      seeds: 20          # fits that differ in the seed only: seed, seed + 1, ...
   nncl:                # Wuthrich (2018) EAJ 8:407-436: neural network chain ladder
     simulation:          # Listing 1: Gabrielli & Wuthrich (2018) machine V1, the data
                          # set machine4
@@ -193,8 +223,8 @@ default:
                          # networks to fit; s4_balance = s3_cl_start + balance
     units: 1000          # EAJ tables in 1'000
     risks_units: 10000   # Risks tables in 10'000
-    grid:                # own design, not in the paper: every combination of hidden
-                         # layers, optimiser and training, on every data set
+    grid:                # own design, not in the paper: the random start of Listing 2,
+                         # every combination of hidden layers, optimiser and training
       hidden: [[20], [20, 20, 15], [20, 15, 10]]  # neurons of the hidden layers; [20] is
                          # the paper's q = 20, [20, 15, 10] the layers of the bCCNN
       optimizers: [sgd, sgd_momentum, sgd_nesterov, adagrad, adadelta, rmsprop, adam,
@@ -211,14 +241,24 @@ default:
         adamax: 0.001
         nadam: 0.001
       momentum: 0.9      # sgd_momentum and sgd_nesterov
-      training: [paper, early_stop, cl_start]  # paper: Listing 2 (100 epochs, random
-                         # start); early_stop: early stopping from the random start (as
-                         # S2); cl_start: early stopping from the homogeneous CL factor
-                         # (as S3)
+      training: [paper, early_stop]  # paper: Listing 2 (100 epochs, random start);
+                         # early_stop: early stopping from the random start (as S2)
       seeds: 20          # fits per run that differ in the seed only: seed, seed + 1, ...
       nagging: 10        # networks of a nagging predictor (Richman & Wuthrich 2020):
                          # the CL factors averaged over 10 seeds, one predictor per
                          # block of 10 seeds
+    cl_grid:             # own design: the chain-ladder start (S3) as a grid of its own,
+                         # with its own tables and figures: every combination of the
+                         # hidden layers and optimisers of grid above with the two
+                         # trainings below, each from the homogeneous CL factor. A key
+                         # set here replaces that of grid (optimizers, momentum, seeds,
+                         # nagging; learning_rate per optimiser); not hidden: as in a
+                         # profile, a list of hidden vectors is ignored and a plain
+                         # vector gives networks of one hidden layer
+      training: [cl_paper, cl_start]  # cl_paper: the 100 epochs of Listing 2 from the
+                         # CL factor, no early stopping (the counterpart of paper);
+                         # cl_start: early stopping from the CL factor, as S3 (the
+                         # counterpart of early_stop)
     synthetic:           # SynthETIC data sets only: the coding of Age of Claimant
       age: dummy         # Age of Claimant in the networks: four dummies. Leave it:
                          # the profile age_numeric below switches to numeric (one
@@ -332,6 +372,11 @@ quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of every scri
       optimizers: [rmsprop]
       seeds: 4
       nagging: [2, 4]
+    stopping:            # 300 steps instead of 3,000, the rules scaled with them
+      max_epochs: 300
+      window: 10
+      patience: 30
+      round: 10
     tuning:              # one hyperparameter, one seed
       seeds: [2026]
       order: [dropout]
@@ -345,8 +390,9 @@ quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of every scri
     sensitivity:
       max_epochs: 10
       patience: 2
-    grid:                # one hidden layer of 20 neurons, two optimisers x three
-                         # trainings x 2 seeds
+    grid:                # one hidden layer of 20 neurons, two optimisers x two
+                         # trainings x 2 seeds = 8 runs; cl_grid: the same with its two
+                         # trainings
       hidden: [20]
       optimizers: [rmsprop, sgd]
       seeds: 2
@@ -371,3 +417,13 @@ quick:                   # R_CONFIG_ACTIVE=quick: a fast check run of every scri
   lob:
     seed_study:
       seeds: 2           # seeds 1, 2 and 75: three simulations
+
+quick_age_numeric:       # R_CONFIG_ACTIVE=quick_age_numeric: the quick check run of the
+                         # NN chain ladder SynthETIC scripts with Age of Claimant as an
+                         # ordinal score (the smoke test of the final run)
+  inherits: quick
+  nncl:
+    synthetic:
+      age: numeric
+      tag: nncl_synthetic_age_numeric
+      out_dir: synthetic-age-numeric
