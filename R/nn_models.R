@@ -51,14 +51,15 @@ bccnn_model <- function(odp,
   # the ccODP part: alpha_i + beta_j
   cc0 <- layer_add(list(ay_embed, dy_embed), name = "cc0")
 
+  # one hidden layer per element of q (Paper C: three), dropout after each
   nn0 <- list(ay_embed, dy_embed) |>
-    layer_concatenate(name = "concate0") |>
-    layer_dense(units = q[1], activation = activation, name = "hidden1") |>
-    layer_dropout(rate = dropout, name = "dropout1") |>
-    layer_dense(units = q[2], activation = activation, name = "hidden2") |>
-    layer_dropout(rate = dropout, name = "dropout2") |>
-    layer_dense(units = q[3], activation = activation, name = "hidden3") |>
-    layer_dropout(rate = dropout, name = "dropout3")
+    layer_concatenate(name = "concate0")
+  for (l in seq_along(q)) {
+    nn0 <- nn0 |>
+      layer_dense(units = q[l], activation = activation,
+                  name = paste0("hidden", l)) |>
+      layer_dropout(rate = dropout, name = paste0("dropout", l))
+  }
 
   response <- list(cc0, nn0) |>
     layer_concatenate(name = "concate1") |>
@@ -70,7 +71,7 @@ bccnn_model <- function(odp,
   get_layer(model, "AY_embed") |> set_weights(list(as.matrix(odp$alpha)))
   get_layer(model, "DY_embed") |> set_weights(list(as.matrix(odp$beta)))
   get_layer(model, "Response") |>
-    set_weights(list(as.matrix(c(1, rep(0, q[3]))), array(odp$c)))
+    set_weights(list(as.matrix(c(1, rep(0, q[length(q)]))), array(odp$c)))
 
   model |> compile(loss = "poisson",
                    optimizer = optimizer_rmsprop(learning_rate = learning_rate,
