@@ -3,21 +3,11 @@
 #########  Al-Mudafer, Avanzi, Taylor & Wong (2021), Sections 3.2 and 4.1
 ##########################################
 
-## Shared by the bCCNN (R/bccnn_tuning.R) and the NN chain ladder
-## (R/nncl_tuning.R). A hyperparameter set is scored by time-series
-## cross-validation: at each earlier valuation date of the rolling origin
-## (test partitions) the whole fitting procedure is replayed on what was
-## known then and scored on the calendar years that followed; the losses are
-## pooled per test cell over the valuation dates (Al-Mudafer et al. eq.
-## (4.4)) and averaged over seeds ("Averaging the error of these runs reduces
-## the impact of random weight initialisations", Al-Mudafer et al. 2021, PDF
-## p. 16). The set with the lowest score is kept.
-##
-## Not K-fold cross-validation: the folds overlap, are ordered in time and do
-## not cover the triangle (thesis/claude_explainer-bccnn-rolling-origin-
-## versus-k-fold-cross-validation.pdf). Once hyperparameters are chosen on
-## it, the test error is a validation score: the true lower triangle of the
-## simulation stays the independent check.
+## shared by the bCCNN (R/bccnn_tuning.R) and the NN chain ladder
+## (R/nncl_tuning.R): a hyperparameter set is fitted at the earlier valuation
+## dates of the rolling origin (test partitions) and scored on the calendar
+## years that followed, the losses pooled per test cell (their eq. (4.4)) and
+## averaged over seeds (their p. 16); the set with the lowest score is kept
 
 ## "dropout=0.1, hidden=20-15-10": the key of a set in the tables and cache
 hp_label <- function(hp) {
@@ -36,14 +26,10 @@ hp_grid <- function(candidates) {
   })
 }
 
-## stops if hp names an argument the model does not take
+## hp names arguments of the model only: any other name would be ignored
+## and its candidates would all score the same
 hp_check <- function(hp, tunable) {
-  bad <- setdiff(names(hp), tunable)
-  if (length(bad) > 0) {
-    stop("not a tunable hyperparameter: ", paste(bad, collapse = ", "),
-         " (tunable: ", paste(tunable, collapse = ", "), ")")
-  }
-  invisible(hp)
+  stopifnot("not a tunable hyperparameter" = names(hp) %in% tunable)
 }
 
 ## score of a set from its runs (data frame, one row per seed and valuation
@@ -98,12 +84,10 @@ tuning_table <- function(scored) {
 ## method "grid": every combination;
 ## method "successive" (Al-Mudafer et al. 2021, PDF p. 12, Section 3.2):
 ## starting from 'start', one hyperparameter at a time in 'order', the others
-## held at their current best ("Using θ initial and keeping all other
-## hyper-parameters fixed, use Grid Search to test all desired values ...
-## Select the coefficient with the lowest test error"); the current value
-## stays unless a candidate scores lower.
-## A scored set is not refitted; with cache_dir it is saved there and read
-## back on the next call, so a stopped search resumes where it stopped.
+## held at their current best; the current value stays unless a candidate
+## scores lower (a tie, or all candidates diverged: no move).
+## A scored set is not refitted; with cache_dir it is saved there (save_run()
+## of R/runs.R) and read back on the next call, so a stopped search resumes
 tune_search <- function(score_fn,
                         candidates,
                         method = "successive",
@@ -123,19 +107,22 @@ tune_search <- function(score_fn,
                   paste0(gsub("[^A-Za-z0-9.=-]+", "_", key), ".rds"))
       }
       if (!is.null(file) && file.exists(file)) {
-        cache[[key]] <<- readRDS(file)
-        if (verbose) message("[cached] ", key)
+        res <- readRDS(file)
       } else {
-        if (verbose) message(sprintf("[%d] %s", length(cache) + 1, key))
         t0 <- Sys.time()
         res <- score_fn(hp)
         res$run_time <- as.numeric(Sys.time() - t0, units = "secs")
-        if (!is.null(file)) saveRDS(res, file)
-        cache[[key]] <<- res
+        if (!is.null(file)) save_run(res, file)
       }
-      if (verbose) message(sprintf("    score %.6g (baseline %.6g)",
-                                   cache[[key]]$score,
-                                   cache[[key]]$score_baseline))
+      cache[[key]] <<- res
+      if (verbose) {
+        cat(sprintf("%s %s: score %.6g (baseline %.6g), %.0f s\n",
+                    format(Sys.time(), "%H:%M"),
+                    key,
+                    res$score,
+                    res$score_baseline,
+                    res$run_time))
+      }
     }
     cache[[key]]
   }
@@ -145,16 +132,15 @@ tune_search <- function(score_fn,
     s <- vapply(sets, function(hp) score(hp)$score, 0)
     best <- sets[[which.min(s)]]
     path <- NULL
-  } else if (method == "successive") {
+  } else {
     stopifnot(all(order %in% names(candidates)))
     best <- start
     path <- data.frame(step = 0, tuned = "start", label = hp_label(best),
                        score = score(best)$score)
     for (name in order) {
       values <- as.list(candidates[[name]])
-      if (any(vapply(values, is.null, TRUE))) {
-        stop("NULL candidate for ", name)
-      }
+      # hp[[name]] <- NULL would drop the hyperparameter from the set
+      stopifnot("NULL candidate" = !vapply(values, is.null, TRUE))
       if (!is.null(best[[name]]) &&
             !any(vapply(values, identical, TRUE, best[[name]]))) {
         values <- c(list(best[[name]]), values)
@@ -165,12 +151,12 @@ tune_search <- function(score_fn,
         hp
       })
       s <- vapply(trials, function(hp) score(hp)$score, 0)
-      best <- trials[[which.min(s)]]
+      # which.min() takes the first of equal scores: move only if lower
+      if (min(s) < score(best)$score) best <- trials[[which.min(s)]]
       path <- rbind(path, data.frame(step = nrow(path), tuned = name,
-                                     label = hp_label(best), score = min(s)))
+                                     label = hp_label(best),
+                                     score = score(best)$score))
     }
-  } else {
-    stop("method must be grid or successive")
   }
   list(method = method,
        best = best,

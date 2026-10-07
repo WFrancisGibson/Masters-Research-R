@@ -1,38 +1,40 @@
 ##########################################
-#########  bCCNN hyper-parameters and architecture: test errors, reserves,
-#########  spread over the seeds and nagging predictors
+#########  bCCNN grid of hyper-parameters and architectures: test errors,
+#########  reserves, spread over the seeds and nagging predictors
 #########  Paper C: Gabrielli, Richman & Wuthrich (2020), Section 3;
 #########  test error: rolling origin (Al-Mudafer, Avanzi, Taylor & Wong
 #########  2021, eq. (4.4)); nagging predictors: Richman & Wuthrich (2020)
 ##########################################
 
-## reads the fits of "bCCNN tuning fit.R" (no Keras needed)
+## reads the fits of all runs of "bCCNN grid fit.R" (no Keras needed)
 source(here::here("analysis", "00_setup.R"))
 tab_dir <- file.path(paths$tables, "03_bCCNN")
 fig_dir <- file.path(paths$figures, "03_bCCNN")
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
-n <- cfg$data$n_dev
-scale <- cfg$data$scale            # tables in millions
+scale <- cfg$data$scale            # tables in units of scale
+ro_cfg <- cfg$data$rolling_origin
 
 ## every combination of hidden layers, activation, dropout, optimiser and
-## batch size with every seed, as in the fit script
-grid_cfg <- cfg$bccnn$tuning
+## batch size with every seed: the runs of the fit script, one row each
+grid_cfg <- cfg$bccnn$grid
 seeds <- cfg$seed + seq_len(grid_cfg$seeds) - 1
 settings <- c("hidden", "activation", "dropout", "optimizer", "batch_size")
-batch <- unlist(grid_cfg$batch_size)
-grid <- CJ(hidden = sapply(grid_cfg$hidden, paste, collapse = "-"),
-           activation = unlist(grid_cfg$activation),
-           dropout = unlist(grid_cfg$dropout),
-           optimizer = names(grid_cfg$optimizers),
-           batch_size = as.character(ifelse(batch > 0, batch, "full")),
-           seed = seeds,
-           sorted = FALSE)
-grid$learning_rate <- unname(unlist(grid_cfg$optimizers)[grid$optimizer])
+runs <- bccnn_grid_runs(grid_cfg, cfg$seed)
+grid <- rbindlist(lapply(runs, function(p) {
+  data.table(hidden = paste(p$hidden, collapse = "-"),
+             activation = p$activation,
+             dropout = p$dropout,
+             optimizer = p$optimizer,
+             batch_size = if (is.null(p$batch_size)) "full" else
+               as.character(p$batch_size),
+             seed = p$seed,
+             learning_rate = p$learning_rate)
+}))
 grid$combo <- paste0(grid$hidden, "_", grid$activation, "_d", grid$dropout,
                      "_", grid$optimizer, "_b", grid$batch_size)
-grid$run <- paste0("tune_", grid$combo, "_s", grid$seed)
+grid$run <- names(runs)
 ## trainable parameters: the hidden layers on the 2 embeddings and w, B and
 ## c of the Response layer (13)
 grid$parameters <- sapply(strsplit(grid$hidden, "-"), function(q) {
@@ -46,20 +48,19 @@ grid$parameters <- sapply(strsplit(grid$hidden, "-"), function(q) {
 
 ## observed triangle, true lower triangle and rolling-origin partitions, as
 ## in the fit script; in units of scale
-trans <- fread(file.path(paths$raw, cfg$data$annual_dir, "transactions.csv"),
-               select = c("claim_no", "occurrence_period", "payment_period",
-                          "payment_inflated"), data.table = FALSE)
-sets <- triangle_sets(trans, n)
+sets <- readRDS(file.path(paths$interim, "triangles.rds"))
 dat_upper <- sets$upper / scale
 truth <- sets$test / scale          # true outstanding payments (lower triangle)
 true_total <- sum(truth, na.rm = TRUE)
 parts <- rolling_origin(dat_upper,
-                        cfg$bccnn$rolling_origin$test_periods,
-                        cfg$bccnn$rolling_origin$vali_periods,
-                        cfg$bccnn$rolling_origin$exclude)
+                        ro_cfg$test_periods,
+                        ro_cfg$vali_periods,
+                        ro_cfg$exclude)
 fits <- lapply(setNames(nm = grid$run), function(r) {
-  readRDS(file.path(paths$processed, paste0("bccnn_tuning_fit_", r, ".rds")))
+  readRDS(file.path(paths$processed, paste0("bccnn_grid_fit_", r, ".rds")))
 })
+## the file names do not carry final_fit: all runs are of the same one
+stopifnot(length(unique(sapply(fits, `[[`, "final_fit"))) == 1)
 
 ##########################################
 #########  single networks, chain ladder and nagging predictors
@@ -67,13 +68,16 @@ fits <- lapply(setNames(nm = grid$run), function(r) {
 
 ## single networks: reserve, losses on the observed triangle and on the true
 ## lower triangle, rolling-origin test error per test cell (4.4), steps used
-## and run time; a diverged network has no scores
+## and seconds: run_time of the run by the clock (the first run of an R
+## session also starts Python), time_fit of its Keras fits; a diverged
+## network has no scores
 scores <- rbindlist(lapply(fits, function(fit) {
   bccnn_scores(fit$mu, fit$mu_test, dat_upper, truth, parts)
 }))
 grid <- cbind(grid, scores)
 grid$best_epoch <- sapply(fits, `[[`, "best_epoch")
 grid$run_time <- sapply(fits, `[[`, "run_time")
+grid$time_fit <- sapply(fits, `[[`, "time_fit")
 grid$true <- true_total
 grid$bias_pct <- 100 * (grid$reserve / true_total - 1)
 
@@ -92,8 +96,8 @@ round(cl, 4)
 
 ## nagging predictors (Richman & Wuthrich 2020): the predicted triangles of
 ## the networks of a block of seeds averaged, on the observed triangle and
-## at each test partition; one predictor per combination and block of 10 and
-## of 20 seeds
+## at each test partition; one predictor per combination and block of seeds
+## of each size of config.yml bccnn$grid$nagging
 mean_mu <- function(m) Reduce(`+`, m) / length(m)
 combos <- unique(grid[, c("combo", settings), with = FALSE])
 nag <- NULL
@@ -131,14 +135,15 @@ nag$predictor <- paste0("nag", nag$networks, "_b", nag$block)
 
 ## spread over the seeds per combination: test error, out-of-sample loss and
 ## bias of the single networks (a diverged run left out), closer_than_cl the
-## share of the seeds with a smaller absolute bias than the chain ladder;
-## next to them the test error and bias of the nagging predictors (one column
-## per predictor); ordered by the mean test error, which uses no future data
+## share of the seeds with a smaller absolute bias than the chain ladder,
+## time_fit_mean the seconds of the Keras fits of a run; next to them the
+## test error and bias of the nagging predictors (one column per predictor);
+## ordered by the mean test error, which uses no future data
 seed_spread <- grid[, .(parameters = parameters[1],
                         seeds = .N,
                         diverged = sum(!is.finite(reserve)),
                         best_epoch_mean = mean(best_epoch),
-                        run_time_mean = mean(run_time),
+                        time_fit_mean = mean(time_fit),
                         test_loss_mean = mean(test_loss_per_cell, na.rm = TRUE),
                         test_loss_sd = sd(test_loss_per_cell, na.rm = TRUE),
                         loss_out_mean = mean(loss_out, na.rm = TRUE),
@@ -180,10 +185,10 @@ main_effects <- rbindlist(lapply(settings, function(v) {
 setcolorder(main_effects, c("setting", "level"))
 cbind(main_effects[, 1:4], round(main_effects[, -(1:4)], 4))
 
-fwrite(grid, file.path(tab_dir, "bccnn_tuning_runs.csv"))
-fwrite(seed_spread, file.path(tab_dir, "bccnn_tuning_seed_spread.csv"))
-fwrite(nag, file.path(tab_dir, "bccnn_tuning_nagging.csv"))
-fwrite(main_effects, file.path(tab_dir, "bccnn_tuning_main_effects.csv"))
+fwrite(grid, file.path(tab_dir, "bccnn_grid_runs.csv"))
+fwrite(seed_spread, file.path(tab_dir, "bccnn_grid_seed_spread.csv"))
+fwrite(nag, file.path(tab_dir, "bccnn_grid_nagging.csv"))
+fwrite(main_effects, file.path(tab_dir, "bccnn_grid_main_effects.csv"))
 
 ##########################################
 #########  figures
@@ -199,7 +204,7 @@ nag$hidden <- factor(nag$hidden, levels = hidden_lab)
 measures <- c(test_loss_per_cell = "rolling-origin test loss per cell (4.4)",
               bias_pct = "bias (% of the true reserves)")
 for (m in names(measures)) {
-  ggsave(paste0("bCCNN tuning ", m, ".png"),
+  ggsave(paste0("bCCNN grid ", m, ".png"),
          ggplot(grid, aes(x = hidden, y = .data[[m]], colour = activation)) +
            geom_hline(yintercept = cl[[m]],
                       colour = "grey50",

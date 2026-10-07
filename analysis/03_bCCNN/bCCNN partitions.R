@@ -1,27 +1,27 @@
 ##########################################
-#########  bCCNN: rolling-origin partitions of the annual triangle
+#########  bCCNN: rolling-origin partitions of the claims triangle
 #########  Al-Mudafer, Avanzi, Taylor & Wong (2021), Figures 3 and 9;
 #########  figure layout after the Department's Research Assignment Guide
 #########  (2026), Sections 5.3 and 5.7
 ##########################################
 
-## reads the triangle written by "bCCNN fit.R" (no Keras needed)
+## reads the triangle written by "claims triangles.R" (no Keras needed)
 source(here::here("analysis", "00_setup.R"))
 fig_dir <- file.path(paths$figures, "03_bCCNN")
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
 scale <- cfg$data$scale
-dat_upper <- as.matrix(fread(file.path(paths$interim,
-                                       "tri_annual_upper.csv"))[, -1]) / scale
+ro_cfg <- cfg$data$rolling_origin
+dat_upper <- readRDS(file.path(paths$interim, "triangles.rds"))$upper / scale
 
 ##########################################
 #########  partitions and figures
 ##########################################
 
 parts <- rolling_origin(dat_upper,
-                        cfg$bccnn$rolling_origin$test_periods,
-                        cfg$bccnn$rolling_origin$vali_periods,
-                        cfg$bccnn$rolling_origin$exclude)
+                        ro_cfg$test_periods,
+                        ro_cfg$vali_periods,
+                        ro_cfg$exclude)
 
 ## 12 cm wide (the guide asks for one or two figure sizes)
 for (k in seq_along(parts)) {

@@ -66,7 +66,8 @@ bccnn_model <- function(odp, param) {
 
 ## trains the bCCNN started in odp for 'epochs' gradient descent steps on the
 ## cells odp was fitted on, and keeps the predicted triangle after every step
-## (epoch 0 = ccODP start)
+## (epoch 0 = ccODP start); training times in seconds (own addition): per
+## epoch in history, of the whole fit in time
 bccnn_fit <- function(odp, epochs, param, track) {
   y <- odp$y
   cells <- odp$cells
@@ -80,7 +81,9 @@ bccnn_fit <- function(odp, epochs, param, track) {
                 as.matrix(col(y)[cells] - 1L))
   y_fit <- as.matrix(y[cells])
   #
+  t0 <- Sys.time()
   model <- bccnn_model(odp, param)
+  time_build <- as.numeric(Sys.time() - t0, units = "secs")
   mu_hat <- function() {
     matrix(model$predict_on_batch(x_all),
            n,
@@ -88,15 +91,31 @@ bccnn_fit <- function(odp, epochs, param, track) {
            dimnames = list(origin = 1:n, dev = 1:n))
   }
   # after every gradient descent step keep the predicted triangle and
-  # Keras's loss
+  # Keras's loss, the seconds of the step (time) and of the prediction of
+  # the triangle (time_predict); epoch 0: no step, the first prediction
+  step_start <- Sys.time()
   mu_path <- list(mu_hat())
   loss <- NA
-  after_step <- callback_lambda(on_epoch_end = function(epoch, logs) {
-    mu_path[[length(mu_path) + 1]] <<- mu_hat()
-    loss[length(loss) + 1] <<- logs$loss
-  })
+  time <- NA_real_
+  time_predict <- as.numeric(Sys.time() - step_start, units = "secs")
+  after_step <- callback_lambda(
+    on_epoch_begin = function(epoch, logs) {
+      step_start <<- Sys.time()
+    },
+    on_epoch_end = function(epoch, logs) {
+      step_end <- Sys.time()
+      mu_path[[length(mu_path) + 1]] <<- mu_hat()
+      predict_end <- Sys.time()
+      loss[length(loss) + 1] <<- logs$loss
+      time[length(time) + 1] <<-
+        as.numeric(step_end - step_start, units = "secs")
+      time_predict[length(time_predict) + 1] <<-
+        as.numeric(predict_end - step_end, units = "secs")
+    }
+  )
   batch_size <- if (is.null(param$batch_size)) nrow(y_fit) else
     param$batch_size
+  fit_start <- Sys.time()
   if (epochs > 0) {
     model %>% fit(x_fit, y_fit,
                   epochs = as.integer(epochs),
@@ -105,6 +124,7 @@ bccnn_fit <- function(odp, epochs, param, track) {
                   verbose = 0,
                   view_metrics = FALSE)
   }
+  time_fit <- as.numeric(Sys.time() - fit_start, units = "secs")
   # deviance losses by step: Keras's training loss (with dropout), the
   # deviance without dropout on the training cells and on each matrix of
   # 'track' (NA = cell not scored), and the predicted sum over each matrix
@@ -119,42 +139,82 @@ bccnn_fit <- function(odp, epochs, param, track) {
     obs <- !is.na(track[[k]])
     history[[paste0(k, "_pred")]] <- sapply(mu_path, function(mu) sum(mu[obs]))
   }
+  history$time <- time
+  history$time_predict <- time_predict
+  mu <- mu_hat()
+  # build: bccnn_model(), which also starts Python for the first network of
+  # an R session; fit: the Keras fit, the steps and their predictions;
+  # total: this function
   list(model = model,
-       mu = mu_hat(),
+       mu = mu,
        history = history,
-       mu_path = mu_path)
+       mu_path = mu_path,
+       time = c(build = time_build,
+                fit = time_fit,
+                total = as.numeric(Sys.time() - t0, units = "secs")))
+}
+
+## seconds per epoch of a fit (history of bccnn_fit()) with its partition
+## and fit ("early_stop" or "refit"): rows of the per-epoch times of a run
+epoch_time <- function(partition, fit, history) {
+  data.frame(partition = partition,
+             fit = fit,
+             history[c("epoch", "time", "time_predict")])
+}
+
+## the per-epoch times in whole milliseconds: the files of the runs of a
+## grid stay small
+epoch_ms <- function(x) {
+  x$time <- as.integer(round(1000 * x$time))
+  x$time_predict <- as.integer(round(1000 * x$time_predict))
+  x
 }
 
 ## Paper C Section 3.3.4: the bCCNN refitted on the simulated triangles
 ## y_boot[b] as the final network, ccODP start (14) on 'cells' and 'epochs'
 ## gradient descent steps; refit k with the seed param$seed + k; bCCNN
-## reserves by accident period (length(b) x n)
+## reserves by accident period (length(b) x n) and the seconds of each
+## refit: time by the clock (the first refit of an R session also starts
+## Python), time_fit of its Keras fit
 bccnn_bootstrap <- function(y_boot, b, cells, epochs, param) {
-  t(sapply(b, function(k) {
+  refits <- lapply(b, function(k) {
     param$seed <- param$seed + k               # local copy per refit
+    t0 <- Sys.time()
     nn <- bccnn_fit(ccodp_fit(y_boot[[k]], cells), epochs, param,
                     track = list())
-    rowSums(lower_triangle(nn$mu), na.rm = TRUE)
-  }))
+    list(reserve = rowSums(lower_triangle(nn$mu), na.rm = TRUE),
+         time = as.numeric(Sys.time() - t0, units = "secs"),
+         time_fit = nn$time[["fit"]])
+  })
+  list(reserves = t(sapply(refits, `[[`, "reserve")),
+       time = sapply(refits, `[[`, "time"),
+       time_fit = sapply(refits, `[[`, "time_fit"))
 }
 
 ## rolling origin: per partition, ccODP and bCCNN on the training cells,
 ## early-stopped on the validation cells; a test partition also scores the
 ## network chosen by final_fit on its test cells (test error: their eq. (4.4))
-## and keeps its predicted triangle in mu_test (nagging predictors)
+## and keeps its predicted triangle in mu_test (nagging predictors); the
+## seconds of the Keras fit of the early-stopping run and of the test refit
+## are in summary, with those of building the early-stopping network
+## (time_build: the first network of an R session also starts Python); their
+## seconds per epoch in epoch_time, the seconds of all Keras fits in time_fit
 rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
   summary <- NULL
   final <- NULL                     # no final partition: the test ones only
   mu_test <- list()
+  times <- NULL
   for (k in seq_along(parts)) {
     part <- parts[[k]]
+    lab <- if (part$final) "final" else as.character(k)
     odp <- ccodp_fit(part$y, cells = part$train)
     track <- list(vali = ifelse(part$vali, part$y, NA))
     if (part$final) track$truth <- truth else track$test <- part$test
     nn <- bccnn_fit(odp, max_epochs, param, track = track)
     h <- nn$history
+    times <- rbind(times, epoch_time(lab, "early_stop", h))
     best <- h$epoch[which.min(h$vali)]
-    res <- data.frame(partition = if (part$final) "final" else as.character(k),
+    res <- data.frame(partition = lab,
                       origin = part$origin,
                       n_train = sum(part$train),
                       n_vali = sum(part$vali),
@@ -166,7 +226,10 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
                       test_bCCNN = NA,
                       test_loss_ccODP = NA,
                       test_loss_ccODP_train = NA,
-                      test_loss_bCCNN = NA)
+                      test_loss_bCCNN = NA,
+                      time_build = nn$time[["build"]],
+                      time_early_stop = nn$time[["fit"]],
+                      time_refit = NA)
     if (part$final) {
       final <- list(history = h, best_epoch = best, mu_path = nn$mu_path)
     } else {
@@ -180,6 +243,8 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
                              track = list(test = part$test))
         h_test <- tail(nn_test$history, 1)
         mu_test[[k]] <- nn_test$mu
+        times <- rbind(times, epoch_time(lab, "refit", nn_test$history))
+        res$time_refit <- nn_test$time[["fit"]]
       } else {
         h_test <- h[h$epoch == best, ]
         mu_test[[k]] <- nn$mu_path[[best + 1]]
@@ -196,7 +261,47 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
   }
   list(summary = summary,
        final = final,
-       mu_test = mu_test)
+       mu_test = mu_test,
+       epoch_time = times,
+       time_fit = sum(summary$time_early_stop, summary$time_refit,
+                      na.rm = TRUE))
+}
+
+## the runs of the grid (config.yml bccnn$grid; own design, not in Paper C):
+## one param list per combination of hidden layers, activation, dropout,
+## optimiser and batch size (0 = full batch) and per seed (seed, seed + 1,
+## ...), named grid_<hidden>_<activation>_d<dropout>_<optimizer>_b<batch>_
+## s<seed>; the embeddings of alpha_i and beta_j stay fixed
+bccnn_grid_runs <- function(grid_cfg, seed) {
+  seeds <- seed + seq_len(grid_cfg$seeds) - 1
+  runs <- list()
+  for (h in grid_cfg$hidden) {
+    for (a in grid_cfg$activation) {
+      for (dr in grid_cfg$dropout) {
+        for (o in grid_cfg$optimizers) {
+          for (b in grid_cfg$batch_size) {
+            for (s in seeds) {
+              run_name <- paste0("grid_", paste(h, collapse = "-"), "_", a,
+                                 "_d", dr, "_", o,
+                                 "_b", if (b > 0) b else "full", "_s", s)
+              runs[[run_name]] <- list(
+                hidden = h,
+                activation = a,
+                dropout = dr,
+                trainable = FALSE,
+                optimizer = o,
+                learning_rate = grid_cfg$learning_rate[[o]],
+                momentum = grid_cfg$momentum,
+                batch_size = if (b > 0) b,         # NULL = full batch
+                seed = s
+              )
+            }
+          }
+        }
+      }
+    }
+  }
+  runs
 }
 
 ## scores of a predicted triangle mu (a single network or a nagging

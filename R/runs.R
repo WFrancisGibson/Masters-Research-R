@@ -8,18 +8,25 @@
 ## so a stopped script resumes. In the final run several R sessions (workers,
 ## environment variable RUN_SLOT) run the same script at once: a worker takes
 ## a run by creating the directory <run_file>.lock, which only one session
-## can, and leaves the runs saved or taken by others. After RUN_MAX runs it
+## can, and leaves the runs saved or taken by others; the file slot_<RUN_SLOT>
+## in it tells the launcher whose lock it is. After RUN_MAX runs the worker
 ## takes no more, so the script ends and the launcher starts a fresh session
 ## (the memory of an R session that fits Keras networks grows by about
 ## 0.1 GB a run). TRUE: fit this run now
 claim_run <- function(run_file) {
   if (file.exists(run_file)) return(FALSE)
-  if (Sys.getenv("RUN_SLOT") == "") return(TRUE)
+  slot <- Sys.getenv("RUN_SLOT")
+  if (slot == "") return(TRUE)
   taken <- getOption("runs_taken", 0)
   if (taken >= as.numeric(Sys.getenv("RUN_MAX", "Inf"))) return(FALSE)
-  if (!dir.create(paste0(run_file, ".lock"), showWarnings = FALSE)) {
+  lock <- paste0(run_file, ".lock")
+  if (!dir.create(lock, showWarnings = FALSE)) return(FALSE)
+  # saved by another session between the check above and the lock
+  if (file.exists(run_file)) {
+    unlink(lock, recursive = TRUE)
     return(FALSE)
   }
+  file.create(file.path(lock, paste0("slot_", slot)))
   options(runs_taken = taken + 1)
   TRUE
 }
