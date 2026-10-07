@@ -102,17 +102,3 @@ mask_zero_periods <- function(m, y) {
   m[, colSums(y, na.rm = TRUE) == 0] <- NA
   m
 }
-
-## rolling-origin partitions with these cells left out: validation cells in a
-## period with no payments in the training cells (early stopping), test cells
-## in a period with no payments in any cell observed at c0 (no model fitted
-## at c0 can forecast them); the test cells of a period with payments in its
-## validation cells only stay, the chain ladder at c0 knows that period
-mask_partitions <- function(parts) {
-  lapply(parts, function(part) {
-    train <- ifelse(part$train, part$y, NA)
-    part$vali <- part$vali & !is.na(mask_zero_periods(part$y, train))
-    if (!part$final) part$test <- mask_zero_periods(part$test, part$y)
-    part
-  })
-}

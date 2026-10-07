@@ -19,7 +19,17 @@ with_stand_ins <- function(f, stand_ins) {
 ## stand-ins for bccnn_model() and the Keras functions of bccnn_fit(): the
 ## "network" predicts the ccODP means times (1 + steps / 100) and fit() takes
 ## the gradient descent steps, calling the callbacks as Keras does (epochs
-## from 0, the loss of the epoch in logs)
+## from 0, the loss of the epoch in logs).
+## python$held: the R functions Python holds, each for as long as R has not
+## garbage collected the callback it was given to (as reticulate does)
+python <- new.env()
+python$held <- list()
+release <- function(callback) {
+  python$held <- Filter(function(f) {
+    !identical(f, callback$on_epoch_begin) &&
+      !identical(f, callback$on_epoch_end)
+  }, python$held)
+}
 keras_stand_ins <- list(
   bccnn_model = function(odp, param) {
     model <- new.env()
@@ -30,7 +40,12 @@ keras_stand_ins <- list(
     model
   },
   callback_lambda = function(on_epoch_begin, on_epoch_end) {
-    list(on_epoch_begin = on_epoch_begin, on_epoch_end = on_epoch_end)
+    callback <- new.env()
+    callback$on_epoch_begin <- on_epoch_begin
+    callback$on_epoch_end <- on_epoch_end
+    python$held <- c(python$held, on_epoch_begin, on_epoch_end)
+    reg.finalizer(callback, release)
+    callback
   },
   fit = function(model, x, y, epochs, callbacks, ...) {
     for (e in seq_len(epochs)) {
@@ -171,6 +186,39 @@ test_that("the bCCNN grid has 2,880 uniquely named runs", {
                     momentum = 0.9, batch_size = 64, seed = 2045))
 })
 
+test_that("a predicted triangle has no score where its mean diverged", {
+  y <- unclass(cum2incr(GenIns)) / 1000
+  parts <- rolling_origin(y, c(3, 1), 1, 1)        # valuation years 7, 9, 10
+  odp <- ccodp_fit(y)
+  truth <- lower_triangle(1.1 * odp$mu)
+  mu_test <- lapply(parts[1:2], function(p) ccodp_fit(p$y)$mu)
+  s <- bccnn_scores(odp$mu, mu_test, y, truth, parts)
+  expect_named(s, c("reserve", "loss_in", "loss_out", "test_loss_per_cell"))
+  expect_equal(s$reserve, sum(odp$reserve_o))
+  expect_equal(s$loss_in, odp$deviance)
+  expect_equal(s$loss_out, poisson_deviance(truth, odp$mu))
+  # test error (4.4): the deviance on the 15 and 8 test cells per test cell
+  expect_equal(s$test_loss_per_cell,
+               (poisson_deviance(parts[[1]]$test, mu_test[[1]]) +
+                  poisson_deviance(parts[[2]]$test, mu_test[[2]])) / (15 + 8))
+  # a mean of the lower triangle that is infinite or NaN: no reserve and no
+  # loss on the true lower triangle (NA; the tables of the grid leave NA
+  # out, an infinite reserve they would not)
+  for (bad in c(Inf, NaN)) {
+    mu <- odp$mu
+    mu[5, 9] <- bad
+    s_bad <- bccnn_scores(mu, mu_test, y, truth, parts)
+    expect_identical(c(s_bad$reserve, s_bad$loss_out), c(NA_real_, NA_real_))
+    expect_equal(s_bad[c("loss_in", "test_loss_per_cell")],
+                 s[c("loss_in", "test_loss_per_cell")])
+  }
+  # diverged at a test partition only: no test error
+  mu_test[[2]][2, 9] <- Inf
+  s_bad <- bccnn_scores(odp$mu, mu_test, y, truth, parts)
+  expect_identical(s_bad$test_loss_per_cell, NA_real_)
+  expect_equal(s_bad[1:3], s[1:3])
+})
+
 test_that("bccnn_fit keeps the triangle, the losses and the seconds per step", {
   y <- unclass(cum2incr(GenIns))
   odp <- ccodp_fit(y)
@@ -194,6 +242,22 @@ test_that("bccnn_fit keeps the triangle, the losses and the seconds per step", {
   nn <- fit_nn(odp, 0, list(), track = list())
   expect_equal(nn$history$epoch, 0)
   expect_equal(nn$mu, odp$mu)
+})
+
+test_that("bccnn_fit: the callback does not keep the fit in memory", {
+  odp <- ccodp_fit(unclass(cum2incr(GenIns)))
+  fit_nn <- with_stand_ins(bccnn_fit, keras_stand_ins)
+  # Python holds the two functions of the callback, and the functions the
+  # call of bccnn_fit() with its network and the triangle after every step:
+  # freed only if that call does not hold the callback any more; with steps
+  # and without (no Keras fit, the callback is made all the same)
+  for (epochs in c(3, 0)) {
+    python$held <- list()
+    nn <- fit_nn(odp, epochs, list(), track = list())
+    gc()
+    expect_length(python$held, 0)
+    expect_length(nn$mu_path, epochs + 1)        # the result is not touched
+  }
 })
 
 test_that("the seconds per epoch of a run are kept in milliseconds", {
@@ -301,31 +365,20 @@ test_that("periods without payments are masked", {
   masked <- mask_zero_periods(m, y)
   expect_true(all(is.na(masked[2, ])) && all(is.na(masked[, 4])))
   expect_equal(sum(is.na(masked)), 7)
+  # the other cells are kept; payments in every period: no cell is masked
+  expect_equal(sum(masked, na.rm = TRUE), 9)
+  expect_identical(mask_zero_periods(m, matrix(1, 4, 4)), m)
   #
-  # 20 x 20 triangle with payments in every cell: no cell is masked
-  y <- matrix(1, 20, 20)
-  parts <- rolling_origin(upper_triangle(y), c(5, 2), 2, 2)
-  expect_identical(mask_partitions(parts), parts)
-  #
-  # partition 1 (valuation date 15): development period 13 pays in its
-  # validation cell (3, 13) only, development period 14 in its test cells only
-  y[, 13:14] <- 0
-  y[3, 13] <- 50
-  y[3:7, 14] <- 40
-  parts <- rolling_origin(upper_triangle(y), c(5, 2), 2, 2)
-  masked <- mask_partitions(parts)
-  p1 <- parts[[1]]
-  m1 <- masked[[1]]
-  expect_true(p1$vali[3, 13] && !m1$vali[3, 13])
-  expect_equal(sum(m1$vali), sum(p1$vali) - 1)
-  # the chain ladder at 15 knows period 13 (test cells kept), not period 14
-  expect_equal(which(is.na(m1$test) & !is.na(p1$test), arr.ind = TRUE)[, 2],
-               rep(14, 5))
-  expect_identical(m1[c("y", "train")], p1[c("y", "train")])
-  # scored against the ccODP of the training cells, cell (3, 13) dominates
-  odp <- suppressWarnings(ccodp_fit(p1$y, cells = p1$train))
-  expect_gt(poisson_deviance(ifelse(p1$vali, p1$y, NA), odp$mu),
-            1000 * poisson_deviance(ifelse(m1$vali, p1$y, NA), odp$mu))
-  # by the final partition both periods have payments: no cell is masked
-  expect_identical(masked[[3]], parts[[3]])
+  # claims split (Paper C Section 3.3.2): development period 4 pays in the
+  # validation half only; scored against the ccODP of the training half its
+  # cell dominates the validation loss, masked it is left out
+  train <- upper_triangle(matrix(c(40, 30, 20, 10, 20, 15, 10, 5,
+                                   10, 8, 5, 3, 0, 0, 0, 0), 4, 4))
+  vali <- train + 1
+  vali_mask <- mask_zero_periods(vali, train)
+  expect_equal(which(!is.na(vali) & is.na(vali_mask), arr.ind = TRUE),
+               cbind(row = 1, col = 4))
+  odp <- suppressWarnings(ccodp_fit(train))
+  expect_gt(poisson_deviance(vali, odp$mu),
+            10 * poisson_deviance(vali_mask, odp$mu))
 })

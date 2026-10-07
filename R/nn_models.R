@@ -125,6 +125,11 @@ bccnn_fit <- function(odp, epochs, param, track) {
                   view_metrics = FALSE)
   }
   time_fit <- as.numeric(Sys.time() - fit_start, units = "secs")
+  # Keras's callback holds the two R functions above and with them this call
+  # (the network, the triangle after every step), and the call would hold
+  # the callback: neither could be freed, the memory of the R session would
+  # grow with every fit
+  after_step <- NULL
   # deviance losses by step: Keras's training loss (with dropout), the
   # deviance without dropout on the training cells and on each matrix of
   # 'track' (NA = cell not scored), and the predicted sum over each matrix
@@ -168,6 +173,65 @@ epoch_ms <- function(x) {
   x$time <- as.integer(round(1000 * x$time))
   x$time_predict <- as.integer(round(1000 * x$time_predict))
   x
+}
+
+## the per-epoch times of the fits of a run in a compact form (the grid):
+## mean milliseconds of a step (time) and of the prediction of the triangle
+## (time_predict) per block of 'size' epochs of each fit, x as epoch_time()
+## with the steps of the fit; block 0 is the prediction of the start
+epoch_blocks <- function(x, size) {
+  x$block <- ceiling(x$epoch / size)
+  blocks <- aggregate(1000 * x[c("time", "time_predict")],
+                      x[c("block", "steps", "fit", "partition")],
+                      mean)
+  blocks$time <- round(blocks$time, 2)
+  blocks$time_predict <- round(blocks$time_predict, 2)
+  blocks[c("partition", "fit", "steps", "block", "time", "time_predict")]
+}
+
+## Paper C Section 3.3.2 reads "roughly 300 iterations" off its Figure 2 and
+## uses them for every LoB; here the step with the lowest validation loss of
+## the network of "bCCNN fit.R" to the nearest multiple of 'to' (a half goes
+## up): one number of steps for all runs of a data set
+fixed_steps <- function(best_epoch, to) {
+  to * floor(best_epoch / to + 0.5)
+}
+
+## the steps each stopping rule reads off the validation losses of a run
+## (config.yml bccnn$stopping; own design: the rules of the three papers on
+## the same run); vali[1] is the loss at step 0, the ccODP start, vali[e + 1]
+## the loss after e steps; a diverged network (losses not finite) breaks no
+## rule, its losses are never the lowest
+stopping_steps <- function(vali, stop_cfg, minimum_epochs, fixed) {
+  n <- length(vali)
+  # minimum: the lowest loss within the first minimum_epochs steps, the rule
+  # of "bCCNN fit.R"
+  minimum <- which.min(vali[1:(minimum_epochs + 1)]) - 1
+  # moving_average (Harkonen 2021 Section 3.2): the lowest central moving
+  # average of the losses over stop_cfg$window steps, found as the lowest
+  # sum of a window (of equal sums the first; their averages could differ
+  # in the last bit). An even window takes one step more after its centre
+  # than before (as R's filter()), and the steps at both ends, with no full
+  # window around them, cannot be chosen: a window of 100 chooses among the
+  # steps from 49 to the last but 50, never the ccODP start. No finite sum
+  # at all: the start
+  w <- stop_cfg$window
+  window_sum <- as.numeric(filter(vali, rep(1, w), sides = 2))
+  window_sum[!is.finite(window_sum)] <- NA
+  moving_average <- if (all(is.na(window_sum))) 0 else
+    which.min(window_sum) - 1
+  # patience (Al-Mudafer et al. 2021 Section 4): training stops when the
+  # loss has set no new low for stop_cfg$patience steps, and the step of the
+  # last low is used, as Keras's early stopping with restored best weights
+  # run from the start; never stopped: the lowest loss of the whole run
+  finite <- ifelse(is.finite(vali), vali, Inf)
+  low <- which(c(TRUE, finite[-1] < cummin(finite)[-n]))
+  stopped <- which(diff(low) > stop_cfg$patience)
+  patience <- low[c(stopped, length(low))[1]] - 1
+  c(minimum = minimum,
+    fixed = fixed,
+    moving_average = moving_average,
+    patience = patience)[unlist(stop_cfg$rules)]
 }
 
 ## Paper C Section 3.3.4: the bCCNN refitted on the simulated triangles
@@ -267,6 +331,124 @@ rolling_origin_fit <- function(parts, truth, param, max_epochs, final_fit) {
                       na.rm = TRUE))
 }
 
+## the rolling origin of a run of the grid, finished under every stopping
+## rule of stop_cfg (config.yml bccnn$stopping; own design): per partition
+## one validation run of stop_cfg$max_epochs steps as in rolling_origin_fit(),
+## and per rule the network of final_fit at the steps stopping_steps() reads
+## off its validation losses: at a test partition its test error (4.4) and
+## predicted triangle (mu_test), at the final partition the final network
+## (mu; refit: on the observed triangle). Rules with the same steps share
+## the network; refit with 0 steps is the chain ladder at c0 itself and no
+## network is fitted. summary: one row per partition and rule, as that of
+## rolling_origin_fit() (steps: its best_epoch; time_refit: the seconds of
+## the refit the rule uses); history: the validation run of the final
+## partition; epoch_time: the seconds per epoch of every fit with its steps;
+## time_fit: the seconds of all Keras fits
+rolling_origin_rules <- function(parts,
+                                 truth,
+                                 param,
+                                 stop_cfg,
+                                 minimum_epochs,
+                                 fixed,
+                                 final_fit) {
+  summary <- NULL
+  mu <- list()
+  mu_test <- list()
+  history <- NULL
+  times <- NULL
+  time_fit <- 0
+  for (k in seq_along(parts)) {
+    part <- parts[[k]]
+    lab <- if (part$final) "final" else as.character(k)
+    odp <- ccodp_fit(part$y, cells = part$train)
+    track <- list(vali = ifelse(part$vali, part$y, NA))
+    if (part$final) track$truth <- truth else track$test <- part$test
+    nn <- bccnn_fit(odp, stop_cfg$max_epochs, param, track = track)
+    h <- nn$history
+    if (part$final) history <- h
+    times <- rbind(times,
+                   data.frame(steps = stop_cfg$max_epochs,
+                              epoch_time(lab, "early_stop", h)))
+    time_fit <- time_fit + nn$time[["fit"]]
+    steps <- stopping_steps(h$vali, stop_cfg, minimum_epochs, fixed)
+    # chain ladder at c0, its test loss and its sum over the test cells
+    cl <- ccodp_fit(part$y)
+    h_cl <- if (!part$final) {
+      data.frame(test = poisson_deviance(part$test, cl$mu),
+                 test_pred = sum(cl$mu[!is.na(part$test)]))
+    }
+    #
+    # the network of each number of steps: its predicted triangle, the row
+    # of its history with the test loss and the seconds of its Keras fit
+    nets <- list()
+    for (s in unique(steps)) {
+      if (final_fit == "partition") {
+        # the network of the validation run after s steps
+        net <- list(mu = nn$mu_path[[s + 1]], h = h[h$epoch == s, ], time = NA)
+      } else if (s == 0) {
+        # no step: the chain ladder at c0 itself (Keras's prediction of this
+        # start would be its means in single precision)
+        net <- list(mu = cl$mu, h = h_cl, time = NA)
+      } else {
+        # refit: bCCNN started in the chain ladder at c0, all cells, s steps
+        nn_s <- bccnn_fit(cl,
+                          s,
+                          param,
+                          track = if (part$final) list() else
+                            list(test = part$test))
+        net <- list(mu = nn_s$mu,
+                    h = tail(nn_s$history, 1),
+                    time = nn_s$time[["fit"]])
+        times <- rbind(times,
+                       data.frame(steps = s,
+                                  epoch_time(lab, "refit", nn_s$history)))
+        time_fit <- time_fit + net$time
+      }
+      nets[[as.character(s)]] <- net
+    }
+    #
+    for (r in names(steps)) {
+      net <- nets[[as.character(steps[[r]])]]
+      res <- data.frame(rule = r,
+                        partition = lab,
+                        origin = part$origin,
+                        n_train = sum(part$train),
+                        n_vali = sum(part$vali),
+                        n_test = sum(!is.na(part$test)),
+                        steps = steps[[r]],
+                        test_actual = NA,
+                        test_ccODP = NA,
+                        test_ccODP_train = NA,
+                        test_bCCNN = NA,
+                        test_loss_ccODP = NA,
+                        test_loss_ccODP_train = NA,
+                        test_loss_bCCNN = NA,
+                        time_build = nn$time[["build"]],
+                        time_early_stop = nn$time[["fit"]],
+                        time_refit = net$time)
+      if (part$final) {
+        mu[[r]] <- net$mu
+      } else {
+        mu_test[[r]] <- c(mu_test[[r]], list(net$mu))
+        res$test_actual <- sum(part$test, na.rm = TRUE)
+        res$test_ccODP <- h_cl$test_pred
+        res$test_ccODP_train <- h$test_pred[h$epoch == 0]
+        res$test_bCCNN <- net$h$test_pred
+        res$test_loss_ccODP <- h_cl$test
+        res$test_loss_ccODP_train <- h$test[h$epoch == 0]
+        res$test_loss_bCCNN <- net$h$test
+      }
+      summary <- rbind(summary, res)
+    }
+  }
+  list(summary = summary,
+       mu = mu,
+       mu_test = mu_test,
+       history = history,
+       epoch_time = times,
+       time_fit = time_fit)
+}
+
 ## the runs of the grid (config.yml bccnn$grid; own design, not in Paper C):
 ## one param list per combination of hidden layers, activation, dropout,
 ## optimiser and batch size (0 = full batch) and per seed (seed, seed + 1,
@@ -308,7 +490,8 @@ bccnn_grid_runs <- function(grid_cfg, seed) {
 ## predictor): reserve, Poisson deviance losses on the observed triangle y
 ## and on the true lower triangle, and the rolling-origin test error per
 ## test cell (Al-Mudafer et al. eq. (4.4)) of the triangles mu_test predicted
-## at the test partitions; a diverged network (mu not finite) has no scores
+## at the test partitions; a diverged network (a mean that is NaN or
+## infinite) has no score (NA) where that mean enters
 bccnn_scores <- function(mu, mu_test, y, truth, parts) {
   test_loss <- sapply(seq_along(mu_test), function(k) {
     poisson_deviance(parts[[k]]$test, mu_test[[k]])
@@ -316,8 +499,12 @@ bccnn_scores <- function(mu, mu_test, y, truth, parts) {
   n_test <- sapply(seq_along(mu_test), function(k) {
     sum(!is.na(parts[[k]]$test))
   })
-  data.frame(reserve = sum(mu[row(mu) + col(mu) > nrow(mu) + 1]),
-             loss_in = poisson_deviance(y, mu),
-             loss_out = poisson_deviance(truth, mu),
-             test_loss_per_cell = sum(test_loss) / sum(n_test))
+  scores <- c(reserve = sum(mu[row(mu) + col(mu) > nrow(mu) + 1]),
+              loss_in = poisson_deviance(y, mu),
+              loss_out = poisson_deviance(truth, mu),
+              test_loss_per_cell = sum(test_loss) / sum(n_test))
+  # an infinite mean gives an infinite reserve, which na.rm = TRUE of the
+  # tables would not leave out
+  scores[!is.finite(scores)] <- NA
+  data.frame(as.list(scores))
 }
