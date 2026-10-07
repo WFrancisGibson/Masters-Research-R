@@ -29,17 +29,25 @@ nncl_optimizer <- function(param) {
 ## f(x) = exp(beta_0 + sum_k beta_k z_k(x)) and tanh neurons z_k (3.2)-(3.3);
 ## q: neurons of the hidden layers (the paper: one layer, a vector of several
 ## numbers gives a deeper network);
-## f_start: output started in the homogeneous CL factor (weights 0)
+## f_start: output started in the homogeneous CL factor (weights 0);
+## param$dropout (own design, not in the paper): dropout rate after every
+## hidden layer, none if NULL or 0 (the network of the paper); the CL start
+## is unaffected, the output weights being 0
 nncl_model <- function(d, q, param, f_start = NULL) {
   clear_session()
   set_random_seed(param$seed)
   features <- layer_input(shape = c(d), name = "Features")
   volumes <- layer_input(shape = c(1), name = "Volumes")
+  dropout <- if (is.null(param$dropout)) 0 else param$dropout
   net <- features
   for (k in seq_along(q)) {
     net <- net %>% layer_dense(units = q[k],
                                activation = param$activation,
                                name = paste0("hidden", k))
+    if (dropout > 0) {
+      net <- net %>% layer_dropout(rate = dropout,
+                                   name = paste0("dropout", k))
+    }
   }
   net <- net %>%
     layer_dense(units = 1, activation = "exponential", name = "CL_factor")
