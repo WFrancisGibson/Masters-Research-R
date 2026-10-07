@@ -4,12 +4,19 @@
 #########  reserving, EAJ 8:407-436, Sections 3-4, Appendix 2 (Listing 2)
 ##########################################
 
-## Keras runs on Python through reticulate, as for analysis/03_bCCNN
+## Keras runs on Python through reticulate, as for analysis/03_bCCNN. The
+## data are the paper's own four LoBs, the data set machine4 of config.yml
+## (set below): the cells go to data/interim/machine4 and the fits to
+## data/processed/machine4. The fits made before the data sets had folders
+## of their own are in data/interim (nncl_cells.rds) and data/processed
+## (nncl_fit_<run>.rds, nncl_homogeneous.rds, nncl_zero_claims.rds): copied
+## to these two folders they are read as before, a saved run is not refitted
+Sys.setenv(DATASET = "machine4", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 library(keras3)
 
-n_ay <- cfg$nncl$n_ay                          # I = 12, J = I - 1 = 11
-first_ay <- cfg$nncl$first_ay                  # 1994
+n_ay <- cfg$data$n_dev                         # I = 12, J = I - 1 = 11
+first_ay <- cfg$data$first_ay                  # 1994
 pay_cols <- sprintf("Pay%02d", 0:(n_ay - 1))
 features <- c("LoB", "cc", "AQ", "age", "inj_part")
 
@@ -43,7 +50,7 @@ runs <- runs[cfg$nncl$runs]
 ##########################################
 
 ## claims of analysis/00_claim-simulation/individual_claims_simulation_machine.R
-claims <- fread(file.path(paths$raw, cfg$nncl$data_dir, "claims.csv"),
+claims <- fread(file.path(paths$raw, cfg$data$dir, "claims.csv"),
                 select = c(features, "AY", "RepDel", pay_cols),
                 colClasses = list(numeric = pay_cols))
 claims$i <- claims$AY - first_ay + 1           # accident year i = 1..I
@@ -164,6 +171,9 @@ for (run_name in names(runs)) {
                          paste0("nncl_", run_name, "_j", j, ".keras")),
                overwrite = TRUE)
     fit$model <- NULL
+    # f(x) of the part-1 diagonal cells, under its name in the saved runs
+    fit$f_diag <- fit$f_new
+    fit$f_new <- NULL
     fits[[j]] <- fit
     cat(sprintf(paste("%s j = %d: %.0f s, epochs %d/%d, loss %.1f",
                       "(homogeneous %.1f)\n"),

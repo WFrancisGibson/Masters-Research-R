@@ -164,38 +164,48 @@ test_that("(5.1) stops on a zero claims factor with a zero denominator", {
   expect_error(nncl_reserves(1, 2, 0, 1, matrix(c(0, Inf), 1, 2)))
 })
 
-test_that("nncl_runs: the 6 main runs and the grid of 1,800 runs", {
-  # the default settings of config.yml (nncl)
-  nncl_cfg <- list(
-    model = list(q = c(5, 10, 20), q_main = 20, activation = "tanh"),
-    training = list(epochs = 100, batch_size = 10000, validation_split = 0.1),
-    sensitivity = list(learning_rate = 0.001, max_epochs = 500, patience = 20),
-    runs = c("paper_q5", "paper_q10", "paper_q20", "s1_adam",
-             "s2_early_stop", "s3_cl_start"),
-    grid = list(hidden = list(20, c(20, 20, 15), c(20, 15, 10)),
-                optimizers = c("sgd", "sgd_momentum", "sgd_nesterov",
-                               "adagrad", "adadelta", "rmsprop", "adam",
-                               "adamw", "adamax", "nadam"),
-                learning_rate = list(sgd = 0.001,
-                                     sgd_momentum = 0.001,
-                                     sgd_nesterov = 0.001,
-                                     adagrad = 0.01,
-                                     adadelta = 1,
-                                     rmsprop = 0.001,
-                                     adam = 0.001,
-                                     adamw = 0.001,
-                                     adamax = 0.001,
-                                     nadam = 0.001),
-                momentum = 0.9,
-                training = c("paper", "early_stop", "cl_start"),
-                seeds = 20,
-                nagging = 10)
-  )
+## the default settings of config.yml (nncl): the main runs, the random-start
+## grid and the chain-ladder-start grid, whose keys replace those of grid
+nncl_cfg_default <- list(
+  model = list(q = c(5, 10, 20), q_main = 20, activation = "tanh"),
+  training = list(epochs = 100, batch_size = 10000, validation_split = 0.1),
+  sensitivity = list(learning_rate = 0.001, max_epochs = 500, patience = 20),
+  runs = c("paper_q5", "paper_q10", "paper_q20", "s1_adam", "s2_early_stop",
+           "s3_cl_start"),
+  grid = list(hidden = list(20, c(20, 20, 15), c(20, 15, 10)),
+              optimizers = c("sgd", "sgd_momentum", "sgd_nesterov", "adagrad",
+                             "adadelta", "rmsprop", "adam", "adamw", "adamax",
+                             "nadam"),
+              learning_rate = list(sgd = 0.001,
+                                   sgd_momentum = 0.001,
+                                   sgd_nesterov = 0.001,
+                                   adagrad = 0.01,
+                                   adadelta = 1,
+                                   rmsprop = 0.001,
+                                   adam = 0.001,
+                                   adamw = 0.001,
+                                   adamax = 0.001,
+                                   nadam = 0.001),
+              momentum = 0.9,
+              training = c("paper", "early_stop"),
+              seeds = 20,
+              nagging = 10),
+  cl_grid = list(training = c("cl_paper", "cl_start"))
+)
+
+test_that("nncl_runs: 6 main runs and two grids of 1,200 runs", {
+  nncl_cfg <- nncl_cfg_default
   runs <- nncl_runs(nncl_cfg, 2026)
-  expect_length(runs, 6 + 3 * 10 * 3 * 20)
+  expect_length(runs, 6 + 2 * 3 * 10 * 2 * 20)
   expect_equal(anyDuplicated(names(runs)), 0)
   expect_equal(names(runs)[1:6], nncl_cfg$runs)
-  expect_equal(sum(grepl("^grid_", names(runs))), 1800)
+  # the main runs, the random-start grid, the chain-ladder-start grid
+  part <- sapply(runs, `[[`, "part")
+  expect_equal(unname(part),
+               rep(c("main", "grid", "cl_grid"), c(6, 1200, 1200)))
+  expect_true(all(grepl("^grid_", names(runs)[part == "grid"])))
+  expect_true(all(grepl("^clgrid_", names(runs)[part == "cl_grid"])))
+  expect_false(any(grepl("grid_", names(runs)[part == "main"])))
   # Listing 2 and S1-S3, each adding one change
   expect_equal(runs$paper_q5$q, 5)
   expect_equal(runs$paper_q5$param[c("optimizer", "epochs", "early_stop")],
@@ -208,16 +218,19 @@ test_that("nncl_runs: the 6 main runs and the grid of 1,800 runs", {
   expect_equal(runs$s3_cl_start$param, runs$s2_early_stop$param)
   expect_equal(sapply(runs[1:6], `[[`, "cl_start"),
                setNames(rep(c(FALSE, TRUE), c(5, 1)), nncl_cfg$runs))
-  # the grid: its first and last run, and the three trainings
-  expect_equal(names(runs)[c(7, 1806)],
+  # the grids: their first and last runs
+  expect_equal(names(runs)[c(7, 1206, 1207, 2406)],
                c("grid_20_sgd_paper_s2026",
-                 "grid_20-15-10_nadam_cl_start_s2045"))
-  # seed by seed: the 90 combinations of a seed before the next seed
+                 "grid_20-15-10_nadam_early_stop_s2045",
+                 "clgrid_20_sgd_cl_paper_s2026",
+                 "clgrid_20-15-10_nadam_cl_start_s2045"))
+  # seed by seed: the 60 combinations of a seed before the next seed
   expect_equal(names(runs)[8:9],
-               c("grid_20_sgd_early_stop_s2026", "grid_20_sgd_cl_start_s2026"))
+               c("grid_20_sgd_early_stop_s2026",
+                 "grid_20_sgd_momentum_paper_s2026"))
   expect_equal(sub(".*_s", "", names(runs)[-(1:6)]),
-               rep(as.character(2026:2045), each = 90))
-  run <- runs[["grid_20-20-15_adagrad_cl_start_s2045"]]
+               rep(rep(as.character(2026:2045), each = 60), 2))
+  run <- runs[["clgrid_20-20-15_adagrad_cl_start_s2045"]]
   expect_equal(run$q, c(20, 20, 15))
   expect_true(run$cl_start)
   expect_equal(run$param,
@@ -240,13 +253,223 @@ test_that("nncl_runs: the 6 main runs and the grid of 1,800 runs", {
   nncl_cfg$grid$hidden <- 20
   nncl_cfg$grid$optimizers <- c("rmsprop", "sgd")
   nncl_cfg$grid$seeds <- 2
+  nncl_cfg$grid$nagging <- 2
   runs <- nncl_runs(nncl_cfg, 2026)
-  expect_length(runs, 1 + 2 * 3 * 2)
-  expect_equal(names(runs)[c(2, 13)],
-               c("grid_20_rmsprop_paper_s2026", "grid_20_sgd_cl_start_s2027"))
-  expect_equal(names(runs)[7:8],
-               c("grid_20_sgd_cl_start_s2026", "grid_20_rmsprop_paper_s2027"))
-  expect_equal(runs[[13]]$q, 20)
+  expect_length(runs, 1 + 2 * 2 * 2 + 2 * 2 * 2)
+  expect_equal(names(runs)[2:9],
+               c("grid_20_rmsprop_paper_s2026",
+                 "grid_20_rmsprop_early_stop_s2026",
+                 "grid_20_sgd_paper_s2026",
+                 "grid_20_sgd_early_stop_s2026",
+                 "grid_20_rmsprop_paper_s2027",
+                 "grid_20_rmsprop_early_stop_s2027",
+                 "grid_20_sgd_paper_s2027",
+                 "grid_20_sgd_early_stop_s2027"))
+  expect_equal(names(runs)[10:17],
+               sub("_paper_", "_cl_paper_",
+                   sub("_early_stop_", "_cl_start_",
+                       sub("^grid_", "clgrid_", names(runs)[2:9]))))
+  expect_equal(runs[[17]]$q, 20)
+  # a training that is none of the four is no run
+  nncl_cfg$cl_grid$training <- "cl_early"
+  expect_error(nncl_runs(nncl_cfg, 2026))
+})
+
+test_that("the two grids hold the 1,800 runs of the former single grid", {
+  nncl_cfg <- nncl_cfg_default
+  runs <- nncl_runs(nncl_cfg, 2026)
+  # the former grid, grid_<hidden>_<optimizer>_<training>_s<seed>: the
+  # trainings paper, early_stop and cl_start in one grid (its loops)
+  param <- runs$paper_q20$param
+  param_s2 <- runs$s2_early_stop$param
+  former <- list()
+  for (s in 2026 + seq_len(20) - 1) {
+    for (h in nncl_cfg$grid$hidden) {
+      for (o in nncl_cfg$grid$optimizers) {
+        for (tr in c("paper", "early_stop", "cl_start")) {
+          p <- modifyList(if (tr == "paper") param else param_s2,
+                          list(optimizer = o,
+                               learning_rate = nncl_cfg$grid$learning_rate[[o]],
+                               momentum = 0.9,
+                               seed = s))
+          run_name <- paste0("grid_", paste(h, collapse = "-"), "_", o, "_",
+                             tr, "_s", s)
+          former[[run_name]] <- list(q = h,
+                                     param = p,
+                                     cl_start = tr == "cl_start")
+        }
+      }
+    }
+  }
+  expect_length(former, 1800)
+  # the same fits (hidden layers, param with the seed, start): the runs from
+  # the random start under their names, those from the CL factor in the grid
+  # of their own
+  new_name <- ifelse(grepl("_cl_start_", names(former)),
+                     sub("^grid_", "clgrid_", names(former)),
+                     names(former))
+  expect_equal(sum(new_name != names(former)), 600)
+  expect_true(all(new_name %in% names(runs)))
+  expect_identical(lapply(unname(runs[new_name]), `[`,
+                          c("q", "param", "cl_start")),
+                   unname(former))
+  expect_equal(unname(sapply(runs[new_name], `[[`, "part")),
+               ifelse(grepl("_cl_start_", names(former)), "cl_grid", "grid"))
+  # the 600 runs that are new: Listing 2's training from the CL factor
+  new <- setdiff(names(runs)[-(1:6)], new_name)
+  expect_length(new, 600)
+  expect_true(all(grepl("^clgrid_.*_cl_paper_s20[0-9]{2}$", new)))
+})
+
+test_that("cl_paper: Listing 2's training started in the CL factor as S3", {
+  runs <- nncl_runs(nncl_cfg_default, 2026)
+  # the param of the paper run of the same hidden layers, optimiser and seed
+  cl_paper <- grep("_cl_paper_", names(runs), value = TRUE)
+  paper <- sub("_cl_paper_", "_paper_", sub("^clgrid_", "grid_", cl_paper))
+  expect_length(cl_paper, 600)
+  expect_identical(lapply(unname(runs[cl_paper]), `[`, c("q", "param")),
+                   lapply(unname(runs[paper]), `[`, c("q", "param")))
+  expect_true(all(sapply(runs[cl_paper], `[[`, "cl_start")))
+  expect_false(any(sapply(runs[paper], `[[`, "cl_start")))
+  expect_equal(unique(sapply(runs[cl_paper], function(run) run$param$epochs)),
+               100)
+  expect_false(any(sapply(runs[cl_paper], function(run) run$param$early_stop)))
+  # and cl_start that of the early_stop run
+  cl_start <- grep("^clgrid_.*_cl_start_", names(runs), value = TRUE)
+  early_stop <- sub("_cl_start_", "_early_stop_",
+                    sub("^clgrid_", "grid_", cl_start))
+  expect_identical(lapply(unname(runs[cl_start]), `[`, c("q", "param")),
+                   lapply(unname(runs[early_stop]), `[`, c("q", "param")))
+  # the networks of a run: the start and the training nncl_fit() is given
+  cum <- cbind(c(4, 1, 9, 16, 25), c(8, 3, 9, 20, 30), c(10, 6, 12, 22, 33))
+  seen <- NULL
+  stub <- function(x, y, w, x_new, q, param, f_start) {
+    seen <<- rbind(seen,
+                   data.frame(f_start = if (is.null(f_start)) NA else f_start,
+                              early_stop = param$early_stop,
+                              epochs = param$epochs))
+    list(loss = 0, loss_train = 0, loss_vali = 0, f_new = 1)
+  }
+  for (r in c("s3_cl_start", "clgrid_20_adam_cl_paper_s2026",
+              "clgrid_20_adam_cl_start_s2026", "grid_20_adam_paper_s2026")) {
+    nncl_run_fit(cum,
+                 matrix(1:5, ncol = 1),
+                 learn_rows = list(1:5, c(1, 3, 4)),
+                 x_new = matrix(0, 2, 1),
+                 runs[[r]],
+                 units = 1,
+                 fit = stub)
+  }
+  # CL factor of Keras's training rows (the first 90%): rows 1:4 and 1, 3
+  f_cl <- c((8 + 3 + 9 + 20) / (4 + 1 + 9 + 16), (10 + 12) / (8 + 9))
+  expect_equal(seen$f_start, c(rep(f_cl, 3), NA, NA))
+  expect_equal(seen$early_stop, rep(c(TRUE, FALSE, TRUE, FALSE), each = 2))
+  expect_equal(seen$epochs, rep(c(500, 100, 500, 100), each = 2))
+})
+
+test_that("anchored patterns tell the run files of the tasks apart", {
+  runs <- nncl_runs(nncl_cfg_default, 2026)
+  # the run files of a coding, <tag>_fit_<run>.rds: the runs of the fit
+  # script, S4 (saved with S3) and the final fits of the three searches
+  tuned <- paste0("tuned_",
+                  rep(c("cl_start", "paper", "early_stop"), each = 10),
+                  "_s",
+                  2026:2035)
+  run_names <- c(names(runs), "s4_balance", tuned)
+  tags <- c("nncl_synthetic", "nncl_synthetic_age_numeric")
+  files <- c(outer(run_names, tags, function(run, tag) {
+    paste0(tag, "_fit_", run, ".rds")
+  }))
+  pattern <- c(main = "_fit_(paper_q[0-9]+|s[1-4]_[a-z_]+)[.]rds$",
+               grid = "_fit_grid_.*[.]rds$",
+               cl_grid = "_fit_clgrid_.*[.]rds$",
+               tuned_cl_start = "_fit_tuned_cl_start_s[0-9]+[.]rds$",
+               tuned_paper = "_fit_tuned_paper_s[0-9]+[.]rds$",
+               tuned_early_stop = "_fit_tuned_early_stop_s[0-9]+[.]rds$")
+  for (tag in tags) {
+    hits <- sapply(paste0("^", tag, pattern), grepl, files)
+    expect_equal(unname(colSums(hits)), c(7, 1200, 1200, 10, 10, 10))
+    # a file of the coding is the file of one task, a file of the other
+    # coding of none
+    expect_equal(rowSums(hits),
+                 as.numeric(startsWith(files, paste0(tag, "_fit_"))))
+    # a run being fitted (lock) or saved (temporary file) is no run file
+    expect_false(any(sapply(paste0("^", tag, pattern), grepl,
+                            paste0(files, c(".lock", ".tmp")))))
+  }
+  # anchored: "grid_" alone is in the run names of both grids, and the tag of
+  # the dummy coding starts the tag of the numeric coding
+  expect_equal(sum(grepl("grid_", files)), 2 * 2400)
+  expect_equal(sum(grepl("nncl_synthetic.*_fit_grid_", files)), 2 * 1200)
+  expect_equal(sum(grepl("^nncl_synthetic_fit_grid_", files)), 1200)
+  # the runs of a grid by its pattern
+  part <- sapply(runs, `[[`, "part")
+  expect_equal(grepl("^nncl_synthetic_fit_grid_.*[.]rds$", files[1:2406]),
+               unname(part == "grid"))
+  expect_equal(grepl("^nncl_synthetic_fit_clgrid_.*[.]rds$", files[1:2406]),
+               unname(part == "cl_grid"))
+  # the main runs the fit script loops over and claims: without S4, which is
+  # saved with S3 (a queue of the final run counts the runs of its loop)
+  claimed <- "^nncl_synthetic_fit_(paper_q[0-9]+|s[1-3]_[a-z_]+)[.]rds$"
+  expect_equal(grepl(claimed, files), files %in% files[1:6])
+})
+
+test_that("nncl_grid_runs: the runs and the nagging blocks of each grid", {
+  nncl_cfg <- nncl_cfg_default
+  runs <- nncl_runs(nncl_cfg, 2026)
+  grid <- nncl_grid_runs(nncl_cfg, 2026)
+  expect_named(grid, c("part", "hidden", "optimizer", "training", "seed",
+                       "learning_rate", "block", "run"))
+  expect_equal(nrow(grid), 2400)
+  expect_equal(grid$part, rep(c("grid", "cl_grid"), each = 1200))
+  # the runs of nncl_runs(): names, hidden layers, param and start
+  expect_setequal(grid$run, names(runs)[-(1:6)])
+  fitted <- unname(runs[grid$run])
+  expect_equal(grid$part, sapply(fitted, `[[`, "part"))
+  expect_equal(grid$hidden,
+               sapply(fitted, function(run) paste(run$q, collapse = "-")))
+  expect_equal(grid$optimizer,
+               sapply(fitted, function(run) run$param$optimizer))
+  expect_equal(grid$seed, sapply(fitted, function(run) run$param$seed))
+  expect_equal(grid$learning_rate,
+               sapply(fitted, function(run) run$param$learning_rate))
+  expect_equal(grid$training %in% c("early_stop", "cl_start"),
+               sapply(fitted, function(run) run$param$early_stop))
+  expect_equal(grid$training %in% c("cl_paper", "cl_start"),
+               sapply(fitted, `[[`, "cl_start"))
+  expect_equal(unique(grid$training[grid$part == "grid"]),
+               c("paper", "early_stop"))
+  expect_equal(unique(grid$training[grid$part == "cl_grid"]),
+               c("cl_paper", "cl_start"))
+  # nagging predictors: per combination the blocks of seeds 2026-2035 and
+  # 2036-2045, 10 networks each, in both grids
+  expect_equal(grid$block, ifelse(grid$seed <= 2035, 1, 2))
+  predictor <- paste(grid$part, grid$hidden, grid$optimizer, grid$training,
+                     grid$block)
+  expect_length(unique(predictor), 2 * 3 * 10 * 2 * 2)
+  expect_true(all(table(predictor) == 10))
+  # a key of cl_grid replaces that of grid: 6 seeds in blocks of 3
+  nncl_cfg$cl_grid$seeds <- 6
+  nncl_cfg$cl_grid$nagging <- 3
+  grid <- nncl_grid_runs(nncl_cfg, 2026)
+  expect_equal(grid$part, rep(c("grid", "cl_grid"), c(1200, 360)))
+  expect_setequal(grid$run, names(nncl_runs(nncl_cfg, 2026))[-(1:6)])
+  cl <- grid$part == "cl_grid"
+  expect_equal(grid$block[cl], ifelse(grid$seed[cl] <= 2028, 1, 2))
+  expect_equal(grid$block[!cl], ifelse(grid$seed[!cl] <= 2035, 1, 2))
+  # the quick profile of config.yml: 8 runs a grid, one block of 2 seeds
+  nncl_cfg <- nncl_cfg_default
+  nncl_cfg$grid[c("hidden", "seeds", "nagging")] <- list(20, 2, 2)
+  nncl_cfg$grid$optimizers <- c("rmsprop", "sgd")
+  grid <- nncl_grid_runs(nncl_cfg, 2026)
+  expect_equal(grid$part, rep(c("grid", "cl_grid"), each = 8))
+  expect_setequal(grid$run, names(nncl_runs(nncl_cfg, 2026))[-(1:6)])
+  expect_equal(grid$run[c(1, 2, 9, 16)],
+               c("grid_20_rmsprop_paper_s2026",
+                 "grid_20_rmsprop_paper_s2027",
+                 "clgrid_20_rmsprop_cl_paper_s2026",
+                 "clgrid_20_sgd_cl_start_s2027"))
+  expect_true(all(grid$block == 1))
 })
 
 test_that("nncl_run_fit: Listing 2's responses in units, CL start, losses", {
@@ -443,6 +666,21 @@ test_that("nncl_fit: early stopping and the CL start kept or left", {
   # a diverging optimiser (no finite loss): Keras keeps the first epoch
   fit <- toy_fit(c(NaN, NaN), early_stop = TRUE)
   expect_equal(fit$epochs_used, 1)
+})
+
+test_that("nncl_fit: the CL start without early stopping runs all epochs", {
+  # cl_paper: no epoch beats the CL start 1.25 (validation loss 0.03125),
+  # which early stopping would keep; Listing 2's training keeps the last
+  # epoch
+  fit <- toy_fit(c(1.5, 2, 1), f_start = 1.25)
+  expect_equal(fit$history$val_loss, c(1.625, 12.5, 1))
+  expect_equal(c(fit$epochs_run, fit$epochs_used), c(3, 3))
+  expect_equal(fit$f_new, rep(1, 2))
+  expect_equal(fit$f_learn, rep(1, 5))
+  # the same epochs from the random start
+  fit <- toy_fit(c(1.5, 2, 1))
+  expect_equal(c(fit$epochs_run, fit$epochs_used), c(3, 3))
+  expect_equal(fit$f_new, rep(1, 2))
 })
 
 test_that("nncl_fit: the timing callback does not keep the fit in memory", {

@@ -5,12 +5,14 @@
 #########  Department's Research Assignment Guide (2026), Sections 5.3, 5.7
 ##########################################
 
-## reads the cells of "NN chain ladder fit.R" (no Keras needed)
+## reads the cells of "NN chain ladder fit.R" (no Keras needed): the paper's
+## four LoBs, the data set machine4 (data/interim/machine4/nncl_cells.rds)
+Sys.setenv(DATASET = "machine4", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 fig_dir <- file.path(paths$figures, "04_NN-chain-ladder/model")
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
-n_ay <- cfg$nncl$n_ay                          # I = 12, J = I - 1 = 11
+n_ay <- cfg$data$n_dev                         # I = 12, J = I - 1 = 11
 nets <- c(1, 2, 5, 11)                         # networks j shown
 
 ##########################################

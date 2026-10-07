@@ -12,7 +12,10 @@
 ## by run: same cells, rows of Keras's split, seeds and training; the
 ## networks differ in the inputs (14 or 11), hence in the parameters (321 or
 ## 261 for one layer of 20). The codings are judged on the reserves by age
-## band; an error is the error on this one simulated portfolio, not a bias
+## band; an error is the error on this one simulated portfolio, not a bias.
+## Run it when both grids of the fit script (grid and cl_grid) have seeds
+## fitted under both codings: the comparisons of the CL start are on the
+## chain-ladder-start grid, the last figure also on the random-start grid
 source(here::here("analysis", "00_setup.R"))
 stopifnot(cfg$data$generator == "synthetic")
 out_dir <- file.path("04_NN-chain-ladder", "synthetic-age-coding")
@@ -36,20 +39,14 @@ tags <- sapply(c(dummy = "default", numeric = "age_numeric"), function(p) {
   config::get("nncl", config = p, file = here::here("config.yml"))$synthetic$tag
 })
 
-## runs of the grid (hidden layers, optimiser, training, seed), as in the
-## fit script; predictor: the block of seeds of a nagging predictor, as in
-## the analysis script
-grid_cfg <- cfg$nncl$grid
-grid <- CJ(hidden = sapply(grid_cfg$hidden, paste, collapse = "-"),
-           optimizer = grid_cfg$optimizers,
-           training = grid_cfg$training,
-           seed = cfg$seed + seq_len(grid_cfg$seeds) - 1,
-           sorted = FALSE)
+## runs of the two grids of the fit script (part, hidden layers, optimiser,
+## training, seed: nncl_grid_runs()): from the random start (trainings paper
+## and early_stop) and from the homogeneous CL factor (cl_paper, and
+## cl_start, the training of S3: "the CL start" below); predictor: the block
+## of seeds of a nagging predictor, as in the analysis script
+grid <- nncl_grid_runs(cfg$nncl, cfg$seed)
 grid$combination <- paste(grid$hidden, grid$optimizer, grid$training)
-grid$block <- ceiling((grid$seed - cfg$seed + 1) / grid_cfg$nagging)
 grid$predictor <- paste(grid$combination, grid$block)
-grid$run <- paste0("grid_", grid$hidden, "_", grid$optimizer, "_",
-                   grid$training, "_s", grid$seed)
 
 ##########################################
 #########  the cells, the truth and the benchmarks
@@ -166,18 +163,18 @@ benchmarks <- data.table(coding = "benchmark",
 ##########################################
 
 ## the runs fitted under both codings; the fits of a coding can be under
-## way: the grid is compared on the seeds fitted in full
+## way: a grid is compared on its seeds fitted in full
 fit_file <- function(coding, run) {
   file.path(paths$processed, paste0(tags[coding], "_fit_", run, ".rds"))
 }
 fitted <- function(run) {
   file.exists(fit_file("dummy", run)) & file.exists(fit_file("numeric", run))
 }
-full <- tapply(fitted(grid$run), grid$seed, all)
-grid <- grid[full[as.character(seed)]]
+full <- ave(fitted(grid$run), grid$part, grid$seed, FUN = all)
+grid <- grid[full]
 all_runs <- c(run_names[fitted(run_names)], grid$run)
-c("runs fitted under both codings" = length(all_runs),
-  "seeds of the grid" = uniqueN(grid$seed))
+c("runs fitted under both codings" = length(all_runs))
+tapply(grid$seed, grid$part, uniqueN)          # seeds of the grids
 
 ## every run of both codings: its measures, the parameters of network j = 1
 ## and the loss L'_j (6.1) on the learning cells of the networks j_net
@@ -308,8 +305,7 @@ cbind(by_combination[training == "cl_start", c(1:2, 12)],
 ## adjustment over the other measures. abs_band: absolute error of the band
 ## (%); low_j, loss_j: loss of network j on the true lower triangle and on
 ## the learning cells, relative to the homogeneous CL factor
-n_finite <- tapply(both, pairs$combination, sum)
-balanced <- names(n_finite)[n_finite == uniqueN(grid$seed)]
+balanced <- names(which(tapply(both, pairs$combination, all)))
 use <- cl & pairs$combination %in% balanced
 cmp <- c("band_abs_error", "ay_band_rmse", "error_abs", abs_cols, low_cols,
          loss_cols)

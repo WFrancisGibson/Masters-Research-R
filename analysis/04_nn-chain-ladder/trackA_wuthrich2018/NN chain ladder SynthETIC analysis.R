@@ -6,9 +6,10 @@
 ##########################################
 
 ## reads the cells of "NN chain ladder SynthETIC cells.R" and the fits of
-## "NN chain ladder SynthETIC fit.R" (no Keras needed); Age of Claimant as
-## four dummies or as an ordinal score (R_CONFIG_ACTIVE=age_numeric): the
-## fits (tag) and outputs (out_dir) of the two codings are apart
+## "NN chain ladder SynthETIC fit.R" (no Keras needed): the main runs and,
+## of its two grids, what is fitted; Age of Claimant as four dummies or as
+## an ordinal score (R_CONFIG_ACTIVE=age_numeric): the fits (tag) and
+## outputs (out_dir) of the two codings are apart
 source(here::here("analysis", "00_setup.R"))
 stopifnot(cfg$data$generator == "synthetic")
 tag <- cfg$nncl$synthetic$tag
@@ -29,44 +30,31 @@ fit_file <- function(run) {
   file.path(paths$processed, paste0(tag, "_fit_", run, ".rds"))
 }
 
-## hidden layers and optimisers (own design, not in the paper): every
-## combination of hidden layers, optimiser and training with every seed, as
-## in the fit script
-grid_cfg <- cfg$nncl$grid
-seeds <- cfg$seed + seq_len(grid_cfg$seeds) - 1
-grid <- CJ(hidden = sapply(grid_cfg$hidden, paste, collapse = "-"),
-           optimizer = grid_cfg$optimizers,
-           training = grid_cfg$training,
-           seed = seeds,
-           sorted = FALSE)
-grid$learning_rate <- unname(unlist(grid_cfg$learning_rate)[grid$optimizer])
-grid$run <- paste0("grid_", grid$hidden, "_", grid$optimizer, "_",
-                   grid$training, "_s", grid$seed)
+## hidden layers and optimisers (own design, not in the paper): the two
+## grids of the fit script, from the random start (part grid) and from the
+## homogeneous CL factor (part cl_grid), each every combination of hidden
+## layers, optimiser and training with every seed (nncl_grid_runs()); block:
+## the block of 'nagging' seeds of a run. A grid can be under way or not
+## started (the final run fits them after the main runs, each seed by seed):
+## its blocks of seeds fitted in full enter, the first one at half of a grid
+## of two blocks, and a grid without one has no tables and no figure
+grids <- nncl_grids(cfg$nncl)
+grid_runs <- nncl_grid_runs(cfg$nncl, cfg$seed)
+full <- ave(file.exists(fit_file(grid_runs$run)),
+            grid_runs$part,
+            grid_runs$block,
+            FUN = all)
+grid_runs <- grid_runs[full]
 
 ## nagging predictors (Richman & Wuthrich 2020), one per combination and
-## block of 'nagging' seeds
-blocks <- split(seeds, ceiling(seq_along(seeds) / grid_cfg$nagging))
-nag <- CJ(hidden = unique(grid$hidden),
-          optimizer = unique(grid$optimizer),
-          training = unique(grid$training),
-          block = seq_along(blocks),
-          sorted = FALSE)
-nag$seeds <- unname(sapply(blocks[nag$block], function(s) {
-  paste(range(s), collapse = "-")
-}))
-nag$run <- paste0("nag_", nag$hidden, "_", nag$optimizer, "_", nag$training,
-                  "_b", nag$block)
-
-## the grid can be under way (the final run fits it after the main runs,
-## seed by seed: nncl_runs()): the blocks of seeds fitted in full enter, the
-## first one at half of a grid of two blocks, and without one the tables and
-## the figure of the grid are left out
-full <- sapply(blocks, function(s) {
-  all(file.exists(fit_file(grid$run[grid$seed %in% s])))
-})
-grid <- grid[seed %in% unlist(blocks[full])]
-nag <- nag[block %in% which(full)]
-c("runs of the grid" = nrow(grid), "nagging predictors" = nrow(nag))
+## block of 'nagging' seeds (seeds: its first and last one)
+nag_runs <- grid_runs[, .(seeds = paste(seed[c(1, .N)], collapse = "-")),
+                      by = .(part, hidden, optimizer, training, block)]
+nag_runs$run <- paste0("nag_", nag_runs$part, "_", nag_runs$hidden, "_",
+                       nag_runs$optimizer, "_", nag_runs$training, "_b",
+                       nag_runs$block)
+table(factor(grid_runs$part, levels = names(grids)), dnn = "runs of the grids")
+c("nagging predictors" = nrow(nag_runs))
 
 ##########################################
 #########  load the cells and the fits
@@ -92,7 +80,7 @@ zero <- readRDS(file.path(paths$processed, "nncl_synthetic_zero_claims.rds"))
 ## factor of a cell is row x_id
 fits <- list()
 f_x <- list()
-for (r in c(run_names, grid$run)) {
+for (r in c(run_names, grid_runs$run)) {
   run <- readRDS(fit_file(r))
   fits[[r]] <- run$fits
   f_x[[r]] <- run$f_x
@@ -101,16 +89,17 @@ for (r in c(run_names, grid$run)) {
 ## nagging predictor: the CL factors f_{j-1}(x) of the networks of a block
 ## averaged, per development period j; its losses L'_j (6.1) on the learning
 ## cells and on Keras's validation rows
-for (k in seq_len(nrow(nag))) {
-  members <- f_x[grid$run[grid$hidden == nag$hidden[k] &
-                            grid$optimizer == nag$optimizer[k] &
-                            grid$training == nag$training[k] &
-                            grid$seed %in% blocks[[nag$block[k]]]]]
+for (k in seq_len(nrow(nag_runs))) {
+  members <- f_x[grid_runs$run[grid_runs$part == nag_runs$part[k] &
+                                 grid_runs$hidden == nag_runs$hidden[k] &
+                                 grid_runs$optimizer == nag_runs$optimizer[k] &
+                                 grid_runs$training == nag_runs$training[k] &
+                                 grid_runs$block == nag_runs$block[k]]]
   f_nag <- sapply(1:(n_ay - 1), function(j) {
     rowMeans(sapply(members, function(f) f[, j]))
   })
-  f_x[[nag$run[k]]] <- f_nag
-  fits[[nag$run[k]]] <- lapply(1:(n_ay - 1), function(j) {
+  f_x[[nag_runs$run[k]]] <- f_nag
+  fits[[nag_runs$run[k]]] <- lapply(1:(n_ay - 1), function(j) {
     r <- learn_rows[[j]]
     res2 <- (cum[r, j + 1] - f_nag[x_id[r], j] * cum[r, j])^2 / cum[r, j]
     train <- seq_len(floor(length(r) * (1 - vali_split)))
@@ -346,11 +335,17 @@ for (js in j_split) {
 }
 
 ##########################################
-#########  hidden layers and optimisers: tables and figure
+#########  hidden layers and optimisers: tables and figure of each grid
 ##########################################
 
-## left out while no block of seeds of the grid is fitted in full
-if (nrow(grid) > 0) {
+## the random-start grid (grid) and the chain-ladder-start grid (cl_grid),
+## each with its own tables and figure (<grid> in their names); a grid is
+## left out while no block of its seeds is fitted in full
+for (g in unique(grid_runs$part)) {
+  grid_cfg <- grids[[g]]
+  grid <- grid_runs[part == g, !"part"]
+  nag <- nag_runs[part == g, !"part"]
+
   ## all runs of the grid: parameters of the network of j = 1, run time,
   ## epochs used/run and networks diverged over the J networks, losses and
   ## reserves against the truth (bias of Mack's CL: bias_cl_pct above); the
@@ -405,9 +400,10 @@ if (nrow(grid) > 0) {
                       by = .(hidden, optimizer, training)]
   nag_wide <- dcast(nag, hidden + optimizer + training ~ block,
                     value.var = "bias_pct")
+  blocks <- sort(unique(nag$block))
   setnames(nag_wide,
-           as.character(which(full)),
-           paste0("nagging_bias_pct_", which(full)))
+           as.character(blocks),
+           paste0("nagging_bias_pct_", blocks))
   seed_spread <- merge(seed_spread, nag_wide, sort = FALSE)
   round_cols <- setdiff(names(seed_spread),
                         c("hidden", "optimizer", "training", "seeds",
@@ -427,9 +423,10 @@ if (nrow(grid) > 0) {
               optimizer ~ training + hidden,
               value.var = "bias_pct"))
 
-  fwrite(grid, file.path(tab_dir, "nncl_synthetic_layers_optimisers.csv"))
-  fwrite(seed_spread, file.path(tab_dir, "nncl_synthetic_seed_spread.csv"))
-  fwrite(nag, file.path(tab_dir, "nncl_synthetic_nagging.csv"))
+  tab_grid <- file.path(tab_dir, paste0("nncl_synthetic_", g))
+  fwrite(grid, paste0(tab_grid, "_layers_optimisers.csv"))
+  fwrite(seed_spread, paste0(tab_grid, "_seed_spread.csv"))
+  fwrite(nag, paste0(tab_grid, "_nagging.csv"))
 
   ## bias of the reserves in % of the true reserves by training, one point
   ## per seed and a diamond per nagging predictor (dotted: Mack's CL); a
@@ -441,7 +438,8 @@ if (nrow(grid) > 0) {
   nag$optimizer <- factor(nag$optimizer, levels = grid_cfg$optimizers)
   nag$hidden <- factor(nag$hidden, levels = hidden_lab)
   for (tr in unique(grid$training)) {
-    ggsave(paste0("NNCL SynthETIC layers and optimisers bias ", tr, ".png"),
+    ggsave(paste0("NNCL SynthETIC ", g, " layers and optimisers bias ", tr,
+                  ".png"),
            ggplot(grid[training == tr],
                   aes(x = optimizer, y = bias_pct, colour = hidden)) +
              geom_hline(yintercept = 0, colour = "grey50") +

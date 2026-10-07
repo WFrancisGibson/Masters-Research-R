@@ -4,13 +4,17 @@
 #########  reserving, EAJ 8:407-436, Tables 2-5 and Figures 2-4, 7-9
 ##########################################
 
-## reads the fits of "NN chain ladder fit.R" (no Keras needed)
+## reads the fits of "NN chain ladder fit.R" (no Keras needed) on the paper's
+## four LoBs, the data set machine4: cells in data/interim/machine4, fits in
+## data/processed/machine4 (the fits made before the data sets had folders
+## of their own: copy them there, see the fit script)
+Sys.setenv(DATASET = "machine4", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 tab_dir <- file.path(paths$tables, "04_NN-chain-ladder/model")
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
-n_ay <- cfg$nncl$n_ay                          # I = 12, J = I - 1 = 11
-first_ay <- cfg$nncl$first_ay                  # 1994
+n_ay <- cfg$data$n_dev                         # I = 12, J = I - 1 = 11
+first_ay <- cfg$data$first_ay                  # 1994
 units <- cfg$nncl$units                        # EAJ tables in 1'000
 ay_lab <- first_ay:(first_ay + n_ay - 1)
 features <- c("LoB", "cc", "AQ", "age", "inj_part")

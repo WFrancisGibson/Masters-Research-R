@@ -4,12 +4,14 @@
 #########  and Figures A1-A4; Wuthrich (2018), EAJ 8:407-436, Figures 5-6
 ##########################################
 
+## the four LoBs of Wuthrich (2018), the data set machine4 of config.yml
+Sys.setenv(DATASET = "machine4", UNIT = "")
 source(here::here("analysis", "00_setup.R"))
 tab_dir <- file.path(paths$tables, "04_NN-chain-ladder/data-description")
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
 
-n_ay <- cfg$nncl$n_ay                          # I = 12, development years 0..11
-first_ay <- cfg$nncl$first_ay                  # 1994
+n_ay <- cfg$data$n_dev                         # I = 12, development years 0..11
+first_ay <- cfg$data$first_ay                  # 1994
 units <- cfg$nncl$risks_units                  # Risks tables in 10'000
 pay_cols <- sprintf("Pay%02d", 0:(n_ay - 1))
 ay_lab <- first_ay:(first_ay + n_ay - 1)
@@ -19,7 +21,7 @@ ay_lab <- first_ay:(first_ay + n_ay - 1)
 ##########################################
 
 ## claims of analysis/00_claim-simulation/individual_claims_simulation_machine.R
-claims <- fread(file.path(paths$raw, cfg$nncl$data_dir, "claims.csv"),
+claims <- fread(file.path(paths$raw, cfg$data$dir, "claims.csv"),
                 select = c("LoB", "cc", "AY", "AQ", "age", "inj_part",
                            "RepDel", pay_cols))
 claims$i <- claims$AY - first_ay + 1           # accident year i = 1..I

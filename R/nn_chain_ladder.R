@@ -155,18 +155,34 @@ nncl_fit <- function(x,
        f_new = f_new)
 }
 
-## the runs of the fit scripts, a named list of list(q, param, cl_start):
-## the networks of the paper (Listing 2) with q hidden neurons, paper_q<q>,
-## and the sensitivity runs at q_main, each adding one change: S1 Adam, S2
-## early stopping, S3 the output started in the homogeneous CL factor
-## (nncl_cfg$runs: those to fit; S4, the balance correction, is derived from
-## S3). Own design, not in the paper: the grid grid_<hidden>_<optimizer>_
-## <training>_s<seed>, every combination of hidden layers, optimiser and
-## training with every seed (seed, seed + 1, ...); training "paper" is
-## Listing 2's, "early_stop" that of S2 and "cl_start" that of S3. The grid
-## is in the order of the seeds, all combinations of a seed before the next
-## seed: a grid under way holds whole seeds, and whole blocks of seeds for
-## the nagging predictors, of every combination
+## the two grids of nncl_runs() (own design, not in the paper), named by
+## their part of the fit script: grid, the random start of Listing 2
+## (nncl_cfg$grid), and cl_grid, the chain-ladder start of S3, the settings
+## of grid with those of nncl_cfg$cl_grid in their place; prefix: the start
+## of the names of their runs. The run files of a grid are those of the
+## anchored pattern ^<tag>_fit_<prefix>: "grid_" alone is also in "clgrid_",
+## and the tag of the dummy coding starts that of the numeric coding
+nncl_grids <- function(nncl_cfg) {
+  list(grid = c(nncl_cfg$grid, prefix = "grid_"),
+       cl_grid = c(modifyList(nncl_cfg$grid, nncl_cfg$cl_grid),
+                   prefix = "clgrid_"))
+}
+
+## the runs of the fit scripts, a named list of list(q, param, cl_start,
+## part). Part main: the networks of the paper (Listing 2) with q hidden
+## neurons, paper_q<q>, and the sensitivity runs at q_main, each adding one
+## change: S1 Adam, S2 early stopping, S3 the output started in the
+## homogeneous CL factor (nncl_cfg$runs: those to fit; S4, the balance
+## correction, is derived from S3). Own design, not in the paper: the grids
+## of nncl_grids(), <prefix><hidden>_<optimizer>_<training>_s<seed>, every
+## combination of hidden layers, optimiser and training with every seed
+## (seed, seed + 1, ...). Part grid: training "paper" is Listing 2's and
+## "early_stop" that of S2. Part cl_grid: "cl_paper" is Listing 2's (its
+## epochs, no early stopping) and "cl_start" the early stopping of S3, both
+## started in the homogeneous CL factor as S3. A grid is in the order of the
+## seeds, all combinations of a seed before the next seed: a grid under way
+## holds whole seeds, and whole blocks of seeds for the nagging predictors,
+## of every combination
 nncl_runs <- function(nncl_cfg, seed) {
   param <- list(activation = nncl_cfg$model$activation,
                 optimizer = "rmsprop",
@@ -189,27 +205,60 @@ nncl_runs <- function(nncl_cfg, seed) {
   runs$s1_adam <- list(q = q_main, param = param_s1, cl_start = FALSE)
   runs$s2_early_stop <- list(q = q_main, param = param_s2, cl_start = FALSE)
   runs$s3_cl_start <- list(q = q_main, param = param_s2, cl_start = TRUE)
-  runs <- runs[nncl_cfg$runs]
-  grid_cfg <- nncl_cfg$grid
-  for (s in seed + seq_len(grid_cfg$seeds) - 1) {
-    for (h in grid_cfg$hidden) {
-      for (o in grid_cfg$optimizers) {
-        for (tr in grid_cfg$training) {
-          p <- modifyList(if (tr == "paper") param else param_s2,
-                          list(optimizer = o,
-                               learning_rate = grid_cfg$learning_rate[[o]],
-                               momentum = grid_cfg$momentum,
-                               seed = s))
-          run_name <- paste0("grid_", paste(h, collapse = "-"), "_", o, "_",
-                             tr, "_s", s)
-          runs[[run_name]] <- list(q = h,
-                                   param = p,
-                                   cl_start = tr == "cl_start")
+  runs <- lapply(runs[nncl_cfg$runs], c, part = "main")
+  # the trainings of the grids: the epochs of Listing 2 or the early stopping
+  # of S2, from the random start or from the homogeneous CL factor (S3)
+  training <- list(paper = list(param = param, cl_start = FALSE),
+                   early_stop = list(param = param_s2, cl_start = FALSE),
+                   cl_paper = list(param = param, cl_start = TRUE),
+                   cl_start = list(param = param_s2, cl_start = TRUE))
+  grids <- nncl_grids(nncl_cfg)
+  for (g in names(grids)) {
+    grid_cfg <- grids[[g]]
+    for (s in seed + seq_len(grid_cfg$seeds) - 1) {
+      for (h in grid_cfg$hidden) {
+        for (o in grid_cfg$optimizers) {
+          for (tr in grid_cfg$training) {
+            p <- modifyList(training[[tr]]$param,
+                            list(optimizer = o,
+                                 learning_rate = grid_cfg$learning_rate[[o]],
+                                 momentum = grid_cfg$momentum,
+                                 seed = s))
+            run_name <- paste0(grid_cfg$prefix, paste(h, collapse = "-"), "_",
+                               o, "_", tr, "_s", s)
+            runs[[run_name]] <- list(q = h,
+                                     param = p,
+                                     cl_start = training[[tr]]$cl_start,
+                                     part = g)
+          }
         }
       }
     }
   }
   runs
+}
+
+## the runs of the two grids of nncl_runs() as a table for the analysis
+## scripts, a row per run: part (grid or cl_grid), hidden layers, optimiser,
+## training, seed, learning rate, block and run, its name; block: the block
+## of grid_cfg$nagging seeds of the run, the networks of a combination and
+## block make a nagging predictor (Richman & Wuthrich 2020)
+nncl_grid_runs <- function(nncl_cfg, seed) {
+  grids <- nncl_grids(nncl_cfg)
+  rbindlist(lapply(names(grids), function(g) {
+    grid_cfg <- grids[[g]]
+    runs <- CJ(part = g,
+               hidden = sapply(grid_cfg$hidden, paste, collapse = "-"),
+               optimizer = grid_cfg$optimizers,
+               training = grid_cfg$training,
+               seed = seed + seq_len(grid_cfg$seeds) - 1,
+               sorted = FALSE)
+    runs$learning_rate <- unname(unlist(grid_cfg$learning_rate)[runs$optimizer])
+    runs$block <- ceiling((runs$seed - seed + 1) / grid_cfg$nagging)
+    runs$run <- paste0(grid_cfg$prefix, runs$hidden, "_", runs$optimizer, "_",
+                       runs$training, "_s", runs$seed)
+    runs
+  }))
 }
 
 ## the networks of one run (an element of nncl_runs()), one per development
@@ -236,7 +285,8 @@ nncl_run_fit <- function(cum,
     # Listing 2: responses C_j / sqrt(C_{j-1}), volumes sqrt(C_{j-1})
     y <- cum[r, j + 1] / units / sqrt(c_prev)
     w <- matrix(sqrt(c_prev), ncol = 1)
-    # S3: output started in the homogeneous CL factor of the training rows
+    # S3 and the chain-ladder-start grid: output started in the homogeneous
+    # CL factor of the training rows
     f_start <- NULL
     if (run$cl_start) {
       train <- seq_len(floor(length(r) * (1 - run$param$validation_split)))

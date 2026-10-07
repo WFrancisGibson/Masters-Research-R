@@ -9,8 +9,10 @@
 ## "NN chain ladder SynthETIC cells.R" (run that script first). Every run is
 ## saved in its own file and several R sessions can share the runs
 ## (R/runs.R); the tables and figures are those of "NN chain ladder SynthETIC
-## analysis.R". An argument restricts the runs to those of the paper and
-## S1-S4 (main) or to the hidden layers and optimisers (grid):
+## analysis.R". An argument restricts the runs to one part (two arguments to
+## two parts): those of the paper and S1-S4 (main), the hidden layers and
+## optimisers from the random start (grid) or from the homogeneous CL factor
+## (cl_grid); without an argument all runs are fitted:
 ##   Rscript "<this script>" main
 source(here::here("analysis", "00_setup.R"))
 library(keras3)
@@ -25,12 +27,14 @@ age <- cfg$nncl$synthetic$age
 tag <- cfg$nncl$synthetic$tag
 
 ## the runs of Listing 2 (Appendix 2), the sensitivity runs S1-S3 and the
-## hidden layers and optimisers (own design, not in the paper)
+## two grids of hidden layers and optimisers (own design, not in the paper)
 runs <- nncl_runs(cfg$nncl, cfg$seed)
+parts <- sapply(runs, `[[`, "part")
 part <- commandArgs(trailingOnly = TRUE)
-if (length(part) == 1) {
-  runs <- runs[grepl("^grid_", names(runs)) == (part == "grid")]
-}
+# an argument that is no part (clgrid for cl_grid) would select no run and
+# end the session as if its task were done
+stopifnot(part %in% parts)
+if (length(part) > 0) runs <- runs[parts %in% part]
 length(runs)
 
 ##########################################
@@ -53,9 +57,11 @@ homogeneous <- readRDS(file.path(paths$processed,
 #########  CL factor networks (Section 3, Listing 2)
 ##########################################
 
-## one network per development period j; a run keeps the CL factors of the
-## feature values, f_x (feature values x networks j: the factor of a cell is
-## row x_id), and of every network the losses, the epochs and the training
+## one network per development period j; a run keeps its settings (q, param
+## and cl_start: output started in the homogeneous CL factor, which alone
+## tells a cl_paper run from its paper run), the CL factors of the feature
+## values, f_x (feature values x networks j: the factor of a cell is row
+## x_id), and of every network the losses, the epochs and the training
 ## times; the networks of the first seed go to models/<tag>/
 model_dir <- file.path(paths$models, tag)
 dir.create(model_dir, showWarnings = FALSE)
@@ -88,6 +94,7 @@ for (run_name in names(runs)) {
                  age = age,
                  q = run$q,
                  param = run$param,
+                 cl_start = run$cl_start,
                  f_x = sapply(fits, `[[`, "f_new"),
                  fits = lapply(fits, function(fit) {
                    fit[setdiff(names(fit), c("f_learn", "f_new"))]

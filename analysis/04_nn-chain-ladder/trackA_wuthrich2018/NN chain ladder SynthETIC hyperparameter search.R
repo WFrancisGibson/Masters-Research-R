@@ -142,7 +142,8 @@ for (mode in modes) {
   cat(mode, " chosen: ", hp_label(search$best), "\n", sep = "")
 
   ## 3. the chosen set on the full triangle, final_seeds seeds; a run keeps
-  ## the CL factors of the feature values (f_x), as in the fit script
+  ## its settings and the CL factors of the feature values (f_x), as in the
+  ## fit script
   if (!is.null(search$best$hidden)) run$q <- search$best$hidden
   run$param <- modifyList(run$param,
                           search$best[setdiff(names(search$best), "hidden")])
@@ -162,6 +163,7 @@ for (mode in modes) {
            age = age,
            q = run$q,
            param = run$param,
+           cl_start = run$cl_start,
            hyperparameters = search$best,
            f_x = sapply(fits, `[[`, "f_new"),
            fits = lapply(fits, function(fit) {
