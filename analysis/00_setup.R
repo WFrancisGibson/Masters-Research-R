@@ -25,6 +25,17 @@ paths$raw <- here::here(cfg$paths$raw)
 for (p in paths) dir.create(p, showWarnings = FALSE, recursive = TRUE)
 set.seed(cfg$seed)
 
+## Python side of keras3 (TensorFlow, CPU). On the VM the launcher names the
+## environment that setup_vm.ps1 built from requirements.txt
+## (RETICULATE_PYTHON) and these lines have no effect; on another computer
+## reticulate builds it with uv from the pins declared here. keras3 drops a
+## tensorflow requirement when it loads, so they are declared after its load
+py_req <- trimws(sub("#.*", "", readLines(here::here("requirements.txt"))))
+py_req <- py_req[py_req != ""]
+reticulate::py_require(python_version = "3.12")
+setHook(packageEvent("keras3", "onLoad"),
+        function(...) reticulate::py_require(py_req))
+
 ## functions in R/
 for (f in list.files(here::here("R"), pattern = "\\.R$", full.names = TRUE)) {
   source(f)
