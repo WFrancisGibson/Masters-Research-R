@@ -71,14 +71,19 @@ nncl_model <- function(d, q, param, f_start = NULL) {
 
 ## fits the network of development period j on its learning cells (Listing 2
 ## lines 18-21); Keras validates on the last validation_split of the rows;
-## returns the losses (6.1) and f(x) on the learning rows and on x_diag
+## returns the losses (6.1), f(x) on the learning rows (f_learn) and on the
+## feature rows x_new (f_new), and the wall-clock seconds: of every epoch,
+## its validation included (history$time), and of the three steps of the
+## function, time_build (the network built and its start scored), run_time
+## (the epochs) and time_predict
 nncl_fit <- function(x,
                      y,
                      w,
-                     x_diag,
+                     x_new,
                      q,
                      param,
                      f_start = NULL) {
+  t_build <- Sys.time()
   model <- nncl_model(ncol(x), q, param, f_start)
   n <- length(y)
   train <- seq_len(floor(n * (1 - param$validation_split)))  # Keras's split
@@ -88,13 +93,19 @@ nncl_fit <- function(x,
                       list(x[vali, ], w[vali, , drop = FALSE]),
                       batch_size = 1e5,
                       verbose = 0)
-  callbacks <- NULL
+  # the time at the end of every epoch (NULL: nothing goes back to Keras)
+  t_epoch <- Sys.time()
+  callbacks <- list(callback_lambda(on_epoch_end = function(epoch, logs) {
+    t_epoch <<- c(t_epoch, Sys.time())
+    NULL
+  }))
   if (param$early_stop) {
-    callbacks <- list(callback_early_stopping(monitor = "val_loss",
-                                              patience = param$patience,
-                                              restore_best_weights = TRUE))
+    callbacks <- c(callbacks,
+                   list(callback_early_stopping(monitor = "val_loss",
+                                                patience = param$patience,
+                                                restore_best_weights = TRUE)))
   }
-  t0 <- Sys.time()
+  t0 <- t_epoch
   history <- model %>% fit(list(x, w),
                            as.matrix(y),
                            epochs = param$epochs,
@@ -103,9 +114,15 @@ nncl_fit <- function(x,
                            callbacks = callbacks,
                            verbose = 0,
                            view_metrics = FALSE)
-  run_time <- as.numeric(Sys.time() - t0, units = "secs")
+  t1 <- Sys.time()
+  # Keras's callback holds the R function above and with it this call (x, y,
+  # the network), and the call would hold the callback: neither could be
+  # freed, the memory of the R session would grow with every network
+  callbacks <- NULL
   val_loss <- history$metrics$val_loss
-  epochs_used <- if (param$early_stop) which.min(val_loss) else
+  # early stopping keeps the epoch with the lowest validation loss, Keras
+  # the first one if no loss is finite (a diverging optimiser)
+  epochs_used <- if (param$early_stop) max(which.min(val_loss), 1L) else
     length(val_loss)
   # early stopping from the CL start: keep the start if no epoch beats it
   # (na.rm: the losses of a diverging optimiser are NaN)
@@ -115,16 +132,19 @@ nncl_fit <- function(x,
     epochs_used <- 0
   }
   mu <- predict(model, list(x, w), batch_size = 1e5, verbose = 0)[, 1]
-  f_diag <- predict(model,
-                    list(x_diag, matrix(1, nrow(x_diag), 1)),
-                    batch_size = 1e5,
-                    verbose = 0)[, 1]
+  f_new <- predict(model,
+                   list(x_new, matrix(1, nrow(x_new), 1)),
+                   batch_size = 1e5,
+                   verbose = 0)[, 1]
   res2 <- (y - mu)^2
   list(model = model,
        history = data.frame(epoch = seq_along(val_loss),
                             loss = history$metrics$loss,
-                            val_loss = val_loss),
-       run_time = run_time,
+                            val_loss = val_loss,
+                            time = as.numeric(diff(t_epoch), units = "secs")),
+       run_time = as.numeric(t1 - t0, units = "secs"),
+       time_build = as.numeric(t0 - t_build, units = "secs"),
+       time_predict = as.numeric(Sys.time() - t1, units = "secs"),
        epochs_run = length(val_loss),
        epochs_used = epochs_used,
        n_par = count_params(model) - count_params(get_layer(model, "Offset")),
@@ -132,7 +152,136 @@ nncl_fit <- function(x,
        loss_train = sum(res2[train]),
        loss_vali = sum(res2[vali]),
        f_learn = mu / w[, 1],
-       f_diag = f_diag)
+       f_new = f_new)
+}
+
+## the runs of the fit scripts, a named list of list(q, param, cl_start):
+## the networks of the paper (Listing 2) with q hidden neurons, paper_q<q>,
+## and the sensitivity runs at q_main, each adding one change: S1 Adam, S2
+## early stopping, S3 the output started in the homogeneous CL factor
+## (nncl_cfg$runs: those to fit; S4, the balance correction, is derived from
+## S3). Own design, not in the paper: the grid grid_<hidden>_<optimizer>_
+## <training>_s<seed>, every combination of hidden layers, optimiser and
+## training with every seed (seed, seed + 1, ...); training "paper" is
+## Listing 2's, "early_stop" that of S2 and "cl_start" that of S3. The grid
+## is in the order of the seeds, all combinations of a seed before the next
+## seed: a grid under way holds whole seeds, and whole blocks of seeds for
+## the nagging predictors, of every combination
+nncl_runs <- function(nncl_cfg, seed) {
+  param <- list(activation = nncl_cfg$model$activation,
+                optimizer = "rmsprop",
+                learning_rate = nncl_cfg$sensitivity$learning_rate,
+                epochs = nncl_cfg$training$epochs,
+                batch_size = nncl_cfg$training$batch_size,
+                validation_split = nncl_cfg$training$validation_split,
+                early_stop = FALSE,
+                patience = nncl_cfg$sensitivity$patience,
+                seed = seed)
+  param_s1 <- modifyList(param, list(optimizer = "adam"))
+  param_s2 <- modifyList(param_s1,
+                         list(early_stop = TRUE,
+                              epochs = nncl_cfg$sensitivity$max_epochs))
+  q_main <- nncl_cfg$model$q_main
+  runs <- list()
+  for (q in nncl_cfg$model$q) {
+    runs[[paste0("paper_q", q)]] <- list(q = q, param = param, cl_start = FALSE)
+  }
+  runs$s1_adam <- list(q = q_main, param = param_s1, cl_start = FALSE)
+  runs$s2_early_stop <- list(q = q_main, param = param_s2, cl_start = FALSE)
+  runs$s3_cl_start <- list(q = q_main, param = param_s2, cl_start = TRUE)
+  runs <- runs[nncl_cfg$runs]
+  grid_cfg <- nncl_cfg$grid
+  for (s in seed + seq_len(grid_cfg$seeds) - 1) {
+    for (h in grid_cfg$hidden) {
+      for (o in grid_cfg$optimizers) {
+        for (tr in grid_cfg$training) {
+          p <- modifyList(if (tr == "paper") param else param_s2,
+                          list(optimizer = o,
+                               learning_rate = grid_cfg$learning_rate[[o]],
+                               momentum = grid_cfg$momentum,
+                               seed = s))
+          run_name <- paste0("grid_", paste(h, collapse = "-"), "_", o, "_",
+                             tr, "_s", s)
+          runs[[run_name]] <- list(q = h,
+                                   param = p,
+                                   cl_start = tr == "cl_start")
+        }
+      }
+    }
+  }
+  runs
+}
+
+## the networks of one run (an element of nncl_runs()), one per development
+## period j: cum = cumulative payments of the cells (column j + 1: C_{.,j}),
+## x = their network inputs, learn_rows[[j]] = the learning cells of network
+## j, x_new = the feature rows to predict f(x) for. The payments are fitted
+## in 'units': the mse loss and its gradients stay moderate, which sgd needs
+## (the adaptive optimisers are unaffected by the unit). model_prefix: the
+## networks are saved to <model_prefix>_j<j>.keras. Returns the fits of
+## nncl_fit() per j without the networks, the losses L'_j (6.1) back in the
+## payments' unit
+nncl_run_fit <- function(cum,
+                         x,
+                         learn_rows,
+                         x_new,
+                         run,
+                         units,
+                         model_prefix = NULL,
+                         fit = nncl_fit) {
+  fits <- list()
+  for (j in seq_along(learn_rows)) {
+    r <- learn_rows[[j]]
+    c_prev <- cum[r, j] / units
+    # Listing 2: responses C_j / sqrt(C_{j-1}), volumes sqrt(C_{j-1})
+    y <- cum[r, j + 1] / units / sqrt(c_prev)
+    w <- matrix(sqrt(c_prev), ncol = 1)
+    # S3: output started in the homogeneous CL factor of the training rows
+    f_start <- NULL
+    if (run$cl_start) {
+      train <- seq_len(floor(length(r) * (1 - run$param$validation_split)))
+      f_start <- sum(cum[r[train], j + 1]) / sum(cum[r[train], j])
+    }
+    fit_j <- fit(x[r, , drop = FALSE], y, w, x_new, run$q, run$param, f_start)
+    if (!is.null(model_prefix)) {
+      save_model(fit_j$model,
+                 paste0(model_prefix, "_j", j, ".keras"),
+                 overwrite = TRUE)
+    }
+    fit_j$model <- NULL
+    for (k in c("loss", "loss_train", "loss_vali")) {
+      fit_j[[k]] <- units * fit_j[[k]]
+    }
+    fits[[j]] <- fit_j
+  }
+  fits
+}
+
+## S4: the networks of S3 with the balance correction
+## c_j = sum C_{i,j}(x) / sum f(x) C_{i,j-1}(x) over the training rows, so
+## that the average factor (3.9) there is the homogeneous CL factor; run =
+## the saved run S3 (f_x: the CL factors, feature values x networks j, and
+## the fits), cum = cumulative payments of the cells, x_id = the feature
+## value of every cell (row of f_x), learn_rows[[j]] = the learning cells of
+## network j. Returns the run with the corrected factors, their losses L'_j
+## (6.1) and the corrections (balance)
+nncl_balance <- function(run, cum, x_id, learn_rows) {
+  run$run <- "s4_balance"
+  for (j in seq_along(learn_rows)) {
+    fit <- run$fits[[j]]
+    r <- learn_rows[[j]]
+    c_prev <- cum[r, j]
+    train <- seq_len(floor(length(r) * (1 - run$param$validation_split)))
+    fit$balance <- sum(cum[r[train], j + 1]) /
+      sum(run$f_x[x_id[r[train]], j] * c_prev[train])
+    run$f_x[, j] <- fit$balance * run$f_x[, j]
+    res2 <- (cum[r, j + 1] - run$f_x[x_id[r], j] * c_prev)^2 / c_prev
+    fit$loss <- sum(res2)
+    fit$loss_train <- sum(res2[train])
+    fit$loss_vali <- sum(res2[-train])
+    run$fits[[j]] <- fit
+  }
+  run
 }
 
 ## zero claims features (Section 4.2) of one LoB for accident year i:
@@ -142,7 +291,8 @@ nncl_fit <- function(x,
 ## (<= 0: recoveries can turn a cumulative negative, against the standing
 ## assumption of Section 2); 0/0 gives g = 1 and g_{I-i} = 0 an ultimate 0;
 ## a positive numerator over a zero denominator (the paper assumes 'all
-## denominators are positive') takes g_pooled, the ratio pooled over the LoBs
+## denominators are positive') takes g_pooled, the ratio that
+## nncl_zero_claims() pools over the LoBs or the accident years
 nncl_zero_claims_factors <- function(cum, ay, vol, i, g_pooled = NULL) {
   n_ay <- nrow(vol)
   m <- n_ay - i                                   # latest development year
@@ -168,6 +318,61 @@ nncl_zero_claims_factors <- function(cum, ay, vol, i, g_pooled = NULL) {
                             g = g,
                             pooled = pooled),
        ultimate = if (g[1] == 0) 0 else unname(vol[i, m + 1]) * prod(g))
+}
+
+## zero claims factors and ultimates (Section 4.2) of every LoB and accident
+## year i = 2..I: cum = cumulative payments of the cells (NA below the
+## diagonal), ay = their accident years, lob = their LoBs 1, 2, ... Own
+## rule, not in the paper, for a factor with a positive numerator over a
+## zero denominator: it takes the ratio pooled over the LoBs and, in a
+## portfolio of one LoB, the ratio of development year j pooled over the
+## zero sets of the accident years i > I - j (column pooled_over; the first
+## factor g_{I-i} of an accident year has the total volume as denominator).
+## Returns the factors and ult_zero, the matrix LoB x accident year of the
+## ultimates
+nncl_zero_claims <- function(cum, ay, lob) {
+  n_ay <- ncol(cum)
+  n_lob <- max(lob)
+  lob_rows <- lapply(seq_len(n_lob), function(l) which(lob == l))
+  # the LoBs' observed triangles
+  vol <- lapply(lob_rows, function(r) rowsum(cum[r, ], ay[r]))
+  factors <- NULL
+  for (l in seq_len(n_lob)) {
+    r <- lob_rows[[l]]
+    for (i in 2:n_ay) {
+      z <- nncl_zero_claims_factors(cum[r, ], ay[r], vol[[l]], i)
+      factors <- rbind(factors, data.frame(LoB = l, z$factors))
+    }
+  }
+  # numerators and denominators pooled over the LoBs (by i and j) or over
+  # the accident years (by j)
+  if (n_lob > 1) {
+    pool <- aggregate(cbind(num, den) ~ j + i, factors, sum)
+  } else {
+    pool <- aggregate(cbind(num, den) ~ j,
+                      factors[factors$j > n_ay - factors$i, ],
+                      sum)
+  }
+  ult_zero <- matrix(0, n_lob, n_ay)
+  factors <- NULL
+  for (l in seq_len(n_lob)) {
+    r <- lob_rows[[l]]
+    for (i in 2:n_ay) {
+      p <- if (n_lob > 1) pool[pool$i == i, ] else
+        pool[match((n_ay - i):(n_ay - 2), pool$j), ]
+      z <- nncl_zero_claims_factors(cum[r, ],
+                                    ay[r],
+                                    vol[[l]],
+                                    i,
+                                    p$num / p$den)
+      factors <- rbind(factors, data.frame(LoB = l, z$factors))
+      ult_zero[l, i] <- z$ultimate
+    }
+  }
+  factors$pooled_over <- ifelse(factors$pooled,
+                                if (n_lob > 1) "LoB" else "accident years",
+                                NA)
+  list(factors = factors, ult_zero = ult_zero)
 }
 
 ## NN reserves (5.1) by LoB and accident year: part 1 sum over the cells with

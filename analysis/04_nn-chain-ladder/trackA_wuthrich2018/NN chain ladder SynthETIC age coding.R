@@ -6,14 +6,15 @@
 #########  sensitivities (3.9)
 ##########################################
 
-## reads the fits of "NN chain ladder SynthETIC fit.R" under both codings of
-## Age of Claimant (profiles default and age_numeric; no Keras needed) and
-## compares them run by run: same cells, rows of Keras's split, seeds and
-## training; the networks differ in the inputs (14 or 11), hence in the
-## parameters (321 or 261 for one layer of 20). The codings are judged on
-## the reserves by age band; an error is the error on this one simulated
-## portfolio, not a bias
+## reads the cells of "NN chain ladder SynthETIC cells.R" and the fits of
+## "NN chain ladder SynthETIC fit.R" under both codings of Age of Claimant
+## (profiles default and age_numeric; no Keras needed) and compares them run
+## by run: same cells, rows of Keras's split, seeds and training; the
+## networks differ in the inputs (14 or 11), hence in the parameters (321 or
+## 261 for one layer of 20). The codings are judged on the reserves by age
+## band; an error is the error on this one simulated portfolio, not a bias
 source(here::here("analysis", "00_setup.R"))
+stopifnot(cfg$data$generator == "synthetic")
 out_dir <- file.path("04_NN-chain-ladder", "synthetic-age-coding")
 tab_dir <- file.path(paths$tables, out_dir)
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
@@ -38,10 +39,10 @@ tags <- sapply(c(dummy = "default", numeric = "age_numeric"), function(p) {
 ## runs of the grid (hidden layers, optimiser, training, seed), as in the
 ## fit script; predictor: the block of seeds of a nagging predictor, as in
 ## the analysis script
-grid_cfg <- cfg$nncl$synthetic
+grid_cfg <- cfg$nncl$grid
 grid <- CJ(hidden = sapply(grid_cfg$hidden, paste, collapse = "-"),
-           optimizer = names(grid_cfg$optimizers),
-           training = unlist(grid_cfg$training),
+           optimizer = grid_cfg$optimizers,
+           training = grid_cfg$training,
            seed = cfg$seed + seq_len(grid_cfg$seeds) - 1,
            sorted = FALSE)
 grid$combination <- paste(grid$hidden, grid$optimizer, grid$training)
@@ -62,12 +63,17 @@ homogeneous <- readRDS(file.path(paths$processed,
 age <- cells[["Age of Claimant"]]
 bands <- sort(unique(age))
 
-## learning cells and part-1 diagonal cells, as in the fit script; network j
-## develops a part-1 cell if j is beyond its diagonal, j > I - i
-learn_rows <- lapply(1:(n_ay - 1), function(j) {
-  which(cells$i <= n_ay - j & cum[, j] > 0)
+## feature value x_id of every cell (the same under both codings: a run
+## keeps the CL factors of the feature values, f_x), learning cells and
+## part-1 diagonal cells of the cells script; network j develops a part-1
+## cell if j is beyond its diagonal, j > I - i
+inputs <- lapply(tags, function(tag) {
+  readRDS(file.path(paths$interim, paste0(tag, "_inputs.rds")))
 })
-diag_rows <- which(cells$i > 1 & cells$c_diag > 0)
+stopifnot(identical(inputs$dummy$x_id, inputs$numeric$x_id))
+x_id <- inputs$dummy$x_id
+learn_rows <- inputs$dummy$learn_rows
+diag_rows <- inputs$dummy$diag_rows
 ahead <- outer(n_ay - cells$i[diag_rows], 1:(n_ay - 1), "<")
 c_prev <- cum[diag_rows, -n_ay]                # C_{i,j-1}(x), the truth
 c_next <- cum[diag_rows, -1]                   # C_{i,j}(x), the truth
@@ -110,7 +116,7 @@ low_loss <- function(f_diag) {
 ## three benchmarks on the part-1 cells, CL factors with age the only
 ## feature: none (homogeneous), log-linear in the age score of the numeric
 ## coding (loss (6.1) on the learning cells), one factor per age band
-score <- unlist(grid_cfg$age_midpoints)
+score <- unlist(cfg$nncl$synthetic$age_midpoints)
 score <- (2 * (score - min(score)) / (max(score) - min(score)) - 1)[age]
 f_hom <- matrix(homogeneous$f_hom, length(diag_rows), n_ay - 1, byrow = TRUE)
 f_score <- sapply(1:(n_ay - 1), function(j) {
@@ -190,8 +196,9 @@ f_nag <- lapply(setNames(nm = codings), function(coding) {
 for (run in all_runs) {
   f_run <- list()
   for (coding in codings) {
-    fits <- readRDS(fit_file(coding, run))$fits
-    f_run[[coding]] <- sapply(fits, `[[`, "f_diag")
+    fit <- readRDS(fit_file(coding, run))
+    fits <- fit$fits
+    f_run[[coding]] <- fit$f_x[x_id[diag_rows], ]
     loss <- sapply(fits, `[[`, "loss") / homogeneous$loss
     res[[paste(coding, run)]] <- data.table(coding = coding,
                                             run = run,
@@ -399,10 +406,10 @@ for (j in j_net) {
 }
 for (coding in codings) {
   for (k in seq_len(nrow(age_runs))) {
-    fits <- readRDS(fit_file(coding, age_runs$run[k]))$fits
+    f_x <- readRDS(fit_file(coding, age_runs$run[k]))$f_x
     for (j in j_net) {
       r <- learn_rows[[j]]
-      f <- rowsum(fits[[j]]$f_learn * cum[r, j], age[r]) /
+      f <- rowsum(f_x[x_id[r], j] * cum[r, j], age[r]) /
         rowsum(cum[r, j], age[r])
       age_factors[[paste(coding, k, j)]] <- data.table(
         training = age_runs$training[k],

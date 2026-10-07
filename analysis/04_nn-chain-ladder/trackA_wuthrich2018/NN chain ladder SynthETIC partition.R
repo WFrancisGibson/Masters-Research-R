@@ -7,8 +7,9 @@
 #########  5.3 and 5.7
 ##########################################
 
-## reads the cells of "NN chain ladder SynthETIC fit.R" (no Keras needed)
+## reads the cells of "NN chain ladder SynthETIC cells.R" (no Keras needed)
 source(here::here("analysis", "00_setup.R"))
+stopifnot(cfg$data$generator == "synthetic")
 fig_dir <- file.path(paths$figures, "04_NN-chain-ladder/synthetic")
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -21,14 +22,16 @@ nets <- c(1, 2, 10, 19)                        # networks j of the first figure
 ##########################################
 
 cells <- readRDS(file.path(paths$interim, "nncl_synthetic_cells.rds"))
-cum <- as.matrix(cells[, paste0("cum_", 0:(n_ay - 1)), with = FALSE])
+learn_rows <- readRDS(file.path(paths$interim,
+                                paste0(cfg$nncl$synthetic$tag,
+                                       "_inputs.rds")))$learn_rows
 
 ## learning cells of development period j: i <= I - j, C_{i,j-1}(x) > 0, in
-## the fit script's row order (accident year, then the features); Keras
+## the row order of the cells (accident year, then the features); Keras
 ## validates on the last 10% of the rows (validation_split, Listing 2)
 train <- vali <- matrix(0, n_ay, n_ay - 1)      # rows by i and j
 for (j in 1:(n_ay - 1)) {
-  r <- which(cells$i <= n_ay - j & cum[, j] > 0)
+  r <- learn_rows[[j]]
   n_train <- floor(length(r) * (1 - vali_split))  # Keras's split
   train[, j] <- tabulate(cells$i[r[seq_len(n_train)]], n_ay)
   vali[, j] <- tabulate(cells$i[r[-seq_len(n_train)]], n_ay)

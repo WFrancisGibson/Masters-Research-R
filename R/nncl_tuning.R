@@ -84,12 +84,13 @@ nncl_test_loss <- function(org, cum, proj) {
 }
 
 ## time-series cross-validation score of the set hp for the training mode
-## 'run' (list(q, param, cl_start), as the runs of the fit script): per
-## seed and valuation date tau in origins, every network j = 1..tau - 1
-## fitted with fit() (nncl_fit()) as in the fit script, the part-1 cells
+## 'run' (list(q, param, cl_start), a run of nncl_runs()): per seed and
+## valuation date tau in origins, the networks j = 1..tau - 1 fitted as in
+## the fit script (nncl_run_fit() with fit() = nncl_fit()), the part-1 cells
 ## projected and scored; cum, ay, x: the cells' cumulative payments, accident
-## years and network inputs; units: payments in millions in the fit, as the
-## fit script; see tscv_summary()
+## years and network inputs; units: the unit of the payments in the fit, as
+## the fit script; the runs keep the seconds of the epochs of their networks
+## (time); see tscv_summary()
 nncl_tscv_score <- function(cum,
                             ay,
                             x,
@@ -101,7 +102,8 @@ nncl_tscv_score <- function(cum,
                             fit = nncl_fit) {
   hp_check(hp, nncl_tunable)
   cum <- cum / units
-  q <- if (is.null(hp$hidden)) run$q else hp$hidden
+  if (!is.null(hp$hidden)) run$q <- hp$hidden
+  run$param <- modifyList(run$param, hp[setdiff(names(hp), "hidden")])
   orgs <- lapply(origins, function(tau) nncl_origin(cum, ay, tau))
   # baseline: the homogeneous chain ladder at tau (no seed)
   base <- lapply(orgs, function(org) {
@@ -113,38 +115,30 @@ nncl_tscv_score <- function(cum,
     nncl_test_loss(org, cum, nncl_project(org, f))
   })
   runs <- do.call(rbind, lapply(seeds, function(s) {
-    p <- modifyList(run$param, hp[setdiff(names(hp), "hidden")])
-    p$seed <- s
+    run$param$seed <- s
     do.call(rbind, lapply(seq_along(orgs), function(o) {
       org <- orgs[[o]]
-      f <- matrix(NA_real_, length(org$diag_rows), org$tau - 1)
-      steps <- numeric(org$tau - 1)
-      x_diag <- x[org$diag_rows, , drop = FALSE]
-      for (j in seq_len(org$tau - 1)) {
-        r <- org$learn_rows[[j]]
-        c_prev <- cum[r, j]
-        # Listing 2: responses C_j / sqrt(C_{j-1}), volumes sqrt(C_{j-1})
-        y <- cum[r, j + 1] / sqrt(c_prev)
-        w <- matrix(sqrt(c_prev), ncol = 1)
-        f_start <- NULL
-        if (run$cl_start) {
-          train <- seq_len(floor(length(r) * (1 - p$validation_split)))
-          f_start <- sum(cum[r[train], j + 1]) / sum(cum[r[train], j])
-        }
-        fit_j <- fit(x[r, , drop = FALSE], y, w, x_diag, q, p, f_start)
-        f[, j] <- fit_j$f_diag
-        steps[j] <- fit_j$epochs_used
-      }
+      # the networks at tau predict the factors of its part-1 rows (cum is
+      # in the unit of the fit already)
+      fits <- nncl_run_fit(cum,
+                           x,
+                           org$learn_rows,
+                           x[org$diag_rows, , drop = FALSE],
+                           run,
+                           units = 1,
+                           fit = fit)
+      f <- do.call(cbind, lapply(fits, `[[`, "f_new"))
       tl <- nncl_test_loss(org, cum, nncl_project(org, f))
       data.frame(seed = s,
                  origin = org$tau,
                  n_test = tl[["n_test"]],
-                 steps = mean(steps),
+                 steps = mean(sapply(fits, `[[`, "epochs_used")),
                  loss = tl[["loss"]],
                  loss_baseline = base[[o]][["loss"]],
                  test_actual = tl[["actual"]],
                  test_NN = tl[["projected"]],
-                 test_CL = base[[o]][["projected"]])
+                 test_CL = base[[o]][["projected"]],
+                 time = sum(sapply(fits, `[[`, "run_time")))
     }))
   }))
   tscv_summary(runs, hp)

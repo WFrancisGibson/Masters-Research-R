@@ -13,25 +13,31 @@
 ## each with the dropout rate (a dropout layer after every hidden layer, 0 =
 ## the network of the paper) and the activation among the hyperparameters
 ## (config nncl$tuning$modes: method, order, candidates).
-## 1. the cells of the fit script (data/interim/nncl_synthetic_cells.rds,
-##    written by its first part) and the same network inputs
-## 2. search: every set is scored at the valuation dates 15 and 18 of 20 --
-##    per seed and date the networks j = 1..tau - 1 fitted on the cells known
-##    then, the part-1 cells projected to the end of year 20 and scored
-##    against the payments observed -- pooled per test cell and averaged over
-##    the seeds; scored sets are saved in data/processed/nncl_tuning/<tag>/
-##    <mode> and not refitted when the script is run again
+## 1. the cells and network inputs of "NN chain ladder SynthETIC cells.R"
+## 2. search: every set is scored at the valuation dates of the test
+##    partitions of the rolling origin (cfg$data$rolling_origin: the end of
+##    the years 15 and 18 of 20) -- per seed and date the networks
+##    j = 1..tau - 1 fitted on the cells known then, the part-1 cells
+##    projected to the end of year 20 and scored against the payments
+##    observed -- pooled per test cell and averaged over the seeds; scored
+##    sets are saved in <processed>/nncl_tuning/<tag>/<mode> and not
+##    refitted when the script is run again
 ## 3. the chosen set refitted on the full triangle with final_seeds seeds, as
-##    the runs of the fit script (data/processed/<tag>_fit_tuned_<mode>_s<seed>
-##    .rds, not refitted when present), and its reserves (5.1) for each seed
-##    and for their average (nagging predictor), next to Mack's chain ladder
-##    and the truth
-## 4. tables to output/tables/04_NN-chain-ladder/<out_dir>:
-##    nncl_tuning_<mode>_*.csv
+##    the runs of the fit script (<processed>/<tag>_fit_tuned_<mode>_s<seed>
+##    .rds, a saved run is not refitted), and its reserves (5.1) for each
+##    seed and for their average (nagging predictor), next to Mack's chain
+##    ladder and the truth
+## 4. tables to <tables>/04_NN-chain-ladder/<out_dir>:
+##    nncl_tuning_<mode>_table, _runs, _best and _final.csv, and _path.csv
+##    for a successive search (the mode paper is a grid search: no path);
+##    _final.csv is written last
 ##
-## Run from the project folder, one mode or all three in turn:
-##   Rscript "analysis/04_nn-chain-ladder/trackA_wuthrich2018/NN chain ladder SynthETIC hyperparameter search.R" cl_start
+## Run from the project folder, one mode (one R session per mode) or all
+## three in turn:
+##   Rscript "<this script>" cl_start
 ## (R_CONFIG_ACTIVE=age_numeric for the numeric coding of Age of Claimant).
+## The sets of a search are not shared between R sessions (R/runs.R: no
+## claim, RUN_MAX does not end the session): one session scores them all.
 ## Run time: a set costs (seeds) x (14 + 17 networks); the default searches
 ## score at most 11 (cl_start), 27 (paper) and 11 (early_stop) sets.
 ## The test loss is the selection criterion here, so its value for the
@@ -39,6 +45,7 @@
 ## independent check.
 source(here::here("analysis", "00_setup.R"))
 library(keras3)
+stopifnot(cfg$data$generator == "synthetic")
 
 n_ay <- cfg$data$n_dev                         # I = 20, J = I - 1 = 19
 units <- cfg$data$scale                        # fits and tables in millions
@@ -48,93 +55,55 @@ age <- cfg$nncl$synthetic$age
 tab_dir <- file.path(paths$tables, "04_NN-chain-ladder",
                      cfg$nncl$synthetic$out_dir)
 dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
-features <- c("Legal Representation", "Injury Severity", "Age of Claimant",
-              "Vehicle type", "Business use")
 
 modes <- commandArgs(trailingOnly = TRUE)
 if (length(modes) == 0) modes <- names(tune_cfg$modes)
-stopifnot(all(modes %in% names(tune_cfg$modes)))
 
-## the training modes as the runs of the fit script: param of Listing 2,
-## param_s2 = Adam and early stopping (S1, S2); the paper's q_main neurons;
-## no dropout
-param <- list(activation = cfg$nncl$model$activation,
-              optimizer = "rmsprop",
-              learning_rate = cfg$nncl$sensitivity$learning_rate,
-              epochs = cfg$nncl$training$epochs,
-              batch_size = cfg$nncl$training$batch_size,
-              validation_split = cfg$nncl$training$validation_split,
-              early_stop = FALSE,
-              patience = cfg$nncl$sensitivity$patience,
-              dropout = 0,
-              seed = cfg$seed)
-param_s2 <- modifyList(param,
-                       list(optimizer = "adam",
-                            early_stop = TRUE,
-                            epochs = cfg$nncl$sensitivity$max_epochs))
-q_main <- cfg$nncl$model$q_main
-mode_runs <- list(paper = list(q = q_main, param = param, cl_start = FALSE),
-                  early_stop = list(q = q_main, param = param_s2,
-                                    cl_start = FALSE),
-                  cl_start = list(q = q_main, param = param_s2,
-                                  cl_start = TRUE))
+## the training modes as the runs of the fit script at the paper's q_main
+## neurons: Listing 2, S2 and S3 (Adam and early stopping); no dropout
+runs <- nncl_runs(cfg$nncl, cfg$seed)
+mode_runs <- list(paper = runs[[paste0("paper_q", cfg$nncl$model$q_main)]],
+                  early_stop = runs$s2_early_stop,
+                  cl_start = runs$s3_cl_start)
+for (mode in names(mode_runs)) mode_runs[[mode]]$param$dropout <- 0
 
 ##########################################
-#########  cells and network inputs (as the fit script)
+#########  cells and network inputs (of the cells script)
 ##########################################
 
-cells_file <- file.path(paths$interim, "nncl_synthetic_cells.rds")
-if (!file.exists(cells_file)) {
-  stop(cells_file, " is missing: it is written by the first part of ",
-       "\"NN chain ladder SynthETIC fit.R\"")
-}
-cells <- readRDS(cells_file)
+## cumulative payments C_{i,j}(x) of the cells, inputs of the feature values
+## and feature value x_id of every cell; learning cells and part-1 diagonal
+## cells at the end of year I, for the final fits
+cells <- readRDS(file.path(paths$interim, "nncl_synthetic_cells.rds"))
 cum <- as.matrix(cells[, paste0("cum_", 0:(n_ay - 1)), with = FALSE])
-
-## feature pre-processing of the fit script (Section 3.3): dummy coding with
-## the label of most reported claims as reference; age "numeric": the band
-## midpoint scaled to [-1, 1]
-x <- NULL
-for (v in features) {
-  if (v == "Age of Claimant" && age == "numeric") {
-    x_v <- unlist(cfg$nncl$synthetic$age_midpoints)[cells[[v]]]
-    x_v <- 2 * (x_v - min(x_v)) / (max(x_v) - min(x_v)) - 1
-    x <- cbind(x, unname(x_v))
-  } else {
-    n_lab <- cells[, .(n = sum(n_reported)), by = v]
-    ref <- n_lab[[v]][which.max(n_lab$n)]
-    lab <- relevel(factor(cells[[v]]), ref = as.character(ref))
-    x <- cbind(x, model.matrix(~lab)[, -1])
-  }
-}
-
-## learning cells and part-1 diagonal cells at the end of year I (the fit
-## script), for the final fits
-learn_rows <- lapply(1:(n_ay - 1), function(j) {
-  which(cells$i <= n_ay - j & cum[, j] > 0)
-})
-diag_rows <- which(cells$i > 1 & cells$c_diag > 0)
-x_diag <- x[diag_rows, ]
+inputs <- readRDS(file.path(paths$interim, paste0(tag, "_inputs.rds")))
+x_id <- inputs$x_id
+x <- inputs$x[x_id, ]
+learn_rows <- inputs$learn_rows
+diag_rows <- inputs$diag_rows
 m_diag <- n_ay - cells$i[diag_rows]
 rows <- which(cells$i > 1)
 
 ## the truth, Mack's chain ladder and the zero claims ultimates (part 2 of
-## (5.1), from the fit script; part 1 only if it has not been run)
+## (5.1), Section 4.2)
 true_reserves <- sum(cum[, n_ay] - cells$c_diag)
 mack <- nncl_mack(rowsum(cum, cells$i))
-zero_file <- file.path(paths$processed, "nncl_synthetic_zero_claims.rds")
-ult_zero <- if (file.exists(zero_file)) readRDS(zero_file)$ult_zero else
-  matrix(0, 1, n_ay)
+ult_zero <- readRDS(file.path(paths$processed,
+                              "nncl_synthetic_zero_claims.rds"))$ult_zero
 
-## reserves (5.1) from the CL factors f_diag of the networks j = 1..J
-## (a matrix: diagonal cells x networks), as the analysis script
-nncl_total_reserves <- function(f_diag) {
+## reserves (5.1) from the CL factors f_x of the networks j = 1..J (feature
+## values x networks), as the analysis script
+total_reserves <- function(f_x) {
+  f_diag <- f_x[x_id[diag_rows], ]
   fp <- exp(rowSums(ifelse(outer(m_diag, 1:(n_ay - 1), "<"), log(f_diag), 0)))
   if (!all(is.finite(fp))) return(NA_real_)
   fp_all <- rep(1, length(rows))
   fp_all[match(diag_rows, rows)] <- fp
-  sum(nncl_reserves(rep(1, length(rows)), cells$i[rows], cells$c_diag[rows],
-                    fp_all, ult_zero)$reserve)
+  sum(nncl_reserves(rep(1, length(rows)),
+                    cells$i[rows],
+                    cells$c_diag[rows],
+                    fp_all,
+                    ult_zero)$reserve)
 }
 
 ##########################################
@@ -146,71 +115,73 @@ for (mode in modes) {
   run <- mode_runs[[mode]]
   defaults <- c(list(hidden = run$q), run$param)
   order <- unlist(mc$order)
-  message("==== ", mode, ": ", mc$method, " search")
+  cat("==== ", mode, ": ", mc$method, " search\n", sep = "")
 
-  ## 2. search
+  ## 2. search; a scored set keeps the seconds of its fits (runs$time,
+  ## run_time) and where it was fitted (info)
   search <- tune_search(
     function(hp) {
-      nncl_tscv_score(cum, cells$i, x,
-                      origins = n_ay - unlist(tune_cfg$test_periods),
-                      hp = hp, run = run,
-                      seeds = unlist(tune_cfg$seeds),
-                      units = units)
+      c(nncl_tscv_score(cum,
+                        cells$i,
+                        x,
+                        origins = n_ay - cfg$data$rolling_origin$test_periods,
+                        hp = hp,
+                        run = run,
+                        seeds = tune_cfg$seeds,
+                        units = units),
+        list(info = run_info()))
     },
     candidates = mc$candidates,
     method = mc$method,
     start = if (mc$method == "successive") defaults[order] else list(),
     order = if (is.null(order)) names(mc$candidates) else order,
-    cache_dir = file.path(paths$processed, "nncl_tuning", tag, mode))
+    cache_dir = file.path(paths$processed, "nncl_tuning", tag, mode)
+  )
   print(search$table)
   if (!is.null(search$path)) print(search$path)
-  message(mode, " chosen: ", hp_label(search$best))
+  cat(mode, " chosen: ", hp_label(search$best), "\n", sep = "")
 
-  ## 3. the chosen set on the full triangle, final_seeds seeds
-  q <- if (is.null(search$best$hidden)) run$q else search$best$hidden
-  p_best <- modifyList(run$param,
-                       search$best[setdiff(names(search$best), "hidden")])
+  ## 3. the chosen set on the full triangle, final_seeds seeds; a run keeps
+  ## the CL factors of the feature values (f_x), as in the fit script
+  if (!is.null(search$best$hidden)) run$q <- search$best$hidden
+  run$param <- modifyList(run$param,
+                          search$best[setdiff(names(search$best), "hidden")])
   seeds <- cfg$seed + seq_len(tune_cfg$final_seeds) - 1
-  f_seeds <- list()
-  for (s in seeds) {
-    run_name <- paste0("tuned_", mode, "_s", s)
-    run_file <- file.path(paths$processed,
-                          paste0(tag, "_fit_", run_name, ".rds"))
-    if (!file.exists(run_file)) {
-      p <- modifyList(p_best, list(seed = s))
-      fits <- list()
-      for (j in 1:(n_ay - 1)) {
-        r <- learn_rows[[j]]
-        c_prev <- cum[r, j] / units
-        y <- cum[r, j + 1] / units / sqrt(c_prev)
-        w <- matrix(sqrt(c_prev), ncol = 1)
-        f_start <- NULL
-        if (run$cl_start) {
-          train <- seq_len(floor(length(r) * (1 - p$validation_split)))
-          f_start <- sum(cum[r[train], j + 1]) / sum(cum[r[train], j])
-        }
-        fit <- nncl_fit(x[r, ], y, w, x_diag, q, p, f_start)
-        fit$model <- NULL
-        for (k in c("loss", "loss_train", "loss_vali")) {
-          fit[[k]] <- units * fit[[k]]
-        }
-        fits[[j]] <- fit
-      }
-      saveRDS(list(run = run_name, age = age, q = q, param = p,
-                   hyperparameters = search$best, fits = fits),
-              run_file)
-    }
-    f_seeds[[as.character(s)]] <- sapply(readRDS(run_file)$fits,
-                                         function(fit) fit$f_diag)
+  run_names <- paste0("tuned_", mode, "_s", seeds)
+  run_files <- file.path(paths$processed,
+                         paste0(tag, "_fit_", run_names, ".rds"))
+  for (k in seq_along(seeds)) {
+    if (!claim_run(run_files[k])) next
+    # Python and TensorFlow start here, not in the build time of the first
+    # network, if the search was read from its saved sets (as the fit script)
+    clear_session()
+    run$param$seed <- seeds[k]
+    fits <- nncl_run_fit(cum, x, learn_rows, inputs$x, run, units)
+    save_run(
+      list(run = run_names[k],
+           age = age,
+           q = run$q,
+           param = run$param,
+           hyperparameters = search$best,
+           f_x = sapply(fits, `[[`, "f_new"),
+           fits = lapply(fits, function(fit) {
+             fit[setdiff(names(fit), c("f_learn", "f_new"))]
+           }),
+           info = run_info()),
+      run_files[k]
+    )
   }
+  ## a final fit taken by another R session: the tables wait for it
+  if (!all(file.exists(run_files))) next
+
   ## reserves of each seed and of the nagging predictor (the CL factors
   ## averaged over the seeds)
-  res <- sapply(f_seeds, nncl_total_reserves)
+  f_seeds <- lapply(run_files, function(f) readRDS(f)$f_x)
   final <- data.frame(model = c(paste0("seed ", seeds), "nagging predictor",
                                 "Mack chain ladder"),
-                      reserves = c(res,
-                                   nncl_total_reserves(Reduce(`+`, f_seeds) /
-                                                         length(f_seeds)),
+                      reserves = c(sapply(f_seeds, total_reserves),
+                                   total_reserves(Reduce(`+`, f_seeds) /
+                                                    length(f_seeds)),
                                    sum(mack$by_origin$ibnr)))
   final$true_reserves <- true_reserves
   final$bias <- final$reserves - true_reserves
@@ -219,7 +190,6 @@ for (mode in modes) {
   final$true_reserves <- final$true_reserves / units
   final$bias <- final$bias / units
   final$units <- units
-  final$part2_included <- file.exists(zero_file)
   print(final)
 
   ## 4. tables
