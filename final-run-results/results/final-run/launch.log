@@ -123,3 +123,5 @@
 2026-10-08 12:33:47  start   si_calendar.nncl.main slot 1 pid 4873
 2026-10-08 12:37:02  end     si_calendar.nncl.main slot 2: exit code 0, 490 s; run files 4 of 6
 2026-10-08 12:37:02  start   si_calendar.nncl_numeric.main slot 2 pid 27213
+2026-10-08 12:37:57  end     si_calendar.nncl.main slot 4: exit code 0, 600 s; run files 5 of 6
+2026-10-08 12:37:57  start   si_calendar.nncl_numeric.main slot 4 pid 1616
