@@ -106,3 +106,11 @@
 2026-10-08 12:21:52  end     baseline.nncl.main slot 2: exit code 0, 385 s; run files 5 of 6
 2026-10-08 12:21:52  start   baseline.nncl_numeric.main slot 2 pid 2964
 2026-10-08 12:23:32  progress tasks 28 of 50 done, 0 failed, 0 blocked; runs 5 of 36; sessions 4 of 4: baseline.nncl.main x1, baseline.nncl_numeric.main x3
+2026-10-08 12:27:47  end     baseline.nncl_numeric.main slot 4: exit code 0, 490 s; run files 4 of 6
+2026-10-08 12:27:47  start   baseline.nncl.partition slot 4 pid 19937
+2026-10-08 12:27:57  end     baseline.nncl.partition slot 4: exit code 0, 10 s
+2026-10-08 12:27:57  done    baseline.nncl.partition
+2026-10-08 12:27:57  start   si_calendar.nncl.main slot 4 pid 26132
+2026-10-08 12:28:32  progress tasks 29 of 50 done, 0 failed, 0 blocked; runs 9 of 36; sessions 4 of 4: baseline.nncl.main x1, baseline.nncl_numeric.main x2, si_calendar.nncl.main x1
+2026-10-08 12:28:52  end     baseline.nncl_numeric.main slot 2: exit code 0, 420 s; run files 5 of 6
+2026-10-08 12:28:52  start   si_calendar.nncl.main slot 2 pid 2163
