@@ -1,0 +1,4 @@
+# .gitattributes of the branch results/final-run (its template on main is
+# analysis/06_final-run/results_gitattributes.txt): results are stored byte
+# for byte, git changes no line ending and treats no file as text to merge
+* -text

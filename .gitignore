@@ -1,0 +1,44 @@
+# .gitignore of the branch results/final-run (its template on main is
+# analysis/06_final-run/results_gitignore.txt). RUN_ROOT of the final run is
+# the folder results/ of this worktree. Kept: tables, figures, logs, timings,
+# the run files (*.rds) and the state of the launcher (results/final-run).
+
+# Keras models: large, and the run files hold what the tables and figures need
+*.keras
+
+# a session that is fitting a run: its lock directory and its temporary file
+# (R/runs.R), gone when the run is saved; and the state of an unfinished
+# nagging block of the NN chain ladder ("NN chain ladder fit.R": the sum of
+# the CL factors so far), gone when the block is saved
+*.lock/
+*.tmp
+*.partial
+
+# prepared inputs (data/interim): written again from the raw data by the
+# data-preparation scripts. Only the small files the analysis scripts read
+# are kept; the cells and network inputs of the machine data (nncl_cells.rds,
+# about 100 MB, nncl_inputs.rds) and everything else there stay on the
+# computer of the run. The second line keeps the folders open, so that the
+# files after it can be kept
+results/data/interim/**
+!results/data/interim/**/
+!results/data/interim/**/triangles.rds
+!results/data/interim/**/tri_mack.csv
+!results/data/interim/**/nncl_synthetic_cells.rds
+!results/data/interim/**/nncl_synthetic*_inputs.rds
+
+# raw data, should RAW_DIR point into results/
+results/data/raw/
+
+# NN chain ladder on the machine data (lob6, machine4): the CL factors of a
+# main run, feature values x networks, too large for GitHub; its losses,
+# reserves and times are in nncl_fit_<run>.rds, which is kept. The SynthETIC
+# runs (nncl_synthetic_fit_*, 45 KB with their factors) are kept
+results/data/processed/**/nncl_factors_*.rds
+
+# the launcher: processes of the computer of the run
+results/final-run/launcher.pid
+results/final-run/sessions.csv
+results/final-run/quick/sessions.csv
+
+# files over 50 MB: launch.ps1 adds one path a line below before it pushes
