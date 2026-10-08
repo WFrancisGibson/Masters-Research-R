@@ -15,6 +15,12 @@
 ##                 ..\Masters-Research-R-results\results beside the project)
 ##   -Profile      "" the final run (default), "quick" only the quick profile
 ##   -SkipSmoke    no smoke test before the final run
+##   -Parts        the parts of the task table this computer runs, for a
+##                 run on two computers: names joined by "+", as
+##                 -Parts data+bccnn_main+bootstrap+masking (the names and
+##                 what a part brings with it: the top of
+##                 "final run tasks.R"; default: all). The smoke test is
+##                 then of these parts (contract 9.)
 ##   -NoPush       the results worktree is not committed and pushed
 ##   -PushHours    hours between two pushes (default 6)
 ##   -Rounds       times the final run goes over the task table while tasks
@@ -72,6 +78,7 @@
 ##                            <id> in slot k, appended
 ##      logs/tasks_table.log  output of the script that writes the table
 ##      smoke.done            (quick) the smoke test passed: not repeated
+##      smoke.<parts>.done    (quick) the same, of the parts of -Parts
 ##      smoke_failed.txt      (quick) the tasks that failed in the smoke test
 ##    in <RUN_ROOT>/final-run only:
 ##      launcher.pid          process id and start time of the launcher (for
@@ -86,7 +93,9 @@
 ##      Rscript "analysis/06_final-run/final run tasks.R"
 ##    run by the launcher at every start, with the project root as working
 ##    directory and the environment variables RUN_ROOT (absolute path,
-##    forward slashes) and R_CONFIG_ACTIVE ("quick" for the quick profile,
+##    forward slashes), FINAL_RUN_PARTS (the parts of -Parts joined by
+##    "+"; not set: the whole table) and R_CONFIG_ACTIVE ("quick" for the
+##    quick profile,
 ##    not set for the final run). A header line and one row per task; an
 ##    empty field and NA mean the same. Columns:
 ##      id          unique; letters, digits, ".", "_" and "-" only
@@ -206,6 +215,10 @@
 ##    straight to the final run. To repeat the smoke test delete
 ##    final-run/quick and data/processed/quick: with smoke.done alone gone
 ##    every quick task is still done and smoke.done is written again.
+##    With -Parts the smoke test runs the quick table of these parts and
+##    writes smoke.<parts>.done (the names sorted, joined by "-"); a launch
+##    with other parts has its own smoke test, in which the quick tasks
+##    done before are not repeated. smoke.done stands for every part.
 ##
 ## 10. Python. setup_vm.ps1 builds the Python environment of the fits once,
 ##    from requirements.txt, in ..\Masters-Research-R-python\env beside the
@@ -235,6 +248,7 @@ param(
   [string]$RunRoot = "",
   [string]$Profile = "",
   [switch]$SkipSmoke,
+  [string]$Parts = "",
   [switch]$NoPush,
   [double]$PushHours = 6,
   [string]$Rscript = "",
@@ -889,7 +903,8 @@ function Invoke-Run($name, $run_profile, $state_folder, $given_table,
     New-Item -ItemType Directory -Path $folder -Force | Out-Null
   }
   $script:log_file = Join-Path $state_folder "launch.log"
-  Write-Log ("==== " + $name + ": " + $Slots + " slots, RUN_ROOT " + $run_root)
+  Write-Log ("==== " + $name + ": " + $Slots + " slots, RUN_ROOT " +
+             $run_root + ", parts " + $parts_text)
 
   ## a task given up by an earlier launch is tried again
   Remove-Item -Path (Join-Path $failed_folder "*.failed") -Force
@@ -911,6 +926,7 @@ function Invoke-Run($name, $run_profile, $state_folder, $given_table,
     }
     Remove-Item -Path $table -Force -ErrorAction SilentlyContinue
     $variables = @{ RUN_ROOT = $run_root_r; R_CONFIG_ACTIVE = $run_profile;
+                    FINAL_RUN_PARTS = ($part_names -join "+");
                     DATASET = ""; UNIT = ""; VALIDATION = ""; FINAL_FIT = "";
                     RUN_SLOT = ""; RUN_MAX = ""; RUN_DIR = "" }
     $table_log = Join-Path $logs "tasks_table.log"
@@ -1265,6 +1281,13 @@ if ($Slots -lt 1 -or ($Profile -ne "" -and $Profile -ne "quick")) {
   exit 3
 }
 $retry_waits = @($RetrySeconds -split "," | ForEach-Object { [int]$_ })
+## the parts of the task table this computer runs (-Parts); the tasks
+## script knows the names and stops at one that is none
+$part_names = @($Parts.ToLowerInvariant() -split "[+,; ]+" |
+                  Where-Object { $_ -ne "" } | Sort-Object -Unique)
+if ($part_names -contains "all") { $part_names = @() }
+$parts_text = "all"
+if ($part_names.Count -gt 0) { $parts_text = $part_names -join "+" }
 
 ## the default RUN_ROOT is the results worktree that setup_vm.ps1 makes:
 ## without it this launcher would make a plain folder in its place, push
@@ -1541,6 +1564,7 @@ try {
             ("slots: " + $Slots),
             ("profile: '" + $Profile + "', skip smoke: " + $SkipSmoke +
              ", tasks file: '" + $TasksFile + "'"),
+            ("parts: " + $parts_text),
             "")
   Add-Content -Path (Join-Path $state_final "run_info.txt") -Value $text `
     -Encoding ASCII
@@ -1551,11 +1575,18 @@ try {
   #########  smoke test (contract 9.)
   ##########################################
 
-  $smoke_done = Join-Path $state_quick "smoke.done"
+  ## of some parts (-Parts) it has a marker of its own, and the marker of
+  ## the whole table stands for it
+  $smoke_all = Join-Path $state_quick "smoke.done"
+  $smoke_done = $smoke_all
+  if ($part_names.Count -gt 0) {
+    $smoke_done = Join-Path $state_quick `
+      ("smoke." + ($part_names -join "-") + ".done")
+  }
   $smoke_failed = Join-Path $state_quick "smoke_failed.txt"
   $smoke_ok = $true
   if (-not $SkipSmoke -and $Profile -eq "" -and $TasksFile -eq "" -and
-      -not (Test-Path $smoke_done)) {
+      -not (Test-Path $smoke_done) -and -not (Test-Path $smoke_all)) {
     Write-Log "smoke test: every task under the quick profile first"
     $problem = ""
     try {

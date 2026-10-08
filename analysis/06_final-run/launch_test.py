@@ -294,6 +294,74 @@ def check_table(top):
            "table: the log names what is wrong")
 
 
+def check_parts(top):
+    print("the parts of a run on two computers: the tasks script, the "
+          "smoke test")
+    root = os.path.join(top, "parts")
+    os.makedirs(root)
+    # a tasks script (Python stands in for Rscript): one task, and the
+    # FINAL_RUN_PARTS of every time it was run, in parts.txt of the state
+    script = os.path.join(top, "parts_tasks.py")
+    table = "\n".join([HEADER, row("a", 0, "single a")]) + "\n"
+    with open(script, "w") as f:
+        f.write("\n".join([
+            "import os",
+            "quick = os.environ.get('R_CONFIG_ACTIVE', '') == 'quick'",
+            "state = os.path.join(os.environ['RUN_ROOT'], 'final-run')",
+            "if quick:",
+            "    state = os.path.join(state, 'quick')",
+            "with open(os.path.join(state, 'parts.txt'), 'a') as f:",
+            "    f.write(os.environ.get('FINAL_RUN_PARTS', '<none>') + '\\n')",
+            "with open(os.path.join(state, 'tasks.csv'), 'w') as f:",
+            "    f.write({!r})".format(table),
+            ""]))
+
+    def run_parts(parts):
+        """a launch with --parts; the parts the tasks script was given in
+        the smoke tests so far and in the final runs so far"""
+        code = subprocess.call(
+            [sys.executable, LAUNCHER, "--run-root", root, "--tasks-script",
+             script, "--rscript", sys.executable, "--python", "uv",
+             "--slots", "1", "--poll-seconds", "0.2", "--beat-seconds", "1"] +
+            (["--parts", parts] if parts is not None else []),
+            stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        return (code,
+                read(state_file(root, "quick", "parts.txt")).split(),
+                read(state_file(root, "parts.txt")).split())
+
+    def markers():
+        return sorted(f for f in os.listdir(state_file(root, "quick"))
+                      if f.startswith("smoke"))
+
+    grids = "nncl_grid+nncl_search"
+    expect(run_parts("nncl_search, NNCL_grid") == (0, [grids], [grids]),
+           "parts: the smoke test and the final run are given the parts, "
+           "sorted and joined by +")
+    expect(markers() == ["smoke.nncl_grid-nncl_search.done"],
+           "parts: the smoke marker carries the parts: {}".format(markers()))
+    expect("parts: " + grids in read(state_file(root, "run_info.txt")),
+           "parts: run_info.txt names them")
+    expect(run_parts(grids) == (0, [grids], [grids] * 2),
+           "parts: the same parts again, no second smoke test")
+    expect(run_parts("masking") == (0, [grids, "masking"],
+                                    [grids] * 2 + ["masking"]),
+           "parts: other parts have a smoke test of their own")
+    expect(run_parts(None) == (0, [grids, "masking", "<none>"],
+                               [grids] * 2 + ["masking", "<none>"]),
+           "parts: without --parts the whole table, with its smoke test")
+    expect(markers() == ["smoke.done", "smoke.masking.done",
+                         "smoke.nncl_grid-nncl_search.done"],
+           "parts: the three smoke markers: {}".format(markers()))
+    expect(run_parts("bccnn_grid+all")[1:] ==
+           ([grids, "masking", "<none>"],
+            [grids] * 2 + ["masking", "<none>", "<none>"]),
+           "parts: all is the whole table, and smoke.done stands for it")
+    expect(run_parts("bootstrap")[1:] ==
+           ([grids, "masking", "<none>"],
+            [grids] * 2 + ["masking", "<none>", "<none>", "bootstrap"]),
+           "parts: smoke.done stands for every part")
+
+
 def check_stop(top):
     print("one launcher for a RUN_ROOT; a signal stops the sessions")
     root = os.path.join(top, "stop")
@@ -335,7 +403,7 @@ def main():
     top = tempfile.mkdtemp(prefix="launch_test_")
     try:
         for check in [check_run, check_failures, check_quick, check_table,
-                      check_stop]:
+                      check_parts, check_stop]:
             check(top)
     finally:
         shutil.rmtree(top, ignore_errors=True)

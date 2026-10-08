@@ -25,13 +25,23 @@
 ##            start there
 ##  walltime  168 hours is the longest of the queue "week"; up to 744 hours
 ##            is the queue "month" (fewer cores per user)
-## Variables for the job (qsub -v NAME=value,NAME=value):
-##  FINAL_RUN_ARGS  further arguments of launch.py, in one text:
-##                  qsub -v FINAL_RUN_ARGS="--profile quick" -l walltime=12:00:00 \
-##                    analysis/06_final-run/hpc_job.sh
-##                  runs the quick profile only (a first try in the queue
-##                  "day")
-##  R_MODULE        the R module (default app/R/4.5.1), as in setup_hpc.sh
+## Variables for the job (qsub -v NAME=value,NAME=value; a value without
+## blanks and commas needs no quotes):
+##  FINAL_RUN_PARTS    the parts of the task table this job runs, joined by
+##                     "+" (launch.py --parts; the names: the top of
+##                     "final run tasks.R"). The grids and searches of the
+##                     NN chain ladder, when the rest runs on the VM:
+##                     qsub -v FINAL_RUN_PARTS=nncl_grid+nncl_search \
+##                       analysis/06_final-run/hpc_job.sh
+##  FINAL_RUN_PROFILE  quick: the quick profile only (launch.py --profile),
+##                     a first try in the queue "day":
+##                     qsub -v FINAL_RUN_PROFILE=quick -l walltime=12:00:00 \
+##                       analysis/06_final-run/hpc_job.sh
+##                     (with parts:
+##                     -v FINAL_RUN_PARTS=<parts>,FINAL_RUN_PROFILE=quick)
+##  FINAL_RUN_ARGS     further arguments of launch.py, in one text:
+##                     qsub -v FINAL_RUN_ARGS="--rounds 1" ...
+##  R_MODULE           the R module (default app/R/4.5.1), as in setup_hpc.sh
 ##
 ## Watch, on the login node:
 ##   qstat -u $USER
@@ -111,11 +121,21 @@ else
   SCRATCH=""
 fi
 
+## the arguments of the launcher from the variables of the job
+ARGS=(--slots "${SLOTS}")
+if [ -n "${FINAL_RUN_PARTS:-}" ]; then
+  ARGS+=(--parts "${FINAL_RUN_PARTS}")
+fi
+if [ -n "${FINAL_RUN_PROFILE:-}" ]; then
+  ARGS+=(--profile "${FINAL_RUN_PROFILE}")
+fi
+echo "launcher: ${ARGS[*]} ${FINAL_RUN_ARGS:-}"
+
 ## the launcher, with the signals of PBS passed on: qdel and the end of the
 ## walltime send SIGTERM to this script, and the launcher then stops its R
 ## sessions (PBS kills what is left some seconds later; the next job clears
 ## the locks of the runs that were cut off)
-"${PYTHON}" "analysis/06_final-run/launch.py" --slots "${SLOTS}" \
+"${PYTHON}" "analysis/06_final-run/launch.py" "${ARGS[@]}" \
   ${FINAL_RUN_ARGS:-} &
 LAUNCHER=$!
 trap 'kill -TERM "${LAUNCHER}" 2> /dev/null' TERM INT HUP

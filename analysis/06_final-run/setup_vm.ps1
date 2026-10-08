@@ -18,7 +18,11 @@
 ##                     the way out if the environment cannot be built). The
 ##                     launcher is then started with -Python uv as well
 ##   -LaunchArguments  further arguments of launch.ps1 for the scheduled
-##                     task, in one text: "-Slots 12 -PushHours 3"
+##                     task, in one text: "-Slots 12 -PushHours 3". A run
+##                     of some parts of the task table (a run on two
+##                     computers) needs its -Parts here, or the scheduled
+##                     task resumes with the whole table:
+##                     "-Parts data+bccnn_main+bootstrap+masking"
 ## It does not start the run; the next steps are printed at the end.
 
 param(

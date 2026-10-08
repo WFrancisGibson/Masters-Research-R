@@ -20,10 +20,12 @@ columns <- c("id", "stage", "dataset", "unit", "profile", "validation",
 
 ## the table of a run as the launcher has it written: the script in an R
 ## session of its own with RUN_ROOT and, for the smoke test,
-## R_CONFIG_ACTIVE=quick; every field as text, as the launcher reads it
-task_table <- function(profile) {
+## R_CONFIG_ACTIVE=quick; every field as text, as the launcher reads it.
+## parts: FINAL_RUN_PARTS, the parts of a run on two computers (-Parts)
+task_table <- function(profile, parts = NA) {
   withr::local_envvar(RUN_ROOT = run_root,
                       R_CONFIG_ACTIVE = profile,
+                      FINAL_RUN_PARTS = parts,
                       DATASET = NA,
                       UNIT = NA,
                       VALIDATION = NA,
@@ -380,6 +382,7 @@ test_that("the table of a rehearsal is the real one with the stand-in", {
   withr::local_envvar(RUN_ROOT = root,
                       STAND_IN_SCALE = "10",
                       R_CONFIG_ACTIVE = NA,
+                      FINAL_RUN_PARTS = NA,
                       DATASET = NA,
                       UNIT = NA,
                       VALIDATION = NA,
@@ -425,4 +428,158 @@ test_that("the table of a rehearsal is the real one with the stand-in", {
   queue <- copy$kind == "queue"
   expect_true(all(as.numeric(copy$sessions[queue]) <=
                     as.numeric(copy$n_runs[queue])))
+})
+
+##########################################
+#########  a run on two computers: the tables of some parts
+##########################################
+
+## FINAL_RUN_PARTS as the README gives it: the bCCNN without its search and
+## grid on the VM, the grids and searches of the NN chain ladder on the HPC,
+## the bCCNN search and grid later
+selections <- c(vm = "data+bccnn_main+bootstrap+masking",
+                hpc = "nncl_grid+nncl_search",
+                later = "bccnn_search+bccnn_grid")
+part_tables <- lapply(selections, function(s) task_table(NA, s))
+fit_scripts <- "(fit|hyperparameter search)[.]R$"
+## the id of a task that carries the parts (the status after the benchmark
+## stage, the last tasks) without them: its id in the whole table
+whole_id <- function(id) sub("([.](final|benchmark))[.].*$", "\\1", id)
+## the rows of a table without their row names
+plain <- function(x) {
+  rownames(x) <- NULL
+  x
+}
+
+test_that("a table of some parts has their tasks as the whole table", {
+  whole <- tables$default
+  for (s in names(part_tables)) {
+    tasks <- part_tables[[s]]
+    expect_named(tasks, columns)
+    expect_match(tasks$id, "^[A-Za-z0-9._-]+$")
+    expect_equal(anyDuplicated(tasks$id), 0)
+    # rows of the whole table, in its order
+    rows <- match(whole_id(tasks$id), whole$id)
+    expect_false(anyNA(rows))
+    expect_false(is.unsorted(rows))
+    # the status after the benchmark stage and the last tasks carry the
+    # parts: a launch with other parts, or with all, runs them again
+    last <- tasks$stage == "9" | startsWith(tasks$id, "status.benchmark")
+    carried <- paste0(".", gsub("+", "-", selections[[s]], fixed = TRUE))
+    expect_equal(tasks$id[last], paste0(whole$id[rows[last]], carried))
+    expect_equal(tasks$id[!last], whole$id[rows[!last]])
+    expect_equal(sum(last), 5)
+    expect_equal(tasks$id[nrow(tasks)], paste0("status.final", carried))
+    # a task of a part: every field as in the whole table, so it brings
+    # all it needs; the status and the training times follow what is there
+    run <- grepl("final run (status|timings)[.]R$", tasks$script)
+    expect_equal(plain(tasks[!run, ]), plain(whole[rows[!run], ]))
+    same <- setdiff(columns, c("id", "args", "needs"))
+    expect_equal(plain(tasks[run, same]), plain(whole[rows[run], same]))
+    needs <- needs_of(tasks)
+    expect_true(all(unlist(needs) %in% tasks$id))
+    needs_whole <- lapply(needs_of(whole), function(n) {
+      tasks$id[match(n, whole_id(tasks$id))]
+    })
+    status <- tasks$id[basename(tasks$script) == "final run status.R"]
+    expect_equal(tasks$args[match(status, tasks$id)], status)
+    for (id in tasks$id[run]) {
+      kept <- needs_whole[[whole_id(id)]]
+      kept <- kept[!is.na(kept)]
+      before <- status[seq_len(match(id, status, nomatch = 1) - 1)]
+      expect_setequal(needs[[id]], union(kept, tail(before, 1)))
+      expect_gt(length(setdiff(needs[[id]], tasks$id[run])), 0)
+    }
+    expect_setequal(needs[[tasks$id[nrow(tasks)]]],
+                    tasks$id[-nrow(tasks)])
+  }
+})
+
+test_that("in a table of some parts a task finds the files it reads", {
+  for (s in names(part_tables)) {
+    tasks <- part_tables[[s]]
+    needs <- needs_of(tasks)
+    part_files <- lapply(setNames(seq_len(nrow(tasks)), tasks$id), function(k) {
+      final_run_files(basename(tasks$script[k]),
+                      strsplit(tasks$args[k], " ")[[1]],
+                      session_cfg(tasks[k, ], "default"),
+                      "RUN_ROOT",
+                      "RAW")
+    })
+    written <- lapply(part_files, function(f) c(f$writes, f$runs, f$with))
+    for (id in tasks$id) {
+      before <- unlist(written[all_needs(needs, id)])
+      expect_true(all(part_files[[id]]$reads %in% before), info = id)
+    }
+  }
+})
+
+test_that("the parts of the two computers fit every network once", {
+  whole <- tables$default
+  fits <- lapply(part_tables, function(tasks) {
+    tasks$id[grepl(fit_scripts, tasks$script) & tasks$stage != "2"]
+  })
+  # no network on both computers; with the bCCNN search and grid, which
+  # start from the main fit of the VM, every network of the whole table
+  expect_length(intersect(fits$vm, fits$hpc), 0)
+  expect_setequal(unlist(fits),
+                  whole$id[grepl(fit_scripts, whole$script) &
+                             whole$stage != "2"])
+  expect_setequal(intersect(fits$vm, fits$later),
+                  paste0(datasets, ".bccnn.fit.rolling_origin_refit"))
+  # the HPC: the two grids and three searches of both codings, with the
+  # main runs their tables read, and nothing of the bCCNN
+  hpc <- part_tables$hpc
+  expect_false(any(grepl("bCCNN|Mack|ODP", hpc$script)))
+  expect_setequal(sub("^[a-z_]+[.](nncl[a-z_]*)[.](.*)$", "\\2",
+                      fits$hpc),
+                  c("main", "grid", "cl_grid",
+                    paste0("search.", c("cl_start", "paper", "early_stop"))))
+  real <- hpc$kind == "queue" & hpc$stage != "2"
+  expect_equal(sum(as.numeric(hpc$n_runs[real])),
+               3 * 2 * (6 + 1200 + 1200))
+  expect_true(all(paste0(datasets, ".nncl.age_coding") %in% hpc$id))
+  # the VM: the three variants, their bootstraps, the masking study, the
+  # preparation in full, and nothing of the NN chain ladder but its cells
+  vm <- part_tables$vm
+  expect_setequal(vm$id[vm$stage == "0"], whole$id[whole$stage == "0"])
+  expect_setequal(basename(vm$script[grepl("NN chain ladder", vm$script)]),
+                  "NN chain ladder SynthETIC cells.R")
+  real <- vm$kind == "queue" & vm$stage != "2"
+  expect_equal(sum(as.numeric(vm$n_runs[real])), 3 * (3 * 20 + 20))
+})
+
+test_that("the parts are read by name, group and separator", {
+  whole <- tables$default
+  # not set, all, or every part by name: the whole table
+  expect_equal(task_table(NA, "all"), whole)
+  expect_equal(task_table(NA, "main+bccnn+nncl"), whole)
+  # a group is its parts; commas, blanks and capitals are read, the order
+  # is that of the table
+  expect_equal(task_table(NA, "Masking, bccnn_main  data;bootstrap"),
+               part_tables$vm)
+  nncl <- task_table(NA, "nncl")
+  expect_equal(nncl, task_table(NA, "nncl_search+nncl_grid+nncl_main"))
+  # nncl_grid brings the main runs but not the partition figure of nncl_main
+  expect_setequal(setdiff(whole_id(nncl$id), whole_id(part_tables$hpc$id)),
+                  paste0(datasets, ".nncl.partition"))
+  # the quick table of the smoke test has the same tasks
+  expect_equal(task_table("quick", selections[["hpc"]])$id,
+               part_tables$hpc$id)
+  # a name that is no part: no table
+  withr::local_envvar(RUN_ROOT = run_root,
+                      R_CONFIG_ACTIVE = NA,
+                      FINAL_RUN_PARTS = "nncl+bcnn")
+  table_file <- file.path(run_root, "final-run", "tasks.csv")
+  unlink(table_file)
+  log <- tempfile()
+  status <- system2(file.path(R.home("bin"), "Rscript"),
+                    shQuote(here::here("analysis", "06_final-run",
+                                       "final run tasks.R")),
+                    stdout = log,
+                    stderr = log)
+  expect_false(status == 0)
+  expect_match(paste(readLines(log), collapse = " "),
+               "names no part of the final run: bcnn")
+  expect_false(file.exists(table_file))
 })

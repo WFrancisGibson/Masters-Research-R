@@ -32,6 +32,34 @@
 ## The first run of a grid, the benchmark run, is its cheapest: the status
 ## runs again when the first queue of each grid is done (stages 4 and 8),
 ## from where the time of that grid rests on a whole grid
+##
+## A run on two computers: the environment variable FINAL_RUN_PARTS (the
+## launchers: -Parts, --parts) names the parts this computer runs, joined
+## by "+" (or by commas or blanks); not set, or all: the whole table.
+##   data          stage 0 with the data description, Mack and the ODP GLM
+##   bccnn_main    the bCCNN under its three variants, its partition figures
+##   nncl_main     the main runs of the NN chain ladder under both codings,
+##                 their tables, its partition figure
+##   bccnn_search  the bCCNN search
+##   bootstrap     the bCCNN bootstrap of each variant, its tables
+##   masking       the bCCNN masking study, its tables
+##   nncl_grid     the two grids of the NN chain ladder under both codings,
+##                 their tables, the two codings compared
+##   nncl_search   its three searches under both codings
+##   bccnn_grid    the bCCNN grid, its tables
+##   main          data + bccnn_main + nncl_main
+##   bccnn         bccnn_main + bccnn_search + bootstrap + masking + bccnn_grid
+##   nncl          nncl_main + nncl_grid + nncl_search
+## A chosen task brings every task it needs: its preparation of stage 0; the
+## main fit a bootstrap or the bCCNN grid starts from; with nncl_grid the
+## main runs of the NN chain ladder, which the tables of the grids read. So
+## a network is fitted on one computer only if no part is chosen on both
+## and nncl_main goes with nncl_grid. The benchmark run of a queue is of
+## its part; the status and the training times are kept where they follow a
+## task of the table. The ids are those of the whole table, but for the
+## status after the benchmark stage and the last tasks (stage 9), which
+## carry the chosen parts: a later launch with other parts, or with all,
+## runs them again
 source(here::here("analysis", "00_setup.R"))
 
 ##########################################
@@ -51,6 +79,31 @@ state <- here::here(cfg$run_root, "final-run")
 if (quick) state <- file.path(state, "quick")
 datasets <- names(Filter(function(d) d$generator == "synthetic",
                          cfg$datasets))
+
+## the parts of the run and their groups (the top of this file); chosen:
+## the parts of this computer, in the order of the table
+parts <- c("data", "bccnn_main", "nncl_main", "bccnn_search", "bootstrap",
+           "masking", "nncl_grid", "nncl_search", "bccnn_grid")
+groups <- list(main = c("data", "bccnn_main", "nncl_main"),
+               bccnn = c("bccnn_main", "bccnn_search", "bootstrap", "masking",
+                         "bccnn_grid"),
+               nncl = c("nncl_main", "nncl_grid", "nncl_search"),
+               all = parts)
+chosen <- tolower(strsplit(Sys.getenv("FINAL_RUN_PARTS"), "[+,; ]+")[[1]])
+chosen <- chosen[chosen != ""]
+unknown <- setdiff(chosen, c(parts, names(groups)))
+if (length(unknown) > 0) {
+  stop("FINAL_RUN_PARTS (-Parts, --parts) names no part of the final run: ",
+       paste(unknown, collapse = ", "),
+       ". The parts: ",
+       paste(c(parts, names(groups)), collapse = ", "))
+}
+chosen <- c(chosen, unlist(groups[intersect(chosen, names(groups))]))
+chosen <- if (length(chosen) == 0) parts else parts[parts %in% chosen]
+partial <- length(chosen) < length(parts)
+## in a table of some parts the status after the benchmark stage and the
+## last tasks carry them in their id
+parts_id <- if (partial) paste0(".", paste(chosen, collapse = "-")) else ""
 
 ## sessions: a queue may have as many R sessions as it has runs, at most
 ## this many (the launcher starts no more than it has slots and runs left)
@@ -94,12 +147,15 @@ fit_scripts <- c(file.path(bccnn_dir, c("bCCNN fit.R",
 
 ## a row of the table (contract 2.). A task with n_runs is a queue: its run
 ## files, those of pattern, are in the folder of the fits of its data set
-## (paths: processed of config.yml, relative to RUN_ROOT)
+## (paths: processed of config.yml, relative to RUN_ROOT). part: the part of
+## the run it belongs to (run: the status and the training times); not a
+## column of the table that is written
 task <- function(id,
                  stage,
                  dataset,
                  script,
                  needs = NULL,
+                 part = "run",
                  args = "",
                  profile = "",
                  validation = "",
@@ -124,7 +180,8 @@ task <- function(id,
              run_dir = if (queue) file.path(cfg$paths$processed, dataset) else
                "",
              pattern = pattern,
-             needs = paste(needs, collapse = ";"))
+             needs = paste(needs, collapse = ";"),
+             part = part)
 }
 
 ##########################################
@@ -171,10 +228,15 @@ n_grid <- length(bccnn_grid_runs(cfg$bccnn$grid, cfg$seed))
 ##########################################
 
 keras <- "keras.check"
-tasks <- task(keras, 0, datasets[1], file.path(final_dir, "keras check.R"))
+tasks <- task(keras,
+              0,
+              datasets[1],
+              file.path(final_dir, "keras check.R"),
+              part = "data")
 ## the status script as a task is given its own id (it counts that task as
 ## done); its tasks write the same files, so each waits for the one before
-status_before <- "status.benchmark"
+status_benchmark <- paste0("status.benchmark", parts_id)
+status_before <- status_benchmark
 for (d in datasets) {
   ## stage 0: the claims are simulated and compared with the fingerprint of
   ## the laptop's before anything reads them; the cells script writes the
@@ -185,42 +247,56 @@ for (d in datasets) {
   cells <- paste0(d, ".", names(codings), ".cells")
   tasks <- rbind(
     tasks,
-    task(sim, 0, d, file.path(sim_dir, "SynthETIC claims simulation.R")),
+    task(sim,
+         0,
+         d,
+         file.path(sim_dir, "SynthETIC claims simulation.R"),
+         part = "data"),
     task(fingerprint,
          0,
          d,
          file.path(sim_dir, "data fingerprint.R"),
          sim,
+         "data",
          args = "check"),
-    task(triangles, 0, d, file.path(sim_dir, "claims triangles.R"),
-         fingerprint),
-    task(cells[1], 0, d, nncl_cells_script, fingerprint),
+    task(triangles,
+         0,
+         d,
+         file.path(sim_dir, "claims triangles.R"),
+         fingerprint,
+         "data"),
+    task(cells[1], 0, d, nncl_cells_script, fingerprint, "data"),
     task(cells[2],
          0,
          d,
          nncl_cells_script,
          c(fingerprint, cells[1]),
+         "data",
          profile = profile_numeric),
     task(paste0(d, ".description"),
          0,
          d,
          file.path(sim_dir, "SynthETIC claims description.R"),
-         fingerprint),
+         fingerprint,
+         "data"),
     task(paste0(d, ".features"),
          0,
          d,
          file.path(sim_dir, "SynthETIC feature impact.R"),
-         fingerprint),
+         fingerprint,
+         "data"),
     task(paste0(d, ".mack"),
          0,
          d,
          "analysis/01_Mack model/Mack chainladder fit.R",
-         triangles),
+         triangles,
+         "data"),
     task(paste0(d, ".odp"),
          0,
          d,
          "analysis/02_ODP glm model/ODP glm fit plot.R",
-         triangles)
+         triangles,
+         "data")
   )
 
   ## stage 1: the bCCNN under each variant (one R session each)
@@ -232,6 +308,7 @@ for (d in datasets) {
                         d,
                         file.path(bccnn_dir, "bCCNN fit.R"),
                         c(triangles, keras),
+                        "bccnn_main",
                         validation = variants$validation[v],
                         final_fit = variants$final_fit[v]))
   }
@@ -245,6 +322,7 @@ for (d in datasets) {
                         d,
                         nncl_fit_script,
                         c(cells, keras),
+                        "nncl_main",
                         args = "main",
                         profile = codings[[k]]$profile,
                         n_runs = codings[[k]]$n_runs[["main"]],
@@ -255,6 +333,7 @@ for (d in datasets) {
                         d,
                         nncl_analysis_script,
                         c(cells, main),
+                        "nncl_main",
                         profile = codings[[k]]$profile))
   }
   ## the partition figures (no fit)
@@ -264,12 +343,14 @@ for (d in datasets) {
          1,
          d,
          file.path(bccnn_dir, "bCCNN partitions.R"),
-         triangles),
+         triangles,
+         "bccnn_main"),
     task(paste0(d, ".nncl.partition"),
          1,
          d,
          file.path(nncl_dir, "NN chain ladder SynthETIC partition.R"),
-         cells)
+         cells,
+         "nncl_main")
   )
 
   ## stage 3: the bCCNN search (one R session, so before the queues), the
@@ -282,7 +363,8 @@ for (d in datasets) {
                       3,
                       d,
                       file.path(bccnn_dir, "bCCNN hyperparameter search.R"),
-                      c(triangles, keras)))
+                      c(triangles, keras),
+                      "bccnn_search"))
   for (v in seq_len(nrow(variants))) {
     tasks <- rbind(
       tasks,
@@ -291,6 +373,7 @@ for (d in datasets) {
            d,
            file.path(bccnn_dir, "bCCNN bootstrap fit.R"),
            c(bccnn_fit[v], keras),
+           "bootstrap",
            validation = variants$validation[v],
            final_fit = variants$final_fit[v],
            n_runs = n_chunks,
@@ -302,6 +385,7 @@ for (d in datasets) {
            d,
            file.path(bccnn_dir, "bCCNN bootstrap analysis.R"),
            c(triangles, bccnn_fit[v], bootstrap[v]),
+           "bootstrap",
            validation = variants$validation[v],
            final_fit = variants$final_fit[v])
     )
@@ -313,6 +397,7 @@ for (d in datasets) {
          d,
          file.path(bccnn_dir, "bCCNN masking fit.R"),
          c(triangles, keras),
+         "masking",
          n_runs = n_masking,
          pattern = "^bccnn_masking_fit_s[0-9]+[.]rds$",
          max_runs = max_runs$bccnn_masking),
@@ -320,7 +405,8 @@ for (d in datasets) {
          3,
          d,
          file.path(bccnn_dir, "bCCNN masking analysis.R"),
-         c(triangles, masking))
+         c(triangles, masking),
+         "masking")
   )
   ## the training times of the fits of stages 1 and 3
   fitted <- tasks$id[tasks$dataset == d & tasks$script %in% fit_scripts]
@@ -342,6 +428,7 @@ for (d in datasets) {
                           d,
                           nncl_fit_script,
                           c(cells, keras),
+                          "nncl_grid",
                           args = g,
                           profile = codings[[k]]$profile,
                           n_runs = codings[[k]]$n_runs[[g]],
@@ -352,6 +439,7 @@ for (d in datasets) {
                           d,
                           nncl_analysis_script,
                           c(cells, grid, analysis),
+                          "nncl_grid",
                           profile = codings[[k]]$profile))
       analysis <- paste0(grid, ".analysis")
       ## the first queue of this grid is done: the status again
@@ -374,6 +462,7 @@ for (d in datasets) {
                           d,
                           nncl_search_script,
                           c(cells, keras),
+                          "nncl_search",
                           args = m,
                           profile = codings[[k]]$profile))
     }
@@ -390,7 +479,8 @@ for (d in datasets) {
                       d,
                       file.path(nncl_dir,
                                 "NN chain ladder SynthETIC age coding.R"),
-                      c(cells, both)))
+                      c(cells, both),
+                      "nncl_grid"))
 
   ## stage 8: the bCCNN grid; its rule "fixed" reads the steps off the main
   ## fit under the rolling origin with the refit
@@ -403,6 +493,7 @@ for (d in datasets) {
          file.path(bccnn_dir, "bCCNN grid fit.R"),
          c(triangles, bccnn_fit[variants$name == "rolling_origin_refit"],
            keras),
+         "bccnn_grid",
          n_runs = n_grid,
          pattern = "^bccnn_grid_fit_.*[.]rds$",
          max_runs = max_runs$bccnn_grid),
@@ -410,7 +501,8 @@ for (d in datasets) {
          8,
          d,
          file.path(bccnn_dir, "bCCNN grid analysis.R"),
-         c(triangles, grid))
+         c(triangles, grid),
+         "bccnn_grid")
   )
   if (d == datasets[1]) {
     status <- "status.bccnn.grid"
@@ -427,7 +519,7 @@ for (d in datasets) {
   ## stage 9: the training times of every fit of the data set
   fitted <- tasks$id[tasks$dataset == d & tasks$script %in% fit_scripts]
   tasks <- rbind(tasks,
-                 task(paste0(d, ".timings.final"),
+                 task(paste0(d, ".timings.final", parts_id),
                       9,
                       d,
                       timings_script,
@@ -451,25 +543,63 @@ benchmark$sessions <- benchmark$max_runs <- benchmark$n_runs <- 1
 tasks$needs[later] <- paste(tasks$needs[later], benchmark$id, sep = ";")
 tasks <- rbind(tasks,
                benchmark,
-               task("status.benchmark",
+               task(status_benchmark,
                     2,
                     datasets[1],
                     status_script,
                     benchmark$id,
-                    args = "status.benchmark"))
+                    args = status_benchmark))
 tasks <- rbind(tasks,
-               task("status.final",
+               task(paste0("status.final", parts_id),
                     9,
                     datasets[1],
                     status_script,
                     tasks$id,
-                    args = "status.final"))
+                    args = paste0("status.final", parts_id)))
 tasks <- tasks[order(tasks$stage), ]
+
+##########################################
+#########  the parts of this computer
+##########################################
+
+## the tasks of the chosen parts and, task by task, every task they need.
+## Of the status and the training times (part run): those that follow a
+## task that is kept, with their needs that are kept; the status of the end
+## is the last task of every table. The status tasks write the same files:
+## each waits for the one kept before it
+if (partial) {
+  needs <- setNames(strsplit(tasks$needs, ";", fixed = TRUE), tasks$id)
+  keep <- tasks$part %in% chosen
+  repeat {
+    more <- tasks$id %in% unlist(needs[keep]) & !keep
+    if (!any(more)) break
+    keep <- keep | more
+  }
+  stopifnot("a task of a part waits for no status and no training times" =
+              !any(tasks$part[keep] == "run"))
+  follows <- sapply(needs, function(n) any(n %in% tasks$id[keep]))
+  keep <- keep | (tasks$part == "run" & follows) |
+    tasks$id == paste0("status.final", parts_id)
+  tasks <- tasks[keep, ]
+  needs <- lapply(needs[keep], intersect, tasks$id)
+  status <- which(tasks$script == status_script)
+  for (k in seq_along(status)[-1]) {
+    needs[[status[k]]] <- union(needs[[status[k]]], tasks$id[status[k - 1]])
+  }
+  tasks$needs <- unname(sapply(needs, paste, collapse = ";"))
+}
 
 ##########################################
 #########  write the table
 ##########################################
 
+## the parts in the table: the chosen ones, and tasks of data, bccnn_main
+## and nncl_main where a chosen task needs them
+cat("parts of this computer:",
+    if (partial) paste(chosen, collapse = " + ") else "all",
+    "\n")
+table(part = factor(tasks$part, levels = c(parts, "run")), kind = tasks$kind)
+tasks$part <- NULL
 table(stage = tasks$stage, kind = tasks$kind)
 ## the runs of the queues (those of the benchmark are among them)
 real <- tasks$kind == "queue" & tasks$stage != 2

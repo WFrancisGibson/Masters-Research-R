@@ -46,6 +46,12 @@
 ##   --profile        "" the final run (default), "quick" only the quick
 ##                    profile
 ##   --skip-smoke     no smoke test before the final run
+##   --parts          the parts of the task table this computer runs, for
+##                    a run on two computers: names joined by "+", as
+##                    --parts nncl_grid+nncl_search (the names and what a
+##                    part brings with it: the top of "final run tasks.R";
+##                    default: all). The smoke test is then of these parts
+##                    (marker smoke.<parts>.done)
 ##   --rounds         times the final run goes over the task table while
 ##                    tasks fail (default 2)
 ##   --rscript        Rscript to use instead of the one of the PATH
@@ -99,7 +105,8 @@ class Record(object):
 ## table that is run and the running sessions (slot -> session)
 run = Record(opt=None, root="", run_root="", run_root_r="", state="",
              log_file="", pid_file="", last_beat=0.0, rscript="",
-             python_variables={}, retry_waits=[], tasks=[], sessions={})
+             python_variables={}, retry_waits=[], parts=[], tasks=[],
+             sessions={})
 
 ##########################################
 #########  functions
@@ -745,8 +752,8 @@ def invoke_run(name, run_profile, state_folder, given_table):
     for folder in [state_folder, logs, done_folder, failed_folder]:
         os.makedirs(folder, exist_ok=True)
     run.log_file = os.path.join(state_folder, "launch.log")
-    write_log("==== {}: {} slots, RUN_ROOT {}".format(name, opt.slots,
-                                                      run.run_root))
+    write_log("==== {}: {} slots, RUN_ROOT {}, parts {}".format(
+        name, opt.slots, run.run_root, "+".join(run.parts) or "all"))
 
     ## a task given up by an earlier launch is tried again
     for marker in os.listdir(failed_folder):
@@ -769,6 +776,7 @@ def invoke_run(name, run_profile, state_folder, given_table):
             os.remove(table)
         variables = {"RUN_ROOT": run.run_root_r,
                      "R_CONFIG_ACTIVE": run_profile,
+                     "FINAL_RUN_PARTS": "+".join(run.parts),
                      "DATASET": "", "UNIT": "", "VALIDATION": "",
                      "FINAL_FIT": "", "RUN_SLOT": "", "RUN_MAX": "",
                      "RUN_DIR": ""}
@@ -977,6 +985,7 @@ def read_options():
     p.add_argument("--run-root", default="")
     p.add_argument("--profile", default="", choices=["", "quick"])
     p.add_argument("--skip-smoke", action="store_true")
+    p.add_argument("--parts", default="")
     p.add_argument("--rounds", type=int, default=2)
     p.add_argument("--rscript", default="")
     p.add_argument("--python", default="")
@@ -1123,6 +1132,7 @@ def launch():
             "slots: {}".format(opt.slots),
             "profile: '{}', skip smoke: {}, tasks file: '{}'".format(
                 opt.profile, opt.skip_smoke, opt.tasks_file),
+            "parts: " + ("+".join(run.parts) or "all"),
             ""]
     with open(os.path.join(state_final, "run_info.txt"), "a") as out:
         out.write("\n".join(text) + "\n")
@@ -1134,11 +1144,16 @@ def launch():
                   "TensorFlow will end with an illegal instruction. Ask "
                   "for another node.".format(processor))
 
-    ## the smoke test (contract 9.)
-    smoke_done = os.path.join(state_quick, "smoke.done")
+    ## the smoke test (contract 9.); of some parts (--parts) it has a
+    ## marker of its own, and the marker of the whole table stands for it
+    smoke_all = os.path.join(state_quick, "smoke.done")
+    smoke_done = smoke_all
+    if run.parts:
+        smoke_done = os.path.join(
+            state_quick, "smoke.{}.done".format("-".join(run.parts)))
     smoke_failed = os.path.join(state_quick, "smoke_failed.txt")
     if (not opt.skip_smoke and opt.profile == "" and opt.tasks_file == "" and
-            not os.path.exists(smoke_done)):
+            not os.path.exists(smoke_done) and not os.path.exists(smoke_all)):
         write_log("smoke test: every task under the quick profile first")
         problem = ""
         try:
@@ -1238,6 +1253,10 @@ def main():
         run.retry_waits = [int(w) for w in opt.retry_seconds.split(",")]
     except ValueError:
         run.retry_waits = []
+    ## the parts of the task table this computer runs (--parts); the tasks
+    ## script knows the names and stops at one that is none
+    names = set(re.split("[+,; ]+", opt.parts.lower())) - {""}
+    run.parts = [] if "all" in names else sorted(names)
     if opt.slots < 1 or not run.retry_waits:
         print("--slots must be 1 or more and --retry-seconds numbers "
               "separated by commas.")

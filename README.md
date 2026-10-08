@@ -272,7 +272,9 @@ print the path of the launcher if it is there, and nothing if it is not.
    - `-Python uv` is the way out if the Python environment cannot be built: no environment,
      every R session resolves its Python packages with uv (internet at every session start).
      The launcher then needs `-Python uv` too; the scheduled task gets it by itself.
-   - `-LaunchArguments "-Slots 12"` gives the scheduled task further arguments of `launch.ps1`.
+   - `-LaunchArguments "-Slots 12"` gives the scheduled task further arguments of `launch.ps1`
+     (a run of some parts needs its `-Parts` there:
+     [The final run on two computers](#the-final-run-on-two-computers-hpc-and-vm)).
 
    Then pause Windows Update (Settings > Windows Update > Pause updates) for as long as it lets
    you: a restart stops the run until you log on.
@@ -413,6 +415,8 @@ run again, delete its marker `results\final-run\done\<task>.done`; to have a run
 delete its file.
 
 **Variants of the launch command**: `-Slots 12` (R sessions at once; default: the processors),
+`-Parts data+bccnn_main` (only these parts of the task table:
+[The final run on two computers](#the-final-run-on-two-computers-hpc-and-vm)),
 `-SkipSmoke` (no smoke test), `-Profile quick` (only the smoke-test table), `-NoPush` (nothing
 is committed and pushed), `-PushHours 3` (hours between two pushes; default 6), `-Rounds 1` (no
 second round for the failed tasks), `-QuietHours 12` (a session without output and without a
@@ -479,14 +483,212 @@ From the login node, after the clone, in the project folder:
 
 ```
 bash analysis/06_final-run/setup_hpc.sh
-qsub -v FINAL_RUN_ARGS="--profile quick" -l walltime=12:00:00 analysis/06_final-run/hpc_job.sh
+qsub -v FINAL_RUN_PROFILE=quick -l walltime=12:00:00 analysis/06_final-run/hpc_job.sh
 qsub analysis/06_final-run/hpc_job.sh
 ```
 
 The second line is a first try with the quick profile only; the third is the final run (the
 smoke test first, then every task). A job that ends before all is done is submitted again with
 the same command and resumes. `qstat -u $USER` shows the job, `qdel <job id>` stops it, and
-`tail -n 20 ../Masters-Research-R-results/results/final-run/launch.log` shows the events.
+`tail -n 20 ../Masters-Research-R-results/results/final-run/launch.log` shows the events. The
+next section has these steps one by one, for the part of the run the cluster was given.
+
+## The final run on two computers (HPC and VM)
+
+The task table can be shared between two computers: each launcher is given the **parts** it
+runs (`launch.ps1 -Parts`, `launch.py --parts`, in the PBS job the variable `FINAL_RUN_PARTS`),
+names joined by `+`. Without parts a launcher runs the whole table, as in the two sections
+above. Written on 2026-10-08; on the laptop both launchers completed their tables of parts with
+the stand-in of the rehearsal (no model), and nothing of it has run on the VM or the cluster.
+
+| Part | Tasks | Stages |
+|---|---|---|
+| `data` | Keras check, simulation, fingerprint check, triangles, cells of the NN chain ladder, data description, Mack, ODP GLM | 0 |
+| `bccnn_main` | bCCNN main fit under its three variants, its partition figures | 1 |
+| `nncl_main` | NN chain ladder main runs and their tables, both codings; its partition figure | 1 |
+| `bccnn_search` | bCCNN search | 3 |
+| `bootstrap` | bCCNN bootstrap of each variant and its tables | 3 |
+| `masking` | bCCNN masking study and its tables | 3 |
+| `nncl_grid` | NN chain ladder: the two grids and their tables, both codings; the two codings compared | 4, 6 |
+| `nncl_search` | NN chain ladder: the three searches, both codings | 5, 7 |
+| `bccnn_grid` | bCCNN grid and its tables | 8 |
+
+Groups: `main` = `data` + `bccnn_main` + `nncl_main`; `bccnn` = `bccnn_main` + `bccnn_search` +
+`bootstrap` + `masking` + `bccnn_grid`; `nncl` = `nncl_main` + `nncl_grid` + `nncl_search`;
+`all`.
+
+- **A part brings what it needs.** Every task comes with the tasks it waits for: its
+  preparation of stage 0 (simulation, fingerprint check, triangles or cells), the main fit a
+  bootstrap or the bCCNN grid starts from, and with `nncl_grid` the main runs of the NN chain
+  ladder, because the tables of the grids and the comparison of the two codings read them. The
+  benchmark run of a queue, the status and the training times follow what is in the table.
+  `final run tasks.R` prints the parts of its table (`results/final-run/logs/tasks_table.log`).
+- **Each network on one computer.** Give no part to both computers, and leave `nncl_main` to
+  the computer that has `nncl_grid`.
+- **The smoke test** is of the chosen parts; a later launch with other parts runs the quick
+  tasks that are new.
+- **Changing the parts** on a computer is a new launch with the new `-Parts`: what is done is
+  not repeated, and the status after the benchmark stage, the training times and the last
+  status run again for the new table (their ids carry the parts).
+- **Two result folders.** The VM pushes to the branch `results/final-run`; the results of the
+  cluster stay there and are copied to the laptop. Each folder is complete for its parts
+  (run files, tables, figures, `timings_*.csv`, `status.csv`); keep them side by side.
+- **Training times** are those of the computer that fitted the run (`host` in
+  `timings_runs.csv`): the times of the NN chain ladder (cluster) and of the bCCNN (VM) are
+  not times on the same processor.
+- **The same claims.** Both computers simulate the claims and compare them with the
+  fingerprints of the laptop; a computer whose claims differ stops before any fit (below).
+
+The split of 2026-10-08: the grids and searches of the NN chain ladder on the cluster (stages
+4 to 7, about 8 of the 21 days on the VM), the main models, bootstraps and masking study on
+the VM (the first day). The cluster also fits the main runs of the NN chain ladder (6 runs per
+data set and coding); the VM therefore gets `bccnn_main` and not `main`. **The bCCNN search
+(stage 3) and the bCCNN grid (stage 8, about 13 days on the VM) are in neither command**: the
+last step of the VM adds them.
+
+### On the cluster: the grids and searches of the NN chain ladder
+
+92 tasks: 14,436 runs in 18 queues (per data set and coding 6 main runs and two grids of
+1,200) and 18 searches. The cluster's scripts have never run on Linux (section above).
+
+1. **Log in** (campus network or VPN; the password of the university account):
+
+   ```
+   ssh 26196425@hpc1.sun.ac.za
+   ```
+
+2. **Clone** into the home folder. The repository is private: git asks for the GitHub user
+   name and, as password, a personal access token (GitHub > Settings > Developer settings >
+   Personal access tokens, read access to the repository):
+
+   ```
+   git clone https://github.com/WFrancisGibson/Masters-Research-R.git
+   cd Masters-Research-R
+   ```
+
+3. **Setup**, once, an hour or more (it builds the R packages from their sources; keep the
+   connection open or run it inside `screen`). It prints the disk quota, the processor and
+   whether it has AVX, installs the R packages of `renv.lock`, runs the unit tests and the
+   checks of the launcher, builds the Python environment and checks Keras:
+
+   ```
+   bash analysis/06_final-run/setup_hpc.sh
+   ```
+
+   A step that fails stops it with the reason; mend it and run the same command again.
+4. **First try**, the quick profile of these parts (every script once with small settings;
+   the queue "day"):
+
+   ```
+   qsub -v FINAL_RUN_PARTS=nncl_grid+nncl_search,FINAL_RUN_PROFILE=quick -l walltime=12:00:00 analysis/06_final-run/hpc_job.sh
+   qstat -u $USER
+   tail -n 20 ../Masters-Research-R-results/results/final-run/quick/launch.log
+   ```
+
+   It is done when the log ends with `finished: 92 of 92 tasks done, 0 failed, 0 blocked`.
+   A failed task is named there, with its log in
+   `../Masters-Research-R-results/results/final-run/quick/logs/`.
+5. **If the fingerprint check failed** in step 4 (`<dataset>.fingerprint` among the failed
+   tasks: R 4.5.1 on Linux simulated other claims than the laptop), copy the claims of the
+   laptop. On the laptop, from the project folder (PowerShell or bash; about 1 GB):
+
+   ```
+   scp -r data/raw/claim-simulation-annual data/raw/claim-simulation-annual-SI-calendar data/raw/claim-simulation-annual-long-reporting 26196425@hpc1.sun.ac.za:Masters-Research-R/data/raw/
+   ```
+
+   On the cluster, from the project folder, tell both task tables that the simulation is
+   done, then repeat step 4:
+
+   ```
+   for s in final-run final-run/quick; do
+     mkdir -p ../Masters-Research-R-results/results/$s/done
+     for d in baseline si_calendar long_reporting; do
+       echo "copied from the laptop, 0 s" > ../Masters-Research-R-results/results/$s/done/$d.simulation.done
+     done
+   done
+   ```
+
+6. **The run** (one node, 48 R sessions, up to 168 hours a job; the smoke test of step 4 is
+   found done):
+
+   ```
+   qsub -v FINAL_RUN_PARTS=nncl_grid+nncl_search analysis/06_final-run/hpc_job.sh
+   ```
+
+7. **Watch**: `qstat -u $USER` (the job), and
+
+   ```
+   tail -n 20 ../Masters-Research-R-results/results/final-run/launch.log
+   cat ../Masters-Research-R-results/results/final-run/status_stages.csv
+   ```
+
+   (events and a progress line every five minutes; the hours left and the earliest end, written
+   after the benchmark stage and after the first queue of each grid).
+8. **Stop**: `qdel <job id>`. **Resume**, also after a job that reached its walltime: the
+   `qsub` of step 6 again. Finished runs and the scored sets of a search are not repeated.
+9. **Fetch the results**, on the laptop, from the folder that holds the project folder:
+
+   ```
+   ssh 26196425@hpc1.sun.ac.za "tar -czf final-run-results.tar.gz --exclude='*.keras' -C Masters-Research-R-results results"
+   scp 26196425@hpc1.sun.ac.za:final-run-results.tar.gz .
+   mkdir Masters-Research-R-results-hpc
+   tar -xzf final-run-results.tar.gz -C Masters-Research-R-results-hpc
+   ```
+
+   The results are then in `Masters-Research-R-results-hpc/results`, beside the worktree of
+   the VM's results (`Masters-Research-R-results`). With `RUN_ROOT` on that folder the scripts
+   without Keras run on them as in
+   [Reading the results on the laptop](#reading-the-results-on-the-laptop).
+
+To check before step 6, with the administrators of the cluster if need be (`help@sun.ac.za`):
+
+- **Processor hours.** The run needs several thousand (48 processors for some days); an
+  account of a free user of HPC1 has 1,000 and 10 GB of disk.
+- **Disk.** R packages, the Python environment and 14,436 run files; `quota -s` shows what is
+  left (the setup prints it).
+- **The node.** The job stops at once on a node without AVX (the old 48-processor nodes of
+  HPC1); its 120 GB of memory keep it off those with 96 GB.
+
+### On the VM: the main models, bootstraps and masking study
+
+84 tasks: stage 0 in full (with the data description, Mack and the ODP GLM), the bCCNN main
+fit under its three variants, 180 bootstrap chunks and 60 masking seeds; about a day. Steps 1
+to 8 of [The final run on the VM](#the-final-run-on-the-vm) with the parts in two places:
+
+1. **Install** R 4.6.1, Rtools 4.5 and Git for Windows, and **clone** (steps 1 and 2 there).
+2. **Setup**, in a PowerShell opened with "Run as administrator", from the project folder. The
+   parts go into the scheduled task, so that a restart of the VM resumes these parts and not
+   the whole table:
+
+   ```
+   powershell -ExecutionPolicy Bypass -File "analysis\06_final-run\setup_vm.ps1" -LaunchArguments "-Parts data+bccnn_main+bootstrap+masking"
+   ```
+
+3. **Start**, in a normal PowerShell, from the project folder (the setup prints this command):
+
+   ```
+   powershell -ExecutionPolicy Bypass -File "analysis\06_final-run\launch.ps1" -Parts data+bccnn_main+bootstrap+masking
+   ```
+
+   The smoke test of these parts first, then the run. It ends with
+   `ALL DONE: 84 of 84 tasks done, 0 failed, 0 blocked`.
+4. **Leave, watch, stop, resume**: steps 5 to 8 there (close the Remote Desktop window, never
+   sign out; `launch.log`, the branch `results/final-run` on GitHub; `stop.ps1`; the command
+   of step 3 resumes).
+5. **Then the bCCNN search and grid** (about 13 days), on the VM when the first day is done:
+   the setup again with the new parts for the scheduled task, then the launcher. What is done
+   is not repeated:
+
+   ```
+   powershell -ExecutionPolicy Bypass -File "analysis\06_final-run\setup_vm.ps1" -LaunchArguments "-Parts data+bccnn"
+   powershell -ExecutionPolicy Bypass -File "analysis\06_final-run\launch.ps1" -Parts data+bccnn
+   ```
+
+   Given at step 2 and 3 instead, `data+bccnn` runs everything of the bCCNN in one go: the
+   main models, bootstraps and masking study still come first (stages 1 and 3), the grid last.
+
+If the cluster cannot do its part, the VM takes it over with `-Parts all` (or no `-Parts`) in
+both commands: the whole table, without what the VM has done.
 
 ## How the results reach GitHub
 
@@ -651,7 +853,15 @@ Executed on the laptop, according to the work log of 2026-10-07 and 2026-10-08:
   what it writes). The quick table ran in full; the final table ran with the runs of its grids
   divided by 10 (2,580 of its 23,316 runs: the full numbers are checked by the unit tests, not
   by a launch). The results went to a git repository on the laptop, not to GitHub. Also
-  `stop.ps1`, and the launcher's failures and restarts on small tables of stand-in tasks.
+  `stop.ps1`, and the launcher's failures and restarts on small tables of stand-in tasks;
+- the launcher on tables of parts (2026-10-08, the same stand-ins, the grids of the final
+  tables again divided by 10, `-NoPush`): `launch.ps1` with the parts of the VM
+  (`data+bccnn_main+bootstrap+masking`: its smoke test, then 84 of 84 tasks), then on the same
+  folder with `data+bccnn` (97 tasks: only the bCCNN search and grid, their benchmark and the
+  status and training-time tasks ran) and then without parts (the whole table: the rest);
+  `launch.py` with the parts of the cluster (`nncl_grid+nncl_search`), its arguments built by
+  the lines of `hpc_job.sh`: the quick profile, then the run, which found its smoke test done
+  (92 of 92 tasks each). All of it on the laptop, under Windows: the cluster has run nothing.
 
 Not executed either: the seed study of the six lines of business with its 100 seeds, the
 simulation of `machine4` under the present `config.yml`, and the scripts of the paper's NN
