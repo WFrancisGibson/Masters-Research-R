@@ -1,0 +1,83 @@
+==== 2026-10-08 11:54:56 start long_reporting.features slot 4
+     rescaling constant combinations with p > 0 
+                 1.3042                245.0000 
+                 feature            level design_prob freq_relativity
+                  <char>           <char>       <num>           <num>
+ 1: Legal Representation                Y 0.973500000           1.000
+ 2: Legal Representation                N 0.026500000           1.000
+ 3:      Injury Severity                1 0.530000000           0.530
+ 4:      Injury Severity                2 0.300000000           0.300
+ 5:      Injury Severity                3 0.100000000           0.100
+ 6:      Injury Severity                4 0.050000000           0.050
+ 7:      Injury Severity                5 0.010000000           0.010
+ 8:      Injury Severity                6 0.010000000           0.010
+ 9:      Age of Claimant             0-15 0.183000000           0.183
+10:      Age of Claimant            15-30 0.192000000           0.192
+11:      Age of Claimant            30-50 0.274000000           0.274
+12:      Age of Claimant            50-65 0.180000000           0.180
+13:      Age of Claimant          over 65 0.171000000           0.171
+14:         Vehicle type        Passenger 0.927988122           5.000
+15:         Vehicle type Light Commerical 0.068052462           1.500
+16:         Vehicle type     Medium goods 0.002670544           0.350
+17:         Vehicle type      Heavy goods 0.001288872           0.250
+18:         Business use                Y 0.137857791           2.500
+19:         Business use                N 0.862142209           5.000
+    sev_relativity reference sev_vs_reference notidel_mult setldel_mult
+             <num>    <lgcl>            <num>        <num>        <num>
+ 1:           2.00      TRUE        1.0000000         1.00         1.00
+ 2:           1.00     FALSE        0.5000000         0.80         0.60
+ 3:           0.60     FALSE        0.5000000         1.10         0.85
+ 4:           1.20      TRUE        1.0000000         1.00         1.00
+ 5:           2.50     FALSE        2.0833333         0.95         1.20
+ 6:           5.00     FALSE        4.1666667         0.90         1.45
+ 7:           8.00     FALSE        6.6666667         0.85         1.75
+ 8:           0.40     FALSE        0.3333333         0.70         0.80
+ 9:           1.25     FALSE        1.2500000         1.10         1.30
+10:           1.15     FALSE        1.1500000         1.00         1.00
+11:           1.00      TRUE        1.0000000         1.00         1.00
+12:           0.85     FALSE        0.8500000         1.00         0.95
+13:           0.70     FALSE        0.7000000         1.00         0.90
+14:           0.25      TRUE        1.0000000         1.00         1.00
+15:           0.75     FALSE        3.0000000         0.95         1.00
+16:           1.00     FALSE        4.0000000         0.90         1.05
+17:           3.00     FALSE       12.0000000         0.90         1.10
+18:           1.30     FALSE        1.3000000         0.85         1.05
+19:           1.00      TRUE        1.0000000         1.00         1.00
+    relativity_of             factor_i        factor_j         level_ik
+           <char>               <char>          <char>           <char>
+ 1:     frequency Legal Representation Injury Severity                Y
+ 2:     frequency Legal Representation Injury Severity                N
+ 3:     frequency Legal Representation Injury Severity                N
+ 4:     frequency Legal Representation Injury Severity                N
+ 5:     frequency Legal Representation Injury Severity                N
+ 6:     frequency Legal Representation Injury Severity                N
+ 7:     frequency Legal Representation Injury Severity                N
+ 8:     frequency         Vehicle type    Business use        Passenger
+ 9:     frequency         Vehicle type    Business use Light Commerical
+10:     frequency         Vehicle type    Business use     Medium goods
+11:     frequency         Vehicle type    Business use     Medium goods
+12:     frequency         Vehicle type    Business use      Heavy goods
+13:     frequency         Vehicle type    Business use      Heavy goods
+14:      severity      Injury Severity Age of Claimant                4
+15:      severity      Injury Severity Age of Claimant                4
+16:      severity      Injury Severity Age of Claimant                5
+17:      severity      Injury Severity Age of Claimant                5
+    level_jl relativity
+      <char>      <num>
+ 1:        1       0.95
+ 2:        1       0.05
+ 3:        2       0.00
+ 4:        3       0.00
+ 5:        4       0.00
+ 6:        5       0.00
+ 7:        6       0.00
+ 8:        N       4.00
+ 9:        N       0.60
+10:        Y       0.35
+11:        N       0.01
+12:        Y       0.25
+13:        N       0.00
+14:    50-65       0.97
+15:  over 65       0.95
+16:    50-65       0.95
+17:  over 65       0.90

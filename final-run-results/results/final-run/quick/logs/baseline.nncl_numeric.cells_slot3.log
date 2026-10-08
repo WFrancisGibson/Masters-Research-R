@@ -1,4 +1,4 @@
-==== 2026-10-08 11:54:26 start baseline.nncl.cells slot 3
+==== 2026-10-08 11:54:36 start baseline.nncl_numeric.cells slot 3
                             cells                  feature values x 
                              3342                               226 
         observed cells with C < 0         diagonal cells with C = 0 
@@ -9,10 +9,10 @@ claims not reported at the end of year I (%)
                                          0.7 
 Legal Representation: 2 labels, reference label Y
 Injury Severity: 6 labels, reference label 1
-Age of Claimant: 5 labels, reference label 30-50
+Age of Claimant: numeric, scaled midpoints -1 -0.556 -0.037 0.481 1
 Vehicle type: 4 labels, reference label Passenger
 Business use: 2 labels, reference label N
-[1] 14
+[1] 11
     j n_cells steps  f_hom loss_millions
 1   1    2895     1 2.5277      122010.6
 2   2    2952     1 1.3263        9756.0

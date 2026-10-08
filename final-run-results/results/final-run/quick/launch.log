@@ -36,3 +36,30 @@
 2026-10-08 11:54:26  done    long_reporting.nncl.cells
 2026-10-08 11:54:26  start   baseline.nncl.cells slot 3 pid 6278
 2026-10-08 11:54:26  start   baseline.description slot 4 pid 6279
+2026-10-08 11:54:31  end     baseline.triangles slot 1: exit code 0, 10 s
+2026-10-08 11:54:31  done    baseline.triangles
+2026-10-08 11:54:31  start   baseline.features slot 1 pid 6356
+2026-10-08 11:54:36  end     baseline.nncl.cells slot 3: exit code 0, 10 s
+2026-10-08 11:54:36  done    baseline.nncl.cells
+2026-10-08 11:54:36  start   baseline.nncl_numeric.cells slot 3 pid 6374
+2026-10-08 11:54:41  end     si_calendar.simulation slot 2: exit code 0, 640 s
+2026-10-08 11:54:41  done    si_calendar.simulation
+2026-10-08 11:54:41  start   baseline.mack slot 2 pid 6400
+2026-10-08 11:54:46  end     baseline.mack slot 2: exit code 0, 5 s
+2026-10-08 11:54:46  done    baseline.mack
+2026-10-08 11:54:46  end     baseline.nncl_numeric.cells slot 3: exit code 0, 10 s
+2026-10-08 11:54:46  done    baseline.nncl_numeric.cells
+2026-10-08 11:54:46  end     baseline.description slot 4: exit code 0, 20 s
+2026-10-08 11:54:46  done    baseline.description
+2026-10-08 11:54:46  start   baseline.odp slot 2 pid 6449
+2026-10-08 11:54:46  start   si_calendar.fingerprint slot 3 pid 6451
+2026-10-08 11:54:46  start   long_reporting.nncl_numeric.cells slot 4 pid 6457
+2026-10-08 11:54:56  end     baseline.odp slot 2: exit code 0, 10 s
+2026-10-08 11:54:56  done    baseline.odp
+2026-10-08 11:54:56  end     long_reporting.nncl_numeric.cells slot 4: exit code 0, 10 s
+2026-10-08 11:54:56  done    long_reporting.nncl_numeric.cells
+2026-10-08 11:54:56  start   long_reporting.description slot 2 pid 6492
+2026-10-08 11:54:56  start   long_reporting.features slot 4 pid 6494
+2026-10-08 11:55:01  end     si_calendar.fingerprint slot 3: exit code 0, 15 s
+2026-10-08 11:55:01  done    si_calendar.fingerprint
+2026-10-08 11:55:01  start   si_calendar.triangles slot 3 pid 6532
