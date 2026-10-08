@@ -146,3 +146,4 @@
 2026-10-08 12:45:57  end     si_calendar.nncl.main.analysis slot 1: exit code 0, 15 s
 2026-10-08 12:45:57  done    si_calendar.nncl.main.analysis
 2026-10-08 12:45:57  start   long_reporting.nncl.main slot 1 pid 30350
+2026-10-08 12:48:32  progress tasks 36 of 50 done, 0 failed, 0 blocked; runs 23 of 36; sessions 4 of 4: long_reporting.nncl.main x3, si_calendar.nncl_numeric.main x1
