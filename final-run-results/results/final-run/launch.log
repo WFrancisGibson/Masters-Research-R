@@ -4,3 +4,12 @@
 2026-10-08 11:43:57  ==== launcher started, process 5623 on vm
 2026-10-08 11:43:57  R: R version 4.5.3 (2026-03-11); Python: /home/user/Masters-Research-R-python/env/bin/python; code commit: 4498f65 with uncommitted changes
 2026-10-08 11:43:57  smoke test: every task under the quick profile first
+2026-10-08 12:03:26  smoke test passed
+2026-10-08 12:03:26  ==== final run: 4 slots, RUN_ROOT /home/user/Masters-Research-R/final-run-results/results, parts data+nncl_main
+2026-10-08 12:03:31  progress tasks 0 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 0 of 4: 
+2026-10-08 12:03:31  start   keras.check slot 1 pid 3451
+2026-10-08 12:03:31  start   baseline.simulation slot 2 pid 3452
+2026-10-08 12:03:31  start   si_calendar.simulation slot 3 pid 3458
+2026-10-08 12:03:32  start   long_reporting.simulation slot 4 pid 3465
+2026-10-08 12:03:42  end     keras.check slot 1: exit code 0, 10 s
+2026-10-08 12:03:42  done    keras.check

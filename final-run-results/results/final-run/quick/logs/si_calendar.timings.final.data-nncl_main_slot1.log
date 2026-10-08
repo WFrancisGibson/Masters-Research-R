@@ -1,0 +1,11 @@
+==== 2026-10-08 12:03:01 start si_calendar.timings.final.data-nncl_main slot 1
+    model              task  runs  fits networks hours_fit hours_run
+   <char>            <char> <int> <int>    <num>     <num>     <num>
+1:   nncl         nncl.main     6   114      114    0.0433    0.0635
+2:   nncl nncl_numeric.main     6   114      114    0.0434    0.0633
+   seconds_per_epoch
+               <num>
+1:             0.228
+2:             0.224
+      rows of timings_epochs rows of timings_epoch_blocks 
+                        1380                            0 

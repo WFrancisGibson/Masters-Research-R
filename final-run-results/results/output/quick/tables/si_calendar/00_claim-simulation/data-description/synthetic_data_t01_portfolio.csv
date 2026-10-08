@@ -1,0 +1,21 @@
+quantity,value
+claims,399568
+payments,1931764
+claim cost in constant values (millions),66857.3481401426
+nominal ultimate (millions),704193.325374276
+paid to the valuation date (millions),474726.010174913
+paid to the valuation date (% of the ultimate),67.4141593038528
+true outstanding (millions),229467.315199363
+"true outstanding, development years 1 to 20 (millions)",224063.182394069
+"true outstanding, after development year 20 (millions)",5404.1328052941
+claims closed,364112
+claims open,32855
+claims not yet reported,2601
+payments to the valuation date,1816596
+payments after the valuation date,115168
+mean claim size (constant values),167324.080357142
+median claim size (constant values),49877.9479979947
+mean notification delay (years),0.127268915975814
+mean settlement delay (years),1.6334220409781
+mean number of payments,4.83463140191407
+amount-weighted mean payment lag (years),3.03332939996692

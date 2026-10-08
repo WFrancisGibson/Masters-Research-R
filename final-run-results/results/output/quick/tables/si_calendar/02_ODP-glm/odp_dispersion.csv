@@ -1,0 +1,14 @@
+quantity,value
+observed cells |D_I|,210
+parameters I + J,39
+degrees of freedom |D_I| - (I + J),171
+Pearson statistic,3487.7164957057
+Poisson deviance (unscaled),3394.07840673375
+"phi Pearson (glmReserve, E&V 1999)",20.3960028988637
+phi deviance (Paper C eq. (5)),19.8484117352851
+phi deviance / phi Pearson,0.973152035411352
+glmReserve residual factor sqrt(|D_I| / (|D_I| - (I + J))),1.10818327700728
+glmReserve pseudo triangles kept (%),1.26972716847741
+glmReserve draws per bootstrap sample,78.7570767032689
+E&V 1999 pseudo triangles with a negative cell (%),97.5297649365706
+amounts in units of,1e+06
