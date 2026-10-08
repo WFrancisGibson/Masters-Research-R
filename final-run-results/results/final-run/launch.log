@@ -182,3 +182,22 @@
 2026-10-08 13:03:03  end     long_reporting.nncl.main.analysis slot 1: exit code 0, 15 s
 2026-10-08 13:03:03  done    long_reporting.nncl.main.analysis
 2026-10-08 13:03:33  progress tasks 45 of 50 done, 0 failed, 0 blocked; runs 35 of 36; sessions 1 of 4: long_reporting.nncl_numeric.main x1
+2026-10-08 13:07:18  end     long_reporting.nncl_numeric.main slot 2: exit code 0, 815 s; run files 6 of 6
+2026-10-08 13:07:18  done    long_reporting.nncl_numeric.main
+2026-10-08 13:07:18  start   long_reporting.nncl_numeric.main.analysis slot 1 pid 22720
+2026-10-08 13:07:18  start   long_reporting.timings.stage3 slot 2 pid 22721
+2026-10-08 13:07:23  end     long_reporting.timings.stage3 slot 2: exit code 0, 5 s
+2026-10-08 13:07:23  done    long_reporting.timings.stage3
+2026-10-08 13:07:23  start   long_reporting.timings.final.data-nncl_main slot 2 pid 22751
+2026-10-08 13:07:23  stage   3 complete
+2026-10-08 13:07:28  end     long_reporting.timings.final.data-nncl_main slot 2: exit code 0, 5 s
+2026-10-08 13:07:28  done    long_reporting.timings.final.data-nncl_main
+2026-10-08 13:07:33  end     long_reporting.nncl_numeric.main.analysis slot 1: exit code 0, 15 s
+2026-10-08 13:07:33  done    long_reporting.nncl_numeric.main.analysis
+2026-10-08 13:07:33  start   status.final.data-nncl_main slot 1 pid 22772
+2026-10-08 13:07:33  stage   1 complete
+2026-10-08 13:07:38  end     status.final.data-nncl_main slot 1: exit code 0, 5 s
+2026-10-08 13:07:38  done    status.final.data-nncl_main
+2026-10-08 13:07:38  stage   9 complete
+2026-10-08 13:07:38  progress tasks 50 of 50 done, 0 failed, 0 blocked; runs 36 of 36; sessions 0 of 4: 
+2026-10-08 13:07:38  ==== finished: 50 of 50 tasks done, 0 failed, 0 blocked
