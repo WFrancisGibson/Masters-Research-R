@@ -15,3 +15,4 @@
 2026-10-08 11:44:01  start   baseline.simulation slot 1 pid 5664
 2026-10-08 11:44:01  start   si_calendar.simulation slot 2 pid 5665
 2026-10-08 11:44:01  start   long_reporting.simulation slot 3 pid 5667
+2026-10-08 11:49:01  progress tasks 1 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 3 of 4: baseline.simulation x1, long_reporting.simulation x1, si_calendar.simulation x1
