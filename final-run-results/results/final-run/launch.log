@@ -152,3 +152,9 @@
 2026-10-08 12:53:32  progress tasks 36 of 50 done, 0 failed, 0 blocked; runs 27 of 36; sessions 4 of 4: long_reporting.nncl.main x2, long_reporting.nncl_numeric.main x1, si_calendar.nncl_numeric.main x1
 2026-10-08 12:53:42  end     long_reporting.nncl.main slot 2: exit code 0, 485 s; run files 5 of 6
 2026-10-08 12:53:42  start   long_reporting.nncl_numeric.main slot 2 pid 7090
+2026-10-08 12:54:12  end     si_calendar.nncl_numeric.main slot 4: exit code 0, 975 s; run files 6 of 6
+2026-10-08 12:54:12  done    si_calendar.nncl_numeric.main
+2026-10-08 12:54:12  start   si_calendar.nncl_numeric.main.analysis slot 4 pid 27155
+2026-10-08 12:54:27  end     si_calendar.nncl_numeric.main.analysis slot 4: exit code 0, 15 s
+2026-10-08 12:54:27  done    si_calendar.nncl_numeric.main.analysis
+2026-10-08 12:54:27  start   long_reporting.nncl_numeric.main slot 4 pid 3441
