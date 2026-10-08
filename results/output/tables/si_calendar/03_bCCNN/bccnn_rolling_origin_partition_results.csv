@@ -1,0 +1,17 @@
+quantity,value
+true reserves,224063.182394069
+CL reserves (ccODP),222254.164520225
+bCCNN reserves,225576.499932423
+bias CL,-1809.01787384413
+bias bCCNN,1513.3175383546
+bias CL (%),-0.807369535019165
+bias bCCNN (%),0.675397681218803
+in-sample loss ccODP,3394.07840673373
+loss bCCNN on the observed triangle (validation cells out-of-sample),3943.19323465226
+out-of-sample loss ccODP,32711.9340306005
+out-of-sample loss bCCNN,42985.4208735432
+dispersion ccODP,19.848411735285
+dispersion bCCNN,19.7754804916217
+gradient descent steps,165
+payments after the last development period (not modelled),5404.1328052941
+amounts in units of,1e+06

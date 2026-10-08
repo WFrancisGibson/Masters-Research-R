@@ -1,1 +1,81 @@
 ==== 2026-10-08 15:47:58 start si_calendar.bccnn.fit.rolling_origin_partition slot 5
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791467284.305813   12896 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791467287.553488   12896 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+      early_stopping final_fit total
+clock          189.2         0 189.2
+keras          172.2         0 172.2
+                                                               quantity
+1                                                         true reserves
+2                                                   CL reserves (ccODP)
+3                                                        bCCNN reserves
+4                                                               bias CL
+5                                                            bias bCCNN
+6                                                           bias CL (%)
+7                                                        bias bCCNN (%)
+8                                                  in-sample loss ccODP
+9  loss bCCNN on the observed triangle (validation cells out-of-sample)
+10                                             out-of-sample loss ccODP
+11                                             out-of-sample loss bCCNN
+12                                                     dispersion ccODP
+13                                                     dispersion bCCNN
+14                                               gradient descent steps
+15            payments after the last development period (not modelled)
+16                                                  amounts in units of
+           value
+1   2.240632e+05
+2   2.222542e+05
+3   2.255765e+05
+4  -1.809018e+03
+5   1.513318e+03
+6  -8.073695e-01
+7   6.753977e-01
+8   3.394078e+03
+9   3.943193e+03
+10  3.271193e+04
+11  4.298542e+04
+12  1.984841e+01
+13  1.977548e+01
+14  1.650000e+02
+15  5.404133e+03
+16  1.000000e+06
+                                                      quantity        value
+1                               validation run length (epochs) 1000.0000000
+2                             step with lowest validation loss  165.0000000
+3                                 steps used for the final fit  165.0000000
+4          in-sample deviance without dropout at start (ccODP) 1909.6950389
+5         in-sample deviance without dropout at the steps used 1920.0600656
+6                             validation loss at start (ccODP) 2030.5944097
+7                            validation loss at the steps used 2023.1331691
+8              decrease in-sample deviance without dropout (%)   -0.5427582
+9  decrease in-sample training loss with dropout (%, Figure 2)   -0.1068921
+10                  decrease out-of-sample validation loss (%)    0.3674412
+         partition origin n_train n_vali n_test best_epoch test_actual
+1                1     15      97     23     60        165    79483.12
+2                2     18     142     29     33        995    79066.24
+3            final     20     177     33      0        165          NA
+4 test error (4.4)     NA      NA     NA     93         NA   158549.36
+  test_ccODP test_ccODP_train test_bCCNN test_loss_ccODP test_loss_ccODP_train
+1   81407.96         82141.47   81594.23        2256.893              2740.357
+2   81692.36         81324.21   81574.27        2490.146              2399.081
+3         NA               NA         NA              NA                    NA
+4  163100.31        163465.68  163168.49        4747.039              5139.438
+  test_loss_bCCNN time_build time_early_stop time_refit
+1        2704.699 15.5872200        58.88762         NA
+2        2422.251  0.3036001        54.88984         NA
+3              NA  0.3346341        58.44284         NA
+4        5126.950 15.8908200       113.77746         NA
+  test_loss_per_cell_ccODP test_loss_per_cell_ccODP_train
+1                 37.61489                       45.67262
+2                 75.45897                       72.69941
+3                       NA                             NA
+4                 51.04343                       55.26277
+  test_loss_per_cell_bCCNN
+1                 45.07832
+2                 73.40153
+3                       NA
+4                 55.12849
