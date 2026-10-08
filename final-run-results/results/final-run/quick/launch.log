@@ -16,3 +16,23 @@
 2026-10-08 11:44:01  start   si_calendar.simulation slot 2 pid 5665
 2026-10-08 11:44:01  start   long_reporting.simulation slot 3 pid 5667
 2026-10-08 11:49:01  progress tasks 1 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 3 of 4: baseline.simulation x1, long_reporting.simulation x1, si_calendar.simulation x1
+2026-10-08 11:54:01  end     long_reporting.simulation slot 3: exit code 0, 600 s
+2026-10-08 11:54:01  done    long_reporting.simulation
+2026-10-08 11:54:01  start   long_reporting.fingerprint slot 3 pid 6169
+2026-10-08 11:54:01  progress tasks 2 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 3 of 4: baseline.simulation x1, long_reporting.fingerprint x1, si_calendar.simulation x1
+2026-10-08 11:54:06  end     baseline.simulation slot 1: exit code 0, 605 s
+2026-10-08 11:54:06  done    baseline.simulation
+2026-10-08 11:54:06  start   baseline.fingerprint slot 1 pid 6192
+2026-10-08 11:54:16  end     long_reporting.fingerprint slot 3: exit code 0, 15 s
+2026-10-08 11:54:16  done    long_reporting.fingerprint
+2026-10-08 11:54:16  start   long_reporting.triangles slot 3 pid 6227
+2026-10-08 11:54:16  start   long_reporting.nncl.cells slot 4 pid 6228
+2026-10-08 11:54:21  end     baseline.fingerprint slot 1: exit code 0, 15 s
+2026-10-08 11:54:21  done    baseline.fingerprint
+2026-10-08 11:54:21  start   baseline.triangles slot 1 pid 6262
+2026-10-08 11:54:26  end     long_reporting.triangles slot 3: exit code 0, 10 s
+2026-10-08 11:54:26  done    long_reporting.triangles
+2026-10-08 11:54:26  end     long_reporting.nncl.cells slot 4: exit code 0, 10 s
+2026-10-08 11:54:26  done    long_reporting.nncl.cells
+2026-10-08 11:54:26  start   baseline.nncl.cells slot 3 pid 6278
+2026-10-08 11:54:26  start   baseline.description slot 4 pid 6279
