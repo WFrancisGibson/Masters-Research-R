@@ -99,3 +99,7 @@
 2026-10-08 12:15:32  start   baseline.nncl.main slot 3 pid 6779
 2026-10-08 12:15:32  stage   0 complete
 2026-10-08 12:18:32  progress tasks 28 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 4 of 4: baseline.nncl.main x4
+2026-10-08 12:19:37  end     baseline.nncl.main slot 4: exit code 0, 250 s; run files 3 of 6
+2026-10-08 12:19:37  start   baseline.nncl_numeric.main slot 4 pid 31494
+2026-10-08 12:19:42  end     baseline.nncl.main slot 3: exit code 0, 250 s; run files 4 of 6
+2026-10-08 12:19:42  start   baseline.nncl_numeric.main slot 3 pid 2088
