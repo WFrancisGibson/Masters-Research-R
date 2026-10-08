@@ -1,0 +1,28 @@
+==== 2026-10-08 16:48:21 start baseline.bccnn.masking.analysis slot 2
+  n_vali vali_masked
+1    210           3
+  origin dev    payment     mu_ccODP     deviance
+1      1  19 0.02800182 2.781710e-11 1.104945e+00
+2      2  19 0.00000000 2.797275e-11 5.594550e-11
+3      1  20 0.05110590 2.789468e-11 2.077836e+00
+  reserve  bias_pct   loss_in  loss_out 
+9479.3605   -1.5313  444.7537  685.2359 
+Key: <cells>
+    cells seeds steps_mean steps_sd steps_min steps_median steps_max vali_start
+   <char> <int>      <num>    <num>     <num>        <num>     <num>      <num>
+1:    all    20     313.25 331.1338         2        228.5       934   857.9670
+2: masked    20     313.25 331.1338         2        228.5       934   854.7842
+   vali_decrease_pct_mean bias_pct_mean bias_pct_sd loss_in_mean loss_out_mean
+                    <num>         <num>       <num>        <num>         <num>
+1:                 0.8384       -1.4693      0.2684     445.1381       685.336
+2:                 0.8411       -1.4693      0.2684     445.1381       685.336
+   loss_out_sd
+         <num>
+1:      0.9792
+2:      0.9792
+   seeds steps_changed steps_diff_mean steps_diff_max reserve_changed
+   <int>         <int>           <num>          <num>           <num>
+1:    20             0               0              0               0
+   bias_pct_diff_mean bias_pct_diff_max loss_out_diff_mean
+                <num>             <num>              <num>
+1:                  0                 0                  0

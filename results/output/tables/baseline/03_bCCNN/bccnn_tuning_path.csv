@@ -1,0 +1,6 @@
+step,tuned,label,score
+0,start,"dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001",3.87396426425267
+1,dropout,"dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001",3.87396426425267
+2,hidden,"dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001",3.87396426425267
+3,activation,"dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001",3.87396426425267
+4,learning_rate,"dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001",3.87396426425267

@@ -1,0 +1,20 @@
+==== 2026-10-08 16:44:52 start baseline.bccnn.bootstrap.rolling_origin_partition.analysis slot 2
+                        refits     seconds per refit (median) 
+                       1000.00                          11.21 
+           hours of all refits seconds per Keras fit (median) 
+                          3.16                          10.51 
+       hours of all Keras fits 
+                          2.92 
+               method   phi  reserve boot_mean process_sd estimation_sd   rmsep
+1  ccODP, phi pearson 2.670 9479.361  9478.078    159.079       235.424 284.131
+2 ccODP, phi deviance 2.601 9479.361  9471.683    157.019       234.963 282.600
+3 bCCNN, phi deviance 2.589 9521.527  9519.191    156.997       252.781 297.567
+  mc_se    cv     true     bias
+1 4.438 0.030 9626.776 -147.415
+2 4.339 0.030 9626.776 -147.415
+3 4.992 0.031 9626.776 -105.249
+  model phi_estimate      phi  reserve process_sd    rmsep
+1 ccODP      pearson 2.669609 9479.361   159.0792 284.1311
+2 ccODP     deviance 2.600899 9479.361   157.0186 282.5998
+3 bCCNN      pearson 2.657059 9521.527   159.0574       NA
+4 bCCNN     deviance 2.588671 9521.527   156.9972 297.5673

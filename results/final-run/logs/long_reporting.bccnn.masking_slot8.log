@@ -1,0 +1,25 @@
+==== 2026-10-08 18:53:46 start long_reporting.bccnn.masking slot 8
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791478433.694360   17480 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791478438.162040   17480 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+18:55 seed 2027: 72 s, steps all 2, masked 2
+18:56 seed 2029: 62 s, steps all 2, masked 2
+18:57 seed 2031: 62 s, steps all 2, masked 2
+18:58 seed 2032: 64 s, steps all 2, masked 2
+18:59 seed 2034: 63 s, steps all 2, masked 2
+==== 2026-10-08 18:59:16 start long_reporting.bccnn.masking slot 8
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791478764.194764   13832 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791478769.088813   13832 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+19:00 seed 2037: 73 s, steps all 2, masked 2
+19:01 seed 2040: 62 s, steps all 2, masked 2
+19:02 seed 2043: 62 s, steps all 2, masked 2
+19:03 seed 2045: 61 s, steps all 2, masked 2

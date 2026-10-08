@@ -1,0 +1,90 @@
+==== 2026-10-08 18:02:58 start long_reporting.bccnn.search slot 4
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791475386.192882    8180 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791475392.107338    8180 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+18:10 dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001: score 2.88876 (baseline 2.88937), 462 s
+18:19 dropout=0, hidden=20-15-10, activation=tanh, learning_rate=0.001: score 3.15609 (baseline 2.88937), 520 s
+18:27 dropout=0.2, hidden=20-15-10, activation=tanh, learning_rate=0.001: score 2.88991 (baseline 2.88937), 504 s
+18:33 dropout=0.1, hidden=20, activation=tanh, learning_rate=0.001: score 2.87657 (baseline 2.88937), 363 s
+18:41 dropout=0.1, hidden=20-15, activation=tanh, learning_rate=0.001: score 2.88825 (baseline 2.88937), 480 s
+18:50 dropout=0.1, hidden=40-30-20, activation=tanh, learning_rate=0.001: score 2.88593 (baseline 2.88937), 543 s
+18:57 dropout=0.1, hidden=20-20-20-20, activation=tanh, learning_rate=0.001: score 2.90815 (baseline 2.88937), 419 s
+19:05 dropout=0.1, hidden=20, activation=sigmoid, learning_rate=0.001: score 2.91516 (baseline 2.88937), 448 s
+19:14 dropout=0.1, hidden=20, activation=relu, learning_rate=0.001: score 3.06371 (baseline 2.88937), 542 s
+19:20 dropout=0.1, hidden=20, activation=tanh, learning_rate=5e-04: score 2.8884 (baseline 2.88937), 369 s
+19:27 dropout=0.1, hidden=20, activation=tanh, learning_rate=0.002: score 2.86733 (baseline 2.88937), 394 s
+   dropout      hidden activation learning_rate
+1      0.1          20       tanh         0.002
+2      0.1          20       tanh         0.001
+3      0.1    40-30-20       tanh         0.001
+4      0.1       20-15       tanh         0.001
+5      0.1          20       tanh         5e-04
+6      0.1    20-15-10       tanh         0.001
+7      0.2    20-15-10       tanh         0.001
+8      0.1 20-20-20-20       tanh         0.001
+9      0.1          20    sigmoid         0.001
+10     0.1          20       relu         0.001
+11       0    20-15-10       tanh         0.001
+                                                                   label
+1           dropout=0.1, hidden=20, activation=tanh, learning_rate=0.002
+2           dropout=0.1, hidden=20, activation=tanh, learning_rate=0.001
+3     dropout=0.1, hidden=40-30-20, activation=tanh, learning_rate=0.001
+4        dropout=0.1, hidden=20-15, activation=tanh, learning_rate=0.001
+5           dropout=0.1, hidden=20, activation=tanh, learning_rate=5e-04
+6     dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001
+7     dropout=0.2, hidden=20-15-10, activation=tanh, learning_rate=0.001
+8  dropout=0.1, hidden=20-20-20-20, activation=tanh, learning_rate=0.001
+9        dropout=0.1, hidden=20, activation=sigmoid, learning_rate=0.001
+10          dropout=0.1, hidden=20, activation=relu, learning_rate=0.001
+11      dropout=0, hidden=20-15-10, activation=tanh, learning_rate=0.001
+      score    score_sd n_seeds score_baseline ratio_to_baseline mean_steps_15
+1  2.867330 0.067717170       3       2.889373         0.9923709     68.333333
+2  2.876569 0.037463629       3       2.889373         0.9955684      2.333333
+3  2.885930 0.003353522       3       2.889373         0.9988084    309.000000
+4  2.888253 0.033407277       3       2.889373         0.9996121    495.333333
+5  2.888404 0.014949966       3       2.889373         0.9996647      3.666667
+6  2.888756 0.018302397       3       2.889373         0.9997865    175.000000
+7  2.889915 0.003307103       3       2.889373         1.0001875    547.666667
+8  2.908152 0.009890604       3       2.889373         1.0064993    109.333333
+9  2.915156 0.028983802       3       2.889373         1.0089232     88.666667
+10 3.063707 0.050603457       3       2.889373         1.0603360    375.000000
+11 3.156094 0.190060695       3       2.889373         1.0923109    523.333333
+   mean_steps_18
+1       61.33333
+2        3.00000
+3      648.33333
+4      128.00000
+5        3.00000
+6      311.33333
+7      258.66667
+8      122.00000
+9      349.00000
+10     629.66667
+11     532.33333
+  step         tuned
+1    0         start
+2    1       dropout
+3    2        hidden
+4    3    activation
+5    4 learning_rate
+                                                               label    score
+1 dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001 2.888756
+2 dropout=0.1, hidden=20-15-10, activation=tanh, learning_rate=0.001 2.888756
+3       dropout=0.1, hidden=20, activation=tanh, learning_rate=0.001 2.876569
+4       dropout=0.1, hidden=20, activation=tanh, learning_rate=0.001 2.876569
+5       dropout=0.1, hidden=20, activation=tanh, learning_rate=0.002 2.867330
+              hyperparameter value
+dropout              dropout   0.1
+hidden                hidden    20
+activation        activation  tanh
+learning_rate  learning_rate 0.002
+                model steps test_error reserves out_of_sample_loss  seconds
+config.yml config.yml     1   2.888539 17953.56           550.0631 246.0695
+chosen         chosen   400   2.851640 17959.65           552.1712 213.0567
+           true_reserves CL_reserves CL_out_of_sample_loss   units
+config.yml      17502.76    17968.07              552.6017 1000000
+chosen          17502.76    17968.07              552.6017 1000000

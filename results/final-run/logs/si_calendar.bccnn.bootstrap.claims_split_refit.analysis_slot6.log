@@ -1,0 +1,20 @@
+==== 2026-10-08 18:16:35 start si_calendar.bccnn.bootstrap.claims_split_refit.analysis slot 6
+                        refits     seconds per refit (median) 
+                       1000.00                          29.29 
+           hours of all refits seconds per Keras fit (median) 
+                          8.24                          28.52 
+       hours of all Keras fits 
+                          7.97 
+               method    phi  reserve boot_mean process_sd estimation_sd
+1  ccODP, phi pearson 20.396 222254.2  222253.4   2129.107      5396.713
+2 ccODP, phi deviance 19.848 222254.2  222313.6   2100.331      5311.140
+3 bCCNN, phi deviance 19.582 222959.1  223157.5   2089.489      5189.833
+     rmsep   mc_se    cv     true      bias
+1 5801.517 112.849 0.026 224063.2 -1809.018
+2 5711.357 108.434 0.026 224063.2 -1809.018
+3 5594.670 107.462 0.025 224063.2 -1104.070
+  model phi_estimate      phi  reserve process_sd    rmsep
+1 ccODP      pearson 20.39600 222254.2   2129.107 5801.517
+2 ccODP     deviance 19.84841 222254.2   2100.331 5711.357
+3 bCCNN      pearson 20.12214 222959.1   2118.116       NA
+4 bCCNN     deviance 19.58190 222959.1   2089.489 5594.670
