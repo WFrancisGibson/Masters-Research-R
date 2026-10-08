@@ -11,6 +11,8 @@ data/interim/*
 data/processed/*
 models/*
 output/*
+# task table and status of a final run started without RUN_ROOT
+final-run/
 !**/.gitkeep
 
 # renv library (renv.lock IS tracked)

@@ -279,6 +279,11 @@ if (Test-Path (Join-Path $results ".git")) {
   }
 }
 
+## the results hold long folder and file names: let git handle paths of
+## more than 260 characters there
+Invoke-Step "git" @("-C", $results, "config", "core.longpaths",
+                    "true") $false
+
 ## a folder made in this administrator PowerShell belongs to the group
 ## Administrators, and git refuses such a folder in a normal PowerShell
 ## ("dubious ownership"), where the launcher and the scheduled task run:

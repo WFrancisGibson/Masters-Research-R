@@ -36,6 +36,10 @@ installed <- unlist(reticulate::py_eval(paste0(
 )))
 writeLines(c(paste("# python", python, python_exe), installed),
            file.path(paths$logs, "python_packages.txt"))
+## the R packages of the fits, with keras3 loaded: no fit session of the
+## final run writes sessionInfo.txt (analysis/00_setup.R, RUN_SLOT)
+writeLines(capture.output(sessionInfo()),
+           file.path(paths$logs, "r_packages.txt"))
 
 ## the names of Python packages compare in lower case, "-" for "_" and "."
 py_name <- function(x) gsub("[-_.]+", "-", tolower(x))

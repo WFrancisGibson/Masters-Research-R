@@ -10,13 +10,22 @@
 ## git) the script writes it; with it, the script compares: the same keys,
 ## the counts (type count) exactly, the sums (type value) to 1e-9, and it
 ## stops at a difference. The md5 sums of the files (type info) are not
-## compared: they change with the line ends and the digits of fwrite
+## compared: they change with the line ends and the digits of fwrite.
+## With the argument check (the final run) it only compares:
+##   Rscript "<this script>" check
 source(here::here("analysis", "00_setup.R"))
 
 data_dir <- file.path(paths$raw, cfg$data$dir)
 fp_file <- here::here("analysis", "00_claim-simulation", "fingerprints",
                       paste0(cfg$dataset, ".csv"))
 n <- cfg$data$n_dev
+
+## check: on the computer of the final run a missing fingerprint is a
+## failure (the claims could not be compared with the laptop's), not a file
+## to write
+check <- "check" %in% commandArgs(trailingOnly = TRUE)
+stopifnot("no fingerprint file of this data set to check against" =
+            !check || file.exists(fp_file))
 
 ##########################################
 #########  SynthETIC data sets: claims.csv and transactions.csv

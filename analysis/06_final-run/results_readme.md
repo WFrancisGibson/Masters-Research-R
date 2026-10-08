@@ -25,9 +25,9 @@ unit below it):
 |---|---|
 | `results/data/interim/<dataset>[/<unit>]/` | prepared inputs: `triangles.rds`, the cells of the NN chain ladder on SynthETIC |
 | `results/data/processed/<dataset>[/<unit>]/` | the fits: one `.rds` file per run (network, seed, bootstrap chunk), with its training times |
-| `results/output/tables`, `figures`, `logs` `/<dataset>[/<unit>]/` | tables (`.csv`), figures (`.png`), `sessionInfo.txt`, `python_packages.txt` (every Python package of the fits, written by `keras check.R`) |
+| `results/output/tables`, `figures`, `logs` `/<dataset>[/<unit>]/` | tables (`.csv`), figures (`.png`), `sessionInfo.txt` (of the session that writes the task table, `baseline` only), `python_packages.txt` and `r_packages.txt` (every Python and R package of the fits, written by `keras check.R`) |
 | `results/data/processed/quick/`, `results/output/quick/` | the same under the `quick` profile: the smoke test before the run |
-| `results/final-run/` | the launcher: `tasks.csv` (the task table), `launch.log` (events), `run_info.txt` (computer, R, Python, code commit and slots of every launch), `done/`, `failed/`, `logs/` (output of every R session, `git.log`), `quick/` (the same for the smoke test) |
+| `results/final-run/` | the launcher: `tasks.csv` (the task table), `status.csv` and `status_stages.csv` (progress and the estimated end, written by `final run status.R`), `launch.log` (events), `run_info.txt` (computer, R, Python, code commit and slots of every launch), `done/`, `failed/`, `logs/` (output of every R session, `git.log`), `quick/` (the same for the smoke test) |
 
 Not in the branch (see `.gitignore`): the Keras models (`*.keras`), the cells and network
 inputs of the machine data (`nncl_cells.rds`, `nncl_inputs.rds`), the CL factors of the main
@@ -54,6 +54,13 @@ and later, for the newest push of the VM:
 
 ```
 git -C ..\Masters-Research-R-results pull
+```
+
+If the pull stops because `status.csv` or `status_stages.csv` were changed on this computer
+(the status script run by hand rewrites them), discard that local copy first and pull again:
+
+```
+git -C ..\Masters-Research-R-results restore .
 ```
 
 Every analysis script without Keras then runs on these results when `RUN_ROOT` points to the

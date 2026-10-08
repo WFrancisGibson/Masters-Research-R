@@ -203,7 +203,9 @@
 ##    final-run/quick). If a task fails there it writes smoke_failed.txt,
 ##    pushes and stops with exit code 1; otherwise it writes smoke.done and
 ##    starts the final run. A later launch finds smoke.done and goes
-##    straight to the final run.
+##    straight to the final run. To repeat the smoke test delete
+##    final-run/quick and data/processed/quick: with smoke.done alone gone
+##    every quick task is still done and smoke.done is written again.
 ##
 ## 10. Python. setup_vm.ps1 builds the Python environment of the fits once,
 ##    from requirements.txt, in ..\Masters-Research-R-python\env beside the
@@ -444,8 +446,10 @@ function Update-Count($task, $log_done) {
   $task.files = $files
   $task.locks = $locks
   $task.locks_live = $locks_live
-  if ($files -gt $task.n_runs -and -not $task.warned) {
-    # more run files than the task table says the task has (contract 2.)
+  if ($files -gt $task.n_runs -and -not $task.warned -and
+      -not $task.id.EndsWith(".benchmark")) {
+    # more run files than the task table says the task has (contract 2.);
+    # not for a benchmark row, which shares the run files of its queue
     $task.warned = $true
     Write-Log ("WARNING {0}: {1} run files match its pattern, n_runs is {2}" -f
                $task.id, $files, $task.n_runs)
