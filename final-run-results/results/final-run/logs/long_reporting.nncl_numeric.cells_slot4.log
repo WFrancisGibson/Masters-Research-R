@@ -1,0 +1,52 @@
+==== 2026-10-08 12:14:42 start long_reporting.nncl_numeric.cells slot 4
+                            cells                  feature values x 
+                             3342                               226 
+        observed cells with C < 0         diagonal cells with C = 0 
+                                0                                64 
+            claims of these cells payments after development year J 
+                              107                              1355 
+claims not reported at the end of year I (%) 
+                                         9.9 
+Legal Representation: 2 labels, reference label Y
+Injury Severity: 6 labels, reference label 1
+Age of Claimant: numeric, scaled midpoints -1 -0.556 -0.037 0.481 1
+Vehicle type: 4 labels, reference label Passenger
+Business use: 2 labels, reference label N
+[1] 11
+    j n_cells steps  f_hom loss_millions
+1   1    2538     1 3.3012      192653.8
+2   2    2793     1 1.5590       17404.3
+3   3    2713     1 1.2586        6408.4
+4   4    2597     1 1.1504       10807.3
+5   5    2451     1 1.0949        4211.8
+6   6    2300     1 1.0650        2888.6
+7   7    2137     1 1.0445         939.7
+8   8    1985     1 1.0311         370.9
+9   9    1816     1 1.0236        1594.7
+10 10    1657     1 1.0195         190.4
+11 11    1491     1 1.0135         417.5
+12 12    1324     1 1.0124         547.6
+13 13    1153     1 1.0094         152.6
+14 14     980     1 1.0078          15.5
+15 15     818     1 1.0061           7.1
+16 16     653     1 1.0047           5.0
+17 17     485     1 1.0032           0.8
+18 18     321     1 1.0043           3.1
+19 19     158     1 1.0022           0.1
+feature values x with C_{i,0}(x) > 0                 learning cells j = 1 
+                                 204                                 2538 
+[1] 18 19
+   LoB  i  j      num den       g pooled    pooled_over g_first
+23   1  8 13 68087.99   0 1.01159   TRUE accident years       0
+31   1  9 13 68087.99   0 1.01159   TRUE accident years       0
+40   1 10 13 68087.99   0 1.01159   TRUE accident years       0
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
+[1,]    0    0    0    0    0    0  0.1    0    0     0   0.2   0.4   7.4   3.7
+     [,15] [,16] [,17] [,18] [,19] [,20]
+[1,]   3.7   9.7  14.3  19.8  46.8 162.5
+zero claims factors              pooled pooled, g_first > 0 
+                190                   3                   0 
+                       zero claims reserve 
+                                     268.6 
+of the accident years with a pooled factor 
+                                       0.0 

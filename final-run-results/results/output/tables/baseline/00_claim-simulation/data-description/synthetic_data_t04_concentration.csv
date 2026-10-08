@@ -1,0 +1,7 @@
+statistic,raw,adjusted
+largest 0.1% of claims (% of cost),1.77627317596778,6.15922248628247
+largest 1% of claims (% of cost),10.1038203198978,21.5531943336578
+largest 5% of claims (% of cost),30.0285552070111,45.9560814781792
+largest 10% of claims (% of cost),45.3680007226974,60.4921559327207
+largest 50% of claims (% of cost),91.3581638527567,94.7260891815863
+Gini coefficient,0.628183130894035,0.734723899256831
