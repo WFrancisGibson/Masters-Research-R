@@ -290,3 +290,119 @@
 2026-10-08 15:52:38  done    si_calendar.bccnn.fit.rolling_origin_refit
 2026-10-08 15:52:38  start   si_calendar.bccnn.bootstrap.rolling_origin_refit.benchmark slot 4 pid 15084
 2026-10-08 15:52:38  stage   1 complete
+2026-10-08 15:52:48  progress tasks 62 of 171 done, 0 failed, 0 blocked; runs 40 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid.benchmark x1, baseline.bccnn.grid.benchmark x1, baseline.nncl_numeric.grid.benchmark x1, si_calendar.bccnn.bootstrap.claims_split_refit.benchmark x1, si_calendar.bccnn.masking.benchmark x1, si_calendar.nncl_numeric.grid.benchmark x1, baseline.nncl_numeric.cl_grid.benchmark x1, si_calendar.bccnn.bootstrap.rolling_origin_partition.benchmark x1, si_calendar.bccnn.bootstrap.rolling_origin_refit.benchmark x1, si_calendar.nncl.grid.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_partition.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_refit.benchmark x1
+2026-10-08 15:53:09  end     si_calendar.bccnn.masking.benchmark slot 8: exit code 0, 107 s; run files 1 of 1
+2026-10-08 15:53:09  done    si_calendar.bccnn.masking.benchmark
+2026-10-08 15:53:09  start   si_calendar.nncl_numeric.cl_grid.benchmark slot 8 pid 16792
+2026-10-08 15:53:14  push    ok: stage 1 complete
+2026-10-08 15:54:25  end     baseline.nncl_numeric.cl_grid.benchmark slot 6: exit code 0, 270 s; run files 1 of 1
+2026-10-08 15:54:25  done    baseline.nncl_numeric.cl_grid.benchmark
+2026-10-08 15:54:25  end     baseline.nncl_numeric.grid.benchmark slot 10: exit code 0, 306 s; run files 1 of 1
+2026-10-08 15:54:25  done    baseline.nncl_numeric.grid.benchmark
+2026-10-08 15:54:25  start   si_calendar.bccnn.grid.benchmark slot 6 pid 9156
+2026-10-08 15:54:25  start   long_reporting.bccnn.bootstrap.rolling_origin_refit.benchmark slot 10 pid 14772
+2026-10-08 15:56:22  end     long_reporting.bccnn.bootstrap.rolling_origin_refit.benchmark slot 10: exit code 0, 117 s; run files 1 of 1
+2026-10-08 15:56:22  done    long_reporting.bccnn.bootstrap.rolling_origin_refit.benchmark
+2026-10-08 15:56:22  start   long_reporting.bccnn.bootstrap.rolling_origin_partition.benchmark slot 10 pid 17056
+2026-10-08 15:56:27  end     si_calendar.nncl.grid.benchmark slot 3: exit code 0, 270 s; run files 1 of 1
+2026-10-08 15:56:27  done    si_calendar.nncl.grid.benchmark
+2026-10-08 15:56:27  start   long_reporting.bccnn.bootstrap.claims_split_refit.benchmark slot 3 pid 2820
+2026-10-08 15:56:58  end     si_calendar.nncl.cl_grid.benchmark slot 12: exit code 0, 270 s; run files 1 of 1
+2026-10-08 15:56:58  done    si_calendar.nncl.cl_grid.benchmark
+2026-10-08 15:56:58  start   long_reporting.bccnn.masking.benchmark slot 12 pid 6292
+2026-10-08 15:57:03  end     si_calendar.nncl_numeric.grid.benchmark slot 7: exit code 0, 270 s; run files 1 of 1
+2026-10-08 15:57:03  done    si_calendar.nncl_numeric.grid.benchmark
+2026-10-08 15:57:03  start   long_reporting.nncl.grid.benchmark slot 7 pid 18392
+2026-10-08 15:57:38  end     si_calendar.nncl_numeric.cl_grid.benchmark slot 8: exit code 0, 270 s; run files 1 of 1
+2026-10-08 15:57:38  done    si_calendar.nncl_numeric.cl_grid.benchmark
+2026-10-08 15:57:39  start   long_reporting.nncl.cl_grid.benchmark slot 8 pid 16968
+2026-10-08 15:57:49  progress tasks 70 of 171 done, 0 failed, 0 blocked; runs 48 of 23343; sessions 12 of 12: long_reporting.bccnn.masking.benchmark x1, baseline.bccnn.grid.benchmark x1, long_reporting.bccnn.bootstrap.rolling_origin_partition.benchmark x1, si_calendar.bccnn.bootstrap.claims_split_refit.benchmark x1, long_reporting.nncl.cl_grid.benchmark x1, long_reporting.nncl.grid.benchmark x1, si_calendar.bccnn.grid.benchmark x1, si_calendar.bccnn.bootstrap.rolling_origin_partition.benchmark x1, si_calendar.bccnn.bootstrap.rolling_origin_refit.benchmark x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_partition.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_refit.benchmark x1
+2026-10-08 15:58:19  end     long_reporting.bccnn.bootstrap.rolling_origin_partition.benchmark slot 10: exit code 0, 117 s; run files 1 of 1
+2026-10-08 15:58:19  done    long_reporting.bccnn.bootstrap.rolling_origin_partition.benchmark
+2026-10-08 15:58:19  start   long_reporting.nncl_numeric.grid.benchmark slot 10 pid 8740
+2026-10-08 15:58:55  end     long_reporting.bccnn.masking.benchmark slot 12: exit code 0, 117 s; run files 1 of 1
+2026-10-08 15:58:55  done    long_reporting.bccnn.masking.benchmark
+2026-10-08 15:58:55  start   long_reporting.nncl_numeric.cl_grid.benchmark slot 12 pid 17600
+2026-10-08 16:01:02  end     baseline.bccnn.bootstrap.rolling_origin_partition.benchmark slot 2: exit code 0, 581 s; run files 1 of 1
+2026-10-08 16:01:02  done    baseline.bccnn.bootstrap.rolling_origin_partition.benchmark
+2026-10-08 16:01:02  end     si_calendar.bccnn.bootstrap.rolling_origin_partition.benchmark slot 5: exit code 0, 581 s; run files 1 of 1
+2026-10-08 16:01:02  done    si_calendar.bccnn.bootstrap.rolling_origin_partition.benchmark
+2026-10-08 16:01:02  start   long_reporting.bccnn.grid.benchmark slot 2 pid 9276
+2026-10-08 16:01:02  start   baseline.bccnn.search slot 5 pid 17996
+2026-10-08 16:01:33  end     long_reporting.nncl.grid.benchmark slot 7: exit code 0, 270 s; run files 1 of 1
+2026-10-08 16:01:33  done    long_reporting.nncl.grid.benchmark
+2026-10-08 16:01:33  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 7 pid 18204
+2026-10-08 16:02:03  end     baseline.bccnn.bootstrap.rolling_origin_refit.benchmark slot 1: exit code 0, 581 s; run files 1 of 1
+2026-10-08 16:02:03  done    baseline.bccnn.bootstrap.rolling_origin_refit.benchmark
+2026-10-08 16:02:03  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 1 pid 16752
+2026-10-08 16:02:13  end     long_reporting.nncl.cl_grid.benchmark slot 8: exit code 0, 275 s; run files 1 of 1
+2026-10-08 16:02:13  done    long_reporting.nncl.cl_grid.benchmark
+2026-10-08 16:02:13  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 8 pid 16996
+2026-10-08 16:02:19  done    si_calendar.bccnn.bootstrap.rolling_origin_refit.benchmark
+2026-10-08 16:02:24  end     si_calendar.bccnn.bootstrap.rolling_origin_refit.benchmark slot 4: exit code 0, 586 s; run files 1 of 1
+2026-10-08 16:02:24  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 4 pid 2420
+2026-10-08 16:02:49  end     long_reporting.nncl_numeric.grid.benchmark slot 10: exit code 0, 270 s; run files 1 of 1
+2026-10-08 16:02:49  done    long_reporting.nncl_numeric.grid.benchmark
+2026-10-08 16:02:49  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 10 pid 9264
+2026-10-08 16:02:49  progress tasks 79 of 171 done, 0 failed, 0 blocked; runs 59 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid.benchmark x1, baseline.bccnn.grid.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_refit x4, si_calendar.bccnn.bootstrap.claims_split_refit.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_partition x1, si_calendar.bccnn.grid.benchmark x1, baseline.bccnn.search x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1, long_reporting.bccnn.grid.benchmark x1
+2026-10-08 16:03:25  end     long_reporting.nncl_numeric.cl_grid.benchmark slot 12: exit code 0, 270 s; run files 1 of 1
+2026-10-08 16:03:25  done    long_reporting.nncl_numeric.cl_grid.benchmark
+2026-10-08 16:03:25  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 12 pid 7232
+2026-10-08 16:05:37  end     baseline.bccnn.grid.benchmark slot 11: exit code 0, 789 s; run files 1 of 1
+2026-10-08 16:05:37  done    baseline.bccnn.grid.benchmark
+2026-10-08 16:05:37  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 11 pid 17764
+2026-10-08 16:07:54  progress tasks 81 of 171 done, 0 failed, 0 blocked; runs 61 of 23343; sessions 12 of 12: baseline.bccnn.bootstrap.rolling_origin_refit x6, si_calendar.bccnn.bootstrap.claims_split_refit.benchmark x1, baseline.bccnn.bootstrap.rolling_origin_partition x1, si_calendar.bccnn.grid.benchmark x1, baseline.bccnn.search x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1, long_reporting.bccnn.grid.benchmark x1
+2026-10-08 16:10:51  end     si_calendar.bccnn.grid.benchmark slot 6: exit code 0, 986 s; run files 1 of 1
+2026-10-08 16:10:51  done    si_calendar.bccnn.grid.benchmark
+2026-10-08 16:10:51  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 6 pid 12060
+2026-10-08 16:11:32  end     baseline.bccnn.bootstrap.rolling_origin_partition slot 7: exit code 0, 599 s; run files 2 of 20
+2026-10-08 16:11:32  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 7 pid 13188
+2026-10-08 16:11:57  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 1: exit code 0, 594 s; run files 2 of 20
+2026-10-08 16:11:57  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 1 pid 10092
+2026-10-08 16:12:07  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 8: exit code 0, 594 s; run files 3 of 20
+2026-10-08 16:12:07  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 8 pid 17304
+2026-10-08 16:12:18  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 4: exit code 0, 594 s; run files 4 of 20
+2026-10-08 16:12:18  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 4 pid 16236
+2026-10-08 16:12:48  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 10: exit code 0, 599 s; run files 5 of 20
+2026-10-08 16:12:48  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 10 pid 8104
+2026-10-08 16:12:58  progress tasks 82 of 171 done, 0 failed, 0 blocked; runs 67 of 23343; sessions 12 of 12: baseline.bccnn.bootstrap.rolling_origin_refit x8, si_calendar.bccnn.bootstrap.claims_split_refit.benchmark x1, baseline.bccnn.search x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1, long_reporting.bccnn.grid.benchmark x1
+2026-10-08 16:13:24  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 12: exit code 0, 599 s; run files 6 of 20
+2026-10-08 16:13:24  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 12 pid 14224
+2026-10-08 16:14:35  end     si_calendar.bccnn.bootstrap.claims_split_refit.benchmark slot 9: exit code 0, 1470 s; run files 1 of 1
+2026-10-08 16:14:35  done    si_calendar.bccnn.bootstrap.claims_split_refit.benchmark
+2026-10-08 16:14:35  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 9 pid 11700
+2026-10-08 16:15:35  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 11: exit code 0, 599 s; run files 7 of 20
+2026-10-08 16:15:36  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 11 pid 15084
+2026-10-08 16:15:56  end     long_reporting.bccnn.grid.benchmark slot 2: exit code 0, 894 s; run files 1 of 1
+2026-10-08 16:15:56  done    long_reporting.bccnn.grid.benchmark
+2026-10-08 16:15:56  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 2 pid 14644
+2026-10-08 16:18:03  progress tasks 84 of 171 done, 0 failed, 0 blocked; runs 71 of 23343; sessions 12 of 12: baseline.bccnn.bootstrap.rolling_origin_refit x10, baseline.bccnn.search x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1
+2026-10-08 16:20:45  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 6: exit code 0, 594 s; run files 8 of 20
+2026-10-08 16:20:45  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 6 pid 9204
+2026-10-08 16:21:25  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 7: exit code 0, 593 s; run files 9 of 20
+2026-10-08 16:21:25  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 7 pid 17180
+2026-10-08 16:21:46  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 1: exit code 0, 588 s; run files 10 of 20
+2026-10-08 16:21:46  start   baseline.bccnn.bootstrap.rolling_origin_refit slot 1 pid 17108
+2026-10-08 16:21:56  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 8: exit code 0, 588 s; run files 11 of 20
+2026-10-08 16:21:56  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 8 pid 16972
+2026-10-08 16:22:06  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 4: exit code 0, 588 s; run files 12 of 20
+2026-10-08 16:22:06  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 4 pid 18092
+2026-10-08 16:22:42  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 10: exit code 0, 594 s; run files 13 of 20
+2026-10-08 16:22:42  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 10 pid 12268
+2026-10-08 16:23:07  progress tasks 84 of 171 done, 0 failed, 0 blocked; runs 77 of 23343; sessions 12 of 12: baseline.bccnn.bootstrap.rolling_origin_refit x7, baseline.bccnn.bootstrap.rolling_origin_partition x3, baseline.bccnn.search x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1
+2026-10-08 16:23:12  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 12: exit code 0, 589 s; run files 14 of 20
+2026-10-08 16:23:12  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 12 pid 16096
+2026-10-08 16:24:23  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 9: exit code 0, 588 s; run files 15 of 20
+2026-10-08 16:24:23  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 9 pid 13216
+2026-10-08 16:25:24  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 11: exit code 0, 588 s; run files 16 of 20
+2026-10-08 16:25:24  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 11 pid 16732
+2026-10-08 16:25:44  end     baseline.bccnn.bootstrap.rolling_origin_refit slot 2: exit code 0, 588 s; run files 17 of 20
+2026-10-08 16:25:44  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 2 pid 6928
+2026-10-08 16:28:11  progress tasks 84 of 171 done, 0 failed, 0 blocked; runs 81 of 23343; sessions 12 of 12: baseline.bccnn.bootstrap.rolling_origin_partition x7, baseline.bccnn.bootstrap.rolling_origin_refit x3, baseline.bccnn.search x1, long_reporting.bccnn.bootstrap.claims_split_refit.benchmark x1
+2026-10-08 16:30:13  end     long_reporting.bccnn.bootstrap.claims_split_refit.benchmark slot 3: exit code 0, 2026 s; run files 1 of 1
+2026-10-08 16:30:13  done    long_reporting.bccnn.bootstrap.claims_split_refit.benchmark
+2026-10-08 16:30:13  start   status.benchmark slot 3 pid 10164
+2026-10-08 16:30:23  end     status.benchmark slot 3: exit code 0, 10 s
+2026-10-08 16:30:23  done    status.benchmark
+2026-10-08 16:30:23  start   baseline.bccnn.bootstrap.rolling_origin_partition slot 3 pid 15392
+2026-10-08 16:30:23  stage   2 complete
