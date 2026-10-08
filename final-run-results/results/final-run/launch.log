@@ -133,3 +133,16 @@
 2026-10-08 12:38:42  done    baseline.nncl_numeric.main.analysis
 2026-10-08 12:38:42  start   si_calendar.nncl_numeric.main slot 3 pid 31158
 2026-10-08 12:43:32  progress tasks 33 of 50 done, 0 failed, 0 blocked; runs 20 of 36; sessions 4 of 4: si_calendar.nncl.main x1, si_calendar.nncl_numeric.main x3
+2026-10-08 12:45:27  end     si_calendar.nncl_numeric.main slot 2: exit code 0, 505 s; run files 4 of 6
+2026-10-08 12:45:27  start   si_calendar.nncl.partition slot 2 pid 14024
+2026-10-08 12:45:37  end     si_calendar.nncl.partition slot 2: exit code 0, 10 s
+2026-10-08 12:45:37  done    si_calendar.nncl.partition
+2026-10-08 12:45:37  start   long_reporting.nncl.main slot 2 pid 20273
+2026-10-08 12:45:42  end     si_calendar.nncl.main slot 1: exit code 0, 715 s; run files 6 of 6
+2026-10-08 12:45:42  done    si_calendar.nncl.main
+2026-10-08 12:45:42  end     si_calendar.nncl_numeric.main slot 3: exit code 0, 420 s; run files 5 of 6
+2026-10-08 12:45:42  start   si_calendar.nncl.main.analysis slot 1 pid 22940
+2026-10-08 12:45:42  start   long_reporting.nncl.main slot 3 pid 22942
+2026-10-08 12:45:57  end     si_calendar.nncl.main.analysis slot 1: exit code 0, 15 s
+2026-10-08 12:45:57  done    si_calendar.nncl.main.analysis
+2026-10-08 12:45:57  start   long_reporting.nncl.main slot 1 pid 30350
