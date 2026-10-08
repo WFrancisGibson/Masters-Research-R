@@ -1,0 +1,8 @@
+2026-10-08 11:40:41  ==== smoke test: 4 slots, RUN_ROOT /home/user/Masters-Research-R/final-run-results/results, parts data+nncl
+2026-10-08 11:40:45  progress tasks 0 of 110 done, 0 failed, 0 blocked; runs 0 of 144; sessions 0 of 4: 
+2026-10-08 11:40:45  start   keras.check slot 1 pid 5316
+2026-10-08 11:40:45  start   baseline.simulation slot 2 pid 5317
+2026-10-08 11:40:45  start   si_calendar.simulation slot 3 pid 5320
+2026-10-08 11:40:45  start   long_reporting.simulation slot 4 pid 5331
+2026-10-08 11:40:55  end     keras.check slot 1: exit code 0, 10 s
+2026-10-08 11:40:55  done    keras.check

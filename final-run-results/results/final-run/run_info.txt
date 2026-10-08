@@ -1,0 +1,14 @@
+launch: 2026-10-08 11:40:41
+computer: vm
+PBS job: 
+processor: Intel(R) Xeon(R) Processor @ 2.10GHz
+logical processors: 4
+memory (GB): 16
+R: R version 4.5.3 (2026-03-11)
+Rscript: /opt/renv/bin/Rscript
+Python: /home/user/Masters-Research-R-python/env/bin/python
+code commit: 4a95fb1 with uncommitted changes
+slots: 4
+profile: '', skip smoke: False, tasks file: ''
+parts: data+nncl
+
