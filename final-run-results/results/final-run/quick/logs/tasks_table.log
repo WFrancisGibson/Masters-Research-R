@@ -24,3 +24,24 @@ stage queue single
     9     0      4
  tasks queues   runs 
    110     18    132 
+parts of this computer: data + nncl_main 
+              kind
+part           queue single
+  data             0     28
+  bccnn_main       0      0
+  nncl_main        6      9
+  bccnn_search     0      0
+  bootstrap        0      0
+  masking          0      0
+  nncl_grid        0      0
+  nncl_search      0      0
+  bccnn_grid       0      0
+  run              0      7
+     kind
+stage queue single
+    0     0     28
+    1     6      9
+    3     0      3
+    9     0      4
+ tasks queues   runs 
+    50      6     36 

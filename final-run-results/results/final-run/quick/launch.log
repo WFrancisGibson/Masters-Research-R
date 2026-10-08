@@ -6,3 +6,12 @@
 2026-10-08 11:40:45  start   long_reporting.simulation slot 4 pid 5331
 2026-10-08 11:40:55  end     keras.check slot 1: exit code 0, 10 s
 2026-10-08 11:40:55  done    keras.check
+2026-10-08 11:43:53  ==== stopped by SIGTERM: start the launcher again to resume
+2026-10-08 11:43:54  stopped baseline.simulation pid 5317
+2026-10-08 11:43:54  stopped si_calendar.simulation pid 5320
+2026-10-08 11:43:54  stopped long_reporting.simulation pid 5331
+2026-10-08 11:43:57  ==== smoke test: 4 slots, RUN_ROOT /home/user/Masters-Research-R/final-run-results/results, parts data+nncl_main
+2026-10-08 11:44:01  progress tasks 1 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 0 of 4: 
+2026-10-08 11:44:01  start   baseline.simulation slot 1 pid 5664
+2026-10-08 11:44:01  start   si_calendar.simulation slot 2 pid 5665
+2026-10-08 11:44:01  start   long_reporting.simulation slot 3 pid 5667
