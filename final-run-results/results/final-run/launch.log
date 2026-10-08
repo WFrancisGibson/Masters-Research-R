@@ -125,3 +125,7 @@
 2026-10-08 12:37:02  start   si_calendar.nncl_numeric.main slot 2 pid 27213
 2026-10-08 12:37:57  end     si_calendar.nncl.main slot 4: exit code 0, 600 s; run files 5 of 6
 2026-10-08 12:37:57  start   si_calendar.nncl_numeric.main slot 4 pid 1616
+2026-10-08 12:38:27  end     baseline.nncl_numeric.main slot 3: exit code 0, 1125 s; run files 6 of 6
+2026-10-08 12:38:27  done    baseline.nncl_numeric.main
+2026-10-08 12:38:27  start   baseline.nncl_numeric.main.analysis slot 3 pid 22345
+2026-10-08 12:38:32  progress tasks 32 of 50 done, 0 failed, 0 blocked; runs 17 of 36; sessions 4 of 4: baseline.nncl_numeric.main.analysis x1, si_calendar.nncl.main x1, si_calendar.nncl_numeric.main x2
