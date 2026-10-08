@@ -1,0 +1,114 @@
+==== 2026-10-08 15:43:42 start si_calendar.bccnn.grid.analysis slot 3
+  final fit fixed steps 
+    "refit"         "0" 
+   reserve  loss_in loss_out test_loss_per_cell bias_pct
+1 222254.2 3394.078 32711.93            51.0434  -0.8074
+   hidden activation dropout optimizer batch_size           rule steps_mean
+   <char>     <char>   <num>    <char>     <char>         <fctr>      <num>
+1:     20       tanh     0.1   rmsprop         64       patience      18.75
+2:     20       tanh     0.1   rmsprop         64        minimum      30.75
+3:     20       tanh     0.1   rmsprop       full        minimum      33.00
+4:     20       tanh     0.1   rmsprop         64 moving_average      50.25
+5:     20       tanh     0.1   rmsprop       full moving_average      11.25
+6:     20       tanh     0.1   rmsprop       full          fixed       0.00
+7:     20       tanh     0.1   rmsprop         64          fixed       0.00
+8:     20       tanh     0.1   rmsprop       full       patience      33.00
+   test_loss_mean test_loss_sd bias_pct_mean bias_pct_sd closer_than_cl
+            <num>        <num>         <num>       <num>          <num>
+1:        50.6244       0.2265       -0.4822      2.0695            0.0
+2:        50.6828       0.1725       -0.7235      2.2105            0.0
+3:        50.7721       0.1997       -0.8957      0.9715            0.5
+4:        50.8902       0.3029       -0.5660      2.0597            0.0
+5:        50.8985       0.4270       -0.8637      0.1861            0.5
+6:        51.0434       0.0000       -0.8074      0.0000            0.0
+7:        51.0434       0.0000       -0.8074      0.0000            0.0
+8:        51.6042       0.8065       -0.8957      0.9715            0.5
+       setting          level           rule  runs diverged  steps
+        <char>         <char>         <fctr> <int>    <int>  <num>
+ 1:       rule        minimum        minimum     8        0 31.875
+ 2:       rule          fixed          fixed     8        0  0.000
+ 3:       rule moving_average moving_average     8        0 30.750
+ 4:       rule       patience       patience     8        0 25.875
+ 5:     hidden             20        minimum     8        0 31.875
+ 6:     hidden             20          fixed     8        0  0.000
+ 7:     hidden             20 moving_average     8        0 30.750
+ 8:     hidden             20       patience     8        0 25.875
+ 9: activation           tanh        minimum     8        0 31.875
+10: activation           tanh          fixed     8        0  0.000
+11: activation           tanh moving_average     8        0 30.750
+12: activation           tanh       patience     8        0 25.875
+13:    dropout            0.1        minimum     8        0 31.875
+14:    dropout            0.1          fixed     8        0  0.000
+15:    dropout            0.1 moving_average     8        0 30.750
+16:    dropout            0.1       patience     8        0 25.875
+17:  optimizer        rmsprop        minimum     8        0 31.875
+18:  optimizer        rmsprop          fixed     8        0  0.000
+19:  optimizer        rmsprop moving_average     8        0 30.750
+20:  optimizer        rmsprop       patience     8        0 25.875
+21: batch_size           full        minimum     4        0 33.000
+22: batch_size           full          fixed     4        0  0.000
+23: batch_size           full moving_average     4        0 11.250
+24: batch_size           full       patience     4        0 33.000
+25: batch_size             64        minimum     4        0 30.750
+26: batch_size             64          fixed     4        0  0.000
+27: batch_size             64 moving_average     4        0 50.250
+28: batch_size             64       patience     4        0 18.750
+       setting          level           rule  runs diverged  steps
+        <char>         <char>         <fctr> <int>    <int>  <num>
+    test_loss_per_cell loss_out bias_pct abs_bias_pct
+                 <num>    <num>    <num>        <num>
+ 1:            50.7274 32732.96  -0.8096       1.4698
+ 2:            51.0434 32711.93  -0.8074       0.8074
+ 3:            50.8944 32745.16  -0.7148       1.2776
+ 4:            51.1143 32729.72  -0.6890       1.3492
+ 5:            50.7274 32732.96  -0.8096       1.4698
+ 6:            51.0434 32711.93  -0.8074       0.8074
+ 7:            50.8944 32745.16  -0.7148       1.2776
+ 8:            51.1143 32729.72  -0.6890       1.3492
+ 9:            50.7274 32732.96  -0.8096       1.4698
+10:            51.0434 32711.93  -0.8074       0.8074
+11:            50.8944 32745.16  -0.7148       1.2776
+12:            51.1143 32729.72  -0.6890       1.3492
+13:            50.7274 32732.96  -0.8096       1.4698
+14:            51.0434 32711.93  -0.8074       0.8074
+15:            50.8944 32745.16  -0.7148       1.2776
+16:            51.1143 32729.72  -0.6890       1.3492
+17:            50.7274 32732.96  -0.8096       1.4698
+18:            51.0434 32711.93  -0.8074       0.8074
+19:            50.8944 32745.16  -0.7148       1.2776
+20:            51.1143 32729.72  -0.6890       1.3492
+21:            50.7721 32723.47  -0.8957       1.0688
+22:            51.0434 32711.93  -0.8074       0.8074
+23:            50.8985 32717.63  -0.8637       0.8637
+24:            51.6042 32723.47  -0.8957       1.0688
+25:            50.6828 32742.45  -0.7235       1.8709
+26:            51.0434 32711.93  -0.8074       0.8074
+27:            50.8902 32772.69  -0.5660       1.6914
+28:            50.6244 32735.97  -0.4822       1.6296
+    test_loss_per_cell loss_out bias_pct abs_bias_pct
+                 <num>    <num>    <num>        <num>
+Key: <scope, rule>
+              scope           rule fixed  runs diverged steps_mean steps_sd
+             <fctr>         <fctr> <num> <int>    <int>      <num>    <num>
+1: all combinations        minimum     0     8        0     31.875  36.4238
+2: all combinations          fixed     0     8        0      0.000   0.0000
+3: all combinations moving_average     0     8        0     30.750  38.3173
+4: all combinations       patience     0     8        0     25.875  28.1092
+   steps_min steps_median steps_max     true reserve_mean bias_pct_mean
+       <num>        <num>     <num>    <num>        <num>         <num>
+1:         1         23.5        92 224063.2     222249.2       -0.8096
+2:         0          0.0         0 224063.2     222254.2       -0.8074
+3:         4         15.5       119 224063.2     222461.5       -0.7148
+4:         1         23.5        84 224063.2     222519.4       -0.6890
+   bias_pct_sd abs_bias_pct_mean closer_than_cl test_loss_mean test_loss_sd
+         <num>             <num>          <num>          <num>        <num>
+1:      1.5834            1.4698           0.25        50.7274       0.1792
+2:      0.0000            0.8074           0.00        51.0434       0.0000
+3:      1.3632            1.2776           0.25        50.8944       0.3428
+4:      1.5129            1.3492           0.25        51.1143       0.7583
+   loss_out_mean loss_out_sd
+           <num>       <num>
+1:      32732.96     65.2870
+2:      32711.93      0.0000
+3:      32745.16     60.3769
+4:      32729.72     70.7519

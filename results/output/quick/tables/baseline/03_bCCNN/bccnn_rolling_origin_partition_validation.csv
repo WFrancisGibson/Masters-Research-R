@@ -1,0 +1,11 @@
+quantity,value
+validation run length (epochs),100
+step with lowest validation loss,60
+steps used for the final fit,60
+in-sample deviance without dropout at start (ccODP),332.600780816647
+in-sample deviance without dropout at the steps used,332.743668639812
+validation loss at start (ccODP),141.77186273218
+validation loss at the steps used,141.32197479764
+decrease in-sample deviance without dropout (%),-0.0429607599879756
+"decrease in-sample training loss with dropout (%, Figure 2)",-0.0643379987239845
+decrease out-of-sample validation loss (%),0.317332315362107

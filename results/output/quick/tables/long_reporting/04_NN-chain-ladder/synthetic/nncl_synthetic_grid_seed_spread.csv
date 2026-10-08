@@ -1,0 +1,5 @@
+hidden,optimizer,training,seeds,diverged,reserve_mean,reserve_sd,bias_pct_mean,bias_pct_sd,bias_pct_min,bias_pct_median,bias_pct_max,closer_than_cl,nagging_bias_pct_1
+20,rmsprop,paper,2,0,3994173.34,5442022.28,22720.25,31092.37,734.63,22720.25,44705.88,0,4433.75
+20,rmsprop,early_stop,2,0,1479305.55,1976936.52,8351.84,11295,365.07,8351.84,16338.62,0,2015.91
+20,sgd,paper,2,0,4877594.8,6344538.27,27767.58,36248.8,2135.81,27767.58,53399.35,0,6782.95
+20,sgd,early_stop,2,0,2412682.36,3005919.23,13684.59,17173.98,1540.75,13684.59,25828.42,0,3984.55

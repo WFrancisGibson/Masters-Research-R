@@ -1,0 +1,189 @@
+==== 2026-10-08 15:42:41 start status.bccnn.grid slot 7
+ id                                                                stage kind   state   runs done to_do sessions seconds seconds_from seconds_runs slot_hours hours
+ keras.check                                                       0     single done    1    1    0     0         11.0   own          1            0.00       0.00 
+ baseline.simulation                                               0     single done    1    1    0     0        605.0   own          1            0.00       0.00 
+ baseline.fingerprint                                              0     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ baseline.triangles                                                0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.nncl.cells                                               0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.cells                                       0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.description                                              0     single done    1    1    0     0         20.0   own          1            0.00       0.00 
+ baseline.features                                                 0     single done    1    1    0     0         40.0   own          1            0.00       0.00 
+ baseline.mack                                                     0     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ baseline.odp                                                      0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.simulation                                            0     single done    1    1    0     0        640.0   own          1            0.00       0.00 
+ si_calendar.fingerprint                                           0     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ si_calendar.triangles                                             0     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ si_calendar.nncl.cells                                            0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.cells                                    0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.description                                           0     single done    1    1    0     0         20.0   own          1            0.00       0.00 
+ si_calendar.features                                              0     single done    1    1    0     0         40.0   own          1            0.00       0.00 
+ si_calendar.mack                                                  0     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ si_calendar.odp                                                   0     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ long_reporting.simulation                                         0     single done    1    1    0     0        600.0   own          1            0.00       0.00 
+ long_reporting.fingerprint                                        0     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ long_reporting.triangles                                          0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.nncl.cells                                         0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.nncl_numeric.cells                                 0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.description                                        0     single done    1    1    0     0         20.0   own          1            0.00       0.00 
+ long_reporting.features                                           0     single done    1    1    0     0         40.0   own          1            0.00       0.00 
+ long_reporting.mack                                               0     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ long_reporting.odp                                                0     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.bccnn.fit.rolling_origin_refit                           1     single done    1    1    0     0         52.0   own          1            0.00       0.00 
+ baseline.bccnn.fit.rolling_origin_partition                       1     single done    1    1    0     0         42.0   own          1            0.00       0.00 
+ baseline.bccnn.fit.claims_split_refit                             1     single done    1    1    0     0         31.0   own          1            0.00       0.00 
+ baseline.nncl.main                                                1     queue  done    6    6    0     0         39.2   own          6            0.00       0.00 
+ baseline.nncl.main.analysis                                       1     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.main                                        1     queue  done    6    6    0     0         37.7   own          6            0.00       0.00 
+ baseline.nncl_numeric.main.analysis                               1     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ baseline.bccnn.partitions                                         1     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ baseline.nncl.partition                                           1     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.bccnn.fit.rolling_origin_refit                        1     single done    1    1    0     0         52.0   own          1            0.00       0.00 
+ si_calendar.bccnn.fit.rolling_origin_partition                    1     single done    1    1    0     0         41.0   own          1            0.00       0.00 
+ si_calendar.bccnn.fit.claims_split_refit                          1     single done    1    1    0     0         36.0   own          1            0.00       0.00 
+ si_calendar.nncl.main                                             1     queue  done    6    6    0     0         38.1   own          6            0.00       0.00 
+ si_calendar.nncl.main.analysis                                    1     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.main                                     1     queue  done    6    6    0     0         38.0   own          6            0.00       0.00 
+ si_calendar.nncl_numeric.main.analysis                            1     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ si_calendar.bccnn.partitions                                      1     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ si_calendar.nncl.partition                                        1     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.bccnn.fit.rolling_origin_refit                     1     single done    1    1    0     0         57.0   own          1            0.00       0.00 
+ long_reporting.bccnn.fit.rolling_origin_partition                 1     single done    1    1    0     0         41.0   own          1            0.00       0.00 
+ long_reporting.bccnn.fit.claims_split_refit                       1     single done    1    1    0     0         36.0   own          1            0.00       0.00 
+ long_reporting.nncl.main                                          1     queue  done    6    6    0     0         37.0   own          6            0.00       0.00 
+ long_reporting.nncl.main.analysis                                 1     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ long_reporting.nncl_numeric.main                                  1     queue  done    6    6    0     0         35.9   own          6            0.00       0.00 
+ long_reporting.nncl_numeric.main.analysis                         1     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ long_reporting.bccnn.partitions                                   1     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ long_reporting.nncl.partition                                     1     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.bccnn.bootstrap.rolling_origin_refit.benchmark           2     queue  done    1    1    0     0         27.8   own          2            0.00       0.00 
+ baseline.bccnn.bootstrap.rolling_origin_partition.benchmark       2     queue  done    1    1    0     0         27.1   own          2            0.00       0.00 
+ baseline.bccnn.bootstrap.claims_split_refit.benchmark             2     queue  done    1    1    0     0         14.9   own          2            0.00       0.00 
+ baseline.bccnn.masking.benchmark                                  2     queue  done    1    1    0     0         18.9   own          2            0.00       0.00 
+ baseline.nncl.grid.benchmark                                      2     queue  done    1    1    0     0         39.3   own          8            0.00       0.00 
+ baseline.nncl.cl_grid.benchmark                                   2     queue  done    1    1    0     0         35.5   own          8            0.00       0.00 
+ baseline.nncl_numeric.grid.benchmark                              2     queue  done    1    1    0     0         41.7   own          8            0.00       0.00 
+ baseline.nncl_numeric.cl_grid.benchmark                           2     queue  done    1    1    0     0         37.4   own          8            0.00       0.00 
+ baseline.bccnn.grid.benchmark                                     2     queue  done    1    1    0     0        118.8   own          8            0.00       0.00 
+ si_calendar.bccnn.bootstrap.rolling_origin_refit.benchmark        2     queue  done    1    1    0     0         14.3   own          2            0.00       0.00 
+ si_calendar.bccnn.bootstrap.rolling_origin_partition.benchmark    2     queue  done    1    1    0     0         13.7   own          2            0.00       0.00 
+ si_calendar.bccnn.bootstrap.claims_split_refit.benchmark          2     queue  done    1    1    0     0         36.2   own          2            0.00       0.00 
+ si_calendar.bccnn.masking.benchmark                               2     queue  done    1    1    0     0         19.1   own          2            0.00       0.00 
+ si_calendar.nncl.grid.benchmark                                   2     queue  done    1    1    0     0         37.6   own          8            0.00       0.00 
+ si_calendar.nncl.cl_grid.benchmark                                2     queue  done    1    1    0     0         34.7   own          8            0.00       0.00 
+ si_calendar.nncl_numeric.grid.benchmark                           2     queue  done    1    1    0     0         39.2   own          8            0.00       0.00 
+ si_calendar.nncl_numeric.cl_grid.benchmark                        2     queue  done    1    1    0     0         36.4   own          8            0.00       0.00 
+ si_calendar.bccnn.grid.benchmark                                  2     queue  done    1    1    0     0         87.5   own          2            0.00       0.00 
+ long_reporting.bccnn.bootstrap.rolling_origin_refit.benchmark     2     queue  done    1    1    0     0         13.8   own          2            0.00       0.00 
+ long_reporting.bccnn.bootstrap.rolling_origin_partition.benchmark 2     queue  done    1    1    0     0         13.6   own          2            0.00       0.00 
+ long_reporting.bccnn.bootstrap.claims_split_refit.benchmark       2     queue  done    1    1    0     0         34.0   own          2            0.00       0.00 
+ long_reporting.bccnn.masking.benchmark                            2     queue  done    1    1    0     0         19.3   own          2            0.00       0.00 
+ long_reporting.nncl.grid.benchmark                                2     queue  done    1    1    0     0         37.9   own          8            0.00       0.00 
+ long_reporting.nncl.cl_grid.benchmark                             2     queue  done    1    1    0     0         35.3   own          8            0.00       0.00 
+ long_reporting.nncl_numeric.grid.benchmark                        2     queue  done    1    1    0     0         39.7   own          8            0.00       0.00 
+ long_reporting.nncl_numeric.cl_grid.benchmark                     2     queue  done    1    1    0     0         36.2   own          8            0.00       0.00 
+ long_reporting.bccnn.grid.benchmark                               2     queue  done    1    1    0     0         88.0   own          1            0.00       0.00 
+ status.benchmark                                                  2     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.bccnn.search                                             3     single done    1    1    0     0        110.0   own          1            0.00       0.00 
+ baseline.bccnn.bootstrap.rolling_origin_refit                     3     queue  done    2    2    0     0         27.8   own          2            0.00       0.00 
+ baseline.bccnn.bootstrap.rolling_origin_refit.analysis            3     single done    1    1    0     0         11.0   own          1            0.00       0.00 
+ baseline.bccnn.bootstrap.rolling_origin_partition                 3     queue  done    2    2    0     0         27.1   own          2            0.00       0.00 
+ baseline.bccnn.bootstrap.rolling_origin_partition.analysis        3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.bccnn.bootstrap.claims_split_refit                       3     queue  done    2    2    0     0         14.9   own          2            0.00       0.00 
+ baseline.bccnn.bootstrap.claims_split_refit.analysis              3     single done    1    1    0     0         11.0   own          1            0.00       0.00 
+ baseline.bccnn.masking                                            3     queue  done    2    2    0     0         18.9   own          2            0.00       0.00 
+ baseline.bccnn.masking.analysis                                   3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.timings.stage3                                           3     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ si_calendar.bccnn.search                                          3     single done    1    1    0     0        110.0   own          1            0.00       0.00 
+ si_calendar.bccnn.bootstrap.rolling_origin_refit                  3     queue  done    2    2    0     0         14.3   own          2            0.00       0.00 
+ si_calendar.bccnn.bootstrap.rolling_origin_refit.analysis         3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.bccnn.bootstrap.rolling_origin_partition              3     queue  done    2    2    0     0         13.7   own          2            0.00       0.00 
+ si_calendar.bccnn.bootstrap.rolling_origin_partition.analysis     3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.bccnn.bootstrap.claims_split_refit                    3     queue  done    2    2    0     0         36.2   own          2            0.00       0.00 
+ si_calendar.bccnn.bootstrap.claims_split_refit.analysis           3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.bccnn.masking                                         3     queue  done    2    2    0     0         19.1   own          2            0.00       0.00 
+ si_calendar.bccnn.masking.analysis                                3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.timings.stage3                                        3     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ long_reporting.bccnn.search                                       3     single done    1    1    0     0        120.0   own          1            0.00       0.00 
+ long_reporting.bccnn.bootstrap.rolling_origin_refit               3     queue  done    2    2    0     0         13.8   own          2            0.00       0.00 
+ long_reporting.bccnn.bootstrap.rolling_origin_refit.analysis      3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.bccnn.bootstrap.rolling_origin_partition           3     queue  done    2    2    0     0         13.6   own          2            0.00       0.00 
+ long_reporting.bccnn.bootstrap.rolling_origin_partition.analysis  3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.bccnn.bootstrap.claims_split_refit                 3     queue  done    2    2    0     0         34.0   own          2            0.00       0.00 
+ long_reporting.bccnn.bootstrap.claims_split_refit.analysis        3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.bccnn.masking                                      3     queue  done    2    2    0     0         19.3   own          2            0.00       0.00 
+ long_reporting.bccnn.masking.analysis                             3     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ long_reporting.timings.stage3                                     3     single done    1    1    0     0          5.0   own          1            0.00       0.00 
+ baseline.nncl.grid                                                4     queue  done    8    8    0     0         39.3   own          8            0.00       0.00 
+ baseline.nncl.grid.analysis                                       4     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ status.nncl.grid                                                  4     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ baseline.nncl.cl_grid                                             4     queue  done    8    8    0     0         35.5   own          8            0.00       0.00 
+ baseline.nncl.cl_grid.analysis                                    4     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ status.nncl.cl_grid                                               4     single done    1    1    0     0         10.0   own          1            0.00       0.00 
+ si_calendar.nncl.grid                                             4     queue  done    8    8    0     0         37.6   own          8            0.00       0.00 
+ si_calendar.nncl.grid.analysis                                    4     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ si_calendar.nncl.cl_grid                                          4     queue  done    8    8    0     0         34.7   own          8            0.00       0.00 
+ si_calendar.nncl.cl_grid.analysis                                 4     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ long_reporting.nncl.grid                                          4     queue  done    8    8    0     0         37.9   own          8            0.00       0.00 
+ long_reporting.nncl.grid.analysis                                 4     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ long_reporting.nncl.cl_grid                                       4     queue  done    8    8    0     0         35.3   own          8            0.00       0.00 
+ long_reporting.nncl.cl_grid.analysis                              4     single done    1    1    0     0         25.0   own          1            0.00       0.00 
+ baseline.nncl.search.cl_start                                     5     single done    1    1    0     0        296.0   own          1            0.00       0.00 
+ baseline.nncl.search.paper                                        5     single done    1    1    0     0        239.0   own          1            0.00       0.00 
+ baseline.nncl.search.early_stop                                   5     single done    1    1    0     0        332.0   own          1            0.00       0.00 
+ si_calendar.nncl.search.cl_start                                  5     single done    1    1    0     0        291.0   own          1            0.00       0.00 
+ si_calendar.nncl.search.paper                                     5     single done    1    1    0     0        239.0   own          1            0.00       0.00 
+ si_calendar.nncl.search.early_stop                                5     single done    1    1    0     0        337.0   own          1            0.00       0.00 
+ long_reporting.nncl.search.cl_start                               5     single done    1    1    0     0        285.0   own          1            0.00       0.00 
+ long_reporting.nncl.search.paper                                  5     single done    1    1    0     0        239.0   own          1            0.00       0.00 
+ long_reporting.nncl.search.early_stop                             5     single done    1    1    0     0        332.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.grid                                        6     queue  done    8    8    0     0         41.7   own          8            0.00       0.00 
+ baseline.nncl_numeric.grid.analysis                               6     single done    1    1    0     0         20.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.cl_grid                                     6     queue  done    8    8    0     0         37.4   own          8            0.00       0.00 
+ baseline.nncl_numeric.cl_grid.analysis                            6     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ baseline.nncl.age_coding                                          6     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.grid                                     6     queue  done    8    8    0     0         39.2   own          8            0.00       0.00 
+ si_calendar.nncl_numeric.grid.analysis                            6     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.cl_grid                                  6     queue  done    8    8    0     0         36.4   own          8            0.00       0.00 
+ si_calendar.nncl_numeric.cl_grid.analysis                         6     single done    1    1    0     0         20.0   own          1            0.00       0.00 
+ si_calendar.nncl.age_coding                                       6     single done    1    1    0     0         16.0   own          1            0.00       0.00 
+ long_reporting.nncl_numeric.grid                                  6     queue  done    8    8    0     0         39.7   own          8            0.00       0.00 
+ long_reporting.nncl_numeric.grid.analysis                         6     single done    1    1    0     0         21.0   own          1            0.00       0.00 
+ long_reporting.nncl_numeric.cl_grid                               6     queue  done    8    8    0     0         36.2   own          8            0.00       0.00 
+ long_reporting.nncl_numeric.cl_grid.analysis                      6     single done    1    1    0     0         25.0   own          1            0.00       0.00 
+ long_reporting.nncl.age_coding                                    6     single done    1    1    0     0         15.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.search.cl_start                             7     single done    1    1    0     0        117.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.search.paper                                7     single done    1    1    0     0         56.0   own          1            0.00       0.00 
+ baseline.nncl_numeric.search.early_stop                           7     single done    1    1    0     0        132.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.search.cl_start                          7     single done    1    1    0     0        117.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.search.paper                             7     single done    1    1    0     0         56.0   own          1            0.00       0.00 
+ si_calendar.nncl_numeric.search.early_stop                        7     single running 1    0    1     1        283.2   alike        4            0.08       0.08 
+ long_reporting.nncl_numeric.search.cl_start                       7     single done    1    1    0     0        111.0   own          1            0.00       0.00 
+ long_reporting.nncl_numeric.search.paper                          7     single done    1    1    0     0         96.0   own          1            0.00       0.00 
+ long_reporting.nncl_numeric.search.early_stop                     7     single running 1    0    1     1        283.2   alike        4            0.08       0.08 
+ baseline.bccnn.grid                                               8     queue  done    8    8    0     0        118.8   own          8            0.00       0.00 
+ baseline.bccnn.grid.analysis                                      8     single running 1    0    1     1           NA                0              NA         NA 
+ status.bccnn.grid                                                 8     single done    1    1    0     0           NA                0            0.00       0.00 
+ si_calendar.bccnn.grid                                            8     queue  running 8    2    6     6         87.5   own          2            0.16       0.03 
+ si_calendar.bccnn.grid.analysis                                   8     single waiting 1    0    1     0           NA                0              NA         NA 
+ long_reporting.bccnn.grid                                         8     queue  running 8    1    7     2         88.0   own          1            0.19       0.03 
+ long_reporting.bccnn.grid.analysis                                8     single waiting 1    0    1     0           NA                0              NA         NA 
+ baseline.timings.final                                            9     single waiting 1    0    1     0          5.0   alike        3            0.00       0.00 
+ si_calendar.timings.final                                         9     single waiting 1    0    1     0          5.0   alike        3            0.00       0.00 
+ long_reporting.timings.final                                      9     single waiting 1    0    1     0          5.0   alike        3            0.00       0.00 
+ status.final                                                      9     single waiting 1    0    1     0           NA                0              NA         NA 
+   stage tasks tasks_done failed runs runs_done no_time slot_hours hours days
+1      0    28         28      0    0         0       0       0.00  0.00    0
+2      1    27         27      0   36        36       0       0.00  0.00    0
+3      2    28         28      0   27        27       0       0.00  0.00    0
+4      3    30         30      0   12        12       0       0.00  0.00    0
+5      4    14         14      0   42        42       0       0.00  0.00    0
+6      5     9          9      0    0         0       0       0.00  0.00    0
+7      6    15         15      0   42        42       0       0.00  0.00    0
+8      7     9          7      0    0         0       0       0.16  0.08    0
+9      8     7          2      0   21         8       3       0.36  0.03    0
+10     9     4          0      0    0         0       1       0.00  0.00    0
+11   all   171        160      0  180       167       4       0.52  0.08    0
+2026-10-08 15:42: 160 of 171 tasks done, 0 failed; 11 R sessions running; 12 slots (RUN_WORKERS)
+work left: 0.5 slot hours, at least 0.1 hours (0.0 days); end at the earliest: 2026-10-08 15:47
+to do without a time yet (not in the hours): 0 runs of 0 queues, 4 other tasks
+queues to do with a time from less than 5% of their runs: 0

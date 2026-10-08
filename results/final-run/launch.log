@@ -1,0 +1,223 @@
+2026-10-08 11:40:40  ==== launcher started, process 5260 on vm
+2026-10-08 11:40:41  R: R version 4.5.3 (2026-03-11); Python: /home/user/Masters-Research-R-python/env/bin/python; code commit: 4a95fb1 with uncommitted changes
+2026-10-08 11:40:41  smoke test: every task under the quick profile first
+2026-10-08 11:43:57  ==== launcher started, process 5623 on vm
+2026-10-08 11:43:57  R: R version 4.5.3 (2026-03-11); Python: /home/user/Masters-Research-R-python/env/bin/python; code commit: 4498f65 with uncommitted changes
+2026-10-08 11:43:57  smoke test: every task under the quick profile first
+2026-10-08 12:03:26  smoke test passed
+2026-10-08 12:03:26  ==== final run: 4 slots, RUN_ROOT /home/user/Masters-Research-R/final-run-results/results, parts data+nncl_main
+2026-10-08 12:03:31  progress tasks 0 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 0 of 4: 
+2026-10-08 12:03:31  start   keras.check slot 1 pid 3451
+2026-10-08 12:03:31  start   baseline.simulation slot 2 pid 3452
+2026-10-08 12:03:31  start   si_calendar.simulation slot 3 pid 3458
+2026-10-08 12:03:32  start   long_reporting.simulation slot 4 pid 3465
+2026-10-08 12:03:42  end     keras.check slot 1: exit code 0, 10 s
+2026-10-08 12:03:42  done    keras.check
+2026-10-08 12:08:32  progress tasks 1 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 3 of 4: baseline.simulation x1, long_reporting.simulation x1, si_calendar.simulation x1
+2026-10-08 12:13:22  end     baseline.simulation slot 2: exit code 0, 590 s
+2026-10-08 12:13:22  done    baseline.simulation
+2026-10-08 12:13:22  end     long_reporting.simulation slot 4: exit code 0, 590 s
+2026-10-08 12:13:22  done    long_reporting.simulation
+2026-10-08 12:13:22  start   baseline.fingerprint slot 1 pid 3849
+2026-10-08 12:13:22  start   long_reporting.fingerprint slot 2 pid 3850
+2026-10-08 12:13:32  progress tasks 3 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 3 of 4: baseline.fingerprint x1, long_reporting.fingerprint x1, si_calendar.simulation x1
+2026-10-08 12:13:37  end     baseline.fingerprint slot 1: exit code 0, 15 s
+2026-10-08 12:13:37  done    baseline.fingerprint
+2026-10-08 12:13:37  end     long_reporting.fingerprint slot 2: exit code 0, 15 s
+2026-10-08 12:13:37  done    long_reporting.fingerprint
+2026-10-08 12:13:37  start   baseline.triangles slot 1 pid 3883
+2026-10-08 12:13:37  start   baseline.nncl.cells slot 2 pid 3884
+2026-10-08 12:13:37  start   baseline.description slot 4 pid 3896
+2026-10-08 12:13:47  end     baseline.triangles slot 1: exit code 0, 10 s
+2026-10-08 12:13:47  done    baseline.triangles
+2026-10-08 12:13:47  end     baseline.nncl.cells slot 2: exit code 0, 10 s
+2026-10-08 12:13:47  done    baseline.nncl.cells
+2026-10-08 12:13:47  start   baseline.nncl_numeric.cells slot 1 pid 3932
+2026-10-08 12:13:47  start   baseline.features slot 2 pid 3933
+2026-10-08 12:13:52  end     si_calendar.simulation slot 3: exit code 0, 620 s
+2026-10-08 12:13:52  done    si_calendar.simulation
+2026-10-08 12:13:52  start   baseline.mack slot 3 pid 3959
+2026-10-08 12:13:57  end     baseline.nncl_numeric.cells slot 1: exit code 0, 10 s
+2026-10-08 12:13:57  done    baseline.nncl_numeric.cells
+2026-10-08 12:13:57  end     baseline.mack slot 3: exit code 0, 5 s
+2026-10-08 12:13:57  done    baseline.mack
+2026-10-08 12:13:57  end     baseline.description slot 4: exit code 0, 20 s
+2026-10-08 12:13:57  done    baseline.description
+2026-10-08 12:13:57  start   baseline.odp slot 1 pid 3980
+2026-10-08 12:13:57  start   si_calendar.fingerprint slot 3 pid 3981
+2026-10-08 12:13:57  start   long_reporting.triangles slot 4 pid 3986
+2026-10-08 12:14:07  end     long_reporting.triangles slot 4: exit code 0, 10 s
+2026-10-08 12:14:07  done    long_reporting.triangles
+2026-10-08 12:14:07  start   long_reporting.nncl.cells slot 4 pid 4022
+2026-10-08 12:14:12  end     si_calendar.fingerprint slot 3: exit code 0, 15 s
+2026-10-08 12:14:12  done    si_calendar.fingerprint
+2026-10-08 12:14:12  start   si_calendar.triangles slot 3 pid 4037
+2026-10-08 12:14:17  end     long_reporting.nncl.cells slot 4: exit code 0, 10 s
+2026-10-08 12:14:17  done    long_reporting.nncl.cells
+2026-10-08 12:14:17  start   si_calendar.nncl.cells slot 4 pid 4056
+2026-10-08 12:14:22  end     baseline.features slot 2: exit code 0, 35 s
+2026-10-08 12:14:22  done    baseline.features
+2026-10-08 12:14:22  end     si_calendar.triangles slot 3: exit code 0, 10 s
+2026-10-08 12:14:22  done    si_calendar.triangles
+2026-10-08 12:14:22  start   si_calendar.description slot 2 pid 4072
+2026-10-08 12:14:22  start   si_calendar.features slot 3 pid 4073
+2026-10-08 12:14:27  end     si_calendar.nncl.cells slot 4: exit code 0, 10 s
+2026-10-08 12:14:27  done    si_calendar.nncl.cells
+2026-10-08 12:14:27  start   si_calendar.nncl_numeric.cells slot 4 pid 4101
+2026-10-08 12:14:37  end     si_calendar.nncl_numeric.cells slot 4: exit code 0, 10 s
+2026-10-08 12:14:37  done    si_calendar.nncl_numeric.cells
+2026-10-08 12:14:37  start   si_calendar.mack slot 4 pid 4123
+2026-10-08 12:14:42  end     si_calendar.description slot 2: exit code 0, 20 s
+2026-10-08 12:14:42  done    si_calendar.description
+2026-10-08 12:14:42  end     si_calendar.mack slot 4: exit code 0, 5 s
+2026-10-08 12:14:42  done    si_calendar.mack
+2026-10-08 12:14:42  start   si_calendar.odp slot 2 pid 4143
+2026-10-08 12:14:42  start   long_reporting.nncl_numeric.cells slot 4 pid 4145
+2026-10-08 12:14:52  end     baseline.odp slot 1: exit code 0, 55 s
+2026-10-08 12:14:52  done    baseline.odp
+2026-10-08 12:14:52  end     long_reporting.nncl_numeric.cells slot 4: exit code 0, 10 s
+2026-10-08 12:14:52  done    long_reporting.nncl_numeric.cells
+2026-10-08 12:14:52  start   long_reporting.description slot 1 pid 4176
+2026-10-08 12:14:52  start   long_reporting.features slot 4 pid 4177
+2026-10-08 12:14:57  end     si_calendar.features slot 3: exit code 0, 35 s
+2026-10-08 12:14:57  done    si_calendar.features
+2026-10-08 12:14:57  start   long_reporting.mack slot 3 pid 4207
+2026-10-08 12:15:02  end     long_reporting.mack slot 3: exit code 0, 5 s
+2026-10-08 12:15:02  done    long_reporting.mack
+2026-10-08 12:15:02  start   long_reporting.odp slot 3 pid 4226
+2026-10-08 12:15:12  end     long_reporting.description slot 1: exit code 0, 20 s
+2026-10-08 12:15:12  done    long_reporting.description
+2026-10-08 12:15:12  start   baseline.nncl.main slot 1 pid 4243
+2026-10-08 12:15:27  end     si_calendar.odp slot 2: exit code 0, 45 s
+2026-10-08 12:15:27  done    si_calendar.odp
+2026-10-08 12:15:27  end     long_reporting.features slot 4: exit code 0, 35 s
+2026-10-08 12:15:27  done    long_reporting.features
+2026-10-08 12:15:27  start   baseline.nncl.main slot 2 pid 5841
+2026-10-08 12:15:27  start   baseline.nncl.main slot 4 pid 5842
+2026-10-08 12:15:32  end     long_reporting.odp slot 3: exit code 0, 30 s
+2026-10-08 12:15:32  done    long_reporting.odp
+2026-10-08 12:15:32  start   baseline.nncl.main slot 3 pid 6779
+2026-10-08 12:15:32  stage   0 complete
+2026-10-08 12:18:32  progress tasks 28 of 50 done, 0 failed, 0 blocked; runs 0 of 36; sessions 4 of 4: baseline.nncl.main x4
+2026-10-08 12:19:37  end     baseline.nncl.main slot 4: exit code 0, 250 s; run files 3 of 6
+2026-10-08 12:19:37  start   baseline.nncl_numeric.main slot 4 pid 31494
+2026-10-08 12:19:42  end     baseline.nncl.main slot 3: exit code 0, 250 s; run files 4 of 6
+2026-10-08 12:19:42  start   baseline.nncl_numeric.main slot 3 pid 2088
+2026-10-08 12:21:52  end     baseline.nncl.main slot 2: exit code 0, 385 s; run files 5 of 6
+2026-10-08 12:21:52  start   baseline.nncl_numeric.main slot 2 pid 2964
+2026-10-08 12:23:32  progress tasks 28 of 50 done, 0 failed, 0 blocked; runs 5 of 36; sessions 4 of 4: baseline.nncl.main x1, baseline.nncl_numeric.main x3
+2026-10-08 12:27:47  end     baseline.nncl_numeric.main slot 4: exit code 0, 490 s; run files 4 of 6
+2026-10-08 12:27:47  start   baseline.nncl.partition slot 4 pid 19937
+2026-10-08 12:27:57  end     baseline.nncl.partition slot 4: exit code 0, 10 s
+2026-10-08 12:27:57  done    baseline.nncl.partition
+2026-10-08 12:27:57  start   si_calendar.nncl.main slot 4 pid 26132
+2026-10-08 12:28:32  progress tasks 29 of 50 done, 0 failed, 0 blocked; runs 9 of 36; sessions 4 of 4: baseline.nncl.main x1, baseline.nncl_numeric.main x2, si_calendar.nncl.main x1
+2026-10-08 12:28:52  end     baseline.nncl_numeric.main slot 2: exit code 0, 420 s; run files 5 of 6
+2026-10-08 12:28:52  start   si_calendar.nncl.main slot 2 pid 2163
+2026-10-08 12:33:32  end     baseline.nncl.main slot 1: exit code 0, 1100 s; run files 6 of 6
+2026-10-08 12:33:32  done    baseline.nncl.main
+2026-10-08 12:33:32  start   baseline.nncl.main.analysis slot 1 pid 28068
+2026-10-08 12:33:32  progress tasks 30 of 50 done, 0 failed, 0 blocked; runs 13 of 36; sessions 4 of 4: baseline.nncl.main.analysis x1, baseline.nncl_numeric.main x1, si_calendar.nncl.main x2
+2026-10-08 12:33:47  end     baseline.nncl.main.analysis slot 1: exit code 0, 15 s
+2026-10-08 12:33:47  done    baseline.nncl.main.analysis
+2026-10-08 12:33:47  start   si_calendar.nncl.main slot 1 pid 4873
+2026-10-08 12:37:02  end     si_calendar.nncl.main slot 2: exit code 0, 490 s; run files 4 of 6
+2026-10-08 12:37:02  start   si_calendar.nncl_numeric.main slot 2 pid 27213
+2026-10-08 12:37:57  end     si_calendar.nncl.main slot 4: exit code 0, 600 s; run files 5 of 6
+2026-10-08 12:37:57  start   si_calendar.nncl_numeric.main slot 4 pid 1616
+2026-10-08 12:38:27  end     baseline.nncl_numeric.main slot 3: exit code 0, 1125 s; run files 6 of 6
+2026-10-08 12:38:27  done    baseline.nncl_numeric.main
+2026-10-08 12:38:27  start   baseline.nncl_numeric.main.analysis slot 3 pid 22345
+2026-10-08 12:38:32  progress tasks 32 of 50 done, 0 failed, 0 blocked; runs 17 of 36; sessions 4 of 4: baseline.nncl_numeric.main.analysis x1, si_calendar.nncl.main x1, si_calendar.nncl_numeric.main x2
+2026-10-08 12:38:42  end     baseline.nncl_numeric.main.analysis slot 3: exit code 0, 15 s
+2026-10-08 12:38:42  done    baseline.nncl_numeric.main.analysis
+2026-10-08 12:38:42  start   si_calendar.nncl_numeric.main slot 3 pid 31158
+2026-10-08 12:43:32  progress tasks 33 of 50 done, 0 failed, 0 blocked; runs 20 of 36; sessions 4 of 4: si_calendar.nncl.main x1, si_calendar.nncl_numeric.main x3
+2026-10-08 12:45:27  end     si_calendar.nncl_numeric.main slot 2: exit code 0, 505 s; run files 4 of 6
+2026-10-08 12:45:27  start   si_calendar.nncl.partition slot 2 pid 14024
+2026-10-08 12:45:37  end     si_calendar.nncl.partition slot 2: exit code 0, 10 s
+2026-10-08 12:45:37  done    si_calendar.nncl.partition
+2026-10-08 12:45:37  start   long_reporting.nncl.main slot 2 pid 20273
+2026-10-08 12:45:42  end     si_calendar.nncl.main slot 1: exit code 0, 715 s; run files 6 of 6
+2026-10-08 12:45:42  done    si_calendar.nncl.main
+2026-10-08 12:45:42  end     si_calendar.nncl_numeric.main slot 3: exit code 0, 420 s; run files 5 of 6
+2026-10-08 12:45:42  start   si_calendar.nncl.main.analysis slot 1 pid 22940
+2026-10-08 12:45:42  start   long_reporting.nncl.main slot 3 pid 22942
+2026-10-08 12:45:57  end     si_calendar.nncl.main.analysis slot 1: exit code 0, 15 s
+2026-10-08 12:45:57  done    si_calendar.nncl.main.analysis
+2026-10-08 12:45:57  start   long_reporting.nncl.main slot 1 pid 30350
+2026-10-08 12:48:32  progress tasks 36 of 50 done, 0 failed, 0 blocked; runs 23 of 36; sessions 4 of 4: long_reporting.nncl.main x3, si_calendar.nncl_numeric.main x1
+2026-10-08 12:51:37  end     long_reporting.nncl.main slot 1: exit code 0, 340 s; run files 4 of 6
+2026-10-08 12:51:37  start   long_reporting.nncl_numeric.main slot 1 pid 6385
+2026-10-08 12:53:32  progress tasks 36 of 50 done, 0 failed, 0 blocked; runs 27 of 36; sessions 4 of 4: long_reporting.nncl.main x2, long_reporting.nncl_numeric.main x1, si_calendar.nncl_numeric.main x1
+2026-10-08 12:53:42  end     long_reporting.nncl.main slot 2: exit code 0, 485 s; run files 5 of 6
+2026-10-08 12:53:42  start   long_reporting.nncl_numeric.main slot 2 pid 7090
+2026-10-08 12:54:12  end     si_calendar.nncl_numeric.main slot 4: exit code 0, 975 s; run files 6 of 6
+2026-10-08 12:54:12  done    si_calendar.nncl_numeric.main
+2026-10-08 12:54:12  start   si_calendar.nncl_numeric.main.analysis slot 4 pid 27155
+2026-10-08 12:54:27  end     si_calendar.nncl_numeric.main.analysis slot 4: exit code 0, 15 s
+2026-10-08 12:54:27  done    si_calendar.nncl_numeric.main.analysis
+2026-10-08 12:54:27  start   long_reporting.nncl_numeric.main slot 4 pid 3441
+2026-10-08 12:58:32  progress tasks 38 of 50 done, 0 failed, 0 blocked; runs 31 of 36; sessions 4 of 4: long_reporting.nncl.main x1, long_reporting.nncl_numeric.main x3
+2026-10-08 12:59:53  end     long_reporting.nncl_numeric.main slot 1: exit code 0, 495 s; run files 4 of 6
+2026-10-08 12:59:53  start   long_reporting.nncl.partition slot 1 pid 21784
+2026-10-08 13:00:03  end     long_reporting.nncl.partition slot 1: exit code 0, 10 s
+2026-10-08 13:00:03  done    long_reporting.nncl.partition
+2026-10-08 13:00:03  start   baseline.timings.stage3 slot 1 pid 27463
+2026-10-08 13:00:08  end     baseline.timings.stage3 slot 1: exit code 0, 5 s
+2026-10-08 13:00:08  done    baseline.timings.stage3
+2026-10-08 13:00:08  start   si_calendar.timings.stage3 slot 1 pid 30443
+2026-10-08 13:00:13  end     si_calendar.timings.stage3 slot 1: exit code 0, 5 s
+2026-10-08 13:00:13  done    si_calendar.timings.stage3
+2026-10-08 13:00:13  start   baseline.timings.final.data-nncl_main slot 1 pid 682
+2026-10-08 13:00:18  end     baseline.timings.final.data-nncl_main slot 1: exit code 0, 5 s
+2026-10-08 13:00:18  done    baseline.timings.final.data-nncl_main
+2026-10-08 13:00:18  start   si_calendar.timings.final.data-nncl_main slot 1 pid 3558
+2026-10-08 13:00:23  end     si_calendar.timings.final.data-nncl_main slot 1: exit code 0, 5 s
+2026-10-08 13:00:23  done    si_calendar.timings.final.data-nncl_main
+2026-10-08 13:00:38  end     long_reporting.nncl_numeric.main slot 4: exit code 0, 370 s; run files 5 of 6
+2026-10-08 13:02:48  end     long_reporting.nncl.main slot 3: exit code 0, 1025 s; run files 6 of 6
+2026-10-08 13:02:48  done    long_reporting.nncl.main
+2026-10-08 13:02:48  start   long_reporting.nncl.main.analysis slot 1 pid 17532
+2026-10-08 13:03:03  end     long_reporting.nncl.main.analysis slot 1: exit code 0, 15 s
+2026-10-08 13:03:03  done    long_reporting.nncl.main.analysis
+2026-10-08 13:03:33  progress tasks 45 of 50 done, 0 failed, 0 blocked; runs 35 of 36; sessions 1 of 4: long_reporting.nncl_numeric.main x1
+2026-10-08 13:07:18  end     long_reporting.nncl_numeric.main slot 2: exit code 0, 815 s; run files 6 of 6
+2026-10-08 13:07:18  done    long_reporting.nncl_numeric.main
+2026-10-08 13:07:18  start   long_reporting.nncl_numeric.main.analysis slot 1 pid 22720
+2026-10-08 13:07:18  start   long_reporting.timings.stage3 slot 2 pid 22721
+2026-10-08 13:07:23  end     long_reporting.timings.stage3 slot 2: exit code 0, 5 s
+2026-10-08 13:07:23  done    long_reporting.timings.stage3
+2026-10-08 13:07:23  start   long_reporting.timings.final.data-nncl_main slot 2 pid 22751
+2026-10-08 13:07:23  stage   3 complete
+2026-10-08 13:07:28  end     long_reporting.timings.final.data-nncl_main slot 2: exit code 0, 5 s
+2026-10-08 13:07:28  done    long_reporting.timings.final.data-nncl_main
+2026-10-08 13:07:33  end     long_reporting.nncl_numeric.main.analysis slot 1: exit code 0, 15 s
+2026-10-08 13:07:33  done    long_reporting.nncl_numeric.main.analysis
+2026-10-08 13:07:33  start   status.final.data-nncl_main slot 1 pid 22772
+2026-10-08 13:07:33  stage   1 complete
+2026-10-08 13:07:38  end     status.final.data-nncl_main slot 1: exit code 0, 5 s
+2026-10-08 13:07:38  done    status.final.data-nncl_main
+2026-10-08 13:07:38  stage   9 complete
+2026-10-08 13:07:38  progress tasks 50 of 50 done, 0 failed, 0 blocked; runs 36 of 36; sessions 0 of 4: 
+2026-10-08 13:07:38  ==== finished: 50 of 50 tasks done, 0 failed, 0 blocked
+2026-10-08 15:18:11  ==== launcher started, process 14444
+2026-10-08 15:18:11  results worktree: C:\Users\26196425\Work\Masters-Research-R-results
+2026-10-08 15:18:13  R: R version 4.6.1 (2026-06-24 ucrt); Python: C:\Users\26196425\Work\Masters-Research-R-python\env\Scripts\python.exe; code commit: 5f04581
+2026-10-08 15:18:13  smoke test: every task under the quick profile first
+2026-10-08 15:35:20  ==== stopped by stop.ps1
+2026-10-08 15:39:15  ==== launcher started, process 18180
+2026-10-08 15:39:16  results worktree: C:\Users\26196425\Work\Masters-Research-R-results
+2026-10-08 15:39:16  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\si_calendar\nncl_synthetic_age_numeric_fit_tuned_paper_s2027.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\si_calendar\nncl_synthetic_age_numeric_fit_tuned_cl_start_s2026.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\long_reporting\nncl_synthetic_age_numeric_fit_tuned_paper_s2026.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\long_reporting\nncl_synthetic_age_numeric_fit_tuned_cl_start_s2026.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\baseline\nncl_synthetic_age_numeric_fit_tuned_paper_s2027.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\baseline\nncl_synthetic_age_numeric_fit_tuned_early_stop_s2026.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\baseline\nncl_synthetic_age_numeric_fit_tuned_cl_start_s2026.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\baseline\bccnn_grid_fit_grid_20_tanh_d0.1_rmsprop_bfull_s2029.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\baseline\bccnn_grid_fit_grid_20_tanh_d0.1_rmsprop_b64_s2027.rds.lock
+2026-10-08 15:39:17  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\quick\baseline\bccnn_grid_fit_grid_20_tanh_d0.1_rmsprop_b64_s2026.rds.lock
+2026-10-08 15:39:18  R: R version 4.6.1 (2026-06-24 ucrt); Python: C:\Users\26196425\Work\Masters-Research-R-python\env\Scripts\python.exe; code commit: 5f04581
+2026-10-08 15:39:18  smoke test: every task under the quick profile first
+2026-10-08 15:45:03  smoke test passed

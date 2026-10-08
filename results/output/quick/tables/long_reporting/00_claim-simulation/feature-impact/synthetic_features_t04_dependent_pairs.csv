@@ -1,0 +1,21 @@
+pair,level_1,level_2,n,share_pct,design_pct,within_level_1_pct
+Injury Severity x Legal Representation,1,Y,201744,50.4905297721539,50.35,95.0242101098404
+Injury Severity x Legal Representation,1,N,10564,2.6438553637929,2.65,4.97578989015958
+Injury Severity x Legal Representation,2,Y,119489,29.9045469106635,30,100
+Injury Severity x Legal Representation,2,N,0,0,0,0
+Injury Severity x Legal Representation,3,Y,40018,10.0153165418652,10,100
+Injury Severity x Legal Representation,3,N,0,0,0,0
+Injury Severity x Legal Representation,4,Y,19829,4.96260961838786,5,100
+Injury Severity x Legal Representation,4,N,0,0,0,0
+Injury Severity x Legal Representation,5,Y,3905,0.977305489929124,1,100
+Injury Severity x Legal Representation,5,N,0,0,0,0
+Injury Severity x Legal Representation,6,Y,4019,1.00583630320746,1,100
+Injury Severity x Legal Representation,6,N,0,0,0,0
+Vehicle type x Business use,Passenger,Y,41711,10.4390241460778,10.3109791305782,11.2519557593742
+Vehicle type x Business use,Passenger,N,328989,82.3361730669123,82.4878330446259,88.7480442406259
+Vehicle type x Business use,Light Commerical,Y,12296,3.07732350939014,3.09329373917347,45.0865356409504
+Vehicle type x Business use,Light Commerical,N,14976,3.74804789172306,3.71195248700817,54.9134643590496
+Vehicle type x Business use,Medium goods,Y,1017,0.254524886877828,0.252618988699167,94.6046511627907
+Vehicle type x Business use,Medium goods,N,58,0.0145156769310856,0.0144353707828095,5.3953488372093
+Vehicle type x Business use,Heavy goods,Y,521,0.130390822087855,0.128887239132228,100
+Vehicle type x Business use,Heavy goods,N,0,0,0,0

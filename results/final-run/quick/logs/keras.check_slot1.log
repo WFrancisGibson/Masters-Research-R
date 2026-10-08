@@ -1,0 +1,186 @@
+==== 2026-10-08 11:40:45 start keras.check slot 1
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791459649.061561    5316 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1791459649.063938    5316 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791459651.248249    5316 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1791459651.249935    5316 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+E0000 00:00:1791459652.352485    5316 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
+                                                    R 
+                       "R version 4.5.3 (2026-03-11)" 
+                                               keras3 
+                                              "1.5.1" 
+                               tensorflow (R package) 
+                                             "2.20.0" 
+                                           reticulate 
+                                             "1.46.0" 
+                                               Python 
+                                            "3.12.13" 
+                                        Python pinned 
+                                               "3.12" 
+                                       Python program 
+"/home/user/Masters-Research-R-python/env/bin/python" 
+                                    RETICULATE_PYTHON 
+"/home/user/Masters-Research-R-python/env/bin/python" 
+                                        Keras backend 
+                                         "tensorflow" 
+python:         /home/user/Masters-Research-R-python/env/bin/python
+libpython:      /home/user/Masters-Research-R-python/python/cpython-3.12.13-linux-x86_64-gnu/lib/libpython3.12.so
+pythonhome:     /home/user/Masters-Research-R-python/env:/home/user/Masters-Research-R-python/env
+virtualenv:     /home/user/Masters-Research-R-python/env/bin/activate_this.py
+version:        3.12.13 (main, Jul 18 2026, 17:02:19) [Clang 22.1.3 ]
+numpy:          /home/user/Masters-Research-R-python/env/lib/python3.12/site-packages/numpy
+numpy_version:  1.26.4
+keras:          /home/user/Masters-Research-R-python/env/lib/python3.12/site-packages/keras
+
+NOTE: Python version was forced by RETICULATE_PYTHON
+                   package      pinned   installed
+1               tensorflow      2.21.0      2.21.0
+2                    keras      3.15.1      3.15.1
+3                    numpy      1.26.4      1.26.4
+4                     h5py      3.14.0      3.14.0
+5                 protobuf      7.36.2      7.36.2
+6                ml-dtypes       0.5.4       0.5.4
+7                  ipython      9.17.1      9.17.1
+8                   pandas       3.0.6       3.0.6
+9                   pillow      12.3.0      12.3.0
+10                   pydot       4.0.1       4.0.1
+11                   scipy      1.17.1      1.17.1
+12                 absl-py       2.5.0       2.5.0
+13               asttokens       3.0.2       3.0.2
+14              astunparse       1.6.3       1.6.3
+15                 certifi   2026.7.22   2026.7.22
+16      charset-normalizer       3.5.2       3.5.2
+17                colorama       0.4.6       0.4.6
+18               executing       2.2.1       2.2.1
+19             flatbuffers    25.12.19    25.12.19
+20                    gast       0.7.0       0.7.0
+21            google-pasta       0.2.0       0.2.0
+22                  grpcio      1.84.0      1.84.0
+23                    idna        3.20        3.20
+24 ipython-pygments-lexers       1.1.1       1.1.1
+25                    jedi      0.20.0      0.20.0
+26                libclang      18.1.1      18.1.1
+27          markdown-it-py       4.2.0       4.2.0
+28       matplotlib-inline       0.2.2       0.2.2
+29                   mdurl       0.1.2       0.1.2
+30                   namex       0.1.0       0.1.0
+31              opt-einsum       3.4.0       3.4.0
+32                  optree      0.20.0      0.20.0
+33               packaging        26.3        26.3
+34                   parso       0.8.7       0.8.7
+35          prompt-toolkit      3.0.53      3.0.53
+36                  psutil       7.2.2       7.2.2
+37               pure-eval       0.2.4       0.2.4
+38                pygments      2.21.0      2.21.0
+39               pyparsing       3.3.3       3.3.3
+40         python-dateutil 2.9.0.post0 2.9.0.post0
+41                requests      2.34.2      2.34.2
+42                    rich      15.0.0      15.0.0
+43              setuptools      84.0.0      84.0.0
+44                     six      1.17.0      1.17.0
+45              stack-data       0.6.3       0.6.3
+46               termcolor       3.3.0       3.3.0
+47               traitlets      5.16.1      5.16.1
+48       typing-extensions      4.16.0      4.16.0
+49                  tzdata      2026.5      2026.5
+50                 urllib3       2.8.0       2.8.0
+51                 wcwidth       0.9.2       0.9.2
+52                   wheel      0.48.0      0.48.0
+53                   wrapt       2.5.0       2.5.0
+[1] "pexpect"    "ptyprocess"
+[1] 1.9689 1.9364 1.9136
+keras check passed: Python 3.12.13 at /home/user/Masters-Research-R-python/env/bin/python with 53 packages as in requirements.txt
+==== 2026-10-08 15:18:17 start keras.check slot 1
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791465501.851448    7672 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791465503.981322    7672 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+                                                                               R 
+                                             "R version 4.6.1 (2026-06-24 ucrt)" 
+                                                                          keras3 
+                                                                         "1.5.1" 
+                                                          tensorflow (R package) 
+                                                                        "2.20.0" 
+                                                                      reticulate 
+                                                                        "1.46.0" 
+                                                                          Python 
+                                                                       "3.12.15" 
+                                                                   Python pinned 
+                                                                          "3.12" 
+                                                                  Python program 
+       "C:/Users/26196425/Work/Masters-Research-R-python/env/Scripts/python.exe" 
+                                                               RETICULATE_PYTHON 
+"C:\\Users\\26196425\\Work\\Masters-Research-R-python\\env\\Scripts\\python.exe" 
+                                                                   Keras backend 
+                                                                    "tensorflow" 
+python:         C:/Users/26196425/Work/Masters-Research-R-python/env/Scripts/python.exe
+libpython:      C:/Users/26196425/Work/Masters-Research-R-python/python/cpython-3.12.15-windows-x86_64-none/python312.dll
+pythonhome:     C:/Users/26196425/Work/Masters-Research-R-python/env
+version:        3.12.15 (main, Oct  3 2026, 01:05:37) [MSC v.1944 64 bit (AMD64)]
+Architecture:   64bit
+numpy:          C:/Users/26196425/Work/Masters-Research-R-python/env/Lib/site-packages/numpy
+numpy_version:  1.26.4
+keras:          C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras
+
+NOTE: Python version was forced by RETICULATE_PYTHON
+                   package      pinned   installed
+1               tensorflow      2.21.0      2.21.0
+2                    keras      3.15.1      3.15.1
+3                    numpy      1.26.4      1.26.4
+4                     h5py      3.14.0      3.14.0
+5                 protobuf      7.36.2      7.36.2
+6                ml-dtypes       0.5.4       0.5.4
+7                  ipython      9.17.1      9.17.1
+8                   pandas       3.0.6       3.0.6
+9                   pillow      12.3.0      12.3.0
+10                   pydot       4.0.1       4.0.1
+11                   scipy      1.17.1      1.17.1
+12                 absl-py       2.5.0       2.5.0
+13               asttokens       3.0.2       3.0.2
+14              astunparse       1.6.3       1.6.3
+15                 certifi   2026.7.22   2026.7.22
+16      charset-normalizer       3.5.2       3.5.2
+17                colorama       0.4.6       0.4.6
+18               executing       2.2.1       2.2.1
+19             flatbuffers    25.12.19    25.12.19
+20                    gast       0.7.0       0.7.0
+21            google-pasta       0.2.0       0.2.0
+22                  grpcio      1.84.0      1.84.0
+23                    idna        3.20        3.20
+24 ipython-pygments-lexers       1.1.1       1.1.1
+25                    jedi      0.20.0      0.20.0
+26                libclang      18.1.1      18.1.1
+27          markdown-it-py       4.2.0       4.2.0
+28       matplotlib-inline       0.2.2       0.2.2
+29                   mdurl       0.1.2       0.1.2
+30                   namex       0.1.0       0.1.0
+31              opt-einsum       3.4.0       3.4.0
+32                  optree      0.20.0      0.20.0
+33               packaging        26.3        26.3
+34                   parso       0.8.7       0.8.7
+35          prompt-toolkit      3.0.53      3.0.53
+36                  psutil       7.2.2       7.2.2
+37               pure-eval       0.2.4       0.2.4
+38                pygments      2.21.0      2.21.0
+39               pyparsing       3.3.3       3.3.3
+40         python-dateutil 2.9.0.post0 2.9.0.post0
+41                requests      2.34.2      2.34.2
+42                    rich      15.0.0      15.0.0
+43              setuptools      84.0.0      84.0.0
+44                     six      1.17.0      1.17.0
+45              stack-data       0.6.3       0.6.3
+46               termcolor       3.3.0       3.3.0
+47               traitlets      5.16.1      5.16.1
+48       typing-extensions      4.16.0      4.16.0
+49                  tzdata      2026.5      2026.5
+50                 urllib3       2.8.0       2.8.0
+51                 wcwidth       0.9.2       0.9.2
+52                   wheel      0.48.0      0.48.0
+53                   wrapt       2.5.0       2.5.0
+[1] "pip"
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[1] 1.9689 1.9364 1.9136
+keras check passed: Python 3.12.15 at C:/Users/26196425/Work/Masters-Research-R-python/env/Scripts/python.exe with 53 packages as in requirements.txt

@@ -1,0 +1,43 @@
+outcome,term,one_way,drop_one,r2
+log claim size,Legal Representation,0.0100777963672819,0.00345364406068438,
+log claim size,Injury Severity,0.118761286356081,0.112106768135807,
+log claim size,Age of Claimant,0.0107372854992317,0.0108335215568803,
+log claim size,Vehicle type,0.029358214031742,0.0231882555064392,
+log claim size,Business use,0.00815868724600921,0.00185885217362569,
+log claim size,additive,,,0.164267439535011
+log claim size,saturated,,,0.164732206436702
+log notification delay,Legal Representation,9.21723835575206e-05,0.000188980249100412,
+log notification delay,Injury Severity,0.000980117875247544,0.00107895655279144,
+log notification delay,Age of Claimant,0.000371942159350436,0.000370050409848499,
+log notification delay,Vehicle type,0.000172383122184705,3.49234591786596e-05,
+log notification delay,Business use,0.000674352648110332,0.00053800868867393,
+log notification delay,additive,,,0.00225071560669754
+log notification delay,saturated,,,0.00276844485333938
+log settlement delay,Legal Representation,0.00626174705571625,0.00406692808766551,
+log settlement delay,Injury Severity,0.0167376205993385,0.0145318911294063,
+log settlement delay,Age of Claimant,0.00827855886639462,0.00826740413700666,
+log settlement delay,Vehicle type,2.42001155772442e-05,3.75898925886187e-06,
+log settlement delay,Business use,0.000223467512219688,0.000200976177205381,
+log settlement delay,additive,,,0.0292978753864746
+log settlement delay,saturated,,,0.0299230471552969
+number of payments,Legal Representation,0.00474011613897407,0.00168406453397263,
+number of payments,Injury Severity,0.0508575729429044,0.0477947104762578,
+number of payments,Age of Claimant,0.00471887884554867,0.00475025265864826,
+number of payments,Vehicle type,0.0115308915813188,0.00916401352221363,
+number of payments,Business use,0.00314102349054091,0.000712308515396054,
+number of payments,additive,,,0.0695466605713554
+number of payments,saturated,,,0.0705352189703706
+log payment lag,Legal Representation,0.00827239709607375,0.00541384449626092,
+log payment lag,Injury Severity,0.0226889712760165,0.0198159652807955,
+log payment lag,Age of Claimant,0.0113521449711108,0.0113384515982913,
+log payment lag,Vehicle type,8.93182397888603e-05,4.32894881671198e-05,
+log payment lag,Business use,0.000158274282140658,0.000106907662063782,
+log payment lag,additive,,,0.0396388079207414
+log payment lag,saturated,,,0.0403109131209746
+log claim size before the features,Legal Representation,5.22793389690079e-08,4.25075122101326e-07,
+log claim size before the features,Injury Severity,1.32841591538035e-05,1.37255530547886e-05,
+log claim size before the features,Age of Claimant,3.18066012960916e-06,3.20415670163055e-06,
+log claim size before the features,Vehicle type,2.81112270728023e-06,4.3385106400784e-06,
+log claim size before the features,Business use,8.52205981682896e-06,1.00359785035753e-05,
+log claim size before the features,additive,,,2.97820171062391e-05
+log claim size before the features,saturated,,,0.000567082800606245

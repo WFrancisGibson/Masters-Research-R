@@ -1,0 +1,1039 @@
+==== 2026-10-08 11:54:56 start long_reporting.features slot 4
+     rescaling constant combinations with p > 0 
+                 1.3042                245.0000 
+                 feature            level design_prob freq_relativity
+                  <char>           <char>       <num>           <num>
+ 1: Legal Representation                Y 0.973500000           1.000
+ 2: Legal Representation                N 0.026500000           1.000
+ 3:      Injury Severity                1 0.530000000           0.530
+ 4:      Injury Severity                2 0.300000000           0.300
+ 5:      Injury Severity                3 0.100000000           0.100
+ 6:      Injury Severity                4 0.050000000           0.050
+ 7:      Injury Severity                5 0.010000000           0.010
+ 8:      Injury Severity                6 0.010000000           0.010
+ 9:      Age of Claimant             0-15 0.183000000           0.183
+10:      Age of Claimant            15-30 0.192000000           0.192
+11:      Age of Claimant            30-50 0.274000000           0.274
+12:      Age of Claimant            50-65 0.180000000           0.180
+13:      Age of Claimant          over 65 0.171000000           0.171
+14:         Vehicle type        Passenger 0.927988122           5.000
+15:         Vehicle type Light Commerical 0.068052462           1.500
+16:         Vehicle type     Medium goods 0.002670544           0.350
+17:         Vehicle type      Heavy goods 0.001288872           0.250
+18:         Business use                Y 0.137857791           2.500
+19:         Business use                N 0.862142209           5.000
+    sev_relativity reference sev_vs_reference notidel_mult setldel_mult
+             <num>    <lgcl>            <num>        <num>        <num>
+ 1:           2.00      TRUE        1.0000000         1.00         1.00
+ 2:           1.00     FALSE        0.5000000         0.80         0.60
+ 3:           0.60     FALSE        0.5000000         1.10         0.85
+ 4:           1.20      TRUE        1.0000000         1.00         1.00
+ 5:           2.50     FALSE        2.0833333         0.95         1.20
+ 6:           5.00     FALSE        4.1666667         0.90         1.45
+ 7:           8.00     FALSE        6.6666667         0.85         1.75
+ 8:           0.40     FALSE        0.3333333         0.70         0.80
+ 9:           1.25     FALSE        1.2500000         1.10         1.30
+10:           1.15     FALSE        1.1500000         1.00         1.00
+11:           1.00      TRUE        1.0000000         1.00         1.00
+12:           0.85     FALSE        0.8500000         1.00         0.95
+13:           0.70     FALSE        0.7000000         1.00         0.90
+14:           0.25      TRUE        1.0000000         1.00         1.00
+15:           0.75     FALSE        3.0000000         0.95         1.00
+16:           1.00     FALSE        4.0000000         0.90         1.05
+17:           3.00     FALSE       12.0000000         0.90         1.10
+18:           1.30     FALSE        1.3000000         0.85         1.05
+19:           1.00      TRUE        1.0000000         1.00         1.00
+    relativity_of             factor_i        factor_j         level_ik
+           <char>               <char>          <char>           <char>
+ 1:     frequency Legal Representation Injury Severity                Y
+ 2:     frequency Legal Representation Injury Severity                N
+ 3:     frequency Legal Representation Injury Severity                N
+ 4:     frequency Legal Representation Injury Severity                N
+ 5:     frequency Legal Representation Injury Severity                N
+ 6:     frequency Legal Representation Injury Severity                N
+ 7:     frequency Legal Representation Injury Severity                N
+ 8:     frequency         Vehicle type    Business use        Passenger
+ 9:     frequency         Vehicle type    Business use Light Commerical
+10:     frequency         Vehicle type    Business use     Medium goods
+11:     frequency         Vehicle type    Business use     Medium goods
+12:     frequency         Vehicle type    Business use      Heavy goods
+13:     frequency         Vehicle type    Business use      Heavy goods
+14:      severity      Injury Severity Age of Claimant                4
+15:      severity      Injury Severity Age of Claimant                4
+16:      severity      Injury Severity Age of Claimant                5
+17:      severity      Injury Severity Age of Claimant                5
+    level_jl relativity
+      <char>      <num>
+ 1:        1       0.95
+ 2:        1       0.05
+ 3:        2       0.00
+ 4:        3       0.00
+ 5:        4       0.00
+ 6:        5       0.00
+ 7:        6       0.00
+ 8:        N       4.00
+ 9:        N       0.60
+10:        Y       0.35
+11:        N       0.01
+12:        Y       0.25
+13:        N       0.00
+14:    50-65       0.97
+15:  over 65       0.95
+16:    50-65       0.95
+17:  over 65       0.90
+                feature            level      n share_pct design_pct      z
+1  Legal Representation                Y 389004    97.356     97.350  0.242
+2  Legal Representation                N  10564     2.644      2.650 -0.242
+3       Injury Severity                1 212308    53.134     53.000  1.702
+4       Injury Severity                2 119489    29.905     30.000 -1.317
+5       Injury Severity                3  40018    10.015     10.000  0.323
+6       Injury Severity                4  19829     4.963      5.000 -1.084
+7       Injury Severity                5   3905     0.977      1.000 -1.442
+8       Injury Severity                6   4019     1.006      1.000  0.371
+9       Age of Claimant             0-15  73127    18.302     18.300  0.025
+10      Age of Claimant            15-30  76623    19.176     19.200 -0.378
+11      Age of Claimant            30-50 109409    27.382     27.400 -0.258
+12      Age of Claimant            50-65  72002    18.020     18.000  0.328
+13      Age of Claimant          over 65  68407    17.120     17.100  0.340
+14         Vehicle type        Passenger 370700    92.775     92.799 -0.577
+15         Vehicle type Light Commerical  27272     6.825      6.805  0.505
+16         Vehicle type     Medium goods   1075     0.269      0.267  0.243
+17         Vehicle type      Heavy goods    521     0.130      0.129  0.265
+18         Business use                Y  55545    13.901     13.786  2.117
+19         Business use                N 344023    86.099     86.214 -2.117
+                                      pair          level_1 level_2      n
+                                    <char>           <char>  <char>  <num>
+ 1: Injury Severity x Legal Representation                1       Y 201744
+ 2: Injury Severity x Legal Representation                1       N  10564
+ 3: Injury Severity x Legal Representation                2       Y 119489
+ 4: Injury Severity x Legal Representation                2       N      0
+ 5: Injury Severity x Legal Representation                3       Y  40018
+ 6: Injury Severity x Legal Representation                3       N      0
+ 7: Injury Severity x Legal Representation                4       Y  19829
+ 8: Injury Severity x Legal Representation                4       N      0
+ 9: Injury Severity x Legal Representation                5       Y   3905
+10: Injury Severity x Legal Representation                5       N      0
+11: Injury Severity x Legal Representation                6       Y   4019
+12: Injury Severity x Legal Representation                6       N      0
+13:            Vehicle type x Business use        Passenger       Y  41711
+14:            Vehicle type x Business use        Passenger       N 328989
+15:            Vehicle type x Business use Light Commerical       Y  12296
+16:            Vehicle type x Business use Light Commerical       N  14976
+17:            Vehicle type x Business use     Medium goods       Y   1017
+18:            Vehicle type x Business use     Medium goods       N     58
+19:            Vehicle type x Business use      Heavy goods       Y    521
+20:            Vehicle type x Business use      Heavy goods       N      0
+                                      pair          level_1 level_2      n
+                                    <char>           <char>  <char>  <num>
+    share_pct design_pct within_level_1_pct
+        <num>      <num>              <num>
+ 1:    50.491     50.350             95.024
+ 2:     2.644      2.650              4.976
+ 3:    29.905     30.000            100.000
+ 4:     0.000      0.000              0.000
+ 5:    10.015     10.000            100.000
+ 6:     0.000      0.000              0.000
+ 7:     4.963      5.000            100.000
+ 8:     0.000      0.000              0.000
+ 9:     0.977      1.000            100.000
+10:     0.000      0.000              0.000
+11:     1.006      1.000            100.000
+12:     0.000      0.000              0.000
+13:    10.439     10.311             11.252
+14:    82.336     82.488             88.748
+15:     3.077      3.093             45.087
+16:     3.748      3.712             54.913
+17:     0.255      0.253             94.605
+18:     0.015      0.014              5.395
+19:     0.130      0.129            100.000
+20:     0.000      0.000              0.000
+    share_pct design_pct within_level_1_pct
+        <num>      <num>              <num>
+                     Legal Representation Injury Severity Age of Claimant
+Legal Representation               1.0000          0.1548          0.0032
+Injury Severity                    0.1548          1.0000          0.0045
+Age of Claimant                    0.0032          0.0045          1.0000
+Vehicle type                       0.0023          0.0039          0.0026
+Business use                       0.0008          0.0041          0.0033
+AY                                 0.0084          0.0066          0.0067
+                     Vehicle type Business use     AY
+Legal Representation       0.0023       0.0008 0.0084
+Injury Severity            0.0039       0.0041 0.0066
+Age of Claimant            0.0026       0.0033 0.0067
+Vehicle type               1.0000       0.2892 0.0073
+Business use               0.2892       1.0000 0.0059
+AY                         0.0073       0.0059 1.0000
+                                                   quantity     value
+1                                        level combinations  480.0000
+2                      with a positive designed probability  245.0000
+3                                                 occurring  226.0000
+4                                possible but not occurring   19.0000
+5  largest expected number of claims of those not occurring    1.8169
+6        possible with an expected number of claims below 5   63.0000
+7  chi-square of the simulated against the designed numbers  257.1762
+8                                        degrees of freedom  244.0000
+9                         p-value (chi-square distribution)    0.2689
+10                       occurring with fewer than 5 claims   38.0000
+11                      occurring with fewer than 30 claims   83.0000
+12                     occurring with fewer than 100 claims  123.0000
+13                   combinations holding 50% of the claims    7.0000
+14                   combinations holding 90% of the claims   37.0000
+15                   combinations holding 99% of the claims   97.0000
+16               combinations holding 50% of the claim cost   14.0000
+17               combinations holding 90% of the claim cost   71.0000
+18               combinations holding 99% of the claim cost  134.0000
+19            cells accident year x combination with claims 3342.0000
+20                         median number of claims per cell   12.0000
+21                                     cells with one claim  522.0000
+22          rescaling constant of the severity relativities    1.3042
+   Legal Representation Injury Severity Age of Claimant Vehicle type
+1                     Y               2           30-50    Passenger
+2                     Y               2            0-15    Passenger
+3                     Y               1           30-50    Passenger
+4                     Y               2           15-30    Passenger
+5                     Y               4           30-50    Passenger
+6                     Y               1            0-15    Passenger
+7                     Y               3           30-50    Passenger
+8                     Y               1           15-30    Passenger
+9                     Y               4            0-15    Passenger
+10                    Y               3            0-15    Passenger
+   Business use     n claims_pct cost_pct cum_cost_pct sev_vs_reference
+1             N 27023       6.76     5.24         5.24             1.00
+2             N 18139       4.54     4.44         9.68             1.25
+3             N 45340      11.35     4.43        14.11             0.50
+4             N 18825       4.71     4.28        18.39             1.15
+5             N  4584       1.15     3.74        22.13             4.17
+6             N 30452       7.62     3.73        25.86             0.62
+7             N  9110       2.28     3.72        29.58             2.08
+8             N 31911       7.99     3.56        33.14             0.58
+9             N  2940       0.74     3.03        36.17             5.21
+10            N  5971       1.49     2.98        39.15             2.60
+   median_size
+1     60332.05
+2     77349.31
+3     30926.99
+4     71404.61
+5    259315.90
+6     38121.13
+7    125387.69
+8     35087.37
+9    315139.96
+10   159306.56
+Key: <feature, level>
+                 feature            level min_n claims_pct_min claims_pct_mean
+                  <fctr>           <fctr> <int>          <num>           <num>
+ 1: Legal Representation                Y 19189         97.093          97.356
+ 2: Legal Representation                N   484          2.452           2.644
+ 3:      Injury Severity                1 10388         52.340          53.133
+ 4:      Injury Severity                2  5861         29.059          29.905
+ 5:      Injury Severity                3  1912          9.575          10.016
+ 6:      Injury Severity                4   947          4.723           4.963
+ 7:      Injury Severity                5   175          0.883           0.977
+ 8:      Injury Severity                6   183          0.915           1.006
+ 9:      Age of Claimant             0-15  3584         17.857          18.302
+10:      Age of Claimant            15-30  3723         18.704          19.176
+11:      Age of Claimant            30-50  5366         26.860          27.382
+12:      Age of Claimant            50-65  3485         17.525          18.020
+13:      Age of Claimant          over 65  3330         16.677          17.120
+14:         Vehicle type        Passenger 18285         92.313          92.775
+15:         Vehicle type Light Commerical  1292          6.544           6.825
+16:         Vehicle type     Medium goods    42          0.210           0.269
+17:         Vehicle type      Heavy goods    15          0.075           0.130
+18:         Business use                Y  2716         13.621          13.902
+19:         Business use                N 16904         85.707          86.098
+    claims_pct_max ultimate_pct_min ultimate_pct_mean ultimate_pct_max
+             <num>            <num>             <num>            <num>
+ 1:         97.548           99.204            99.387           99.472
+ 2:          2.907            0.528             0.613            0.796
+ 3:         54.022           22.572            24.575           25.815
+ 4:         30.750           26.937            28.729           30.303
+ 5:         10.292           18.951            19.945           21.252
+ 6:          5.260           16.071            19.856           22.244
+ 7:          1.121            4.774             6.586           14.519
+ 8:          1.110            0.243             0.310            0.482
+ 9:         18.772           21.983            23.399           28.297
+10:         19.608           20.047            21.867           25.344
+11:         27.816           26.158            27.663           29.399
+12:         18.518           13.945            15.210           16.786
+13:         17.553           10.803            11.861           13.019
+14:         93.044           71.812            77.675           80.476
+15:          7.318           15.888            19.048           20.449
+16:          0.382            0.626             1.057            1.814
+17:          0.186            0.790             2.220           10.685
+18:         14.293           21.604            23.787           29.237
+19:         86.379           70.763            76.213           78.396
+    chi2_p_value
+           <num>
+ 1:        0.074
+ 2:        0.074
+ 3:        0.715
+ 4:        0.715
+ 5:        0.715
+ 6:        0.715
+ 7:        0.715
+ 8:        0.715
+ 9:        0.650
+10:        0.650
+11:        0.650
+12:        0.650
+13:        0.650
+14:        0.246
+15:        0.246
+16:        0.246
+17:        0.246
+18:        0.798
+19:        0.798
+                feature            level      n claims_pct cost_pct
+1  Legal Representation                Y 389004      97.36    99.37
+2  Legal Representation                N  10564       2.64     0.63
+3       Injury Severity                1 212308      53.13    24.73
+4       Injury Severity                2 119489      29.90    28.84
+5       Injury Severity                3  40018      10.02    19.92
+6       Injury Severity                4  19829       4.96    19.68
+7       Injury Severity                5   3905       0.98     6.51
+8       Injury Severity                6   4019       1.01     0.32
+9       Age of Claimant             0-15  73127      18.30    23.17
+10      Age of Claimant            15-30  76623      19.18    21.91
+11      Age of Claimant            30-50 109409      27.38    27.71
+12      Age of Claimant            50-65  72002      18.02    15.27
+13      Age of Claimant          over 65  68407      17.12    11.94
+14         Vehicle type        Passenger 370700      92.78    77.57
+15         Vehicle type Light Commerical  27272       6.83    19.05
+16         Vehicle type     Medium goods   1075       0.27     1.08
+17         Vehicle type      Heavy goods    521       0.13     2.30
+18         Business use                Y  55545      13.90    23.89
+19         Business use                N 344023      86.10    76.11
+   cost_to_claims  mean_size median_size geo_mean_size  q25_size   q75_size
+1            1.02  170787.34    51507.88      42732.19  14803.41  151846.03
+2            0.24   39794.43    16441.61      13107.68   4982.69   45009.52
+3            0.47   77890.14    32050.31      25435.94   9665.68   87462.80
+4            0.96  161347.00    65906.96      51996.00  19843.78  176640.36
+5            1.99  332748.53   137973.92     109443.04  41640.05  374546.25
+6            3.97  663605.72   269366.94     216314.75  83805.38  743096.39
+7            6.66 1115185.07   417950.74     342874.65 139429.50 1140661.01
+8            0.32   52771.97    21770.07      16970.39   6598.94   57323.73
+9            1.27  211790.06    63931.39      52666.04  18407.19  186865.72
+10           1.14  191203.82    58635.32      48493.90  16820.77  171467.10
+11           1.01  169310.73    51320.13      42658.43  14868.80  150734.40
+12           0.85  141830.28    43525.21      36092.01  12408.26  127787.01
+13           0.70  116698.36    36118.07      29602.47  10380.22  105834.76
+14           0.84  139902.68    46184.84      37898.56  13342.93  134319.03
+15           2.79  467102.46   149054.11     123873.39  44217.95  444910.82
+16           4.00  668794.66   244527.70     196090.31  75113.19  663109.67
+17          17.64 2951347.72   707861.50     571176.88 164868.85 2201483.80
+18           1.72  287579.96    75438.40      63323.47  20922.42  232669.97
+19           0.88  147907.90    46829.17      38673.80  13477.10  137512.75
+    q95_size   q99_size cv_size se_mean_pct
+1   662351.7  1885325.6    4.12        0.66
+2   149900.3   329959.3    1.98        1.92
+3   292811.4   656783.6    1.98        0.43
+4   601611.9  1366121.3    2.26        0.65
+5  1253774.1  2823509.1    1.90        0.95
+6  2492616.6  5551720.1    2.01        1.43
+7  3990417.0  8993827.3    4.75        7.60
+8   197870.5   387731.3    2.45        3.87
+9   817143.2  2298263.4    6.00        2.22
+10  746692.6  2116365.3    2.95        1.07
+11  658315.1  1835224.7    3.08        0.93
+12  544136.4  1570106.9    2.87        1.07
+13  456094.6  1252320.5    2.94        1.13
+14  551359.4  1466767.5    2.43        0.40
+15 1905986.5  4877899.7    2.40        1.45
+16 2646090.1  5782973.8    2.50        7.63
+17 9564196.1 28241721.2    4.83       21.16
+18 1109960.6  3383067.4    5.51        2.34
+19  581226.8  1603144.8    2.65        0.45
+                feature            level design ratio_of_means
+1  Legal Representation                N  0.500          0.233
+2       Injury Severity                1  0.500          0.483
+3       Injury Severity                3  2.083          2.062
+4       Injury Severity                4  4.167          4.113
+5       Injury Severity                5  6.667          6.912
+6       Injury Severity                6  0.333          0.327
+7       Age of Claimant             0-15  1.250          1.251
+8       Age of Claimant            15-30  1.150          1.129
+9       Age of Claimant            50-65  0.850          0.838
+10      Age of Claimant          over 65  0.700          0.689
+11         Vehicle type Light Commerical  3.000          3.339
+12         Vehicle type     Medium goods  4.000          4.780
+13         Vehicle type      Heavy goods 12.000         21.096
+14         Business use                Y  1.300          1.944
+   ratio_of_geo_means estimate  lower  upper
+1               0.307    0.496  0.480  0.514
+2               0.489    0.507  0.500  0.513
+3               2.105    2.104  2.064  2.146
+4               4.160    4.164  4.057  4.273
+5               6.594    6.613  6.259  6.987
+6               0.326    0.328  0.311  0.346
+7               1.235    1.242  1.222  1.262
+8               1.137    1.149  1.131  1.167
+9               0.846    0.852  0.838  0.865
+10              0.694    0.697  0.686  0.709
+11              3.269    3.015  2.949  3.082
+12              5.174    4.271  3.848  4.740
+13             15.071   11.810 10.174 13.708
+14              1.637    1.279  1.258  1.300
+Key: <injury, age>
+    injury     age     n median_size ratio_to_main_effects design_ratio design
+    <fctr>  <fctr> <int>       <num>                 <num>        <num>  <num>
+ 1:      1    0-15 38789    41067.18                 0.998        0.997   1.00
+ 2:      1   15-30 40946    37559.53                 0.991        1.000   1.00
+ 3:      1   30-50 57912    33074.50                 1.004        1.000   1.00
+ 4:      1   50-65 38225    28033.10                 1.005        1.000   1.00
+ 5:      1 over 65 36436    23074.36                 1.000        1.003   1.00
+ 6:      2    0-15 21977    85137.62                 1.006        1.000   1.00
+ 7:      2   15-30 22844    77799.21                 1.004        0.997   1.00
+ 8:      2   30-50 32691    66875.57                 0.993        0.998   1.00
+ 9:      2   50-65 21553    57240.21                 0.994        1.003   1.00
+10:      2 over 65 20424    48030.69                 1.006        1.003   1.00
+11:      3    0-15  7358   174625.26                 0.977        1.010   1.00
+12:      3   15-30  7601   164990.55                 1.011        1.000   1.00
+13:      3   30-50 11022   139727.55                 0.991        0.993   1.00
+14:      3   50-65  7185   119302.50                 0.995        1.003   1.00
+15:      3 over 65  6852   102823.71                 1.032        0.998   1.00
+16:      4    0-15  3504   342448.45                 0.997        1.000   1.00
+17:      4   15-30  3740   332791.91                 1.063        1.015   1.00
+18:      4   30-50  5616   287255.91                 1.009        1.022   1.00
+19:      4   50-65  3614   231326.73                 0.979        0.983   0.97
+20:      4 over 65  3355   193006.39                 0.946        0.966   0.95
+21:      5    0-15   779   611207.86                 1.068        1.038   1.00
+22:      5   15-30   698   472895.72                 0.958        1.036   1.00
+23:      5   30-50  1070   430608.93                 1.040        1.024   1.00
+24:      5   50-65   674   359555.78                 1.012        0.959   0.95
+25:      5 over 65   684   264641.02                 0.901        0.928   0.90
+26:      6    0-15   720    32352.38                 1.106        1.009   1.00
+27:      6   15-30   794    26056.42                 0.972        0.992   1.00
+28:      6   30-50  1098    21876.69                 0.990        1.005   1.00
+29:      6   50-65   751    19706.37                 1.047        0.991   1.00
+30:      6 over 65   656    15134.98                 0.894        1.002   1.00
+    injury     age     n median_size ratio_to_main_effects design_ratio design
+    <fctr>  <fctr> <int>       <num>                 <num>        <num>  <num>
+                feature            level claims_pct top_1pct_pct over_1m_pct
+1  Legal Representation                Y      97.36        99.95        2.76
+2  Legal Representation                N       2.64         0.05        0.05
+3       Injury Severity                1      53.13         4.18        0.38
+4       Injury Severity                2      29.90        15.87        1.93
+5       Injury Severity                3      10.02        25.30        7.25
+6       Injury Severity                4       4.96        40.22       18.34
+7       Injury Severity                5       0.98        14.41       27.68
+8       Injury Severity                6       1.01         0.03        0.15
+9       Age of Claimant             0-15      18.30        26.68        3.77
+10      Age of Claimant            15-30      19.18        24.15        3.28
+11      Age of Claimant            30-50      27.38        26.98        2.68
+12      Age of Claimant            50-65      18.02        13.64        2.11
+13      Age of Claimant          over 65      17.12         8.56        1.49
+14         Vehicle type        Passenger      92.78        58.56        1.96
+15         Vehicle type Light Commerical       6.83        35.34       11.31
+16         Vehicle type     Medium goods       0.27         2.15       15.26
+17         Vehicle type      Heavy goods       0.13         3.95       43.76
+18         Business use                Y      13.90        34.66        5.68
+19         Business use                N      86.10        65.34        2.20
+    lift
+1   1.03
+2   0.02
+3   0.08
+4   0.53
+5   2.53
+6   8.10
+7  14.75
+8   0.02
+9   1.46
+10  1.26
+11  0.99
+12  0.76
+13  0.50
+14  0.63
+15  5.18
+16  8.00
+17 30.32
+18  2.49
+19  0.76
+                feature            level mean_notidel median_notidel
+1  Legal Representation                Y        2.072          0.648
+2  Legal Representation                N        1.816          0.567
+3       Injury Severity                1        2.176          0.681
+4       Injury Severity                2        2.003          0.622
+5       Injury Severity                3        1.889          0.598
+6       Injury Severity                4        1.808          0.563
+7       Injury Severity                5        1.653          0.541
+8       Injury Severity                6        1.444          0.469
+9       Age of Claimant             0-15        2.229          0.708
+10      Age of Claimant            15-30        2.012          0.631
+11      Age of Claimant            30-50        2.050          0.638
+12      Age of Claimant            50-65        2.017          0.619
+13      Age of Claimant          over 65        2.024          0.635
+14         Vehicle type        Passenger        2.080          0.650
+15         Vehicle type Light Commerical        1.898          0.582
+16         Vehicle type     Medium goods        1.571          0.487
+17         Vehicle type      Heavy goods        1.501          0.480
+18         Business use                Y        1.784          0.555
+19         Business use                N        2.110          0.662
+   mean_notidel_mult same_year_pct base_notidel mean_setldel median_setldel
+1              1.030        41.877        2.011        1.655          1.094
+2              0.874        44.311        2.077        0.853          0.570
+3              1.082        41.022        2.012        1.416          0.949
+4              0.994        42.494        2.016        1.702          1.145
+5              0.943        43.163        2.002        2.053          1.396
+6              0.894        44.142        2.023        2.484          1.659
+7              0.847        45.480        1.953        3.012          1.988
+8              0.696        47.674        2.074        1.363          0.926
+9              1.109        40.363        2.011        2.062          1.376
+10             1.008        42.171        1.996        1.578          1.041
+11             1.008        42.208        2.035        1.589          1.055
+12             1.007        42.707        2.002        1.516          1.007
+13             1.008        42.142        2.008        1.431          0.953
+14             1.034        41.791        2.011        1.630          1.072
+15             0.932        43.744        2.036        1.667          1.088
+16             0.809        45.860        1.942        1.732          1.119
+17             0.800        46.833        1.877        1.885          1.241
+18             0.882        44.542        2.023        1.712          1.125
+19             1.049        41.522        2.011        1.621          1.066
+   q90_setldel mean_setldel_mult over_5y_pct base_setldel
+1        3.864             1.006       5.351        1.644
+2        1.991             0.528       0.473        1.615
+3        3.306             0.863       3.295        1.641
+4        3.978             1.037       5.650        1.642
+5        4.767             1.244       8.928        1.650
+6        5.766             1.500      13.511        1.656
+7        7.046             1.822      19.206        1.653
+8        3.217             0.828       2.911        1.646
+9        4.813             1.256       9.172        1.642
+10       3.675             0.964       4.698        1.636
+11       3.709             0.967       4.767        1.643
+12       3.550             0.917       4.155        1.653
+13       3.334             0.869       3.437        1.646
+14       3.818             0.992       5.192        1.643
+15       3.880             1.008       5.544        1.654
+16       4.056             1.078       5.860        1.606
+17       4.441             1.144       8.445        1.648
+18       4.002             1.038       5.846        1.650
+19       3.795             0.987       5.121        1.643
+          delay              feature            level design ratio_of_means
+1  notification Legal Representation                N   0.80          0.877
+2  notification      Injury Severity                1   1.10          1.087
+3  notification      Injury Severity                3   0.95          0.943
+4  notification      Injury Severity                4   0.90          0.903
+5  notification      Injury Severity                5   0.85          0.825
+6  notification      Injury Severity                6   0.70          0.721
+7  notification      Age of Claimant             0-15   1.10          1.087
+8  notification      Age of Claimant            15-30   1.00          0.981
+9  notification      Age of Claimant            50-65   1.00          0.984
+10 notification      Age of Claimant          over 65   1.00          0.987
+11 notification         Vehicle type Light Commerical   0.95          0.912
+12 notification         Vehicle type     Medium goods   0.90          0.755
+13 notification         Vehicle type      Heavy goods   0.90          0.722
+14 notification         Business use                Y   0.85          0.845
+15   settlement Legal Representation                N   0.60          0.516
+16   settlement      Injury Severity                1   0.85          0.832
+17   settlement      Injury Severity                3   1.20          1.206
+18   settlement      Injury Severity                4   1.45          1.460
+19   settlement      Injury Severity                5   1.75          1.770
+20   settlement      Injury Severity                6   0.80          0.801
+21   settlement      Age of Claimant             0-15   1.30          1.297
+22   settlement      Age of Claimant            15-30   1.00          0.993
+23   settlement      Age of Claimant            50-65   0.95          0.954
+24   settlement      Age of Claimant          over 65   0.90          0.900
+25   settlement         Vehicle type Light Commerical   1.00          1.022
+26   settlement         Vehicle type     Medium goods   1.05          1.062
+27   settlement         Vehicle type      Heavy goods   1.10          1.156
+28   settlement         Business use                Y   1.05          1.057
+   estimate lower upper
+1     0.820 0.784 0.857
+2     1.101 1.083 1.119
+3     0.943 0.919 0.968
+4     0.921 0.890 0.954
+5     0.835 0.777 0.899
+6     0.712 0.662 0.765
+7     1.109 1.085 1.133
+8     0.989 0.969 1.010
+9     0.977 0.956 0.998
+10    0.994 0.973 1.016
+11    0.957 0.929 0.985
+12    0.910 0.792 1.045
+13    0.818 0.671 0.996
+14    0.852 0.834 0.870
+15    0.585 0.570 0.600
+16    0.850 0.842 0.858
+17    1.215 1.197 1.233
+18    1.450 1.422 1.479
+19    1.761 1.689 1.837
+20    0.817 0.784 0.851
+21    1.311 1.295 1.327
+22    1.004 0.992 1.016
+23    0.960 0.948 0.972
+24    0.907 0.895 0.918
+25    1.003 0.987 1.020
+26    0.973 0.898 1.053
+27    1.057 0.944 1.184
+28    1.059 1.046 1.072
+                feature            level design all_claims closed
+1  Legal Representation                N   0.60      0.585  0.605
+2       Injury Severity                1   0.85      0.850  0.865
+3       Injury Severity                3   1.20      1.215  1.183
+4       Injury Severity                4   1.45      1.450  1.363
+5       Injury Severity                5   1.75      1.761  1.589
+6       Injury Severity                6   0.80      0.817  0.834
+7       Age of Claimant             0-15   1.30      1.311  1.265
+8       Age of Claimant            15-30   1.00      1.004  1.004
+9       Age of Claimant            50-65   0.95      0.960  0.961
+10      Age of Claimant          over 65   0.90      0.907  0.914
+11         Vehicle type Light Commerical   1.00      1.003  0.999
+12         Vehicle type     Medium goods   1.05      0.973  0.950
+13         Vehicle type      Heavy goods   1.10      1.057  1.046
+14         Business use                Y   1.05      1.059  1.056
+   closed_last_5_years
+1                0.675
+2                0.926
+3                1.080
+4                1.161
+5                1.210
+6                0.947
+7                1.132
+8                1.033
+9                0.971
+10               0.963
+11               1.031
+12               0.859
+13               1.395
+14               1.041
+Key: <band>
+              band claims claims_pct mean_no_payment design_mean
+            <fctr>  <int>      <num>           <num>       <num>
+1:     up to 7,500  65729     16.450           1.497       1.500
+2: 7,500 to 15,000  37407      9.362           2.663       2.667
+3:     over 15,000 296432     74.188           5.849       5.842
+                feature            level small_pct middle_pct cap_pct
+1  Legal Representation                Y    16.014      9.196   3.707
+2  Legal Representation                N    32.516     15.477   0.104
+3       Injury Severity                1    21.154     11.701   0.607
+4       Injury Severity                2    13.040      7.869   2.865
+5       Injury Severity                3     7.634      4.935   9.896
+6       Injury Severity                4     4.851      2.809  22.553
+7       Injury Severity                5     3.457      1.946  32.753
+8       Injury Severity                6    26.997     13.809   0.199
+9       Age of Claimant             0-15    13.922      8.048   4.982
+10      Age of Claimant            15-30    14.754      8.604   4.398
+11      Age of Claimant            30-50    15.952      9.183   3.633
+12      Age of Claimant            50-65    17.822     10.241   2.835
+13      Age of Claimant          over 65    20.404     10.975   2.048
+14         Vehicle type        Passenger    17.152      9.728   2.742
+15         Vehicle type Light Commerical     7.616      4.701  13.959
+16         Vehicle type     Medium goods     4.651      4.930  19.721
+17         Vehicle type      Heavy goods     3.455      2.111  47.217
+18         Business use                Y    12.732      7.522   7.282
+19         Business use                N    17.050      9.659   3.019
+   mean_no_payment mean_np_design
+1            4.868          4.864
+2            3.593          3.589
+3            4.322          4.323
+4            5.093          5.092
+5            5.855          5.843
+6            6.497          6.449
+7            6.851          6.801
+8            3.907          3.902
+9            5.093          5.084
+10           4.983          4.993
+11           4.873          4.863
+12           4.689          4.683
+13           4.484          4.481
+14           4.746          4.743
+15           5.946          5.927
+16           6.343          6.339
+17           6.631          6.976
+18           5.249          5.259
+19           4.768          4.762
+                               outcome                 term one_way drop_one
+                                <char>               <char>   <num>    <num>
+ 1:                     log claim size Legal Representation  0.0101   0.0035
+ 2:                     log claim size      Injury Severity  0.1188   0.1121
+ 3:                     log claim size      Age of Claimant  0.0107   0.0108
+ 4:                     log claim size         Vehicle type  0.0294   0.0232
+ 5:                     log claim size         Business use  0.0082   0.0019
+ 6:                     log claim size             additive      NA       NA
+ 7:                     log claim size            saturated      NA       NA
+ 8:             log notification delay Legal Representation  0.0001   0.0002
+ 9:             log notification delay      Injury Severity  0.0010   0.0011
+10:             log notification delay      Age of Claimant  0.0004   0.0004
+11:             log notification delay         Vehicle type  0.0002   0.0000
+12:             log notification delay         Business use  0.0007   0.0005
+13:             log notification delay             additive      NA       NA
+14:             log notification delay            saturated      NA       NA
+15:               log settlement delay Legal Representation  0.0063   0.0041
+16:               log settlement delay      Injury Severity  0.0167   0.0145
+17:               log settlement delay      Age of Claimant  0.0083   0.0083
+18:               log settlement delay         Vehicle type  0.0000   0.0000
+19:               log settlement delay         Business use  0.0002   0.0002
+20:               log settlement delay             additive      NA       NA
+21:               log settlement delay            saturated      NA       NA
+22:                 number of payments Legal Representation  0.0047   0.0017
+23:                 number of payments      Injury Severity  0.0509   0.0478
+24:                 number of payments      Age of Claimant  0.0047   0.0048
+25:                 number of payments         Vehicle type  0.0115   0.0092
+26:                 number of payments         Business use  0.0031   0.0007
+27:                 number of payments             additive      NA       NA
+28:                 number of payments            saturated      NA       NA
+29:                    log payment lag Legal Representation  0.0040   0.0031
+30:                    log payment lag      Injury Severity  0.0067   0.0058
+31:                    log payment lag      Age of Claimant  0.0064   0.0064
+32:                    log payment lag         Vehicle type  0.0000   0.0000
+33:                    log payment lag         Business use  0.0001   0.0001
+34:                    log payment lag             additive      NA       NA
+35:                    log payment lag            saturated      NA       NA
+36: log claim size before the features Legal Representation  0.0000   0.0000
+37: log claim size before the features      Injury Severity  0.0000   0.0000
+38: log claim size before the features      Age of Claimant  0.0000   0.0000
+39: log claim size before the features         Vehicle type  0.0000   0.0000
+40: log claim size before the features         Business use  0.0000   0.0000
+41: log claim size before the features             additive      NA       NA
+42: log claim size before the features            saturated      NA       NA
+                               outcome                 term one_way drop_one
+                                <char>               <char>   <num>    <num>
+        r2
+     <num>
+ 1:     NA
+ 2:     NA
+ 3:     NA
+ 4:     NA
+ 5:     NA
+ 6: 0.1643
+ 7: 0.1647
+ 8:     NA
+ 9:     NA
+10:     NA
+11:     NA
+12:     NA
+13: 0.0023
+14: 0.0028
+15:     NA
+16:     NA
+17:     NA
+18:     NA
+19:     NA
+20: 0.0293
+21: 0.0299
+22:     NA
+23:     NA
+24:     NA
+25:     NA
+26:     NA
+27: 0.0695
+28: 0.0705
+29:     NA
+30:     NA
+31:     NA
+32:     NA
+33:     NA
+34: 0.0164
+35: 0.0170
+36:     NA
+37:     NA
+38:     NA
+39:     NA
+40:     NA
+41: 0.0000
+42: 0.0006
+        r2
+     <num>
+                               model     r2
+1                           features 0.0695
+2 designed mean given the claim size 0.4461
+3                               both 0.4462
+                         feature            level dev_1 dev_2 dev_3 dev_5
+X           Legal Representation                Y  9.31 31.14 48.71 70.71
+X.1         Legal Representation                N 20.61 52.30 69.24 84.33
+X.2              Injury Severity                1 11.49 36.55 54.66 75.56
+X.3              Injury Severity                2 10.17 32.95 51.20 73.11
+X.4              Injury Severity                3  8.54 29.57 47.72 69.62
+X.5              Injury Severity                4  7.58 25.85 42.00 65.68
+X.6              Injury Severity                5  5.72 25.05 40.00 61.27
+X.7              Injury Severity                6 16.15 46.25 65.91 84.13
+X.8              Age of Claimant             0-15  7.39 26.86 42.11 64.33
+X.9              Age of Claimant            15-30  9.54 32.21 49.99 72.53
+X.10             Age of Claimant            30-50  9.64 32.00 50.35 72.15
+X.11             Age of Claimant            50-65 10.30 32.57 51.23 72.81
+X.12             Age of Claimant          over 65 11.26 34.88 53.41 74.61
+X.13                Vehicle type        Passenger  9.18 30.61 48.37 70.59
+X.14                Vehicle type Light Commerical 10.21 32.20 49.10 70.59
+X.15                Vehicle type     Medium goods 12.12 35.58 53.71 75.75
+X.16                Vehicle type      Heavy goods  8.15 44.63 60.80 77.72
+X.17                Business use                Y  9.71 33.14 50.33 72.04
+X.18                Business use                N  9.28 30.69 48.38 70.41
+pattern_all            portfolio              all  9.38 31.27 48.84 70.80
+            dev_10 dev_20
+X            91.01  98.46
+X.1          95.27  98.93
+X.2          92.04  98.32
+X.3          92.15  98.52
+X.4          91.09  98.60
+X.5          89.54  98.69
+X.6          86.52  97.63
+X.7          95.50  99.19
+X.8          88.04  98.08
+X.9          91.60  98.30
+X.10         91.64  98.58
+X.11         92.32  98.74
+X.12         92.83  98.89
+X.13         90.80  98.39
+X.14         91.14  98.56
+X.15         96.58  99.54
+X.16         95.70  99.92
+X.17         91.93  98.94
+X.18         90.75  98.32
+pattern_all  91.03  98.46
+                  feature            level ultimate_pct  lag median_claim_lag
+X    Legal Representation                Y        99.39 4.02             2.14
+X.1  Legal Representation                N         0.61 2.65             1.32
+X.2       Injury Severity                1        24.58 3.66             1.98
+X.3       Injury Severity                2        28.73 3.78             2.17
+X.4       Injury Severity                3        19.93 4.04             2.45
+X.5       Injury Severity                4        19.89 4.39             2.79
+X.6       Injury Severity                5         6.56 5.10             3.14
+X.7       Injury Severity                6         0.31 2.67             1.62
+X.8       Age of Claimant             0-15        23.41 4.63             2.57
+X.9       Age of Claimant            15-30        21.87 3.91             2.07
+X.10      Age of Claimant            30-50        27.66 3.90             2.08
+X.11      Age of Claimant            50-65        15.20 3.73             2.00
+X.12      Age of Claimant          over 65        11.85 3.59             1.95
+X.13         Vehicle type        Passenger        77.71 4.06             2.12
+X.14         Vehicle type Light Commerical        19.05 3.97             2.10
+X.15         Vehicle type     Medium goods         1.06 3.19             2.02
+X.16         Vehicle type      Heavy goods         2.18 2.93             2.32
+X.17         Business use                Y        23.77 3.78             2.07
+X.18         Business use                N        76.23 4.08             2.13
+     dev_1 dev_2 dev_3 dev_5 dev_10
+X     9.31 31.14 48.71 70.71  91.01
+X.1  20.61 52.30 69.24 84.33  95.27
+X.2  11.49 36.55 54.66 75.56  92.04
+X.3  10.17 32.95 51.20 73.11  92.15
+X.4   8.54 29.57 47.72 69.62  91.09
+X.5   7.58 25.85 42.00 65.68  89.54
+X.6   5.72 25.05 40.00 61.27  86.52
+X.7  16.15 46.25 65.91 84.13  95.50
+X.8   7.39 26.86 42.11 64.33  88.04
+X.9   9.54 32.21 49.99 72.53  91.60
+X.10  9.64 32.00 50.35 72.15  91.64
+X.11 10.30 32.57 51.23 72.81  92.32
+X.12 11.26 34.88 53.41 74.61  92.83
+X.13  9.18 30.61 48.37 70.59  90.80
+X.14 10.21 32.20 49.10 70.59  91.14
+X.15 12.12 35.58 53.71 75.75  96.58
+X.16  8.15 44.63 60.80 77.72  95.70
+X.17  9.71 33.14 50.33 72.04  91.93
+X.18  9.28 30.69 48.38 70.41  90.75
+                feature            level      n claims_pct cost_pct
+1  Legal Representation                Y 389004      97.36    99.37
+2  Legal Representation                N  10564       2.64     0.63
+3       Injury Severity                1 212308      53.13    24.73
+4       Injury Severity                2 119489      29.90    28.84
+5       Injury Severity                3  40018      10.02    19.92
+6       Injury Severity                4  19829       4.96    19.68
+7       Injury Severity                5   3905       0.98     6.51
+8       Injury Severity                6   4019       1.01     0.32
+9       Age of Claimant             0-15  73127      18.30    23.17
+10      Age of Claimant            15-30  76623      19.18    21.91
+11      Age of Claimant            30-50 109409      27.38    27.71
+12      Age of Claimant            50-65  72002      18.02    15.27
+13      Age of Claimant          over 65  68407      17.12    11.94
+14         Vehicle type        Passenger 370700      92.78    77.57
+15         Vehicle type Light Commerical  27272       6.83    19.05
+16         Vehicle type     Medium goods   1075       0.27     1.08
+17         Vehicle type      Heavy goods    521       0.13     2.30
+18         Business use                Y  55545      13.90    23.89
+19         Business use                N 344023      86.10    76.11
+   ultimate_pct outstanding_pct paid_pct mean_ultimate os_to_claims
+1         99.39           99.60    78.57     225343.60         1.02
+2          0.61            0.40    86.03      51147.75         0.15
+3         24.58           22.37    80.54     102105.33         0.42
+4         28.73           27.51    79.53     212033.12         0.92
+5         19.93           19.83    78.74     439362.97         1.98
+6         19.89           22.33    76.00     884840.29         4.50
+7          6.56            7.73    74.79    1481405.99         7.91
+8          0.31            0.23    84.22      68092.92         0.23
+9         23.41           26.64    75.67     282401.97         1.46
+10        21.87           21.56    78.92     251758.13         1.12
+11        27.66           26.92    79.19     222947.43         0.98
+12        15.20           14.15    80.11     186247.37         0.79
+13        11.85           10.72    80.66     152843.64         0.63
+14        77.71           79.93    78.01     184884.15         0.86
+15        19.05           18.41    79.34     616098.10         2.70
+16         1.06            0.72    85.55     872803.80         2.67
+17         2.18            0.94    90.75    3690672.13         7.23
+18        23.77           22.00    80.21     377467.53         1.58
+19        76.23           78.00    78.12     195433.01         0.91
+                feature            level  open open_pct unreported os_open
+1  Legal Representation                Y 31953     8.21      38735 8788.34
+2  Legal Representation                N   471     4.46        920   20.12
+3       Injury Severity                1 14996     7.06      22067 1489.14
+4       Injury Severity                2 10031     8.39      11637 2177.84
+5       Injury Severity                3  4096    10.24       3614 1888.41
+6       Injury Severity                4  2440    12.31       1763 2363.54
+7       Injury Severity                5   584    14.96        297  870.78
+8       Injury Severity                6   277     6.89        277   18.75
+9       Age of Claimant             0-15  7480    10.23       7741 2477.16
+10      Age of Claimant            15-30  5980     7.80       7443 1886.23
+11      Age of Claimant            30-50  8688     7.94      10881 2341.03
+12      Age of Claimant            50-65  5461     7.58       6968 1198.23
+13      Age of Claimant          over 65  4815     7.04       6622  905.82
+14         Vehicle type        Passenger 30022     8.10      37144 6865.18
+15         Vehicle type Light Commerical  2272     8.33       2387 1762.13
+16         Vehicle type     Medium goods    86     8.00         87   61.63
+17         Vehicle type      Heavy goods    44     8.45         37  119.52
+18         Business use                Y  4672     8.41       4773 2179.51
+19         Business use                N 27752     8.07      34882 6628.95
+   os_unreported os_unreported_pct os_per_open_claim
+1        9993.63             53.21         275039.72
+2          55.35             73.34          42714.28
+3        2729.09             64.70          99302.57
+4        3009.62             58.02         217111.34
+5        1850.38             49.49         461036.94
+6        1847.92             43.88         968665.00
+7         587.55             40.29        1491061.02
+8          24.44             56.59          67681.98
+9        2547.05             50.70         331171.08
+10       2179.93             53.61         315423.84
+11       2736.19             53.89         269455.01
+12       1469.43             55.08         219415.18
+13       1116.38             55.21         188123.97
+14       8207.48             54.45         228671.61
+15       1709.20             49.24         775587.17
+16         73.94             54.54         716626.26
+17         58.37             32.81        2716355.00
+18       1968.70             47.46         466505.51
+19       8080.29             54.93         238863.83
+        AY      1      2      3      4      5     6   total
+    <char>  <num>  <num>  <num>  <num>  <num> <num>   <num>
+ 1:   1-10  358.8  381.0  301.8  312.8  145.4   2.5  1502.2
+ 2:     11   88.8  103.3   56.7   56.9   40.7   0.4   346.8
+ 3:     12  108.1  128.9   80.4  147.9   41.2   0.2   506.8
+ 4:     13  122.4  141.1  123.0  141.1   38.5   1.4   567.4
+ 5:     14  178.3  190.6  186.0  214.7   69.2   0.9   839.7
+ 6:     15  207.3  281.9  195.4  261.2   88.8   1.8  1036.4
+ 7:     16  275.4  374.2  284.1  365.9  106.8   2.9  1409.2
+ 8:     17  401.0  504.5  376.5  496.5  128.1   4.5  1911.1
+ 9:     18  554.1  712.6  484.6  565.9  258.3   4.3  2579.7
+10:     19  795.9  966.9  714.0  690.3  234.2   9.0  3410.5
+11:     20 1128.0 1402.7  936.3  958.3  307.1  15.3  4747.6
+12:  total 4218.2 5187.5 3738.8 4211.5 1458.3  43.2 18857.4
+                feature            level    f_1    f_2    f_3    f_4    f_5
+1  Legal Representation                Y 3.3536 1.5618 1.2601 1.1513 1.0956
+2  Legal Representation                N 2.5673 1.3320 1.1377 1.0691 1.0430
+3       Injury Severity                1 3.1885 1.4956 1.2298 1.1255 1.0770
+4       Injury Severity                2 3.2389 1.5489 1.2477 1.1394 1.0926
+5       Injury Severity                3 3.4622 1.6117 1.2710 1.1596 1.1049
+6       Injury Severity                4 3.4528 1.6271 1.3122 1.1883 1.1106
+7       Injury Severity                5 4.3734 1.5813 1.2688 1.1840 1.1115
+8       Injury Severity                6 2.8549 1.4162 1.1471 1.0986 1.0579
+9       Age of Claimant             0-15 3.6738 1.5613 1.2961 1.1771 1.1209
+10      Age of Claimant            15-30 3.4002 1.5509 1.2640 1.1451 1.0881
+11      Age of Claimant            30-50 3.3035 1.5706 1.2483 1.1517 1.0904
+12      Age of Claimant            50-65 3.1819 1.5724 1.2454 1.1366 1.0866
+13      Age of Claimant          over 65 3.0984 1.5316 1.2330 1.1327 1.0862
+14         Vehicle type        Passenger 3.3413 1.5774 1.2636 1.1540 1.0933
+15         Vehicle type Light Commerical 3.1784 1.5285 1.2579 1.1456 1.1073
+16         Vehicle type     Medium goods 2.9271 1.5492 1.1780 1.2356 1.0948
+17         Vehicle type      Heavy goods 5.4253 1.3360 1.1807 1.0596 1.0645
+18         Business use                Y 3.4625 1.5146 1.2532 1.1411 1.0907
+19         Business use                N 3.3047 1.5746 1.2609 1.1538 1.0966
+20            portfolio              all 3.3432 1.5594 1.2590 1.1507 1.0952
+      f_6    f_7    f_8 paid_pct_dev_1  sd_f_1 min_claims zero_cells
+1  1.0652 1.0450 1.0312         9.4094  0.3120      19189          0
+2  1.0299 1.0208 1.0122        20.5782  0.4003        484          7
+3  1.0484 1.0350 1.0236        11.5804  0.1511      10388          0
+4  1.0597 1.0377 1.0297        10.3385  0.2949       5861          0
+5  1.0700 1.0505 1.0313         8.5458  0.4945       1912          0
+6  1.0857 1.0578 1.0408         7.5997  0.7736        947          0
+7  1.0836 1.0645 1.0383         6.0564  3.7309        175          1
+8  1.0316 1.0139 1.0197        16.2705  1.1205        183         16
+9  1.0827 1.0563 1.0454         7.3981  1.8901       3584          0
+10 1.0596 1.0392 1.0275         9.7021  0.4266       3723          0
+11 1.0580 1.0455 1.0286         9.7834  0.3016       5366          0
+12 1.0702 1.0407 1.0257        10.2927  0.3315       3485          0
+13 1.0530 1.0387 1.0246        11.3984  0.4167       3330          0
+14 1.0630 1.0453 1.0327         9.3101  0.1535      18285          0
+15 1.0699 1.0440 1.0288        10.1819  0.4871       1292          0
+16 1.0884 1.0320 1.0094        11.6311  3.4148         42         39
+17 1.0778 1.0457 1.0097         7.9600 39.6671         15         51
+18 1.0708 1.0444 1.0275         9.6602  1.1017       2716          0
+19 1.0631 1.0450 1.0323         9.4206  0.1735      16904          0
+20 1.0650 1.0449 1.0311         9.4779  0.3006      19723          0
+                feature            level     paid CL_reserves msep_sqrt
+1  Legal Representation                Y 68877.58    17885.11    582.02
+2  Legal Representation                N   464.85       76.29      7.93
+3       Injury Severity                1 17459.55     4052.96    110.81
+4       Injury Severity                2 20148.17     4782.52    176.83
+5       Injury Severity                3 13843.64     3727.76    210.39
+6       Injury Severity                4 13334.04     4162.10    312.22
+7       Injury Severity                5  4326.56     1139.90    291.46
+8       Injury Severity                6   230.48       41.24      7.43
+9       Age of Claimant             0-15 15627.00     4998.97    580.42
+10      Age of Claimant            15-30 15224.29     3739.28    218.03
+11      Age of Claimant            30-50 19315.24     4713.61    207.65
+12      Age of Claimant            50-65 10742.52     2682.26    195.78
+13      Age of Claimant          over 65  8433.38     1891.11    123.72
+14         Vehicle type        Passenger 53463.89    14086.22    312.53
+15         Vehicle type Light Commerical 13330.90     3521.20    253.51
+16         Vehicle type     Medium goods   802.70      174.67     77.49
+17         Vehicle type      Heavy goods  1744.95      223.69    195.85
+18         Business use                Y 16818.22     4255.44    450.45
+19         Business use                N 52524.21    13708.35    338.31
+   true_reserves   error error_pct error_to_msep_sqrt portfolio_factors
+1       17433.04  452.07      2.59               0.78          17784.94
+2          69.71    6.58      9.43               0.83            183.13
+3        3853.09  199.87      5.19               1.80           5067.73
+4        4812.88  -30.36     -0.63              -0.17           5282.08
+5        3492.11  235.65      6.75               1.12           3475.14
+6        3982.22  179.88      4.52               0.58           3305.75
+7        1321.49 -181.59    -13.74              -0.62            764.47
+8          40.96    0.28      0.67               0.04             72.89
+9        4628.27  370.71      8.01               0.64           3765.68
+10       3737.69    1.60      0.04               0.01           4060.17
+11       4731.22  -17.61     -0.37              -0.08           4956.96
+12       2499.27  182.99      7.32               0.93           2868.70
+13       1906.31  -15.20     -0.80              -0.12           2316.56
+14      13966.23  119.99      0.86               0.38          13778.58
+15       3228.96  292.24      9.05               1.15           3699.16
+16        131.21   43.46     33.13               0.56            227.85
+17        176.35   47.34     26.84               0.24            262.48
+18       3925.82  329.62      8.40               0.73           4551.02
+19      13576.93  131.41      0.97               0.39          13417.05
+   portfolio_factors_error_pct
+1                         2.02
+2                       162.69
+3                        31.52
+4                         9.75
+5                        -0.49
+6                       -16.99
+7                       -42.15
+8                        77.94
+9                       -18.64
+10                        8.63
+11                        4.77
+12                       14.78
+13                       21.52
+14                       -1.34
+15                       14.56
+16                       73.65
+17                       48.84
+18                       15.93
+19                       -1.18
+                    split segments CL_reserves sum_abs_errors
+1   none (whole triangle)        1    17968.07         465.31
+2 by Legal Representation        2    17961.40         458.65
+3      by Injury Severity        6    17906.48         827.61
+4      by Age of Claimant        5    18025.24         588.11
+5         by Vehicle type        4    18005.78         503.03
+6         by Business use        2    17963.79         461.03
+  sum_abs_errors_portfolio_factors true_reserves  error error_pct
+1                           465.31      17502.76 465.31      2.66
+2                           465.31      17502.76 458.65      2.62
+3                          2966.23      17502.76 403.73      2.31
+4                          2190.49      17502.76 522.48      2.99
+5                           840.62      17502.76 503.03      2.87
+6                           785.09      17502.76 461.03      2.63
+  msep_sqrt_whole_triangle
+1                   574.99
+2                   574.99
+3                   574.99
+4                   574.99
+5                   574.99
+6                   574.99

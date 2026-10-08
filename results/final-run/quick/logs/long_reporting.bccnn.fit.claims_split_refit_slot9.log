@@ -1,0 +1,39 @@
+==== 2026-10-08 15:18:28 start long_reporting.bccnn.fit.claims_split_refit slot 9
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791465514.830368   14332 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791465518.021722   14332 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+      early_stopping final_fit total
+clock           16.8       7.0  23.8
+keras            7.6       6.6  14.2
+                                                    quantity        value
+1                                              true reserves 1.750276e+04
+2                                        CL reserves (ccODP) 1.796807e+04
+3                                             bCCNN reserves 1.797946e+04
+4                                                    bias CL 4.653150e+02
+5                                                 bias bCCNN 4.767071e+02
+6                                                bias CL (%) 2.658524e+00
+7                                             bias bCCNN (%) 2.723612e+00
+8                                       in-sample loss ccODP 4.606027e+02
+9                                       in-sample loss bCCNN 4.606208e+02
+10                                  out-of-sample loss ccODP 5.526017e+02
+11                                  out-of-sample loss bCCNN 5.528135e+02
+12                                          dispersion ccODP 2.693583e+00
+13                                          dispersion bCCNN 2.681339e+00
+14                                    gradient descent steps 9.200000e+01
+15 payments after the last development period (not modelled) 1.354694e+03
+16                                       amounts in units of 1.000000e+06
+                                                      quantity        value
+1                               validation run length (epochs) 100.00000000
+2                             step with lowest validation loss  92.00000000
+3                                 steps used for the final fit  92.00000000
+4          in-sample deviance without dropout at start (ccODP) 348.58249515
+5         in-sample deviance without dropout at the steps used 348.68113805
+6                             validation loss at start (ccODP) 840.02854810
+7                            validation loss at the steps used 836.21020834
+8              decrease in-sample deviance without dropout (%)  -0.02829829
+9  decrease in-sample training loss with dropout (%, Figure 2)  -0.05760795
+10                  decrease out-of-sample validation loss (%)   0.45454881

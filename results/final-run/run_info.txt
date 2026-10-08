@@ -1,0 +1,52 @@
+launch: 2026-10-08 11:40:41
+computer: vm
+PBS job: 
+processor: Intel(R) Xeon(R) Processor @ 2.10GHz
+logical processors: 4
+memory (GB): 16
+R: R version 4.5.3 (2026-03-11)
+Rscript: /opt/renv/bin/Rscript
+Python: /home/user/Masters-Research-R-python/env/bin/python
+code commit: 4a95fb1 with uncommitted changes
+slots: 4
+profile: '', skip smoke: False, tasks file: ''
+parts: data+nncl
+
+launch: 2026-10-08 11:43:57
+computer: vm
+PBS job: 
+processor: Intel(R) Xeon(R) Processor @ 2.10GHz
+logical processors: 4
+memory (GB): 16
+R: R version 4.5.3 (2026-03-11)
+Rscript: /opt/renv/bin/Rscript
+Python: /home/user/Masters-Research-R-python/env/bin/python
+code commit: 4498f65 with uncommitted changes
+slots: 4
+profile: '', skip smoke: False, tasks file: ''
+parts: data+nncl_main
+
+launch: 2026-10-08 15:18:13
+computer: STATISVM7
+processor: Intel(R) Xeon(R) W-2245 CPU @ 3.90GHz
+logical processors: 12
+memory (GB): 322
+R: R version 4.6.1 (2026-06-24 ucrt)
+Rscript: C:\Users\26196425\AppData\Local\Programs\R-4.6.1\bin\x64\Rscript.exe
+Python: C:\Users\26196425\Work\Masters-Research-R-python\env\Scripts\python.exe
+code commit: 5f04581
+slots: 12
+profile: '', skip smoke: False, tasks file: ''
+
+launch: 2026-10-08 15:39:18
+computer: STATISVM7
+processor: Intel(R) Xeon(R) W-2245 CPU @ 3.90GHz
+logical processors: 12
+memory (GB): 322
+R: R version 4.6.1 (2026-06-24 ucrt)
+Rscript: C:\Users\26196425\AppData\Local\Programs\R-4.6.1\bin\x64\Rscript.exe
+Python: C:\Users\26196425\Work\Masters-Research-R-python\env\Scripts\python.exe
+code commit: 5f04581
+slots: 12
+profile: '', skip smoke: False, tasks file: ''
+

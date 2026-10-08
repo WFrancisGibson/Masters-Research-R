@@ -1,0 +1,5 @@
+setting,value
+early stopping on,rolling_origin
+final network,partition
+steps chosen by,lowest validation loss
+units,1000000

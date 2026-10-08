@@ -1,0 +1,3 @@
+step,tuned,label,score
+0,start,dropout=0,154.088428573691
+1,dropout,dropout=0,154.088428573691

@@ -1,0 +1,18 @@
+relativity_of,factor_i,factor_j,level_ik,level_jl,relativity
+frequency,Legal Representation,Injury Severity,Y,1,0.95
+frequency,Legal Representation,Injury Severity,N,1,0.05
+frequency,Legal Representation,Injury Severity,N,2,0
+frequency,Legal Representation,Injury Severity,N,3,0
+frequency,Legal Representation,Injury Severity,N,4,0
+frequency,Legal Representation,Injury Severity,N,5,0
+frequency,Legal Representation,Injury Severity,N,6,0
+frequency,Vehicle type,Business use,Passenger,N,4
+frequency,Vehicle type,Business use,Light Commerical,N,0.6
+frequency,Vehicle type,Business use,Medium goods,Y,0.35
+frequency,Vehicle type,Business use,Medium goods,N,0.01
+frequency,Vehicle type,Business use,Heavy goods,Y,0.25
+frequency,Vehicle type,Business use,Heavy goods,N,0
+severity,Injury Severity,Age of Claimant,4,50-65,0.97
+severity,Injury Severity,Age of Claimant,4,over 65,0.95
+severity,Injury Severity,Age of Claimant,5,50-65,0.95
+severity,Injury Severity,Age of Claimant,5,over 65,0.9

@@ -1,0 +1,4 @@
+hyperparameter,value
+dropout,0
+hidden,20
+activation,tanh

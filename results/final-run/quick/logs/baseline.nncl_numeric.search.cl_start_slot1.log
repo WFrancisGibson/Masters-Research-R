@@ -1,0 +1,30 @@
+==== 2026-10-08 15:39:22 start baseline.nncl_numeric.search.cl_start slot 1
+==== cl_start: successive search
+15:39 dropout=0: score 6.70018 (baseline 6.74986), 85 s
+15:39 dropout=0.1: score 6.69982 (baseline 6.74986), 89 s
+  dropout       label    score score_sd n_seeds score_baseline
+1     0.1 dropout=0.1 6.699820       NA       1       6.749863
+2       0   dropout=0 6.700178       NA       1       6.749863
+  ratio_to_baseline mean_steps_15 mean_steps_18
+1         0.9925860      3.714286      5.470588
+2         0.9926391      3.571429      5.470588
+  step   tuned       label    score
+1    0   start   dropout=0 6.700178
+2    1 dropout dropout=0.1 6.699820
+cl_start chosen: dropout=0.1
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791466769.673460   18204 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791466773.534289   18204 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000020437398360> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000020437398360> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 19 calls to <function TensorFlowTrainer._make_function.<locals>.multi_step_on_iterator at 0x000002043E038720> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 17 calls to <function TensorFlowTrainer._make_function.<locals>.multi_step_on_iterator at 0x000002043E36CAE0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+              model reserves true_reserves       bias   bias_pct   units
+1         seed 2026 9550.847      9626.776  -75.92919 -0.7887292 1000000
+2         seed 2027 9652.112      9626.776   25.33637  0.2631864 1000000
+3 nagging predictor 9598.334      9626.776  -28.44175 -0.2954442 1000000
+4 Mack chain ladder 9479.361      9626.776 -147.41541 -1.5313061 1000000

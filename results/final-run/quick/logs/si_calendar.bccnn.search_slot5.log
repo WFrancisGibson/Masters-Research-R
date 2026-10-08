@@ -1,0 +1,27 @@
+==== 2026-10-08 15:20:49 start si_calendar.bccnn.search slot 5
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791465655.814967   16988 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791465659.540420   16988 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+15:21 dropout=0.1: score 50.735 (baseline 51.0434), 26 s
+15:21 dropout=0: score 51.033 (baseline 51.0434), 18 s
+  dropout       label    score score_sd n_seeds score_baseline
+1     0.1 dropout=0.1 50.73498       NA       1       51.04343
+2       0   dropout=0 51.03304       NA       1       51.04343
+  ratio_to_baseline mean_steps_15 mean_steps_18
+1         0.9939570             6            24
+2         0.9997965             1            25
+  step   tuned       label    score
+1    0   start dropout=0.1 50.73498
+2    1 dropout dropout=0.1 50.73498
+        hyperparameter value
+dropout        dropout   0.1
+                model steps test_error reserves out_of_sample_loss  seconds
+config.yml config.yml     1   50.73498 221281.7           32733.16 25.19027
+chosen         chosen     1   50.73498 221281.7           32733.16 25.38644
+           true_reserves CL_reserves CL_out_of_sample_loss   units
+config.yml      224063.2    222254.2              32711.93 1000000
+chosen          224063.2    222254.2              32711.93 1000000

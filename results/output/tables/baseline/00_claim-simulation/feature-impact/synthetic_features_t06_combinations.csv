@@ -1,0 +1,23 @@
+quantity,value
+level combinations,480
+with a positive designed probability,245
+occurring,226
+possible but not occurring,19
+largest expected number of claims of those not occurring,1.81689235337788
+possible with an expected number of claims below 5,63
+chi-square of the simulated against the designed numbers,257.176155660697
+degrees of freedom,244
+p-value (chi-square distribution),0.268915167850988
+occurring with fewer than 5 claims,38
+occurring with fewer than 30 claims,83
+occurring with fewer than 100 claims,123
+combinations holding 50% of the claims,7
+combinations holding 90% of the claims,37
+combinations holding 99% of the claims,97
+combinations holding 50% of the claim cost,14
+combinations holding 90% of the claim cost,71
+combinations holding 99% of the claim cost,134
+cells accident year x combination with claims,3342
+median number of claims per cell,12
+cells with one claim,522
+rescaling constant of the severity relativities,1.30417583562066

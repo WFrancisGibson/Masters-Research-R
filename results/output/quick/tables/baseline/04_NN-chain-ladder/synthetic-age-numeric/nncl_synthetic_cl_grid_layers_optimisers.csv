@@ -1,0 +1,9 @@
+hidden,optimizer,training,seed,learning_rate,block,run,parameters,run_time,epochs_used,epochs_run,loss,loss_vali,diverged,loss_hom,true,reserve,bias_pct
+20,rmsprop,cl_paper,2026,0.001,1,clgrid_20_rmsprop_cl_paper_s2026,261,24.4,95,95,145888,15234.8,0,146289.3,9626.8,10262,6.6
+20,rmsprop,cl_paper,2027,0.001,1,clgrid_20_rmsprop_cl_paper_s2027,261,24.6,95,95,145920.9,15236.3,0,146289.3,9626.8,10948.4,13.7
+20,rmsprop,cl_start,2026,0.001,1,clgrid_20_rmsprop_cl_start_s2026,261,32,82,135,146082.4,15220.9,0,146289.3,9626.8,9577.2,-0.5
+20,rmsprop,cl_start,2027,0.001,1,clgrid_20_rmsprop_cl_start_s2027,261,28,78,123,146107.3,15225.4,0,146289.3,9626.8,9888,2.7
+20,sgd,cl_paper,2026,0.001,1,clgrid_20_sgd_cl_paper_s2026,261,20.9,95,95,146160.6,15244.8,0,146289.3,9626.8,9553.7,-0.8
+20,sgd,cl_paper,2027,0.001,1,clgrid_20_sgd_cl_paper_s2027,261,17.9,95,95,146196.2,15250,0,146289.3,9626.8,9591.9,-0.4
+20,sgd,cl_start,2026,0.001,1,clgrid_20_sgd_cl_start_s2026,261,24.5,123,144,146217,15240.9,0,146289.3,9626.8,9571.9,-0.6
+20,sgd,cl_start,2027,0.001,1,clgrid_20_sgd_cl_start_s2027,261,23.5,115,138,146258.8,15243.7,0,146289.3,9626.8,9594.4,-0.3

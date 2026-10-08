@@ -1,0 +1,5 @@
+setting,value
+early stopping on,claims_split
+final network,refit
+steps chosen by,lowest validation loss
+units,1000000

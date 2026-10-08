@@ -1,0 +1,30 @@
+==== 2026-10-08 15:39:23 start long_reporting.nncl_numeric.search.paper slot 8
+==== paper: grid search
+15:39 dropout=0, hidden=20, activation=tanh: score 29.0093 (baseline 20.6273), 71 s
+15:39 dropout=0.1, hidden=20, activation=tanh: score 40393.4 (baseline 20.6273), 73 s
+  dropout hidden activation                                   label       score
+1       0     20       tanh   dropout=0, hidden=20, activation=tanh    29.00927
+2     0.1     20       tanh dropout=0.1, hidden=20, activation=tanh 40393.36437
+  score_sd n_seeds score_baseline ratio_to_baseline mean_steps_15 mean_steps_18
+1       NA       1       20.62729          1.406354             5             5
+2       NA       1       20.62729       1958.248558             5             5
+paper chosen: dropout=0, hidden=20, activation=tanh
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791466769.909893    4932 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791466773.552961    4932 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000203F6543920> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000203F6543920> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+              model     reserves true_reserves         bias     bias_pct
+1         seed 2026 3.364511e+05      17502.76 3.189483e+05 1.822275e+03
+2         seed 2027 8.895606e+09      17502.76 8.895589e+09 5.082393e+07
+3 nagging predictor 4.793435e+07      17502.76 4.791685e+07 2.737675e+05
+4 Mack chain ladder 1.796807e+04      17502.76 4.653150e+02 2.658524e+00
+    units
+1 1000000
+2 1000000
+3 1000000
+4 1000000

@@ -1,0 +1,20 @@
+feature,level,design_prob,freq_relativity,sev_relativity,reference,sev_vs_reference,notidel_mult,setldel_mult,rationale
+Legal Representation,Y,0.9735,1,2,TRUE,1,1,1,reference (97% of claims)
+Legal Representation,N,0.0265,1,1,FALSE,0.5,0.8,0.6,unrepresented claimants deal with the insurer directly: reported and settled faster
+Injury Severity,1,0.53,0.53,0.6,FALSE,0.5,1.1,0.85,"minor / soft tissue: reported late, settled quickly"
+Injury Severity,2,0.3,0.3,1.2,TRUE,1,1,1,reference
+Injury Severity,3,0.1,0.1,2.5,FALSE,2.08333333333333,0.95,1.2,moderate: hospital contact speeds reporting; prognosis takes longer
+Injury Severity,4,0.05,0.05,5,FALSE,4.16666666666667,0.9,1.45,serious: reported fast; settlement waits for stabilisation
+Injury Severity,5,0.01,0.01,8,FALSE,6.66666666666667,0.85,1.75,severe: reported fast; longest settlement
+Injury Severity,6,0.01,0.01,0.4,FALSE,0.333333333333333,0.7,0.8,fatal: reported immediately; settlement comparatively quick
+Age of Claimant,0-15,0.183,0.183,1.25,FALSE,1.25,1.1,1.3,minors: lodged by guardians; settlement deferred until prognosis stable
+Age of Claimant,15-30,0.192,0.192,1.15,FALSE,1.15,1,1,reference
+Age of Claimant,30-50,0.274,0.274,1,TRUE,1,1,1,reference
+Age of Claimant,50-65,0.18,0.18,0.85,FALSE,0.85,1,0.95,smaller economic-loss head
+Age of Claimant,over 65,0.171,0.171,0.7,FALSE,0.7,1,0.9,no earnings-loss head to quantify
+Vehicle type,Passenger,0.927988121752042,5,0.25,TRUE,1,1,1,reference (93% of claims)
+Vehicle type,Light Commerical,0.0680524622618164,1.5,0.75,FALSE,3,0.95,1,fleet reporting
+Vehicle type,Medium goods,0.00267054359481976,0.35,1,FALSE,4,0.9,1.05,fleet reporting; more multi-party liability questions
+Vehicle type,Heavy goods,0.00128887239132228,0.25,3,FALSE,12,0.9,1.1,fleet reporting; more often disputed / multi-party
+Business use,Y,0.137857790975831,2.5,1.3,FALSE,1.3,0.85,1.05,formal incident reporting; liability slightly more contested
+Business use,N,0.862142209024169,5,1,TRUE,1,1,1,reference (86% of claims)

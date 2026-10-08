@@ -1,0 +1,62 @@
+==== 2026-10-08 12:03:21 start status.final.data-nncl_main slot 1
+ id                                          stage kind   state runs done to_do sessions seconds seconds_from seconds_runs slot_hours hours
+ keras.check                                 0     single done  1    1    0     0         10.0   own          1            0          0    
+ baseline.simulation                         0     single done  1    1    0     0        605.0   own          1            0          0    
+ baseline.fingerprint                        0     single done  1    1    0     0         15.0   own          1            0          0    
+ baseline.triangles                          0     single done  1    1    0     0         10.0   own          1            0          0    
+ baseline.nncl.cells                         0     single done  1    1    0     0         10.0   own          1            0          0    
+ baseline.nncl_numeric.cells                 0     single done  1    1    0     0         10.0   own          1            0          0    
+ baseline.description                        0     single done  1    1    0     0         20.0   own          1            0          0    
+ baseline.features                           0     single done  1    1    0     0         40.0   own          1            0          0    
+ baseline.mack                               0     single done  1    1    0     0          5.0   own          1            0          0    
+ baseline.odp                                0     single done  1    1    0     0         10.0   own          1            0          0    
+ si_calendar.simulation                      0     single done  1    1    0     0        640.0   own          1            0          0    
+ si_calendar.fingerprint                     0     single done  1    1    0     0         15.0   own          1            0          0    
+ si_calendar.triangles                       0     single done  1    1    0     0         15.0   own          1            0          0    
+ si_calendar.nncl.cells                      0     single done  1    1    0     0         10.0   own          1            0          0    
+ si_calendar.nncl_numeric.cells              0     single done  1    1    0     0         10.0   own          1            0          0    
+ si_calendar.description                     0     single done  1    1    0     0         20.0   own          1            0          0    
+ si_calendar.features                        0     single done  1    1    0     0         40.0   own          1            0          0    
+ si_calendar.mack                            0     single done  1    1    0     0          5.0   own          1            0          0    
+ si_calendar.odp                             0     single done  1    1    0     0         15.0   own          1            0          0    
+ long_reporting.simulation                   0     single done  1    1    0     0        600.0   own          1            0          0    
+ long_reporting.fingerprint                  0     single done  1    1    0     0         15.0   own          1            0          0    
+ long_reporting.triangles                    0     single done  1    1    0     0         10.0   own          1            0          0    
+ long_reporting.nncl.cells                   0     single done  1    1    0     0         10.0   own          1            0          0    
+ long_reporting.nncl_numeric.cells           0     single done  1    1    0     0         10.0   own          1            0          0    
+ long_reporting.description                  0     single done  1    1    0     0         20.0   own          1            0          0    
+ long_reporting.features                     0     single done  1    1    0     0         40.0   own          1            0          0    
+ long_reporting.mack                         0     single done  1    1    0     0          5.0   own          1            0          0    
+ long_reporting.odp                          0     single done  1    1    0     0         10.0   own          1            0          0    
+ baseline.nncl.main                          1     queue  done  6    6    0     0         39.2   own          6            0          0    
+ baseline.nncl.main.analysis                 1     single done  1    1    0     0         15.0   own          1            0          0    
+ baseline.nncl_numeric.main                  1     queue  done  6    6    0     0         37.7   own          6            0          0    
+ baseline.nncl_numeric.main.analysis         1     single done  1    1    0     0         15.0   own          1            0          0    
+ baseline.nncl.partition                     1     single done  1    1    0     0         10.0   own          1            0          0    
+ si_calendar.nncl.main                       1     queue  done  6    6    0     0         38.1   own          6            0          0    
+ si_calendar.nncl.main.analysis              1     single done  1    1    0     0         15.0   own          1            0          0    
+ si_calendar.nncl_numeric.main               1     queue  done  6    6    0     0         38.0   own          6            0          0    
+ si_calendar.nncl_numeric.main.analysis      1     single done  1    1    0     0         15.0   own          1            0          0    
+ si_calendar.nncl.partition                  1     single done  1    1    0     0         10.0   own          1            0          0    
+ long_reporting.nncl.main                    1     queue  done  6    6    0     0         37.0   own          6            0          0    
+ long_reporting.nncl.main.analysis           1     single done  1    1    0     0         15.0   own          1            0          0    
+ long_reporting.nncl_numeric.main            1     queue  done  6    6    0     0         35.9   own          6            0          0    
+ long_reporting.nncl_numeric.main.analysis   1     single done  1    1    0     0         15.0   own          1            0          0    
+ long_reporting.nncl.partition               1     single done  1    1    0     0         10.0   own          1            0          0    
+ baseline.timings.stage3                     3     single done  1    1    0     0          5.0   own          1            0          0    
+ si_calendar.timings.stage3                  3     single done  1    1    0     0          5.0   own          1            0          0    
+ long_reporting.timings.stage3               3     single done  1    1    0     0          5.0   own          1            0          0    
+ baseline.timings.final.data-nncl_main       9     single done  1    1    0     0          5.0   own          1            0          0    
+ si_calendar.timings.final.data-nncl_main    9     single done  1    1    0     0          5.0   own          1            0          0    
+ long_reporting.timings.final.data-nncl_main 9     single done  1    1    0     0          5.0   own          1            0          0    
+ status.final.data-nncl_main                 9     single done  1    1    0     0           NA                0            0          0    
+  stage tasks tasks_done failed runs runs_done no_time slot_hours hours days
+1     0    28         28      0    0         0       0          0     0    0
+2     1    15         15      0   36        36       0          0     0    0
+3     3     3          3      0    0         0       0          0     0    0
+4     9     4          4      0    0         0       0          0     0    0
+5   all    50         50      0   36        36       0          0     0    0
+2026-10-08 12:03: 50 of 50 tasks done, 0 failed; 0 R sessions running; 4 slots (RUN_WORKERS)
+work left: 0.0 slot hours, at least 0.0 hours (0.0 days); end at the earliest: nothing is left to do
+to do without a time yet (not in the hours): 0 runs of 0 queues, 0 other tasks
+queues to do with a time from less than 5% of their runs: 0

@@ -1,0 +1,5 @@
+hidden,optimizer,training,block,seeds,run,diverged,loss,loss_vali,true,reserve,bias_pct
+20,rmsprop,paper,1,2026-2027,nag_grid_20_rmsprop_paper_b1,0,302470.9,34368.6,17502.8,793530.9,4433.7
+20,rmsprop,early_stop,1,2026-2027,nag_grid_20_rmsprop_early_stop_b1,0,290441,32948.8,17502.8,370342.3,2015.9
+20,sgd,paper,1,2026-2027,nag_grid_20_sgd_paper_b1,0,307718.3,34912.6,17502.8,1204705.2,6782.9
+20,sgd,early_stop,1,2026-2027,nag_grid_20_sgd_early_stop_b1,0,290907.4,32858.9,17502.8,714909.3,3984.6
