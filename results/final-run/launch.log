@@ -1027,3 +1027,187 @@
 2026-10-09 01:30:43  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 769 of 23343; sessions 12 of 12: baseline.nncl.grid x12
 2026-10-09 01:30:53  end     baseline.nncl.grid slot 10: exit code 0, 4305 s; run files 467 of 1200
 2026-10-09 01:30:53  start   baseline.nncl.grid slot 10 pid 19072
+2026-10-09 01:35:43  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 775 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 01:36:03  push    ok: progress after 6 hours
+2026-10-09 01:40:48  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 783 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 01:44:06  end     baseline.nncl.grid slot 11: exit code 0, 4047 s; run files 483 of 1200
+2026-10-09 01:44:06  start   baseline.nncl.grid slot 11 pid 13752
+2026-10-09 01:45:52  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 788 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 01:47:14  end     baseline.nncl.grid slot 6: exit code 0, 2844 s; run files 487 of 1200
+2026-10-09 01:47:14  start   baseline.nncl.grid slot 6 pid 17140
+2026-10-09 01:49:05  end     baseline.nncl.grid slot 2: exit code 0, 5002 s; run files 489 of 1200
+2026-10-09 01:49:05  start   baseline.nncl.grid slot 2 pid 17656
+2026-10-09 01:50:57  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 794 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 01:56:02  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 801 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:01:07  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 805 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:01:17  end     baseline.nncl.grid slot 4: exit code 0, 7251 s; run files 503 of 1200
+2026-10-09 02:01:17  start   baseline.nncl.grid slot 4 pid 17448
+2026-10-09 02:06:11  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 815 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:11:16  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 822 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:16:21  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 826 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:18:33  end     baseline.nncl.grid slot 8: exit code 0, 7145 s; run files 526 of 1200
+2026-10-09 02:18:33  start   baseline.nncl.grid slot 8 pid 19224
+2026-10-09 02:19:08  end     baseline.nncl.grid slot 1: exit code 0, 5180 s; run files 528 of 1200
+2026-10-09 02:19:08  start   baseline.nncl.grid slot 1 pid 12352
+2026-10-09 02:20:35  end     baseline.nncl.grid slot 9: exit code 0, 4150 s; run files 529 of 1200
+2026-10-09 02:20:35  start   baseline.nncl.grid slot 9 pid 11964
+2026-10-09 02:21:26  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 833 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:25:09  end     baseline.nncl.grid slot 2: exit code 0, 2164 s; run files 535 of 1200
+2026-10-09 02:25:09  start   baseline.nncl.grid slot 2 pid 4284
+2026-10-09 02:26:31  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 838 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:31:35  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 843 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:33:27  end     baseline.nncl.grid slot 3: exit code 0, 5902 s; run files 542 of 1200
+2026-10-09 02:33:27  start   baseline.nncl.grid slot 3 pid 8588
+2026-10-09 02:36:30  end     baseline.nncl.grid slot 12: exit code 0, 4171 s; run files 545 of 1200
+2026-10-09 02:36:30  start   baseline.nncl.grid slot 12 pid 10736
+2026-10-09 02:36:40  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 849 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:41:45  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 858 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:43:26  end     baseline.nncl.grid slot 7: exit code 0, 4998 s; run files 557 of 1200
+2026-10-09 02:43:26  start   baseline.nncl.grid slot 7 pid 12896
+2026-10-09 02:46:50  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 863 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:51:54  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 867 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:56:59  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 876 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 02:57:19  end     baseline.nncl.grid slot 10: exit code 0, 5186 s; run files 574 of 1200
+2026-10-09 02:57:19  start   baseline.nncl.grid slot 10 pid 15692
+2026-10-09 03:01:43  end     baseline.nncl.grid slot 6: exit code 0, 4470 s; run files 580 of 1200
+2026-10-09 03:01:44  start   baseline.nncl.grid slot 6 pid 18868
+2026-10-09 03:01:59  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 883 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:07:04  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 891 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:09:36  end     baseline.nncl.grid slot 5: exit code 0, 6066 s; run files 590 of 1200
+2026-10-09 03:09:37  start   baseline.nncl.grid slot 5 pid 17084
+2026-10-09 03:10:43  end     baseline.nncl.grid slot 1: exit code 0, 3094 s; run files 591 of 1200
+2026-10-09 03:10:43  start   baseline.nncl.grid slot 1 pid 12272
+2026-10-09 03:12:04  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 895 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:14:11  end     baseline.nncl.grid slot 11: exit code 0, 5405 s; run files 594 of 1200
+2026-10-09 03:14:11  start   baseline.nncl.grid slot 11 pid 15688
+2026-10-09 03:17:09  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 902 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:19:52  end     baseline.nncl.grid slot 4: exit code 0, 4715 s; run files 601 of 1200
+2026-10-09 03:19:52  start   baseline.nncl.grid slot 4 pid 12592
+2026-10-09 03:22:14  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 907 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:23:51  end     baseline.nncl.grid slot 2: exit code 0, 3521 s; run files 605 of 1200
+2026-10-09 03:23:51  start   baseline.nncl.grid slot 2 pid 16872
+2026-10-09 03:27:19  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 914 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:30:22  end     baseline.nncl.grid slot 8: exit code 0, 4309 s; run files 616 of 1200
+2026-10-09 03:30:22  start   baseline.nncl.grid slot 8 pid 8872
+2026-10-09 03:32:24  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 921 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:37:14  end     baseline.nncl.grid slot 12: exit code 0, 3644 s; run files 624 of 1200
+2026-10-09 03:37:14  start   baseline.nncl.grid slot 12 pid 3644
+2026-10-09 03:37:29  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 928 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:42:34  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 935 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:47:39  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 941 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:52:44  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 946 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 03:52:54  end     baseline.nncl.grid slot 7: exit code 0, 4167 s; run files 645 of 1200
+2026-10-09 03:52:54  start   baseline.nncl.grid slot 7 pid 15276
+2026-10-09 03:57:48  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 953 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:02:53  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 960 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:03:14  end     baseline.nncl.grid slot 10: exit code 0, 3954 s; run files 658 of 1200
+2026-10-09 04:03:14  start   baseline.nncl.grid slot 10 pid 7588
+2026-10-09 04:05:46  end     baseline.nncl.grid slot 3: exit code 0, 5539 s; run files 661 of 1200
+2026-10-09 04:05:46  start   baseline.nncl.grid slot 3 pid 2944
+2026-10-09 04:07:58  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 966 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:12:32  end     baseline.nncl.grid slot 1: exit code 0, 3710 s; run files 668 of 1200
+2026-10-09 04:12:33  start   baseline.nncl.grid slot 1 pid 18364
+2026-10-09 04:12:53  end     baseline.nncl.grid slot 11: exit code 0, 3522 s; run files 669 of 1200
+2026-10-09 04:12:53  start   baseline.nncl.grid slot 11 pid 11768
+2026-10-09 04:13:03  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 973 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:18:08  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 979 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:20:00  end     baseline.nncl.grid slot 9: exit code 0, 7165 s; run files 678 of 1200
+2026-10-09 04:20:00  start   baseline.nncl.grid slot 9 pid 19064
+2026-10-09 04:23:13  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 983 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:28:18  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 989 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:30:15  end     baseline.nncl.grid slot 8: exit code 0, 3593 s; run files 690 of 1200
+2026-10-09 04:30:15  start   baseline.nncl.grid slot 8 pid 13936
+2026-10-09 04:33:23  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 998 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:38:28  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1003 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:43:32  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1008 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:47:16  end     baseline.nncl.grid slot 5: exit code 0, 5859 s; run files 711 of 1200
+2026-10-09 04:47:16  start   baseline.nncl.grid slot 5 pid 18280
+2026-10-09 04:48:37  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1015 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:50:19  end     baseline.nncl.grid slot 2: exit code 0, 5188 s; run files 716 of 1200
+2026-10-09 04:50:19  start   baseline.nncl.grid slot 2 pid 17680
+2026-10-09 04:52:31  end     baseline.nncl.grid slot 3: exit code 0, 2805 s; run files 717 of 1200
+2026-10-09 04:52:31  start   baseline.nncl.grid slot 3 pid 9468
+2026-10-09 04:53:42  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1022 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 04:55:04  end     baseline.nncl.grid slot 6: exit code 0, 6800 s; run files 722 of 1200
+2026-10-09 04:55:04  start   baseline.nncl.grid slot 6 pid 17384
+2026-10-09 04:58:47  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1028 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:01:00  end     baseline.nncl.grid slot 12: exit code 0, 5026 s; run files 727 of 1200
+2026-10-09 05:01:00  start   baseline.nncl.grid slot 12 pid 16084
+2026-10-09 05:03:52  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1033 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:05:19  end     baseline.nncl.grid slot 4: exit code 0, 6327 s; run files 732 of 1200
+2026-10-09 05:05:19  start   baseline.nncl.grid slot 4 pid 17992
+2026-10-09 05:05:49  end     baseline.nncl.grid slot 7: exit code 0, 4376 s; run files 734 of 1200
+2026-10-09 05:05:50  start   baseline.nncl.grid slot 7 pid 17156
+2026-10-09 05:08:53  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1039 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:13:57  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1047 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:17:00  end     baseline.nncl.grid slot 11: exit code 0, 3847 s; run files 748 of 1200
+2026-10-09 05:17:01  start   baseline.nncl.grid slot 11 pid 10936
+2026-10-09 05:18:58  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1053 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:23:42  end     baseline.nncl.grid slot 10: exit code 0, 4828 s; run files 758 of 1200
+2026-10-09 05:23:42  start   baseline.nncl.grid slot 10 pid 17256
+2026-10-09 05:24:03  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1062 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:25:09  end     baseline.nncl.grid slot 9: exit code 0, 3909 s; run files 760 of 1200
+2026-10-09 05:25:09  start   baseline.nncl.grid slot 9 pid 14904
+2026-10-09 05:27:41  end     baseline.nncl.grid slot 1: exit code 0, 4509 s; run files 763 of 1200
+2026-10-09 05:27:41  start   baseline.nncl.grid slot 1 pid 10924
+2026-10-09 05:28:47  end     baseline.nncl.grid slot 3: exit code 0, 2176 s; run files 764 of 1200
+2026-10-09 05:28:47  start   baseline.nncl.grid slot 3 pid 11544
+2026-10-09 05:29:03  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1067 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:34:08  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1073 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:39:13  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1080 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:44:18  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1085 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:49:23  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1090 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:53:42  end     baseline.nncl.grid slot 8: exit code 0, 5007 s; run files 795 of 1200
+2026-10-09 05:53:42  start   baseline.nncl.grid slot 8 pid 17676
+2026-10-09 05:54:28  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1099 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 05:59:33  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1103 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:04:38  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1108 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:05:03  end     baseline.nncl.grid slot 2: exit code 0, 4484 s; run files 806 of 1200
+2026-10-09 06:05:03  start   baseline.nncl.grid slot 2 pid 11660
+2026-10-09 06:09:43  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1116 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:11:55  end     baseline.nncl.grid slot 5: exit code 0, 5079 s; run files 816 of 1200
+2026-10-09 06:11:55  start   baseline.nncl.grid slot 5 pid 12456
+2026-10-09 06:14:48  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1122 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:17:15  end     baseline.nncl.grid slot 12: exit code 0, 4576 s; run files 821 of 1200
+2026-10-09 06:17:15  start   baseline.nncl.grid slot 12 pid 12848
+2026-10-09 06:19:53  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1126 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:24:53  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1134 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:28:16  end     baseline.nncl.grid slot 6: exit code 0, 5593 s; run files 836 of 1200
+2026-10-09 06:28:17  start   baseline.nncl.grid slot 6 pid 11568
+2026-10-09 06:29:53  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1140 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:31:14  end     baseline.nncl.grid slot 10: exit code 0, 4052 s; run files 839 of 1200
+2026-10-09 06:31:15  start   baseline.nncl.grid slot 10 pid 14608
+2026-10-09 06:34:58  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1144 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:40:03  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1151 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:40:44  end     baseline.nncl.grid slot 7: exit code 0, 5694 s; run files 849 of 1200
+2026-10-09 06:40:44  start   baseline.nncl.grid slot 7 pid 1308
+2026-10-09 06:40:54  end     baseline.nncl.grid slot 11: exit code 0, 5034 s; run files 851 of 1200
+2026-10-09 06:40:54  start   baseline.nncl.grid slot 11 pid 17576
+2026-10-09 06:42:46  end     baseline.nncl.grid slot 4: exit code 0, 5847 s; run files 853 of 1200
+2026-10-09 06:42:46  start   baseline.nncl.grid slot 4 pid 1680
+2026-10-09 06:44:33  end     baseline.nncl.grid slot 3: exit code 0, 4545 s; run files 854 of 1200
+2026-10-09 06:44:33  start   baseline.nncl.grid slot 3 pid 6072
+2026-10-09 06:45:04  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1157 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:50:04  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1163 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 06:54:08  end     baseline.nncl.grid slot 1: exit code 0, 5186 s; run files 865 of 1200
+2026-10-09 06:54:08  start   baseline.nncl.grid slot 1 pid 13664
+2026-10-09 06:55:04  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1169 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:00:04  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1177 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:05:09  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1184 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:10:14  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1190 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:14:38  end     baseline.nncl.grid slot 9: exit code 0, 6569 s; run files 892 of 1200
+2026-10-09 07:14:39  start   baseline.nncl.grid slot 9 pid 18712
+2026-10-09 07:15:14  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1197 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:15:45  end     baseline.nncl.grid slot 12: exit code 0, 3510 s; run files 895 of 1200
+2026-10-09 07:15:45  start   baseline.nncl.grid slot 12 pid 9180
+2026-10-09 07:16:41  end     baseline.nncl.grid slot 2: exit code 0, 4298 s; run files 897 of 1200
+2026-10-09 07:16:41  start   baseline.nncl.grid slot 2 pid 7460
+2026-10-09 07:19:49  end     baseline.nncl.grid slot 5: exit code 0, 4074 s; run files 900 of 1200
+2026-10-09 07:19:49  start   baseline.nncl.grid slot 5 pid 19396
+2026-10-09 07:20:15  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1204 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:25:20  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1208 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:26:41  end     baseline.nncl.grid slot 8: exit code 0, 5579 s; run files 907 of 1200
+2026-10-09 07:26:41  start   baseline.nncl.grid slot 8 pid 18752
+2026-10-09 07:30:20  progress tasks 113 of 171 done, 0 failed, 0 blocked; runs 1216 of 23343; sessions 12 of 12: baseline.nncl.grid x12
+2026-10-09 07:32:12  end     baseline.nncl.grid slot 10: exit code 0, 3657 s; run files 914 of 1200
+2026-10-09 07:32:12  start   baseline.nncl.grid slot 10 pid 17300
