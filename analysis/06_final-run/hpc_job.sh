@@ -33,6 +33,12 @@
 ##                     NN chain ladder, when the rest runs on the VM:
 ##                     qsub -v FINAL_RUN_PARTS=nncl_grid+nncl_search \
 ##                       analysis/06_final-run/hpc_job.sh
+##  FINAL_RUN_CODING   one coding of Age of Claimant for the grids and
+##                     searches of the NN chain ladder: dummy (stages 4 and
+##                     5) or numeric (stages 6 and 7); not set: both. Only
+##                     stages 6 and 7 of the NN chain ladder:
+##                     qsub -v FINAL_RUN_PARTS=nncl_grid+nncl_search,FINAL_RUN_CODING=numeric \
+##                       analysis/06_final-run/hpc_job.sh
 ##  FINAL_RUN_PROFILE  quick: the quick profile only (launch.py --profile),
 ##                     a first try in the queue "day":
 ##                     qsub -v FINAL_RUN_PROFILE=quick -l walltime=12:00:00 \

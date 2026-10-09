@@ -50,6 +50,11 @@
 ##   main          data + bccnn_main + nncl_main
 ##   bccnn         bccnn_main + bccnn_search + bootstrap + masking + bccnn_grid
 ##   nncl          nncl_main + nncl_grid + nncl_search
+## The environment variable FINAL_RUN_CODING restricts nncl_grid and
+## nncl_search to one coding of Age of Claimant: "dummy" (stages 4 and 5),
+## "numeric" (stages 6 and 7); not set, or "both": both codings. The
+## comparison of the two codings is then left out; the status after the
+## benchmark stage and the last tasks carry the coding in their id.
 ## A chosen task brings every task it needs: its preparation of stage 0; the
 ## main fit a bootstrap or the bCCNN grid starts from; with nncl_grid the
 ## main runs of the NN chain ladder, which the tables of the grids read. So
@@ -101,9 +106,22 @@ if (length(unknown) > 0) {
 chosen <- c(chosen, unlist(groups[intersect(chosen, names(groups))]))
 chosen <- if (length(chosen) == 0) parts else parts[parts %in% chosen]
 partial <- length(chosen) < length(parts)
-## in a table of some parts the status after the benchmark stage and the
-## last tasks carry them in their id
+## the coding of Age of Claimant of the NN chain ladder grids and searches
+## (stages 4 to 7): the environment variable FINAL_RUN_CODING, "both"
+## (default: stages 4 to 7), "dummy" (stages 4 and 5 only) or "numeric"
+## (stages 6 and 7 only). The main runs of stage 1 are always of both
+## codings, and the comparison of the two codings needs both grids, so it
+## is left out of a table of one coding
+coding <- tolower(Sys.getenv("FINAL_RUN_CODING", "both"))
+if (coding == "") coding <- "both"
+if (!coding %in% c("both", "dummy", "numeric")) {
+  stop("FINAL_RUN_CODING names no coding of Age of Claimant: ", coding,
+       ". The codings: both (default), dummy, numeric")
+}
+## in a table of some parts, or of one coding, the status after the
+## benchmark stage and the last tasks carry them in their id
 parts_id <- if (partial) paste0(".", paste(chosen, collapse = "-")) else ""
+if (coding != "both") parts_id <- paste0(parts_id, ".", coding)
 
 ## sessions: a queue may have as many R sessions as it has runs, at most
 ## this many (the launcher starts no more than it has slots and runs left)
@@ -416,8 +434,11 @@ for (d in datasets) {
   ## stages 4 to 7: the NN chain ladder under the dummy coding (grids 4,
   ## searches 5) and under the numeric coding (6, 7). The analysis script
   ## runs again after each grid; its three tasks of a coding rewrite the
-  ## same tables, so each waits for the one before
+  ## same tables, so each waits for the one before. Under one coding
+  ## (FINAL_RUN_CODING) the other's grids and searches are left out
   for (k in names(codings)) {
+    if (coding == "dummy" && k != "nncl") next
+    if (coding == "numeric" && k != "nncl_numeric") next
     stage <- if (k == "nncl") 4 else 6
     analysis <- paste0(d, ".", k, ".main.analysis")
     for (g in c("grid", "cl_grid")) {
@@ -468,19 +489,22 @@ for (d in datasets) {
     }
   }
   ## the two codings compared: main runs and both grids of both codings
+  ## (so only in a table of both codings)
   both <- paste0(d,
                  ".",
                  rep(names(codings), each = 3),
                  ".",
                  c("main", "grid", "cl_grid"))
-  tasks <- rbind(tasks,
-                 task(paste0(d, ".nncl.age_coding"),
-                      6,
-                      d,
-                      file.path(nncl_dir,
-                                "NN chain ladder SynthETIC age coding.R"),
-                      c(cells, both),
-                      "nncl_grid"))
+  if (coding == "both") {
+    tasks <- rbind(tasks,
+                   task(paste0(d, ".nncl.age_coding"),
+                        6,
+                        d,
+                        file.path(nncl_dir,
+                                  "NN chain ladder SynthETIC age coding.R"),
+                        c(cells, both),
+                        "nncl_grid"))
+  }
 
   ## stage 8: the bCCNN grid; its rule "fixed" reads the steps off the main
   ## fit under the rolling origin with the refit

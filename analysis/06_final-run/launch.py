@@ -1148,9 +1148,16 @@ def launch():
     ## marker of its own, and the marker of the whole table stands for it
     smoke_all = os.path.join(state_quick, "smoke.done")
     smoke_done = smoke_all
-    if run.parts:
+    ## of one coding of the NN chain ladder (FINAL_RUN_CODING, read by the
+    ## tasks script from the environment) the marker carries the coding too
+    coding = os.environ.get("FINAL_RUN_CODING", "").strip().lower()
+    if coding == "both":
+        coding = ""
+    if run.parts or coding:
         smoke_done = os.path.join(
-            state_quick, "smoke.{}.done".format("-".join(run.parts)))
+            state_quick,
+            "smoke.{}.done".format("-".join(run.parts + [coding] if coding
+                                            else run.parts)))
     smoke_failed = os.path.join(state_quick, "smoke_failed.txt")
     if (not opt.skip_smoke and opt.profile == "" and opt.tasks_file == "" and
             not os.path.exists(smoke_done) and not os.path.exists(smoke_all)):

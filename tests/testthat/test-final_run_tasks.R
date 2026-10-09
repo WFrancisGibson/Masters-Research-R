@@ -549,6 +549,65 @@ test_that("the parts of the two computers fit every network once", {
   expect_equal(sum(as.numeric(vm$n_runs[real])), 3 * (3 * 20 + 20))
 })
 
+test_that("one coding of the NN chain ladder: its grids and searches only", {
+  whole <- tables$default
+  one_coding <- function(coding, parts = "nncl_grid+nncl_search") {
+    withr::local_envvar(FINAL_RUN_CODING = coding)
+    task_table(NA, parts)
+  }
+  numeric <- one_coding("numeric")
+  dummy <- one_coding("dummy")
+  # the tasks of stages 4 to 7 are of the chosen coding; the main runs of
+  # stage 1 and the cells of stage 0 of both codings, as the whole table
+  for (tasks in list(numeric, dummy)) {
+    later <- tasks[as.numeric(tasks$stage) %in% 4:7, ]
+    expect_gt(nrow(later), 0)
+    expect_true(all(grepl(if (identical(tasks, numeric)) "[.]nncl_numeric[.]"
+                          else "[.]nncl[.]", later$id)))
+    expect_false(any(grepl("age_coding", tasks$id)))
+    expect_true(all(paste0(rep(datasets, each = 2),
+                           c(".nncl.cells", ".nncl_numeric.cells")) %in%
+                      tasks$id))
+    # every row as in the whole table, but the carried ids
+    rows <- match(whole_id(tasks$id), whole$id)
+    expect_false(anyNA(rows))
+    run <- grepl("final run (status|timings)[.]R$", tasks$script)
+    expect_equal(plain(tasks[!run, ]), plain(whole[rows[!run], ]))
+  }
+  expect_equal(numeric$id[nrow(numeric)],
+               "status.final.nncl_grid-nncl_search.numeric")
+  expect_equal(dummy$id[nrow(dummy)],
+               "status.final.nncl_grid-nncl_search.dummy")
+  # the two codings together are the table of both, but for the comparison
+  # of the codings and the status after the first grids of the dummy coding
+  both <- part_tables$hpc
+  expect_setequal(c(whole_id(numeric$id), whole_id(dummy$id)),
+                  setdiff(whole_id(both$id),
+                          c(paste0(datasets, ".nncl.age_coding"))))
+  # the runs: one coding's two grids and its main runs
+  real <- numeric$kind == "queue" & numeric$stage != "2"
+  expect_equal(sum(as.numeric(numeric$n_runs[real])), 3 * (6 + 1200 + 1200))
+  expect_equal(one_coding("both"), both)
+  expect_equal(one_coding(""), both)
+  # a coding that is none: no table
+  withr::local_envvar(RUN_ROOT = run_root,
+                      R_CONFIG_ACTIVE = NA,
+                      FINAL_RUN_PARTS = NA,
+                      FINAL_RUN_CODING = "ordinal")
+  table_file <- file.path(run_root, "final-run", "tasks.csv")
+  unlink(table_file)
+  log <- tempfile()
+  status <- system2(file.path(R.home("bin"), "Rscript"),
+                    shQuote(here::here("analysis", "06_final-run",
+                                       "final run tasks.R")),
+                    stdout = log,
+                    stderr = log)
+  expect_false(status == 0)
+  expect_match(paste(readLines(log), collapse = " "),
+               "names no coding of Age of Claimant: ordinal")
+  expect_false(file.exists(table_file))
+})
+
 test_that("the parts are read by name, group and separator", {
   whole <- tables$default
   # not set, all, or every part by name: the whole table

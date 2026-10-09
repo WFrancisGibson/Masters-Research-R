@@ -517,6 +517,13 @@ Groups: `main` = `data` + `bccnn_main` + `nncl_main`; `bccnn` = `bccnn_main` + `
 `bootstrap` + `masking` + `bccnn_grid`; `nncl` = `nncl_main` + `nncl_grid` + `nncl_search`;
 `all`.
 
+One coding only: the environment variable `FINAL_RUN_CODING` (`dummy`: stages 4 and 5;
+`numeric`: stages 6 and 7; not set or `both`: all four) restricts `nncl_grid` and
+`nncl_search` to that coding. The main runs of stage 1 stay of both codings, the comparison of
+the two codings is left out, and the status after the benchmark stage and the last tasks carry
+the coding in their id. On the cluster: `qsub -v
+FINAL_RUN_PARTS=nncl_grid+nncl_search,FINAL_RUN_CODING=numeric analysis/06_final-run/hpc_job.sh`.
+
 - **A part brings what it needs.** Every task comes with the tasks it waits for: its
   preparation of stage 0 (simulation, fingerprint check, triangles or cells), the main fit a
   bootstrap or the bCCNN grid starts from, and with `nncl_grid` the main runs of the NN chain
