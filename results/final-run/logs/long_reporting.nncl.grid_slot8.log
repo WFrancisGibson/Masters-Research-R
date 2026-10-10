@@ -1,0 +1,66 @@
+==== 2026-10-10 15:51:10 start long_reporting.nncl.grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791640277.557159   20048 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791640282.068762   20048 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001948ABA3740> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001948ABA3740> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+grid_20_sgd_early_stop_s2026: 1056 s, epochs used 83 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 10, loss 239052.9 (homogeneous 238619.0)
+grid_20-20-15_adagrad_early_stop_s2026: 787 s, epochs used 9 93 83 500 265 53 88 500 205 302 500 500 500 500 500 500 59 500 407, loss 239572.0 (homogeneous 238619.0)
+grid_20-15-10_adadelta_early_stop_s2026: 351 s, epochs used 25 139 103 78 248 228 84 92 94 101 98 100 102 98 96 97 100 269 132, loss 239602.1 (homogeneous 238619.0)
+grid_20-15-10_adamw_early_stop_s2026: 807 s, epochs used 73 43 176 237 500 55 500 500 138 338 500 500 500 500 500 500 500 42 53, loss 238318.4 (homogeneous 238619.0)
+grid_20_adamw_paper_s2027: 245 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 243079.5 (homogeneous 238619.0)
+grid_20_nadam_early_stop_s2027: 970 s, epochs used 108 190 181 500 466 492 500 500 303 500 500 500 500 500 500 500 500 182 257, loss 241276.6 (homogeneous 238619.0)
+grid_20-20-15_nadam_early_stop_s2027: 872 s, epochs used 72 142 386 95 301 232 500 500 215 178 500 442 480 500 500 500 500 496 45, loss 237824.6 (homogeneous 238619.0)
+grid_20-15-10_adamax_early_stop_s2027: 1098 s, epochs used 159 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 248 164, loss 239090.1 (homogeneous 238619.0)
+==== 2026-10-10 17:38:15 start long_reporting.nncl.grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791646715.399290   19100 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791646749.921042   19100 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000022BB5F7C4A0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000022BB5F7C4A0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+grid_20-20-15_sgd_momentum_paper_s2028: 246 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 193553.6 (homogeneous 238619.0)
+grid_20-20-15_adadelta_early_stop_s2028: 342 s, epochs used 18 72 114 127 130 137 125 141 137 140 142 142 140 140 140 148 81 91 53, loss 241884.5 (homogeneous 238619.0)
+grid_20-20-15_adamax_paper_s2028: 256 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 242700.8 (homogeneous 238619.0)
+grid_20-15-10_sgd_nesterov_paper_s2028: 248 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 231153.8 (homogeneous 238619.0)
+grid_20-15-10_rmsprop_paper_s2028: 253 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 230796.8 (homogeneous 238619.0)
+grid_20-15-10_adamax_early_stop_s2028: 618 s, epochs used 100 376 191 59 38 68 60 500 22 24 500 500 500 500 500 500 43 27 64, loss 239074.0 (homogeneous 238619.0)
+grid_20_adamw_paper_s2029: 250 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 244630.6 (homogeneous 238619.0)
+grid_20-20-15_sgd_paper_s2029: 241 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 241298.5 (homogeneous 238619.0)
+==== 2026-10-10 18:24:11 start long_reporting.nncl.grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791649458.891357   11852 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791649462.955595   11852 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002A9B1F50720> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002A9B1F50720> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+grid_20-20-15_adagrad_paper_s2029: 246 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 191270.1 (homogeneous 238619.0)
+grid_20-20-15_adam_paper_s2029: 258 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 238371.2 (homogeneous 238619.0)
+grid_20-20-15_adamax_early_stop_s2029: 981 s, epochs used 115 243 187 500 500 366 500 500 500 500 500 500 500 500 500 500 347 262 121, loss 238824.8 (homogeneous 238619.0)
+grid_20_sgd_paper_s2030: 239 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 249641.9 (homogeneous 238619.0)
+grid_20_adagrad_early_stop_s2030: 953 s, epochs used 22 500 500 85 141 500 500 500 178 500 500 500 500 500 500 500 500 500 187, loss 243250.6 (homogeneous 238619.0)
+grid_20-20-15_adadelta_early_stop_s2030: 299 s, epochs used 24 113 77 140 319 34 37 70 74 79 81 84 87 86 85 86 83 269 19, loss 240176.8 (homogeneous 238619.0)
+grid_20-20-15_adamw_paper_s2030: 264 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 237389.2 (homogeneous 238619.0)
+grid_20-15-10_sgd_momentum_early_stop_s2030: 678 s, epochs used 24 82 500 48 500 265 52 500 47 81 500 500 45 500 500 500 500 36 1, loss 238641.1 (homogeneous 238619.0)
+==== 2026-10-10 19:33:23 start long_reporting.nncl.grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791653622.811915    4820 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791653656.911670    4820 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
