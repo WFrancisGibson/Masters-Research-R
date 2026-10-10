@@ -222,3 +222,25 @@ grid_20_sgd_early_stop_s2043: 977 s, epochs used 38 102 381 500 500 500 500 500 
 grid_20-20-15_sgd_nesterov_early_stop_s2043: 526 s, epochs used 19 17 38 47 71 42 500 78 64 46 500 500 500 500 500 500 7 21 19, loss 838786.2 (homogeneous 842344.8)
 grid_20-20-15_nadam_early_stop_s2043: 746 s, epochs used 98 245 92 178 56 107 500 177 229 422 500 500 500 500 401 500 31 500 45, loss 842086.9 (homogeneous 842344.8)
 grid_20_sgd_paper_s2044: 233 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 842023.4 (homogeneous 842344.8)
+grid_20_adagrad_paper_s2044: 247 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 841470.2 (homogeneous 842344.8)
+grid_20_rmsprop_early_stop_s2044: 555 s, epochs used 121 148 140 117 500 119 131 285 403 190 500 143 114 500 499 110 106 102 1, loss 843511.2 (homogeneous 842344.8)
+grid_20-20-15_sgd_nesterov_paper_s2044: 246 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss NaN (homogeneous 842344.8)
+grid_20-20-15_rmsprop_early_stop_s2044: 254 s, epochs used 67 43 48 98 56 47 58 61 108 25 64 49 49 47 61 73 40 100 395, loss 839911.4 (homogeneous 842344.8)
+==== 2026-10-10 07:56:00 start si_calendar.nncl.grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791611767.639822   16468 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791611771.628924   16468 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002147B3CFA60> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002147B3CFA60> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+grid_20-20-15_nadam_early_stop_s2044: 525 s, epochs used 101 71 77 100 112 97 500 218 208 33 500 422 63 500 65 63 34 90 500, loss 840491.7 (homogeneous 842344.8)
+grid_20-15-10_adamw_paper_s2044: 261 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 845512.1 (homogeneous 842344.8)
+grid_20_sgd_early_stop_s2045: 913 s, epochs used 22 86 500 500 500 500 500 500 500 153 500 500 500 500 500 500 68 118 500, loss 841242.6 (homogeneous 842344.8)
+grid_20-20-15_sgd_nesterov_paper_s2045: 248 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 837010.5 (homogeneous 842344.8)
+grid_20-20-15_rmsprop_paper_s2045: 253 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 836387.5 (homogeneous 842344.8)
+grid_20-20-15_adamw_early_stop_s2045: 723 s, epochs used 85 50 143 119 436 258 500 500 500 50 500 500 500 500 391 79 60 63 93, loss 839845.8 (homogeneous 842344.8)
+grid_20-15-10_adamw_early_stop_s2045: 507 s, epochs used 89 233 129 61 37 51 430 343 408 50 500 77 423 500 57 60 18 39 43, loss 842414.0 (homogeneous 842344.8)

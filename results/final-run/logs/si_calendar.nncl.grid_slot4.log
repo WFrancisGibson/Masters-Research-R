@@ -243,3 +243,24 @@ grid_20-20-15_adadelta_paper_s2043: 258 s, epochs used 100 100 100 100 100 100 1
 grid_20-20-15_adamw_paper_s2043: 261 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 842401.8 (homogeneous 842344.8)
 grid_20-15-10_sgd_momentum_early_stop_s2043: 282 s, epochs used 7 39 31 51 88 32 500 45 59 36 67 57 500 68 72 48 25 58 32, loss 953429.7 (homogeneous 842344.8)
 grid_20-15-10_rmsprop_early_stop_s2043: 457 s, epochs used 68 49 95 92 112 124 97 97 98 161 112 82 85 489 221 486 62 486 137, loss 842763.2 (homogeneous 842344.8)
+grid_20_sgd_momentum_early_stop_s2044: 402 s, epochs used 24 53 49 57 72 64 346 86 102 72 110 500 68 500 80 69 42 500 58, loss 841722.5 (homogeneous 842344.8)
+grid_20_adam_paper_s2044: 254 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 894926.9 (homogeneous 842344.8)
+==== 2026-10-10 07:42:10 start si_calendar.nncl.grid slot 4
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791610943.912369   11404 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791610974.250032   11404 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000022D9F9A7B00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000022D9F9A7B00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+grid_20_nadam_early_stop_s2044: 941 s, epochs used 143 500 294 272 500 255 500 455 500 370 500 500 500 500 500 500 188 500 1, loss 847332.0 (homogeneous 842344.8)
+grid_20-15-10_sgd_nesterov_paper_s2044: 243 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 1530638.8 (homogeneous 842344.8)
+grid_20-15-10_adam_paper_s2044: 254 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 845514.0 (homogeneous 842344.8)
+grid_20-15-10_nadam_early_stop_s2044: 913 s, epochs used 112 77 271 242 500 351 366 500 463 96 500 500 490 500 434 500 49 500 500, loss 843271.7 (homogeneous 842344.8)
+grid_20-20-15_sgd_paper_s2045: 239 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 839759.4 (homogeneous 842344.8)
+grid_20-20-15_adagrad_paper_s2045: 246 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 836330.7 (homogeneous 842344.8)
+grid_20-20-15_adam_paper_s2045: 260 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 839199.6 (homogeneous 842344.8)
+grid_20-20-15_nadam_early_stop_s2045: 786 s, epochs used 86 54 184 79 465 256 500 500 500 51 500 500 500 500 412 500 59 72 87, loss 840042.3 (homogeneous 842344.8)

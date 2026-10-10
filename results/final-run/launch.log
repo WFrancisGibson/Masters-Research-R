@@ -2174,3 +2174,323 @@
 2026-10-10 07:25:21  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3767 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
 2026-10-10 07:30:21  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3775 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
 2026-10-10 07:35:22  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3782 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 07:36:28  push    ok: progress after 6 hours
+2026-10-10 07:40:23  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3789 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 07:42:04  end     si_calendar.nncl.grid slot 7: exit code 0, 4644 s; run files 1088 of 1200
+2026-10-10 07:42:04  start   si_calendar.nncl.grid slot 7 pid 19856
+2026-10-10 07:42:10  end     si_calendar.nncl.grid slot 4: exit code 0, 3223 s; run files 1089 of 1200
+2026-10-10 07:42:10  start   si_calendar.nncl.grid slot 4 pid 18000
+2026-10-10 07:42:50  end     si_calendar.nncl.grid slot 1: exit code 0, 4649 s; run files 1090 of 1200
+2026-10-10 07:42:50  start   si_calendar.nncl.grid slot 1 pid 13300
+2026-10-10 07:44:27  end     si_calendar.nncl.grid slot 12: exit code 0, 3641 s; run files 1091 of 1200
+2026-10-10 07:44:27  start   si_calendar.nncl.grid slot 12 pid 9572
+2026-10-10 07:45:23  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3795 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 07:50:24  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3801 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 07:55:24  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3810 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 07:56:00  end     si_calendar.nncl.grid slot 8: exit code 0, 4028 s; run files 1108 of 1200
+2026-10-10 07:56:00  start   si_calendar.nncl.grid slot 8 pid 13080
+2026-10-10 07:57:06  end     si_calendar.nncl.grid slot 9: exit code 0, 4568 s; run files 1110 of 1200
+2026-10-10 07:57:06  start   si_calendar.nncl.grid slot 9 pid 19004
+2026-10-10 08:00:25  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3818 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:00:30  end     si_calendar.nncl.grid slot 3: exit code 0, 3366 s; run files 1116 of 1200
+2026-10-10 08:00:30  start   si_calendar.nncl.grid slot 3 pid 14680
+2026-10-10 08:05:25  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3827 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:07:12  end     si_calendar.nncl.grid slot 11: exit code 0, 3117 s; run files 1126 of 1200
+2026-10-10 08:07:12  start   si_calendar.nncl.grid slot 11 pid 15256
+2026-10-10 08:07:58  end     si_calendar.nncl.grid slot 10: exit code 0, 4018 s; run files 1127 of 1200
+2026-10-10 08:07:58  start   si_calendar.nncl.grid slot 10 pid 19136
+2026-10-10 08:10:26  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3833 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:15:26  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3840 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:18:34  end     si_calendar.nncl.grid slot 6: exit code 0, 3534 s; run files 1141 of 1200
+2026-10-10 08:18:35  start   si_calendar.nncl.grid slot 6 pid 5396
+2026-10-10 08:19:51  end     si_calendar.nncl.grid slot 2: exit code 0, 4670 s; run files 1144 of 1200
+2026-10-10 08:19:51  start   si_calendar.nncl.grid slot 2 pid 11824
+2026-10-10 08:20:27  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3848 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:25:27  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3854 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:29:11  end     si_calendar.nncl.grid slot 5: exit code 0, 5389 s; run files 1157 of 1200
+2026-10-10 08:29:11  start   si_calendar.nncl.grid slot 5 pid 9856
+2026-10-10 08:30:28  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3862 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:35:28  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3868 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:39:22  end     si_calendar.nncl.grid slot 12: exit code 0, 3295 s; run files 1171 of 1200
+2026-10-10 08:39:22  start   si_calendar.nncl.grid slot 12 pid 16452
+2026-10-10 08:40:29  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3877 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:41:09  end     si_calendar.nncl.grid slot 7: exit code 0, 3545 s; run files 1175 of 1200
+2026-10-10 08:41:09  start   si_calendar.nncl.grid slot 7 pid 1416
+2026-10-10 08:45:29  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3883 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:50:29  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3891 of 23343; sessions 12 of 12: si_calendar.nncl.grid x12
+2026-10-10 08:51:00  end     si_calendar.nncl.grid slot 12: exit code 0, 697 s; run files 1189 of 1200
+2026-10-10 08:51:00  start   si_calendar.nncl.cl_grid slot 12 pid 17836
+2026-10-10 08:51:05  end     si_calendar.nncl.grid slot 5: exit code 0, 1314 s; run files 1190 of 1200
+2026-10-10 08:51:05  start   si_calendar.nncl.cl_grid slot 5 pid 14012
+2026-10-10 08:51:26  end     si_calendar.nncl.grid slot 1: exit code 0, 4115 s; run files 1191 of 1200
+2026-10-10 08:51:26  start   si_calendar.nncl.cl_grid slot 1 pid 3980
+2026-10-10 08:51:41  end     si_calendar.nncl.grid slot 4: exit code 0, 4171 s; run files 1192 of 1200
+2026-10-10 08:51:41  start   si_calendar.nncl.cl_grid slot 4 pid 17804
+2026-10-10 08:52:43  end     si_calendar.nncl.grid slot 11: exit code 0, 2730 s; run files 1193 of 1200
+2026-10-10 08:52:43  start   si_calendar.nncl.cl_grid slot 11 pid 7736
+2026-10-10 08:53:34  end     si_calendar.nncl.grid slot 2: exit code 0, 2023 s; run files 1194 of 1200
+2026-10-10 08:53:34  start   si_calendar.nncl.cl_grid slot 2 pid 19100
+2026-10-10 08:54:40  end     si_calendar.nncl.grid slot 6: exit code 0, 2166 s; run files 1196 of 1200
+2026-10-10 08:54:40  end     si_calendar.nncl.grid slot 10: exit code 0, 2802 s; run files 1196 of 1200
+2026-10-10 08:54:40  start   si_calendar.nncl.cl_grid slot 6 pid 15964
+2026-10-10 08:54:41  start   si_calendar.nncl.cl_grid slot 10 pid 15968
+2026-10-10 08:54:56  end     si_calendar.nncl.grid slot 3: exit code 0, 3266 s; run files 1197 of 1200
+2026-10-10 08:54:56  start   si_calendar.nncl.cl_grid slot 3 pid 10472
+2026-10-10 08:55:32  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3903 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x9, si_calendar.nncl.grid x3
+2026-10-10 08:56:43  end     si_calendar.nncl.grid slot 8: exit code 0, 3643 s; run files 1198 of 1200
+2026-10-10 08:56:43  start   si_calendar.nncl.cl_grid slot 8 pid 19560
+2026-10-10 09:00:33  progress tasks 119 of 171 done, 0 failed, 0 blocked; runs 3916 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x10, si_calendar.nncl.grid x2
+2026-10-10 09:01:09  end     si_calendar.nncl.grid slot 7: exit code 0, 1200 s; run files 1199 of 1200
+2026-10-10 09:01:09  start   si_calendar.nncl.cl_grid slot 7 pid 5464
+2026-10-10 09:03:02  end     si_calendar.nncl.grid slot 9: exit code 0, 3955 s; run files 1200 of 1200
+2026-10-10 09:03:02  done    si_calendar.nncl.grid
+2026-10-10 09:03:02  start   si_calendar.nncl.grid.analysis slot 9 pid 17692
+2026-10-10 09:04:18  end     si_calendar.nncl.grid.analysis slot 9: exit code 0, 76 s
+2026-10-10 09:04:18  done    si_calendar.nncl.grid.analysis
+2026-10-10 09:04:18  start   si_calendar.nncl.cl_grid slot 9 pid 17924
+2026-10-10 09:05:34  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 3930 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:10:34  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 3944 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:15:34  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 3957 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:19:54  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 1692 s; run files 68 of 1200
+2026-10-10 09:19:54  start   si_calendar.nncl.cl_grid slot 4 pid 3544
+2026-10-10 09:20:35  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 3973 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:21:20  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 1815 s; run files 72 of 1200
+2026-10-10 09:21:20  start   si_calendar.nncl.cl_grid slot 5 pid 19344
+2026-10-10 09:22:32  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 1866 s; run files 76 of 1200
+2026-10-10 09:22:32  start   si_calendar.nncl.cl_grid slot 1 pid 17024
+2026-10-10 09:22:57  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 1697 s; run files 78 of 1200
+2026-10-10 09:22:57  start   si_calendar.nncl.cl_grid slot 10 pid 19064
+2026-10-10 09:25:35  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 3984 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:25:50  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 1987 s; run files 82 of 1200
+2026-10-10 09:25:50  start   si_calendar.nncl.cl_grid slot 11 pid 14092
+2026-10-10 09:26:16  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 2116 s; run files 84 of 1200
+2026-10-10 09:26:16  start   si_calendar.nncl.cl_grid slot 12 pid 11836
+2026-10-10 09:27:42  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 1982 s; run files 89 of 1200
+2026-10-10 09:27:43  start   si_calendar.nncl.cl_grid slot 6 pid 20112
+2026-10-10 09:30:36  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4000 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:31:47  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 2293 s; run files 99 of 1200
+2026-10-10 09:31:47  start   si_calendar.nncl.cl_grid slot 2 pid 9352
+2026-10-10 09:34:14  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 2251 s; run files 105 of 1200
+2026-10-10 09:34:15  start   si_calendar.nncl.cl_grid slot 8 pid 9908
+2026-10-10 09:34:20  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 1990 s; run files 106 of 1200
+2026-10-10 09:34:20  start   si_calendar.nncl.cl_grid slot 7 pid 13040
+2026-10-10 09:35:36  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4014 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:37:03  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 2527 s; run files 114 of 1200
+2026-10-10 09:37:03  start   si_calendar.nncl.cl_grid slot 3 pid 9132
+2026-10-10 09:40:36  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4026 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:41:17  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 2219 s; run files 126 of 1200
+2026-10-10 09:41:17  start   si_calendar.nncl.cl_grid slot 9 pid 8348
+2026-10-10 09:45:37  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4042 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:50:37  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4054 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:52:54  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 1797 s; run files 157 of 1200
+2026-10-10 09:52:54  start   si_calendar.nncl.cl_grid slot 10 pid 15008
+2026-10-10 09:55:37  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4068 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 09:55:53  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 2159 s; run files 166 of 1200
+2026-10-10 09:55:53  start   si_calendar.nncl.cl_grid slot 4 pid 19156
+2026-10-10 09:58:00  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 2199 s; run files 171 of 1200
+2026-10-10 09:58:00  start   si_calendar.nncl.cl_grid slot 5 pid 17768
+2026-10-10 09:58:05  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 2133 s; run files 173 of 1200
+2026-10-10 09:58:05  start   si_calendar.nncl.cl_grid slot 1 pid 8640
+2026-10-10 09:58:10  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1914 s; run files 173 of 1200
+2026-10-10 09:58:10  start   si_calendar.nncl.cl_grid slot 12 pid 18772
+2026-10-10 10:00:38  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4083 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:03:31  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 1904 s; run files 188 of 1200
+2026-10-10 10:03:31  start   si_calendar.nncl.cl_grid slot 2 pid 14900
+2026-10-10 10:03:46  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 2164 s; run files 190 of 1200
+2026-10-10 10:03:46  start   si_calendar.nncl.cl_grid slot 6 pid 12232
+2026-10-10 10:04:32  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 2322 s; run files 194 of 1200
+2026-10-10 10:04:32  start   si_calendar.nncl.cl_grid slot 11 pid 7708
+2026-10-10 10:05:39  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4099 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:07:56  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 1853 s; run files 202 of 1200
+2026-10-10 10:07:56  start   si_calendar.nncl.cl_grid slot 3 pid 7532
+2026-10-10 10:08:17  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 2037 s; run files 203 of 1200
+2026-10-10 10:08:17  start   si_calendar.nncl.cl_grid slot 7 pid 17588
+2026-10-10 10:10:39  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4114 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:11:15  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 1798 s; run files 212 of 1200
+2026-10-10 10:11:15  start   si_calendar.nncl.cl_grid slot 9 pid 16468
+2026-10-10 10:11:35  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 2241 s; run files 214 of 1200
+2026-10-10 10:11:35  start   si_calendar.nncl.cl_grid slot 8 pid 17280
+2026-10-10 10:15:40  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4127 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:20:40  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4142 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:25:40  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4157 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:26:06  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1675 s; run files 257 of 1200
+2026-10-10 10:26:06  start   si_calendar.nncl.cl_grid slot 12 pid 19956
+2026-10-10 10:28:13  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 2119 s; run files 261 of 1200
+2026-10-10 10:28:13  start   si_calendar.nncl.cl_grid slot 10 pid 11904
+2026-10-10 10:30:21  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 1941 s; run files 265 of 1200
+2026-10-10 10:30:21  start   si_calendar.nncl.cl_grid slot 5 pid 19368
+2026-10-10 10:30:41  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4169 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:31:37  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 2012 s; run files 269 of 1200
+2026-10-10 10:31:37  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 2145 s; run files 269 of 1200
+2026-10-10 10:31:37  start   si_calendar.nncl.cl_grid slot 1 pid 12108
+2026-10-10 10:31:37  start   si_calendar.nncl.cl_grid slot 4 pid 6800
+2026-10-10 10:32:03  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 1712 s; run files 271 of 1200
+2026-10-10 10:32:03  start   si_calendar.nncl.cl_grid slot 2 pid 5924
+2026-10-10 10:35:42  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4182 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:40:02  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 1925 s; run files 293 of 1200
+2026-10-10 10:40:02  start   si_calendar.nncl.cl_grid slot 3 pid 16600
+2026-10-10 10:40:43  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4197 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:43:46  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 1930 s; run files 302 of 1200
+2026-10-10 10:43:46  start   si_calendar.nncl.cl_grid slot 8 pid 16272
+2026-10-10 10:45:33  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 2460 s; run files 308 of 1200
+2026-10-10 10:45:33  start   si_calendar.nncl.cl_grid slot 11 pid 19844
+2026-10-10 10:45:43  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4212 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:46:24  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 2557 s; run files 310 of 1200
+2026-10-10 10:46:24  start   si_calendar.nncl.cl_grid slot 6 pid 20344
+2026-10-10 10:48:31  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 2237 s; run files 318 of 1200
+2026-10-10 10:48:32  start   si_calendar.nncl.cl_grid slot 9 pid 9740
+2026-10-10 10:50:44  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4225 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:52:00  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 2624 s; run files 326 of 1200
+2026-10-10 10:52:01  start   si_calendar.nncl.cl_grid slot 7 pid 19964
+2026-10-10 10:55:45  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4241 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 10:56:35  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1830 s; run files 339 of 1200
+2026-10-10 10:56:36  start   si_calendar.nncl.cl_grid slot 12 pid 16332
+2026-10-10 11:00:45  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4254 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:02:57  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 1880 s; run files 357 of 1200
+2026-10-10 11:02:58  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 2084 s; run files 357 of 1200
+2026-10-10 11:02:58  start   si_calendar.nncl.cl_grid slot 1 pid 14412
+2026-10-10 11:02:58  start   si_calendar.nncl.cl_grid slot 10 pid 16340
+2026-10-10 11:03:54  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 2013 s; run files 359 of 1200
+2026-10-10 11:03:54  start   si_calendar.nncl.cl_grid slot 5 pid 8296
+2026-10-10 11:05:46  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 2023 s; run files 365 of 1200
+2026-10-10 11:05:47  start   si_calendar.nncl.cl_grid slot 2 pid 4644
+2026-10-10 11:05:47  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4268 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:06:48  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 2110 s; run files 367 of 1200
+2026-10-10 11:06:48  start   si_calendar.nncl.cl_grid slot 4 pid 7948
+2026-10-10 11:10:47  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4282 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:13:40  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 2018 s; run files 389 of 1200
+2026-10-10 11:13:40  start   si_calendar.nncl.cl_grid slot 3 pid 17180
+2026-10-10 11:14:42  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 1748 s; run files 391 of 1200
+2026-10-10 11:14:42  start   si_calendar.nncl.cl_grid slot 11 pid 19100
+2026-10-10 11:15:48  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4296 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:15:53  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 1769 s; run files 394 of 1200
+2026-10-10 11:15:53  start   si_calendar.nncl.cl_grid slot 6 pid 17744
+2026-10-10 11:20:49  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4312 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:21:14  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 2248 s; run files 410 of 1200
+2026-10-10 11:21:14  start   si_calendar.nncl.cl_grid slot 8 pid 20296
+2026-10-10 11:24:53  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 2182 s; run files 420 of 1200
+2026-10-10 11:24:53  start   si_calendar.nncl.cl_grid slot 9 pid 6060
+2026-10-10 11:25:49  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4327 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:26:20  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 2059 s; run files 426 of 1200
+2026-10-10 11:26:20  start   si_calendar.nncl.cl_grid slot 7 pid 14776
+2026-10-10 11:26:30  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1795 s; run files 427 of 1200
+2026-10-10 11:26:31  start   si_calendar.nncl.cl_grid slot 12 pid 16272
+2026-10-10 11:30:50  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4342 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:31:56  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 1738 s; run files 441 of 1200
+2026-10-10 11:31:57  start   si_calendar.nncl.cl_grid slot 10 pid 1272
+2026-10-10 11:32:02  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 1744 s; run files 442 of 1200
+2026-10-10 11:32:02  start   si_calendar.nncl.cl_grid slot 1 pid 17992
+2026-10-10 11:35:51  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4358 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:39:30  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 2136 s; run files 465 of 1200
+2026-10-10 11:39:30  start   si_calendar.nncl.cl_grid slot 5 pid 18760
+2026-10-10 11:40:52  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4370 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:41:38  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 2090 s; run files 472 of 1200
+2026-10-10 11:41:38  start   si_calendar.nncl.cl_grid slot 4 pid 17148
+2026-10-10 11:42:34  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 2207 s; run files 474 of 1200
+2026-10-10 11:42:34  start   si_calendar.nncl.cl_grid slot 2 pid 17000
+2026-10-10 11:45:43  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 1861 s; run files 482 of 1200
+2026-10-10 11:45:43  start   si_calendar.nncl.cl_grid slot 11 pid 9332
+2026-10-10 11:45:53  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4386 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:47:40  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 2040 s; run files 488 of 1200
+2026-10-10 11:47:40  start   si_calendar.nncl.cl_grid slot 3 pid 15836
+2026-10-10 11:50:44  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 2090 s; run files 497 of 1200
+2026-10-10 11:50:44  start   si_calendar.nncl.cl_grid slot 6 pid 9172
+2026-10-10 11:50:54  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4400 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:52:26  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 1652 s; run files 501 of 1200
+2026-10-10 11:52:26  start   si_calendar.nncl.cl_grid slot 9 pid 13460
+2026-10-10 11:54:23  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 1683 s; run files 507 of 1200
+2026-10-10 11:54:23  start   si_calendar.nncl.cl_grid slot 7 pid 19196
+2026-10-10 11:55:55  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4414 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 11:56:26  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1795 s; run files 512 of 1200
+2026-10-10 11:56:26  start   si_calendar.nncl.cl_grid slot 12 pid 7876
+2026-10-10 11:56:41  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 2127 s; run files 513 of 1200
+2026-10-10 11:56:41  start   si_calendar.nncl.cl_grid slot 8 pid 15976
+2026-10-10 12:00:56  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4429 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:03:45  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 1903 s; run files 534 of 1200
+2026-10-10 12:03:45  start   si_calendar.nncl.cl_grid slot 1 pid 9444
+2026-10-10 12:05:57  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4443 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:10:58  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4459 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:13:16  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 2025 s; run files 560 of 1200
+2026-10-10 12:13:16  start   si_calendar.nncl.cl_grid slot 5 pid 4700
+2026-10-10 12:14:32  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 2556 s; run files 563 of 1200
+2026-10-10 12:14:33  start   si_calendar.nncl.cl_grid slot 10 pid 16240
+2026-10-10 12:15:59  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4471 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:16:04  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 2066 s; run files 569 of 1200
+2026-10-10 12:16:04  start   si_calendar.nncl.cl_grid slot 4 pid 18556
+2026-10-10 12:17:57  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 1816 s; run files 575 of 1200
+2026-10-10 12:17:57  start   si_calendar.nncl.cl_grid slot 3 pid 20344
+2026-10-10 12:18:27  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 1964 s; run files 576 of 1200
+2026-10-10 12:18:27  start   si_calendar.nncl.cl_grid slot 11 pid 10508
+2026-10-10 12:18:43  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 2169 s; run files 577 of 1200
+2026-10-10 12:18:43  start   si_calendar.nncl.cl_grid slot 2 pid 19564
+2026-10-10 12:21:01  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4487 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:22:27  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1561 s; run files 587 of 1200
+2026-10-10 12:22:27  start   si_calendar.nncl.cl_grid slot 12 pid 7420
+2026-10-10 12:25:05  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 2062 s; run files 595 of 1200
+2026-10-10 12:25:06  start   si_calendar.nncl.cl_grid slot 6 pid 14384
+2026-10-10 12:26:02  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4502 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:27:13  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 2087 s; run files 601 of 1200
+2026-10-10 12:27:13  start   si_calendar.nncl.cl_grid slot 9 pid 10152
+2026-10-10 12:30:06  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 2143 s; run files 612 of 1200
+2026-10-10 12:30:07  start   si_calendar.nncl.cl_grid slot 7 pid 18104
+2026-10-10 12:31:03  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4518 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:35:18  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 1893 s; run files 625 of 1200
+2026-10-10 12:35:18  start   si_calendar.nncl.cl_grid slot 1 pid 8968
+2026-10-10 12:35:28  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 2327 s; run files 628 of 1200
+2026-10-10 12:35:28  start   si_calendar.nncl.cl_grid slot 8 pid 10172
+2026-10-10 12:36:04  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4532 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:37:41  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 1465 s; run files 634 of 1200
+2026-10-10 12:37:41  start   si_calendar.nncl.cl_grid slot 5 pid 19580
+2026-10-10 12:41:05  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4545 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:46:06  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4561 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:48:28  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 2036 s; run files 663 of 1200
+2026-10-10 12:48:29  start   si_calendar.nncl.cl_grid slot 10 pid 11860
+2026-10-10 12:48:39  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 1954 s; run files 665 of 1200
+2026-10-10 12:48:39  start   si_calendar.nncl.cl_grid slot 4 pid 2064
+2026-10-10 12:50:11  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 1934 s; run files 670 of 1200
+2026-10-10 12:50:11  start   si_calendar.nncl.cl_grid slot 3 pid 5952
+2026-10-10 12:50:52  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 1944 s; run files 673 of 1200
+2026-10-10 12:50:52  start   si_calendar.nncl.cl_grid slot 11 pid 8896
+2026-10-10 12:51:07  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4576 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:52:13  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 2010 s; run files 676 of 1200
+2026-10-10 12:52:13  start   si_calendar.nncl.cl_grid slot 2 pid 14052
+2026-10-10 12:54:41  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 1776 s; run files 681 of 1200
+2026-10-10 12:54:41  start   si_calendar.nncl.cl_grid slot 6 pid 17192
+2026-10-10 12:56:08  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4587 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 12:57:35  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 1821 s; run files 691 of 1200
+2026-10-10 12:57:35  start   si_calendar.nncl.cl_grid slot 9 pid 3160
+2026-10-10 13:01:04  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 1857 s; run files 699 of 1200
+2026-10-10 13:01:04  start   si_calendar.nncl.cl_grid slot 7 pid 16324
+2026-10-10 13:01:09  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4602 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:02:31  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 2403 s; run files 703 of 1200
+2026-10-10 13:02:31  start   si_calendar.nncl.cl_grid slot 12 pid 14988
+2026-10-10 13:06:10  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4616 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:06:21  end     si_calendar.nncl.cl_grid slot 8: exit code 0, 1852 s; run files 715 of 1200
+2026-10-10 13:06:21  start   si_calendar.nncl.cl_grid slot 8 pid 12264
+2026-10-10 13:09:45  end     si_calendar.nncl.cl_grid slot 1: exit code 0, 2067 s; run files 725 of 1200
+2026-10-10 13:09:45  start   si_calendar.nncl.cl_grid slot 1 pid 9560
+2026-10-10 13:11:12  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4632 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:11:27  end     si_calendar.nncl.cl_grid slot 5: exit code 0, 2026 s; run files 731 of 1200
+2026-10-10 13:11:27  start   si_calendar.nncl.cl_grid slot 5 pid 15948
+2026-10-10 13:16:13  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4646 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:18:05  end     si_calendar.nncl.cl_grid slot 10: exit code 0, 1776 s; run files 751 of 1200
+2026-10-10 13:18:05  start   si_calendar.nncl.cl_grid slot 10 pid 12852
+2026-10-10 13:21:14  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4661 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:25:19  end     si_calendar.nncl.cl_grid slot 3: exit code 0, 2108 s; run files 770 of 1200
+2026-10-10 13:25:19  start   si_calendar.nncl.cl_grid slot 3 pid 12016
+2026-10-10 13:26:00  end     si_calendar.nncl.cl_grid slot 4: exit code 0, 2241 s; run files 772 of 1200
+2026-10-10 13:26:00  start   si_calendar.nncl.cl_grid slot 4 pid 15400
+2026-10-10 13:26:05  end     si_calendar.nncl.cl_grid slot 2: exit code 0, 2031 s; run files 773 of 1200
+2026-10-10 13:26:05  start   si_calendar.nncl.cl_grid slot 2 pid 4804
+2026-10-10 13:26:15  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4676 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:27:37  end     si_calendar.nncl.cl_grid slot 6: exit code 0, 1975 s; run files 777 of 1200
+2026-10-10 13:27:37  end     si_calendar.nncl.cl_grid slot 11: exit code 0, 2205 s; run files 777 of 1200
+2026-10-10 13:27:37  start   si_calendar.nncl.cl_grid slot 6 pid 13176
+2026-10-10 13:27:37  start   si_calendar.nncl.cl_grid slot 11 pid 7760
+2026-10-10 13:27:42  end     si_calendar.nncl.cl_grid slot 9: exit code 0, 1807 s; run files 778 of 1200
+2026-10-10 13:27:42  start   si_calendar.nncl.cl_grid slot 9 pid 4116
+2026-10-10 13:31:12  end     si_calendar.nncl.cl_grid slot 12: exit code 0, 1720 s; run files 788 of 1200
+2026-10-10 13:31:12  start   si_calendar.nncl.cl_grid slot 12 pid 13272
+2026-10-10 13:31:17  progress tasks 121 of 171 done, 0 failed, 0 blocked; runs 4691 of 23343; sessions 12 of 12: si_calendar.nncl.cl_grid x12
+2026-10-10 13:32:13  end     si_calendar.nncl.cl_grid slot 7: exit code 0, 1869 s; run files 791 of 1200
+2026-10-10 13:32:13  start   si_calendar.nncl.cl_grid slot 7 pid 12012
