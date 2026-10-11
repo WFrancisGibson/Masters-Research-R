@@ -184,3 +184,44 @@ clgrid_20-20-15_adamw_cl_start_s2041: 148 s, epochs used 7 28 84 0 21 5 20 193 2
 clgrid_20-15-10_sgd_momentum_cl_paper_s2041: 242 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 237748.0 (homogeneous 238619.0)
 clgrid_20-15-10_adam_cl_start_s2041: 155 s, epochs used 0 83 59 13 40 8 12 262 6 8 17 2 2 106 0 1 22 0 1, loss 238258.0 (homogeneous 238619.0)
 clgrid_20_sgd_cl_paper_s2042: 233 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 238087.4 (homogeneous 238619.0)
+clgrid_20_rmsprop_cl_start_s2042: 191 s, epochs used 0 231 143 1 3 34 20 499 1 1 16 0 0 112 20 5 14 2 6, loss 238254.3 (homogeneous 238619.0)
+clgrid_20-20-15_sgd_cl_start_s2042: 687 s, epochs used 0 500 500 31 500 92 500 500 500 500 500 94 0 500 0 18 0 0 500, loss 238523.5 (homogeneous 238619.0)
+clgrid_20-15-10_rmsprop_cl_start_s2042: 207 s, epochs used 0 164 96 1 19 51 31 500 38 1 4 1 0 149 20 2 20 1 67, loss 238128.0 (homogeneous 238619.0)
+clgrid_20_sgd_cl_paper_s2043: 236 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 238067.4 (homogeneous 238619.0)
+==== 2026-10-11 13:55:53 start long_reporting.nncl.cl_grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791719760.062942    1264 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791719764.466533    1264 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000023FC7427B00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000023FC7427B00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+clgrid_20_adam_cl_paper_s2043: 251 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 236582.5 (homogeneous 238619.0)
+clgrid_20-20-15_sgd_nesterov_cl_paper_s2043: 246 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 236947.7 (homogeneous 238619.0)
+clgrid_20-20-15_adamw_cl_paper_s2043: 262 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 232361.8 (homogeneous 238619.0)
+clgrid_20-15-10_adagrad_cl_start_s2043: 482 s, epochs used 1 45 153 0 380 310 500 500 12 500 137 0 0 500 3 3 500 0 0, loss 238450.2 (homogeneous 238619.0)
+clgrid_20_sgd_nesterov_cl_start_s2044: 364 s, epochs used 0 27 500 10 42 102 130 500 46 500 33 0 0 500 7 23 82 0 30, loss 238418.5 (homogeneous 238619.0)
+clgrid_20-20-15_sgd_momentum_cl_paper_s2044: 246 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 237694.2 (homogeneous 238619.0)
+clgrid_20-20-15_adam_cl_start_s2044: 151 s, epochs used 0 24 95 6 15 1 7 196 23 101 5 1 0 95 0 0 10 0 21, loss 238361.1 (homogeneous 238619.0)
+clgrid_20-20-15_nadam_cl_start_s2044: 173 s, epochs used 0 27 75 9 16 3 25 290 19 114 7 1 0 104 0 3 1 0 21, loss 238350.7 (homogeneous 238619.0)
+==== 2026-10-11 14:35:54 start long_reporting.nncl.cl_grid slot 8
+[1] 1200
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791722161.184605   14820 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791722165.604371   14820 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001CB7BD054E0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001CB7BD054E0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+clgrid_20-15-10_adadelta_cl_start_s2044: 217 s, epochs used 0 113 216 22 39 0 91 238 30 159 32 2 0 163 4 2 2 6 1, loss 238289.4 (homogeneous 238619.0)
+clgrid_20-15-10_adamax_cl_start_s2044: 202 s, epochs used 0 46 163 25 35 0 44 500 24 28 5 1 0 132 4 3 26 5 1, loss 238364.5 (homogeneous 238619.0)
+clgrid_20_adagrad_cl_start_s2045: 381 s, epochs used 0 500 500 2 50 1 77 500 6 500 10 3 0 500 0 40 32 31 28, loss 238312.6 (homogeneous 238619.0)
+clgrid_20-20-15_sgd_nesterov_cl_paper_s2045: 252 s, epochs used 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100, loss 237609.9 (homogeneous 238619.0)
+clgrid_20-20-15_adamw_cl_start_s2045: 174 s, epochs used 0 21 119 0 22 10 17 309 7 107 4 3 0 95 2 5 16 5 3, loss 238375.7 (homogeneous 238619.0)
+clgrid_20-15-10_sgd_nesterov_cl_start_s2045: 295 s, epochs used 0 35 500 0 500 1 21 26 27 21 189 17 0 12 0 0 500 15 7, loss 238511.0 (homogeneous 238619.0)
+clgrid_20-15-10_adamax_cl_start_s2045: 197 s, epochs used 0 28 212 0 27 0 8 381 4 251 8 2 0 55 5 14 29 1 0, loss 238390.9 (homogeneous 238619.0)
