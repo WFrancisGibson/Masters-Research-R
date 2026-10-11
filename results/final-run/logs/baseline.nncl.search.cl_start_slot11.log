@@ -9,3 +9,97 @@ WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\ke
 WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
 WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000025AFAE2BB00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
 WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000025AFAE2BB00> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+15:17 dropout=0, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001: score 6.69418 (baseline 6.74986), 778 s
+15:30 dropout=0.1, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001: score 6.68684 (baseline 6.74986), 778 s
+15:45 dropout=0.2, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001: score 6.68889 (baseline 6.74986), 880 s
+16:05 dropout=0.1, hidden=20-15-10, activation=tanh, optimizer=adam, learning_rate=0.001: score 6.68307 (baseline 6.74986), 1191 s
+16:24 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=adam, learning_rate=0.001: score 6.679 (baseline 6.74986), 1176 s
+16:43 dropout=0.1, hidden=20-20-15, activation=sigmoid, optimizer=adam, learning_rate=0.001: score 6.76369 (baseline 6.74986), 1143 s
+17:08 dropout=0.1, hidden=20-20-15, activation=relu, optimizer=adam, learning_rate=0.001: score 6.69903 (baseline 6.74986), 1490 s
+17:32 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=rmsprop, learning_rate=0.001: score 6.68126 (baseline 6.74986), 1411 s
+17:58 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001: score 6.67781 (baseline 6.74986), 1611 s
+18:30 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=5e-04: score 6.67873 (baseline 6.74986), 1893 s
+18:59 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.002: score 6.67834 (baseline 6.74986), 1755 s
+   dropout   hidden activation optimizer learning_rate
+1      0.1 20-20-15       tanh     nadam         0.001
+2      0.1 20-20-15       tanh     nadam         0.002
+3      0.1 20-20-15       tanh     nadam         5e-04
+4      0.1 20-20-15       tanh      adam         0.001
+5      0.1 20-20-15       tanh   rmsprop         0.001
+6      0.1 20-15-10       tanh      adam         0.001
+7      0.1       20       tanh      adam         0.001
+8      0.2       20       tanh      adam         0.001
+9        0       20       tanh      adam         0.001
+10     0.1 20-20-15       relu      adam         0.001
+11     0.1 20-20-15    sigmoid      adam         0.001
+                                                                                   label
+1    dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001
+2    dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.002
+3    dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=5e-04
+4     dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=adam, learning_rate=0.001
+5  dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=rmsprop, learning_rate=0.001
+6     dropout=0.1, hidden=20-15-10, activation=tanh, optimizer=adam, learning_rate=0.001
+7           dropout=0.1, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001
+8           dropout=0.2, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001
+9             dropout=0, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001
+10    dropout=0.1, hidden=20-20-15, activation=relu, optimizer=adam, learning_rate=0.001
+11 dropout=0.1, hidden=20-20-15, activation=sigmoid, optimizer=adam, learning_rate=0.001
+      score    score_sd n_seeds score_baseline ratio_to_baseline mean_steps_15
+1  6.677815 0.021255487       3       6.749863         0.9893260      26.90476
+2  6.678345 0.019881352       3       6.749863         0.9894045      17.61905
+3  6.678728 0.019384803       3       6.749863         0.9894612      42.97619
+4  6.678998 0.020531288       3       6.749863         0.9895013      26.02381
+5  6.681264 0.021049253       3       6.749863         0.9898370      25.04762
+6  6.683072 0.019009634       3       6.749863         0.9901049      34.57143
+7  6.686845 0.010983648       3       6.749863         0.9906638      21.64286
+8  6.688891 0.005921055       3       6.749863         0.9909669      24.64286
+9  6.694180 0.009207101       3       6.749863         0.9917506      33.16667
+10 6.699029 0.009467066       3       6.749863         0.9924688      35.76190
+11 6.763691 0.011531886       3       6.749863         1.0020486      10.42857
+   mean_steps_18
+1       38.70588
+2       33.88235
+3       51.49020
+4       36.43137
+5       35.82353
+6       49.62745
+7       26.60784
+8       30.74510
+9       26.11765
+10      49.17647
+11      29.72549
+  step         tuned
+1    0         start
+2    1       dropout
+3    2        hidden
+4    3    activation
+5    4     optimizer
+6    5 learning_rate
+                                                                                label
+1          dropout=0, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001
+2        dropout=0.1, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001
+3  dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=adam, learning_rate=0.001
+4  dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=adam, learning_rate=0.001
+5 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001
+6 dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001
+     score
+1 6.694180
+2 6.686845
+3 6.678998
+4 6.678998
+5 6.677815
+6 6.677815
+cl_start chosen: dropout=0.1, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001
+               model reserves true_reserves      bias  bias_pct   units
+1          seed 2026 9325.481      9626.776 -301.2950 -3.129760 1000000
+2          seed 2027 9525.728      9626.776 -101.0483 -1.049659 1000000
+3          seed 2028 9438.129      9626.776 -188.6469 -1.959606 1000000
+4          seed 2029 9430.346      9626.776 -196.4303 -2.040457 1000000
+5          seed 2030 9467.883      9626.776 -158.8933 -1.650535 1000000
+6          seed 2031 9436.610      9626.776 -190.1661 -1.975388 1000000
+7          seed 2032 9431.919      9626.776 -194.8574 -2.024119 1000000
+8          seed 2033 9508.830      9626.776 -117.9458 -1.225185 1000000
+9          seed 2034 9414.723      9626.776 -212.0530 -2.202742 1000000
+10         seed 2035 9394.518      9626.776 -232.2580 -2.412625 1000000
+11 nagging predictor 9436.254      9626.776 -190.5217 -1.979081 1000000
+12 Mack chain ladder 9479.361      9626.776 -147.4154 -1.531306 1000000
