@@ -14,3 +14,79 @@ WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make
 18:18 dropout=0.2, hidden=20, activation=tanh, learning_rate=0.001, patience=20: score 7.49227 (baseline 6.74986), 3530 s
 19:40 dropout=0, hidden=20-15-10, activation=tanh, learning_rate=0.001, patience=20: score 7.07014 (baseline 6.74986), 4965 s
 20:59 dropout=0, hidden=20-20-15, activation=tanh, learning_rate=0.001, patience=20: score 6.91045 (baseline 6.74986), 4695 s
+21:28 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.001, patience=20: score 6.80848 (baseline 6.74986), 1738 s
+22:26 dropout=0, hidden=20-20-15, activation=relu, learning_rate=0.001, patience=20: score 7.32321 (baseline 6.74986), 3530 s
+23:13 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=5e-04, patience=20: score 6.80104 (baseline 6.74986), 2818 s
+00:06 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=20: score 6.77395 (baseline 6.74986), 3140 s
+00:27 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=10: score 6.82435 (baseline 6.74986), 1289 s
+01:41 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=50: score 6.74978 (baseline 6.74986), 4436 s
+   dropout   hidden activation learning_rate patience
+1        0 20-20-15    sigmoid         0.002       50
+2        0 20-20-15    sigmoid         0.002       20
+3        0 20-20-15    sigmoid         5e-04       20
+4        0 20-20-15    sigmoid         0.001       20
+5        0 20-20-15    sigmoid         0.002       10
+6        0 20-20-15       tanh         0.001       20
+7        0       20       tanh         0.001       20
+8        0 20-15-10       tanh         0.001       20
+9      0.1       20       tanh         0.001       20
+10       0 20-20-15       relu         0.001       20
+11     0.2       20       tanh         0.001       20
+                                                                              label
+1  dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=50
+2  dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=20
+3  dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=5e-04, patience=20
+4  dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.001, patience=20
+5  dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=10
+6     dropout=0, hidden=20-20-15, activation=tanh, learning_rate=0.001, patience=20
+7           dropout=0, hidden=20, activation=tanh, learning_rate=0.001, patience=20
+8     dropout=0, hidden=20-15-10, activation=tanh, learning_rate=0.001, patience=20
+9         dropout=0.1, hidden=20, activation=tanh, learning_rate=0.001, patience=20
+10    dropout=0, hidden=20-20-15, activation=relu, learning_rate=0.001, patience=20
+11        dropout=0.2, hidden=20, activation=tanh, learning_rate=0.001, patience=20
+      score   score_sd n_seeds score_baseline ratio_to_baseline mean_steps_15
+1  6.749783 0.05016341       3       6.749863         0.9999881     225.88095
+2  6.773953 0.06117500       3       6.749863         1.0035690     144.30952
+3  6.801043 0.04753441       3       6.749863         1.0075824     151.69048
+4  6.808475 0.04407071       3       6.749863         1.0086835      79.90476
+5  6.824353 0.04533412       3       6.749863         1.0110358      17.00000
+6  6.910452 0.09007022       3       6.749863         1.0237914     355.42857
+7  7.028837 0.11597268       3       6.749863         1.0413303     354.80952
+8  7.070142 0.22896247       3       6.749863         1.0474498     378.47619
+9  7.259428 0.23240261       3       6.749863         1.0754927     258.76190
+10 7.323214 0.70346431       3       6.749863         1.0849427     193.33333
+11 7.492270 0.27119563       3       6.749863         1.1099885     257.52381
+   mean_steps_18
+1      294.45098
+2      212.60784
+3      168.43137
+4       78.68627
+5       19.72549
+6      367.60784
+7      398.74510
+8      406.49020
+9      275.01961
+10     263.70588
+11     282.05882
+  step         tuned
+1    0         start
+2    1       dropout
+3    2        hidden
+4    3    activation
+5    4 learning_rate
+6    5      patience
+                                                                             label
+1          dropout=0, hidden=20, activation=tanh, learning_rate=0.001, patience=20
+2          dropout=0, hidden=20, activation=tanh, learning_rate=0.001, patience=20
+3    dropout=0, hidden=20-20-15, activation=tanh, learning_rate=0.001, patience=20
+4 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.001, patience=20
+5 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=20
+6 dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=50
+     score
+1 7.028837
+2 7.028837
+3 6.910452
+4 6.808475
+5 6.773953
+6 6.749783
+early_stop chosen: dropout=0, hidden=20-20-15, activation=sigmoid, learning_rate=0.002, patience=50
