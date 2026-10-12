@@ -3800,3 +3800,143 @@
 2026-10-12 03:05:51  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7871 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
 2026-10-12 03:09:20  end     baseline.nncl_numeric.grid slot 1: exit code 0, 4773 s; run files 372 of 1200
 2026-10-12 03:09:20  start   baseline.nncl_numeric.grid slot 1 pid 19772
+2026-10-12 03:10:53  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7876 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:11:34  push    ok: progress after 6 hours
+2026-10-12 03:13:16  end     baseline.nncl_numeric.grid slot 3: exit code 0, 4066 s; run files 375 of 1200
+2026-10-12 03:13:16  start   baseline.nncl_numeric.grid slot 3 pid 2204
+2026-10-12 03:15:54  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7879 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:20:45  end     baseline.nncl_numeric.grid slot 11: exit code 0, 4301 s; run files 379 of 1200
+2026-10-12 03:20:45  start   baseline.nncl_numeric.grid slot 11 pid 17264
+2026-10-12 03:20:55  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7882 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:25:56  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7886 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:30:57  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7892 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:35:57  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7897 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:40:02  end     baseline.nncl_numeric.grid slot 8: exit code 0, 3269 s; run files 398 of 1200
+2026-10-12 03:40:02  start   baseline.nncl_numeric.grid slot 8 pid 18228
+2026-10-12 03:40:58  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7901 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:45:59  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7904 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:51:00  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7908 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:56:00  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7913 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 03:58:23  end     baseline.nncl_numeric.grid slot 10: exit code 0, 4298 s; run files 413 of 1200
+2026-10-12 03:58:23  start   baseline.nncl_numeric.grid slot 10 pid 12140
+2026-10-12 03:59:44  end     baseline.nncl_numeric.grid slot 9: exit code 0, 5603 s; run files 415 of 1200
+2026-10-12 03:59:45  start   baseline.nncl_numeric.grid slot 9 pid 15580
+2026-10-12 04:01:01  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7918 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 04:01:32  end     baseline.nncl_numeric.grid slot 12: exit code 0, 3870 s; run files 416 of 1200
+2026-10-12 04:01:32  start   baseline.nncl_numeric.grid slot 12 pid 19900
+2026-10-12 04:06:02  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7921 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 04:08:25  end     baseline.nncl_numeric.grid slot 4: exit code 0, 4900 s; run files 420 of 1200
+2026-10-12 04:08:25  start   baseline.nncl_numeric.grid slot 4 pid 18608
+2026-10-12 04:11:03  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7924 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 04:16:04  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7929 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 04:17:56  end     baseline.nncl_numeric.grid slot 3: exit code 0, 3880 s; run files 428 of 1200
+2026-10-12 04:17:56  start   baseline.nncl_numeric.grid slot 3 pid 20232
+2026-10-12 04:21:04  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7935 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 04:26:05  progress tasks 132 of 171 done, 0 failed, 0 blocked; runs 7938 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x8, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1, baseline.nncl.search.early_stop x1
+2026-10-12 04:27:27  end     baseline.nncl.search.early_stop slot 2: exit code 0, 48104 s
+2026-10-12 04:27:27  done    baseline.nncl.search.early_stop
+2026-10-12 04:27:27  start   baseline.nncl_numeric.grid slot 2 pid 7516
+2026-10-12 04:30:00  end     baseline.nncl_numeric.grid slot 1: exit code 0, 4840 s; run files 439 of 1200
+2026-10-12 04:30:00  start   baseline.nncl_numeric.grid slot 1 pid 1156
+2026-10-12 04:31:06  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7942 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 04:36:07  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7947 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 04:41:09  end     baseline.nncl_numeric.grid slot 11: exit code 0, 4824 s; run files 449 of 1200
+2026-10-12 04:41:09  start   baseline.nncl_numeric.grid slot 11 pid 18064
+2026-10-12 04:41:09  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7952 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 04:46:12  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7956 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 04:47:33  end     baseline.nncl_numeric.grid slot 10: exit code 0, 2950 s; run files 455 of 1200
+2026-10-12 04:47:33  start   baseline.nncl_numeric.grid slot 10 pid 19176
+2026-10-12 04:51:13  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7960 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 04:56:14  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7964 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:00:44  end     baseline.nncl_numeric.grid slot 9: exit code 0, 3659 s; run files 464 of 1200
+2026-10-12 05:00:44  start   baseline.nncl_numeric.grid slot 9 pid 9796
+2026-10-12 05:01:14  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7968 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:06:15  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7976 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:11:16  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7981 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:16:17  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7985 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:18:45  end     baseline.nncl_numeric.grid slot 8: exit code 0, 5923 s; run files 483 of 1200
+2026-10-12 05:18:45  start   baseline.nncl_numeric.grid slot 8 pid 2508
+2026-10-12 05:21:19  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7990 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:23:47  end     baseline.nncl_numeric.grid slot 3: exit code 0, 3951 s; run files 491 of 1200
+2026-10-12 05:23:47  start   baseline.nncl_numeric.grid slot 3 pid 15364
+2026-10-12 05:26:20  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7995 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:28:23  end     baseline.nncl_numeric.grid slot 4: exit code 0, 4798 s; run files 494 of 1200
+2026-10-12 05:28:23  start   baseline.nncl_numeric.grid slot 4 pid 19400
+2026-10-12 05:31:16  end     baseline.nncl_numeric.grid slot 12: exit code 0, 5384 s; run files 496 of 1200
+2026-10-12 05:31:16  start   baseline.nncl_numeric.grid slot 12 pid 6640
+2026-10-12 05:31:21  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 7999 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:36:22  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8003 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:37:03  end     baseline.nncl_numeric.grid slot 2: exit code 0, 4176 s; run files 501 of 1200
+2026-10-12 05:37:03  start   baseline.nncl_numeric.grid slot 2 pid 2616
+2026-10-12 05:41:23  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8009 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:46:24  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8016 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:51:25  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8020 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 05:53:53  end     baseline.nncl_numeric.grid slot 1: exit code 0, 5033 s; run files 520 of 1200
+2026-10-12 05:53:53  start   baseline.nncl_numeric.grid slot 1 pid 4732
+2026-10-12 05:56:26  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8024 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:01:27  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8029 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:04:00  end     baseline.nncl_numeric.grid slot 11: exit code 0, 4972 s; run files 529 of 1200
+2026-10-12 06:04:00  start   baseline.nncl_numeric.grid slot 11 pid 8760
+2026-10-12 06:06:28  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8035 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:11:29  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8039 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:12:05  end     baseline.nncl_numeric.grid slot 9: exit code 0, 4281 s; run files 537 of 1200
+2026-10-12 06:12:05  start   baseline.nncl_numeric.grid slot 9 pid 7572
+2026-10-12 06:15:24  end     baseline.nncl_numeric.grid slot 2: exit code 0, 2301 s; run files 539 of 1200
+2026-10-12 06:15:24  start   baseline.nncl_numeric.grid slot 2 pid 16432
+2026-10-12 06:16:31  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8043 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:19:29  end     baseline.nncl_numeric.grid slot 10: exit code 0, 5516 s; run files 542 of 1200
+2026-10-12 06:19:29  start   baseline.nncl_numeric.grid slot 10 pid 10676
+2026-10-12 06:21:32  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8047 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:23:39  end     baseline.nncl_numeric.grid slot 8: exit code 0, 3894 s; run files 547 of 1200
+2026-10-12 06:23:39  start   baseline.nncl_numeric.grid slot 8 pid 16808
+2026-10-12 06:26:33  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8053 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:31:34  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8058 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:36:35  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8062 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:40:19  end     baseline.nncl_numeric.grid slot 3: exit code 0, 4593 s; run files 562 of 1200
+2026-10-12 06:40:20  start   baseline.nncl_numeric.grid slot 3 pid 7688
+2026-10-12 06:41:36  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8066 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:42:53  end     baseline.nncl_numeric.grid slot 4: exit code 0, 4470 s; run files 565 of 1200
+2026-10-12 06:42:53  start   baseline.nncl_numeric.grid slot 4 pid 13008
+2026-10-12 06:46:37  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8071 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:51:38  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8077 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 06:56:39  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8081 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:01:40  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8085 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:04:08  end     baseline.nncl_numeric.grid slot 12: exit code 0, 5572 s; run files 585 of 1200
+2026-10-12 07:04:09  start   baseline.nncl_numeric.grid slot 12 pid 20340
+2026-10-12 07:05:05  end     baseline.nncl_numeric.grid slot 1: exit code 0, 4272 s; run files 586 of 1200
+2026-10-12 07:05:05  start   baseline.nncl_numeric.grid slot 1 pid 10728
+2026-10-12 07:06:42  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8089 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:11:43  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8095 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:16:44  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8099 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:21:45  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8102 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:26:46  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8106 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:31:47  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8112 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:35:37  end     baseline.nncl_numeric.grid slot 9: exit code 0, 5012 s; run files 613 of 1200
+2026-10-12 07:35:37  start   baseline.nncl_numeric.grid slot 9 pid 14312
+2026-10-12 07:35:42  end     baseline.nncl_numeric.grid slot 10: exit code 0, 4573 s; run files 614 of 1200
+2026-10-12 07:35:42  start   baseline.nncl_numeric.grid slot 10 pid 10936
+2026-10-12 07:36:49  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8118 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:40:13  end     baseline.nncl_numeric.grid slot 2: exit code 0, 5088 s; run files 617 of 1200
+2026-10-12 07:40:13  start   baseline.nncl_numeric.grid slot 2 pid 8208
+2026-10-12 07:41:50  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8122 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:44:28  end     baseline.nncl_numeric.grid slot 11: exit code 0, 6028 s; run files 620 of 1200
+2026-10-12 07:44:28  start   baseline.nncl_numeric.grid slot 11 pid 13512
+2026-10-12 07:46:51  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8124 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:49:35  end     baseline.nncl_numeric.grid slot 3: exit code 0, 4155 s; run files 627 of 1200
+2026-10-12 07:49:35  start   baseline.nncl_numeric.grid slot 3 pid 6120
+2026-10-12 07:51:53  progress tasks 133 of 171 done, 0 failed, 0 blocked; runs 8130 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x9, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1, baseline.nncl.search.paper x1
+2026-10-12 07:52:18  end     baseline.nncl_numeric.grid slot 8: exit code 0, 5319 s; run files 628 of 1200
+2026-10-12 07:52:18  start   baseline.nncl_numeric.grid slot 8 pid 9600
+2026-10-12 07:54:26  end     baseline.nncl.search.paper slot 5: exit code 0, 60564 s
+2026-10-12 07:54:26  done    baseline.nncl.search.paper
+2026-10-12 07:54:26  start   baseline.nncl_numeric.grid slot 5 pid 20448
+2026-10-12 07:54:31  end     baseline.nncl_numeric.grid slot 4: exit code 0, 4298 s; run files 633 of 1200
+2026-10-12 07:54:31  start   baseline.nncl_numeric.grid slot 4 pid 6152
+2026-10-12 07:56:54  progress tasks 134 of 171 done, 0 failed, 0 blocked; runs 8137 of 23343; sessions 12 of 12: baseline.nncl_numeric.grid x10, si_calendar.nncl.search.paper x1, long_reporting.nncl.search.paper x1
+2026-10-12 07:58:26  end     long_reporting.nncl.search.paper slot 6: exit code 0, 60666 s
+2026-10-12 07:58:26  done    long_reporting.nncl.search.paper
+2026-10-12 07:58:26  start   baseline.nncl_numeric.grid slot 6 pid 7844
+2026-10-12 07:59:33  end     si_calendar.nncl.search.paper slot 7: exit code 0, 60779 s
+2026-10-12 07:59:33  done    si_calendar.nncl.search.paper
+2026-10-12 07:59:33  start   baseline.nncl_numeric.grid slot 7 pid 4700
+2026-10-12 07:59:33  stage   5 complete

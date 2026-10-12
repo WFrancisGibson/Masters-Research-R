@@ -31,3 +31,106 @@ WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make
 01:13 hidden=20-15-10, dropout=0, activation=relu: score 7.76895 (baseline 6.74986), 2336 s
 01:53 hidden=20-20-15, dropout=0, activation=relu: score 7.40057 (baseline 6.74986), 2394 s
 02:33 hidden=20, dropout=0.1, activation=relu: score 8.20061 (baseline 6.74986), 2422 s
+03:16 hidden=20-15-10, dropout=0.1, activation=relu: score 6.90466 (baseline 6.74986), 2543 s
+03:59 hidden=20-20-15, dropout=0.1, activation=relu: score 6.8553 (baseline 6.74986), 2603 s
+04:43 hidden=20, dropout=0.2, activation=relu: score 8.28359 (baseline 6.74986), 2613 s
+05:28 hidden=20-15-10, dropout=0.2, activation=relu: score 7.01138 (baseline 6.74986), 2733 s
+06:15 hidden=20-20-15, dropout=0.2, activation=relu: score 6.90305 (baseline 6.74986), 2790 s
+     hidden dropout activation                                            label
+1  20-20-15       0    sigmoid   hidden=20-20-15, dropout=0, activation=sigmoid
+2  20-20-15     0.1       tanh    hidden=20-20-15, dropout=0.1, activation=tanh
+3  20-15-10     0.1       tanh    hidden=20-15-10, dropout=0.1, activation=tanh
+4  20-20-15     0.1       relu    hidden=20-20-15, dropout=0.1, activation=relu
+5  20-20-15     0.1    sigmoid hidden=20-20-15, dropout=0.1, activation=sigmoid
+6  20-15-10       0    sigmoid   hidden=20-15-10, dropout=0, activation=sigmoid
+7  20-20-15     0.2       tanh    hidden=20-20-15, dropout=0.2, activation=tanh
+8  20-20-15     0.2       relu    hidden=20-20-15, dropout=0.2, activation=relu
+9  20-15-10     0.1       relu    hidden=20-15-10, dropout=0.1, activation=relu
+10 20-15-10     0.1    sigmoid hidden=20-15-10, dropout=0.1, activation=sigmoid
+11 20-15-10     0.2       tanh    hidden=20-15-10, dropout=0.2, activation=tanh
+12 20-15-10     0.2       relu    hidden=20-15-10, dropout=0.2, activation=relu
+13       20       0       tanh            hidden=20, dropout=0, activation=tanh
+14       20       0    sigmoid         hidden=20, dropout=0, activation=sigmoid
+15 20-20-15     0.2    sigmoid hidden=20-20-15, dropout=0.2, activation=sigmoid
+16 20-15-10     0.2    sigmoid hidden=20-15-10, dropout=0.2, activation=sigmoid
+17 20-15-10       0       tanh      hidden=20-15-10, dropout=0, activation=tanh
+18 20-20-15       0       tanh      hidden=20-20-15, dropout=0, activation=tanh
+19 20-20-15       0       relu      hidden=20-20-15, dropout=0, activation=relu
+20       20       0       relu            hidden=20, dropout=0, activation=relu
+21 20-15-10       0       relu      hidden=20-15-10, dropout=0, activation=relu
+22       20     0.1    sigmoid       hidden=20, dropout=0.1, activation=sigmoid
+23       20     0.1       relu          hidden=20, dropout=0.1, activation=relu
+24       20     0.2       relu          hidden=20, dropout=0.2, activation=relu
+25       20     0.1       tanh          hidden=20, dropout=0.1, activation=tanh
+26       20     0.2       tanh          hidden=20, dropout=0.2, activation=tanh
+27       20     0.2    sigmoid       hidden=20, dropout=0.2, activation=sigmoid
+       score   score_sd n_seeds score_baseline ratio_to_baseline mean_steps_15
+1   6.761683 0.02627201       3       6.749863          1.001751           100
+2   6.796296 0.05150871       3       6.749863          1.006879           100
+3   6.810219 0.04349037       3       6.749863          1.008942           100
+4   6.855295 0.07787694       3       6.749863          1.015620           100
+5   6.868172 0.04407119       3       6.749863          1.017528           100
+6   6.888342 0.15719470       3       6.749863          1.020516           100
+7   6.898130 0.09470955       3       6.749863          1.021966           100
+8   6.903048 0.03433676       3       6.749863          1.022695           100
+9   6.904657 0.05048589       3       6.749863          1.022933           100
+10  6.946649 0.08049520       3       6.749863          1.029154           100
+11  6.962728 0.14425646       3       6.749863          1.031536           100
+12  7.011378 0.03138525       3       6.749863          1.038744           100
+13  7.048664 0.14725328       3       6.749863          1.044268           100
+14  7.094160 0.40740176       3       6.749863          1.051008           100
+15  7.170382 0.09479200       3       6.749863          1.062300           100
+16  7.262734 0.06370111       3       6.749863          1.075983           100
+17  7.356225 0.28730188       3       6.749863          1.089833           100
+18  7.383075 0.08693656       3       6.749863          1.093811           100
+19  7.400569 0.51811786       3       6.749863          1.096403           100
+20  7.472385 0.39848899       3       6.749863          1.107043           100
+21  7.768954 1.29377369       3       6.749863          1.150980           100
+22  8.002894 0.10766525       3       6.749863          1.185638           100
+23  8.200609 0.95797320       3       6.749863          1.214930           100
+24  8.283586 0.95113739       3       6.749863          1.227223           100
+25  8.793802 2.89620910       3       6.749863          1.302812           100
+26  9.011231 2.79086225       3       6.749863          1.335024           100
+27 10.291017 0.99275574       3       6.749863          1.524626           100
+   mean_steps_18
+1            100
+2            100
+3            100
+4            100
+5            100
+6            100
+7            100
+8            100
+9            100
+10           100
+11           100
+12           100
+13           100
+14           100
+15           100
+16           100
+17           100
+18           100
+19           100
+20           100
+21           100
+22           100
+23           100
+24           100
+25           100
+26           100
+27           100
+paper chosen: hidden=20-20-15, dropout=0, activation=sigmoid
+               model  reserves true_reserves       bias   bias_pct   units
+1          seed 2026  9922.958      9626.776   296.1822   3.076650 1000000
+2          seed 2027 11355.447      9626.776  1728.6709  17.956904 1000000
+3          seed 2028  7412.295      9626.776 -2214.4805 -23.003345 1000000
+4          seed 2029  9832.260      9626.776   205.4839   2.134504 1000000
+5          seed 2030 11210.409      9626.776  1583.6332  16.450296 1000000
+6          seed 2031 10253.842      9626.776   627.0660   6.513769 1000000
+7          seed 2032 10227.949      9626.776   601.1730   6.244801 1000000
+8          seed 2033 11709.163      9626.776  2082.3867  21.631196 1000000
+9          seed 2034 11244.941      9626.776  1618.1647  16.809000 1000000
+10         seed 2035  8355.755      9626.776 -1271.0214 -13.202981 1000000
+11 nagging predictor  9881.075      9626.776   254.2995   2.641585 1000000
+12 Mack chain ladder  9479.361      9626.776  -147.4154  -1.531306 1000000
