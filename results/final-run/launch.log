@@ -4405,3 +4405,282 @@
 2026-10-12 19:56:22  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 2282 s; run files 680 of 1200
 2026-10-12 19:56:22  start   baseline.nncl_numeric.cl_grid slot 11 pid 14656
 2026-10-12 19:57:49  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9387 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:01:01  push    ok: progress after 6 hours
+2026-10-12 20:01:27  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 2356 s; run files 694 of 1200
+2026-10-12 20:01:27  start   baseline.nncl_numeric.cl_grid slot 3 pid 17464
+2026-10-12 20:01:48  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 3564 s; run files 696 of 1200
+2026-10-12 20:01:48  start   baseline.nncl_numeric.cl_grid slot 12 pid 5824
+2026-10-12 20:02:50  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9402 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:07:53  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9412 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:10:27  end     baseline.nncl_numeric.cl_grid slot 5: exit code 0, 2022 s; run files 715 of 1200
+2026-10-12 20:10:27  start   baseline.nncl_numeric.cl_grid slot 5 pid 19680
+2026-10-12 20:11:03  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 1858 s; run files 716 of 1200
+2026-10-12 20:11:03  start   baseline.nncl_numeric.cl_grid slot 2 pid 16180
+2026-10-12 20:12:56  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9424 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:13:27  end     baseline.nncl_numeric.cl_grid slot 7: exit code 0, 2624 s; run files 723 of 1200
+2026-10-12 20:13:27  start   baseline.nncl_numeric.cl_grid slot 7 pid 7228
+2026-10-12 20:14:24  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 2290 s; run files 727 of 1200
+2026-10-12 20:14:24  start   baseline.nncl_numeric.cl_grid slot 9 pid 13884
+2026-10-12 20:16:17  end     baseline.nncl_numeric.cl_grid slot 1: exit code 0, 2018 s; run files 731 of 1200
+2026-10-12 20:16:17  start   baseline.nncl_numeric.cl_grid slot 1 pid 19904
+2026-10-12 20:18:00  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9441 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:20:29  end     baseline.nncl_numeric.cl_grid slot 6: exit code 0, 2172 s; run files 741 of 1200
+2026-10-12 20:20:29  start   baseline.nncl_numeric.cl_grid slot 6 pid 11808
+2026-10-12 20:21:15  end     baseline.nncl_numeric.cl_grid slot 10: exit code 0, 1884 s; run files 744 of 1200
+2026-10-12 20:21:15  start   baseline.nncl_numeric.cl_grid slot 10 pid 12056
+2026-10-12 20:23:03  end     baseline.nncl_numeric.cl_grid slot 8: exit code 0, 2367 s; run files 750 of 1200
+2026-10-12 20:23:04  start   baseline.nncl_numeric.cl_grid slot 8 pid 18632
+2026-10-12 20:23:04  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9453 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:26:55  end     baseline.nncl_numeric.cl_grid slot 4: exit code 0, 2146 s; run files 759 of 1200
+2026-10-12 20:26:55  start   baseline.nncl_numeric.cl_grid slot 4 pid 10020
+2026-10-12 20:28:07  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9465 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:33:10  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9476 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:35:14  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 2331 s; run files 779 of 1200
+2026-10-12 20:35:14  start   baseline.nncl_numeric.cl_grid slot 11 pid 132
+2026-10-12 20:38:14  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9490 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:39:56  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 2309 s; run files 793 of 1200
+2026-10-12 20:39:57  start   baseline.nncl_numeric.cl_grid slot 3 pid 10132
+2026-10-12 20:41:24  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 1821 s; run files 797 of 1200
+2026-10-12 20:41:24  start   baseline.nncl_numeric.cl_grid slot 2 pid 19584
+2026-10-12 20:43:17  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9504 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:44:14  end     baseline.nncl_numeric.cl_grid slot 5: exit code 0, 2027 s; run files 802 of 1200
+2026-10-12 20:44:14  start   baseline.nncl_numeric.cl_grid slot 5 pid 5304
+2026-10-12 20:48:21  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9518 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:48:26  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 2798 s; run files 816 of 1200
+2026-10-12 20:48:26  start   baseline.nncl_numeric.cl_grid slot 12 pid 14656
+2026-10-12 20:51:21  end     baseline.nncl_numeric.cl_grid slot 7: exit code 0, 2273 s; run files 821 of 1200
+2026-10-12 20:51:21  start   baseline.nncl_numeric.cl_grid slot 7 pid 16116
+2026-10-12 20:53:24  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9529 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 20:53:40  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 2356 s; run files 827 of 1200
+2026-10-12 20:53:40  start   baseline.nncl_numeric.cl_grid slot 9 pid 14760
+2026-10-12 20:55:07  end     baseline.nncl_numeric.cl_grid slot 6: exit code 0, 2078 s; run files 830 of 1200
+2026-10-12 20:55:07  start   baseline.nncl_numeric.cl_grid slot 6 pid 19528
+2026-10-12 20:55:54  end     baseline.nncl_numeric.cl_grid slot 1: exit code 0, 2377 s; run files 832 of 1200
+2026-10-12 20:55:54  start   baseline.nncl_numeric.cl_grid slot 1 pid 6812
+2026-10-12 20:58:28  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9542 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:00:47  end     baseline.nncl_numeric.cl_grid slot 10: exit code 0, 2372 s; run files 844 of 1200
+2026-10-12 21:00:47  start   baseline.nncl_numeric.cl_grid slot 10 pid 15768
+2026-10-12 21:01:39  end     baseline.nncl_numeric.cl_grid slot 4: exit code 0, 2083 s; run files 850 of 1200
+2026-10-12 21:01:39  start   baseline.nncl_numeric.cl_grid slot 4 pid 9128
+2026-10-12 21:02:51  end     baseline.nncl_numeric.cl_grid slot 8: exit code 0, 2387 s; run files 852 of 1200
+2026-10-12 21:02:51  start   baseline.nncl_numeric.cl_grid slot 8 pid 14084
+2026-10-12 21:03:32  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9557 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:08:36  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9570 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:09:07  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 2033 s; run files 869 of 1200
+2026-10-12 21:09:07  start   baseline.nncl_numeric.cl_grid slot 11 pid 1772
+2026-10-12 21:13:39  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9583 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:15:32  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 2048 s; run files 883 of 1200
+2026-10-12 21:15:33  start   baseline.nncl_numeric.cl_grid slot 2 pid 14156
+2026-10-12 21:18:43  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9595 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:20:21  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 2424 s; run files 897 of 1200
+2026-10-12 21:20:21  start   baseline.nncl_numeric.cl_grid slot 3 pid 15612
+2026-10-12 21:23:21  end     baseline.nncl_numeric.cl_grid slot 5: exit code 0, 2346 s; run files 906 of 1200
+2026-10-12 21:23:21  start   baseline.nncl_numeric.cl_grid slot 5 pid 19932
+2026-10-12 21:23:47  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9609 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:24:17  end     baseline.nncl_numeric.cl_grid slot 7: exit code 0, 1976 s; run files 907 of 1200
+2026-10-12 21:24:18  start   baseline.nncl_numeric.cl_grid slot 7 pid 11976
+2026-10-12 21:24:28  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 1848 s; run files 908 of 1200
+2026-10-12 21:24:28  start   baseline.nncl_numeric.cl_grid slot 9 pid 16420
+2026-10-12 21:25:56  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 2249 s; run files 913 of 1200
+2026-10-12 21:25:56  start   baseline.nncl_numeric.cl_grid slot 12 pid 11688
+2026-10-12 21:28:51  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9622 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:33:54  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9638 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:34:50  end     baseline.nncl_numeric.cl_grid slot 1: exit code 0, 2336 s; run files 938 of 1200
+2026-10-12 21:34:51  end     baseline.nncl_numeric.cl_grid slot 6: exit code 0, 2383 s; run files 938 of 1200
+2026-10-12 21:34:51  start   baseline.nncl_numeric.cl_grid slot 1 pid 13968
+2026-10-12 21:34:51  start   baseline.nncl_numeric.cl_grid slot 6 pid 16864
+2026-10-12 21:36:44  end     baseline.nncl_numeric.cl_grid slot 10: exit code 0, 2157 s; run files 941 of 1200
+2026-10-12 21:36:44  start   baseline.nncl_numeric.cl_grid slot 10 pid 10760
+2026-10-12 21:38:58  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9649 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:41:17  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 1930 s; run files 952 of 1200
+2026-10-12 21:41:17  start   baseline.nncl_numeric.cl_grid slot 11 pid 2292
+2026-10-12 21:42:44  end     baseline.nncl_numeric.cl_grid slot 8: exit code 0, 2393 s; run files 957 of 1200
+2026-10-12 21:42:45  start   baseline.nncl_numeric.cl_grid slot 8 pid 7308
+2026-10-12 21:44:02  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9662 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:48:14  end     baseline.nncl_numeric.cl_grid slot 4: exit code 0, 2795 s; run files 970 of 1200
+2026-10-12 21:48:14  start   baseline.nncl_numeric.cl_grid slot 4 pid 11072
+2026-10-12 21:49:06  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9676 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:54:09  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9686 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 21:55:47  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 1878 s; run files 987 of 1200
+2026-10-12 21:55:47  start   baseline.nncl_numeric.cl_grid slot 9 pid 17008
+2026-10-12 21:57:40  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 1904 s; run files 993 of 1200
+2026-10-12 21:57:40  start   baseline.nncl_numeric.cl_grid slot 12 pid 20008
+2026-10-12 21:58:21  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 2569 s; run files 995 of 1200
+2026-10-12 21:58:22  start   baseline.nncl_numeric.cl_grid slot 2 pid 3720
+2026-10-12 21:59:13  end     baseline.nncl_numeric.cl_grid slot 5: exit code 0, 2152 s; run files 997 of 1200
+2026-10-12 21:59:13  start   baseline.nncl_numeric.cl_grid slot 5 pid 13212
+2026-10-12 21:59:13  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9700 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:03:31  end     baseline.nncl_numeric.cl_grid slot 7: exit code 0, 2353 s; run files 1005 of 1200
+2026-10-12 22:03:31  start   baseline.nncl_numeric.cl_grid slot 7 pid 9992
+2026-10-12 22:03:57  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 2616 s; run files 1007 of 1200
+2026-10-12 22:03:57  start   baseline.nncl_numeric.cl_grid slot 3 pid 8968
+2026-10-12 22:04:18  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9712 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:09:21  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9725 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:10:38  end     baseline.nncl_numeric.cl_grid slot 10: exit code 0, 2034 s; run files 1026 of 1200
+2026-10-12 22:10:38  start   baseline.nncl_numeric.cl_grid slot 10 pid 15992
+2026-10-12 22:14:25  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9740 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:15:06  end     baseline.nncl_numeric.cl_grid slot 6: exit code 0, 2415 s; run files 1039 of 1200
+2026-10-12 22:15:06  start   baseline.nncl_numeric.cl_grid slot 6 pid 18704
+2026-10-12 22:16:44  end     baseline.nncl_numeric.cl_grid slot 1: exit code 0, 2513 s; run files 1043 of 1200
+2026-10-12 22:16:44  start   baseline.nncl_numeric.cl_grid slot 1 pid 17852
+2026-10-12 22:17:00  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 2143 s; run files 1044 of 1200
+2026-10-12 22:17:00  start   baseline.nncl_numeric.cl_grid slot 11 pid 8336
+2026-10-12 22:19:29  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9753 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:22:14  end     baseline.nncl_numeric.cl_grid slot 8: exit code 0, 2369 s; run files 1059 of 1200
+2026-10-12 22:22:14  start   baseline.nncl_numeric.cl_grid slot 8 pid 8924
+2026-10-12 22:24:33  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9766 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:27:43  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 1916 s; run files 1071 of 1200
+2026-10-12 22:27:44  start   baseline.nncl_numeric.cl_grid slot 9 pid 17488
+2026-10-12 22:29:37  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9779 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:30:44  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 1942 s; run files 1078 of 1200
+2026-10-12 22:30:44  start   baseline.nncl_numeric.cl_grid slot 2 pid 19136
+2026-10-12 22:33:18  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 2138 s; run files 1084 of 1200
+2026-10-12 22:33:19  start   baseline.nncl_numeric.cl_grid slot 12 pid 15948
+2026-10-12 22:33:29  end     baseline.nncl_numeric.cl_grid slot 4: exit code 0, 2715 s; run files 1085 of 1200
+2026-10-12 22:33:29  start   baseline.nncl_numeric.cl_grid slot 4 pid 17800
+2026-10-12 22:33:39  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 1782 s; run files 1087 of 1200
+2026-10-12 22:33:40  start   baseline.nncl_numeric.cl_grid slot 3 pid 19288
+2026-10-12 22:34:00  end     baseline.nncl_numeric.cl_grid slot 5: exit code 0, 2087 s; run files 1089 of 1200
+2026-10-12 22:34:01  start   baseline.nncl_numeric.cl_grid slot 5 pid 19988
+2026-10-12 22:34:42  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9793 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:36:04  end     baseline.nncl_numeric.cl_grid slot 7: exit code 0, 1953 s; run files 1094 of 1200
+2026-10-12 22:36:04  start   baseline.nncl_numeric.cl_grid slot 7 pid 9912
+2026-10-12 22:39:46  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9805 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:44:49  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9819 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:49:53  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9830 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:50:50  end     baseline.nncl_numeric.cl_grid slot 1: exit code 0, 2045 s; run files 1131 of 1200
+2026-10-12 22:50:50  start   baseline.nncl_numeric.cl_grid slot 1 pid 13096
+2026-10-12 22:51:11  end     baseline.nncl_numeric.cl_grid slot 10: exit code 0, 2432 s; run files 1132 of 1200
+2026-10-12 22:51:11  start   baseline.nncl_numeric.cl_grid slot 10 pid 16512
+2026-10-12 22:52:59  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 2159 s; run files 1137 of 1200
+2026-10-12 22:52:59  start   baseline.nncl_numeric.cl_grid slot 11 pid 19396
+2026-10-12 22:54:57  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9844 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 22:56:30  end     baseline.nncl_numeric.cl_grid slot 6: exit code 0, 2484 s; run files 1145 of 1200
+2026-10-12 22:56:30  start   baseline.nncl_numeric.cl_grid slot 6 pid 19604
+2026-10-12 23:00:01  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9858 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 23:02:56  end     baseline.nncl_numeric.cl_grid slot 8: exit code 0, 2442 s; run files 1164 of 1200
+2026-10-12 23:02:57  start   baseline.nncl_numeric.cl_grid slot 8 pid 8516
+2026-10-12 23:03:54  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 1990 s; run files 1166 of 1200
+2026-10-12 23:03:54  start   baseline.nncl_numeric.cl_grid slot 2 pid 7228
+2026-10-12 23:05:06  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9871 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 23:06:44  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 2340 s; run files 1173 of 1200
+2026-10-12 23:06:44  start   baseline.nncl_numeric.cl_grid slot 9 pid 15100
+2026-10-12 23:07:36  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 2057 s; run files 1176 of 1200
+2026-10-12 23:07:36  start   baseline.nncl_numeric.cl_grid slot 12 pid 3152
+2026-10-12 23:08:02  end     baseline.nncl_numeric.cl_grid slot 4: exit code 0, 2072 s; run files 1178 of 1200
+2026-10-12 23:08:02  start   baseline.nncl_numeric.cl_grid slot 4 pid 13484
+2026-10-12 23:08:28  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 2088 s; run files 1179 of 1200
+2026-10-12 23:08:28  start   baseline.nncl_numeric.cl_grid slot 3 pid 16820
+2026-10-12 23:10:11  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9885 of 23343; sessions 12 of 12: baseline.nncl_numeric.cl_grid x12
+2026-10-12 23:12:40  end     baseline.nncl_numeric.cl_grid slot 12: exit code 0, 304 s; run files 1189 of 1200
+2026-10-12 23:12:40  start   si_calendar.nncl_numeric.grid slot 12 pid 14908
+2026-10-12 23:12:56  end     baseline.nncl_numeric.cl_grid slot 10: exit code 0, 1305 s; run files 1190 of 1200
+2026-10-12 23:12:56  start   si_calendar.nncl_numeric.grid slot 10 pid 15768
+2026-10-12 23:13:01  end     baseline.nncl_numeric.cl_grid slot 3: exit code 0, 273 s; run files 1191 of 1200
+2026-10-12 23:13:02  start   si_calendar.nncl_numeric.grid slot 3 pid 17616
+2026-10-12 23:13:07  end     baseline.nncl_numeric.cl_grid slot 6: exit code 0, 996 s; run files 1192 of 1200
+2026-10-12 23:13:07  start   si_calendar.nncl_numeric.grid slot 6 pid 8660
+2026-10-12 23:13:54  end     baseline.nncl_numeric.cl_grid slot 7: exit code 0, 2269 s; run files 1193 of 1200
+2026-10-12 23:13:54  start   si_calendar.nncl_numeric.grid slot 7 pid 15384
+2026-10-12 23:14:15  end     baseline.nncl_numeric.cl_grid slot 4: exit code 0, 373 s; run files 1194 of 1200
+2026-10-12 23:14:15  start   si_calendar.nncl_numeric.grid slot 4 pid 7468
+2026-10-12 23:14:31  end     baseline.nncl_numeric.cl_grid slot 5: exit code 0, 2430 s; run files 1195 of 1200
+2026-10-12 23:14:31  start   si_calendar.nncl_numeric.grid slot 5 pid 10744
+2026-10-12 23:15:12  progress tasks 138 of 171 done, 0 failed, 0 blocked; runs 9899 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x7, baseline.nncl_numeric.cl_grid x5
+2026-10-12 23:15:49  end     baseline.nncl_numeric.cl_grid slot 9: exit code 0, 544 s; run files 1197 of 1200
+2026-10-12 23:15:49  end     baseline.nncl_numeric.cl_grid slot 11: exit code 0, 1370 s; run files 1197 of 1200
+2026-10-12 23:15:49  start   si_calendar.nncl_numeric.grid slot 9 pid 6256
+2026-10-12 23:15:49  start   si_calendar.nncl_numeric.grid slot 11 pid 12268
+2026-10-12 23:16:05  end     baseline.nncl_numeric.cl_grid slot 8: exit code 0, 787 s; run files 1198 of 1200
+2026-10-12 23:16:05  start   si_calendar.nncl_numeric.grid slot 8 pid 17596
+2026-10-12 23:16:21  end     baseline.nncl_numeric.cl_grid slot 1: exit code 0, 1531 s; run files 1199 of 1200
+2026-10-12 23:16:21  start   si_calendar.nncl_numeric.grid slot 1 pid 18520
+2026-10-12 23:17:18  end     baseline.nncl_numeric.cl_grid slot 2: exit code 0, 804 s; run files 1200 of 1200
+2026-10-12 23:17:18  done    baseline.nncl_numeric.cl_grid
+2026-10-12 23:17:18  start   baseline.nncl_numeric.cl_grid.analysis slot 2 pid 6900
+2026-10-12 23:19:10  end     baseline.nncl_numeric.cl_grid.analysis slot 2: exit code 0, 112 s
+2026-10-12 23:19:10  done    baseline.nncl_numeric.cl_grid.analysis
+2026-10-12 23:19:10  start   baseline.nncl.age_coding slot 2 pid 2768
+2026-10-12 23:20:16  progress tasks 140 of 171 done, 0 failed, 0 blocked; runs 9907 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x11, baseline.nncl.age_coding x1
+2026-10-12 23:24:41  end     baseline.nncl.age_coding slot 2: exit code 0, 331 s
+2026-10-12 23:24:41  done    baseline.nncl.age_coding
+2026-10-12 23:24:41  start   si_calendar.nncl_numeric.grid slot 2 pid 10052
+2026-10-12 23:25:17  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9915 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-12 23:30:18  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9920 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-12 23:35:19  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9929 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-12 23:40:20  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9937 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-12 23:45:21  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9944 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-12 23:50:22  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9952 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-12 23:55:23  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9959 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:00:24  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9967 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:02:26  end     si_calendar.nncl_numeric.grid slot 9: exit code 0, 2797 s; run files 66 of 1200
+2026-10-13 00:02:26  start   si_calendar.nncl_numeric.grid slot 9 pid 11580
+2026-10-13 00:05:09  end     si_calendar.nncl_numeric.grid slot 8: exit code 0, 2944 s; run files 70 of 1200
+2026-10-13 00:05:10  start   si_calendar.nncl_numeric.grid slot 8 pid 2552
+2026-10-13 00:05:25  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9974 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:10:26  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9979 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:11:52  end     si_calendar.nncl_numeric.grid slot 10: exit code 0, 3536 s; run files 78 of 1200
+2026-10-13 00:11:52  start   si_calendar.nncl_numeric.grid slot 10 pid 2368
+2026-10-13 00:15:26  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9985 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:17:44  end     si_calendar.nncl_numeric.grid slot 11: exit code 0, 3715 s; run files 85 of 1200
+2026-10-13 00:17:44  start   si_calendar.nncl_numeric.grid slot 11 pid 14972
+2026-10-13 00:19:06  end     si_calendar.nncl_numeric.grid slot 4: exit code 0, 3890 s; run files 89 of 1200
+2026-10-13 00:19:06  start   si_calendar.nncl_numeric.grid slot 4 pid 17868
+2026-10-13 00:20:27  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 9992 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:21:49  end     si_calendar.nncl_numeric.grid slot 5: exit code 0, 4038 s; run files 91 of 1200
+2026-10-13 00:21:49  start   si_calendar.nncl_numeric.grid slot 5 pid 14660
+2026-10-13 00:22:35  end     si_calendar.nncl_numeric.grid slot 12: exit code 0, 4195 s; run files 93 of 1200
+2026-10-13 00:22:35  start   si_calendar.nncl_numeric.grid slot 12 pid 3980
+2026-10-13 00:22:45  end     si_calendar.nncl_numeric.grid slot 1: exit code 0, 3984 s; run files 94 of 1200
+2026-10-13 00:22:45  start   si_calendar.nncl_numeric.grid slot 1 pid 9088
+2026-10-13 00:23:21  end     si_calendar.nncl_numeric.grid slot 2: exit code 0, 3520 s; run files 95 of 1200
+2026-10-13 00:23:21  start   si_calendar.nncl_numeric.grid slot 2 pid 20412
+2026-10-13 00:25:29  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10000 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:26:35  end     si_calendar.nncl_numeric.grid slot 3: exit code 0, 4413 s; run files 99 of 1200
+2026-10-13 00:26:35  start   si_calendar.nncl_numeric.grid slot 3 pid 18992
+2026-10-13 00:28:27  end     si_calendar.nncl_numeric.grid slot 7: exit code 0, 4473 s; run files 103 of 1200
+2026-10-13 00:28:28  start   si_calendar.nncl_numeric.grid slot 7 pid 12892
+2026-10-13 00:30:30  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10007 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:35:31  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10014 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:35:51  end     si_calendar.nncl_numeric.grid slot 6: exit code 0, 4964 s; run files 113 of 1200
+2026-10-13 00:35:52  start   si_calendar.nncl_numeric.grid slot 6 pid 16608
+2026-10-13 00:40:32  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10022 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:45:33  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10028 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:50:35  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10036 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 00:55:36  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10041 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:00:37  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10049 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:05:38  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10057 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:10:39  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10064 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:14:39  end     si_calendar.nncl_numeric.grid slot 12: exit code 0, 3124 s; run files 167 of 1200
+2026-10-13 01:14:39  start   si_calendar.nncl_numeric.grid slot 12 pid 1980
+2026-10-13 01:15:40  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10072 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:15:55  end     si_calendar.nncl_numeric.grid slot 8: exit code 0, 4246 s; run files 170 of 1200
+2026-10-13 01:15:56  start   si_calendar.nncl_numeric.grid slot 8 pid 10052
+2026-10-13 01:17:17  end     si_calendar.nncl_numeric.grid slot 2: exit code 0, 3236 s; run files 172 of 1200
+2026-10-13 01:17:17  start   si_calendar.nncl_numeric.grid slot 2 pid 15864
+2026-10-13 01:20:42  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10082 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:22:13  end     si_calendar.nncl_numeric.grid slot 7: exit code 0, 3226 s; run files 182 of 1200
+2026-10-13 01:22:14  start   si_calendar.nncl_numeric.grid slot 7 pid 16544
+2026-10-13 01:22:24  end     si_calendar.nncl_numeric.grid slot 4: exit code 0, 3798 s; run files 183 of 1200
+2026-10-13 01:22:24  start   si_calendar.nncl_numeric.grid slot 4 pid 18436
+2026-10-13 01:23:20  end     si_calendar.nncl_numeric.grid slot 6: exit code 0, 2848 s; run files 184 of 1200
+2026-10-13 01:23:20  start   si_calendar.nncl_numeric.grid slot 6 pid 3444
+2026-10-13 01:25:43  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10090 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:26:29  end     si_calendar.nncl_numeric.grid slot 10: exit code 0, 4477 s; run files 189 of 1200
+2026-10-13 01:26:29  start   si_calendar.nncl_numeric.grid slot 10 pid 18520
+2026-10-13 01:30:04  end     si_calendar.nncl_numeric.grid slot 5: exit code 0, 4095 s; run files 192 of 1200
+2026-10-13 01:30:04  start   si_calendar.nncl_numeric.grid slot 5 pid 19580
+2026-10-13 01:30:45  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10095 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:33:59  end     si_calendar.nncl_numeric.grid slot 1: exit code 0, 4273 s; run files 196 of 1200
+2026-10-13 01:33:59  start   si_calendar.nncl_numeric.grid slot 1 pid 13756
+2026-10-13 01:34:25  end     si_calendar.nncl_numeric.grid slot 3: exit code 0, 4069 s; run files 197 of 1200
+2026-10-13 01:34:25  start   si_calendar.nncl_numeric.grid slot 3 pid 18928
+2026-10-13 01:34:35  end     si_calendar.nncl_numeric.grid slot 9: exit code 0, 5528 s; run files 199 of 1200
+2026-10-13 01:34:35  start   si_calendar.nncl_numeric.grid slot 9 pid 17676
+2026-10-13 01:35:47  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10103 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:40:48  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10110 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:41:03  end     si_calendar.nncl_numeric.grid slot 11: exit code 0, 4999 s; run files 208 of 1200
+2026-10-13 01:41:03  start   si_calendar.nncl_numeric.grid slot 11 pid 8080
+2026-10-13 01:45:49  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10118 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:50:50  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10125 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
+2026-10-13 01:55:51  progress tasks 141 of 171 done, 0 failed, 0 blocked; runs 10133 of 23343; sessions 12 of 12: si_calendar.nncl_numeric.grid x12
