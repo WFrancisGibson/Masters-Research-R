@@ -9,3 +9,16 @@ WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\ke
 WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
 WARNING:tensorflow:5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000278AF643920> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
 WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000278AF643920> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+18:12 dropout=0, hidden=20, activation=tanh: score 21.6185 (baseline 20.6273), 1293 s
+18:35 dropout=0.1, hidden=20, activation=tanh: score 26.0319 (baseline 20.6273), 1349 s
+18:58 dropout=0.2, hidden=20, activation=tanh: score 25.1836 (baseline 20.6273), 1390 s
+19:22 dropout=0, hidden=20-15-10, activation=tanh: score 23.0181 (baseline 20.6273), 1469 s
+19:49 dropout=0.1, hidden=20-15-10, activation=tanh: score 20.8281 (baseline 20.6273), 1572 s
+20:16 dropout=0.2, hidden=20-15-10, activation=tanh: score 20.933 (baseline 20.6273), 1639 s
+20:44 dropout=0, hidden=20-20-15, activation=tanh: score 22.6053 (baseline 20.6273), 1682 s
+21:13 dropout=0.1, hidden=20-20-15, activation=tanh: score 20.8704 (baseline 20.6273), 1743 s
+21:43 dropout=0.2, hidden=20-20-15, activation=tanh: score 20.8188 (baseline 20.6273), 1801 s
+22:13 dropout=0, hidden=20, activation=sigmoid: score 21.0286 (baseline 20.6273), 1782 s
+22:43 dropout=0.1, hidden=20, activation=sigmoid: score 22.4476 (baseline 20.6273), 1831 s
+23:15 dropout=0.2, hidden=20, activation=sigmoid: score 25.3182 (baseline 20.6273), 1876 s
+23:48 dropout=0, hidden=20-15-10, activation=sigmoid: score 21.1926 (baseline 20.6273), 1987 s

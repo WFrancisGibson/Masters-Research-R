@@ -1,0 +1,6 @@
+hyperparameter,value
+dropout,0.2
+hidden,"20, 15, 10"
+activation,tanh
+optimizer,nadam
+learning_rate,0.001

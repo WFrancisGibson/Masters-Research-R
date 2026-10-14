@@ -1,0 +1,7 @@
+step,tuned,label,score
+0,start,"dropout=0, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001",105.617942564355
+1,dropout,"dropout=0.2, hidden=20, activation=tanh, optimizer=adam, learning_rate=0.001",105.555254648972
+2,hidden,"dropout=0.2, hidden=20-20-15, activation=tanh, optimizer=adam, learning_rate=0.001",105.454462853748
+3,activation,"dropout=0.2, hidden=20-20-15, activation=tanh, optimizer=adam, learning_rate=0.001",105.454462853748
+4,optimizer,"dropout=0.2, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001",105.43871991579
+5,learning_rate,"dropout=0.2, hidden=20-20-15, activation=tanh, optimizer=nadam, learning_rate=0.001",105.43871991579
