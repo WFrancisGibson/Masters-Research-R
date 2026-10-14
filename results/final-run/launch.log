@@ -5878,3 +5878,287 @@
 2026-10-14 07:51:17  start   long_reporting.nncl_numeric.grid slot 9 pid 18936
 2026-10-14 07:54:53  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13315 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
 2026-10-14 07:59:55  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13322 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:00:53  push    ok: progress after 6 hours
+2026-10-14 08:04:02  end     long_reporting.nncl_numeric.grid slot 11: exit code 0, 4352 s; run files 1025 of 1200
+2026-10-14 08:04:02  start   long_reporting.nncl_numeric.grid slot 11 pid 11000
+2026-10-14 08:04:38  end     long_reporting.nncl_numeric.grid slot 12: exit code 0, 3712 s; run files 1027 of 1200
+2026-10-14 08:04:39  start   long_reporting.nncl_numeric.grid slot 12 pid 14424
+2026-10-14 08:04:59  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13330 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:08:49  end     long_reporting.nncl_numeric.grid slot 4: exit code 0, 4138 s; run files 1032 of 1200
+2026-10-14 08:08:50  start   long_reporting.nncl_numeric.grid slot 4 pid 19148
+2026-10-14 08:10:01  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13336 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:11:49  end     long_reporting.nncl_numeric.grid slot 3: exit code 0, 4384 s; run files 1037 of 1200
+2026-10-14 08:11:49  start   long_reporting.nncl_numeric.grid slot 3 pid 18140
+2026-10-14 08:15:04  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13344 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:18:39  end     long_reporting.nncl_numeric.grid slot 2: exit code 0, 3876 s; run files 1046 of 1200
+2026-10-14 08:18:39  start   long_reporting.nncl_numeric.grid slot 2 pid 15916
+2026-10-14 08:20:06  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13351 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:23:31  end     long_reporting.nncl_numeric.grid slot 7: exit code 0, 4117 s; run files 1054 of 1200
+2026-10-14 08:23:32  start   long_reporting.nncl_numeric.grid slot 7 pid 19012
+2026-10-14 08:25:09  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13359 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:26:10  end     long_reporting.nncl_numeric.grid slot 5: exit code 0, 4312 s; run files 1059 of 1200
+2026-10-14 08:26:11  start   long_reporting.nncl_numeric.grid slot 5 pid 18164
+2026-10-14 08:30:11  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13366 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:31:08  end     long_reporting.nncl_numeric.grid slot 10: exit code 0, 3779 s; run files 1067 of 1200
+2026-10-14 08:31:08  start   long_reporting.nncl_numeric.grid slot 10 pid 17604
+2026-10-14 08:35:14  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13373 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:40:16  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13382 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:45:18  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13387 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:50:21  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13392 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:50:26  end     long_reporting.nncl_numeric.grid slot 8: exit code 0, 4010 s; run files 1090 of 1200
+2026-10-14 08:50:26  start   long_reporting.nncl_numeric.grid slot 8 pid 8456
+2026-10-14 08:51:28  end     long_reporting.nncl_numeric.grid slot 12: exit code 0, 2809 s; run files 1092 of 1200
+2026-10-14 08:51:28  start   long_reporting.nncl_numeric.grid slot 12 pid 13624
+2026-10-14 08:55:24  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13400 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 08:57:52  end     long_reporting.nncl_numeric.grid slot 11: exit code 0, 3230 s; run files 1101 of 1200
+2026-10-14 08:57:52  start   long_reporting.nncl_numeric.grid slot 11 pid 11236
+2026-10-14 09:00:26  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13407 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:04:17  end     long_reporting.nncl_numeric.grid slot 1: exit code 0, 4554 s; run files 1110 of 1200
+2026-10-14 09:04:17  start   long_reporting.nncl_numeric.grid slot 1 pid 20132
+2026-10-14 09:04:43  end     long_reporting.nncl_numeric.grid slot 9: exit code 0, 4405 s; run files 1111 of 1200
+2026-10-14 09:04:43  start   long_reporting.nncl_numeric.grid slot 9 pid 13020
+2026-10-14 09:05:29  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13415 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:07:58  end     long_reporting.nncl_numeric.grid slot 4: exit code 0, 3548 s; run files 1115 of 1200
+2026-10-14 09:07:58  start   long_reporting.nncl_numeric.grid slot 4 pid 15132
+2026-10-14 09:10:32  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13423 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:10:42  end     long_reporting.nncl_numeric.grid slot 6: exit code 0, 5467 s; run files 1121 of 1200
+2026-10-14 09:10:42  start   long_reporting.nncl_numeric.grid slot 6 pid 19664
+2026-10-14 09:14:17  end     long_reporting.nncl_numeric.grid slot 3: exit code 0, 3748 s; run files 1126 of 1200
+2026-10-14 09:14:18  start   long_reporting.nncl_numeric.grid slot 3 pid 2936
+2026-10-14 09:15:35  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13430 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:20:37  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13436 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:25:40  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13443 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:27:02  end     long_reporting.nncl_numeric.grid slot 2: exit code 0, 4102 s; run files 1142 of 1200
+2026-10-14 09:27:02  start   long_reporting.nncl_numeric.grid slot 2 pid 16768
+2026-10-14 09:30:42  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13449 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:35:45  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13456 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:37:58  end     long_reporting.nncl_numeric.grid slot 8: exit code 0, 2852 s; run files 1157 of 1200
+2026-10-14 09:37:58  start   long_reporting.nncl_numeric.grid slot 8 pid 2900
+2026-10-14 09:40:48  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13462 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:42:15  end     long_reporting.nncl_numeric.grid slot 12: exit code 0, 3047 s; run files 1161 of 1200
+2026-10-14 09:42:15  start   long_reporting.nncl_numeric.grid slot 12 pid 16792
+2026-10-14 09:42:51  end     long_reporting.nncl_numeric.grid slot 10: exit code 0, 4303 s; run files 1162 of 1200
+2026-10-14 09:42:51  start   long_reporting.nncl_numeric.grid slot 10 pid 11548
+2026-10-14 09:44:13  end     long_reporting.nncl_numeric.grid slot 7: exit code 0, 4841 s; run files 1164 of 1200
+2026-10-14 09:44:13  start   long_reporting.nncl_numeric.grid slot 7 pid 4300
+2026-10-14 09:45:51  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13470 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:50:53  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13477 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 09:55:55  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13484 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 10:00:48  end     long_reporting.nncl_numeric.grid slot 5: exit code 0, 5677 s; run files 1188 of 1200
+2026-10-14 10:00:48  start   long_reporting.nncl_numeric.grid slot 5 pid 10228
+2026-10-14 10:00:58  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13492 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x12
+2026-10-14 10:01:03  end     long_reporting.nncl_numeric.grid slot 5: exit code 0, 15 s; run files 1189 of 1200
+2026-10-14 10:01:04  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 14104
+2026-10-14 10:01:29  end     long_reporting.nncl_numeric.grid slot 3: exit code 0, 2832 s; run files 1190 of 1200
+2026-10-14 10:01:30  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 15588
+2026-10-14 10:02:11  end     long_reporting.nncl_numeric.grid slot 6: exit code 0, 3089 s; run files 1191 of 1200
+2026-10-14 10:02:11  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 5332
+2026-10-14 10:02:16  end     long_reporting.nncl_numeric.grid slot 9: exit code 0, 3454 s; run files 1192 of 1200
+2026-10-14 10:02:17  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 10788
+2026-10-14 10:03:50  end     long_reporting.nncl_numeric.grid slot 4: exit code 0, 3352 s; run files 1193 of 1200
+2026-10-14 10:03:50  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 5180
+2026-10-14 10:04:42  end     long_reporting.nncl_numeric.grid slot 2: exit code 0, 2260 s; run files 1194 of 1200
+2026-10-14 10:04:43  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 11972
+2026-10-14 10:05:14  end     long_reporting.nncl_numeric.grid slot 11: exit code 0, 4041 s; run files 1195 of 1200
+2026-10-14 10:05:14  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 9708
+2026-10-14 10:05:55  end     long_reporting.nncl_numeric.grid slot 10: exit code 0, 1384 s; run files 1196 of 1200
+2026-10-14 10:05:56  start   long_reporting.nncl_numeric.cl_grid slot 10 pid 12100
+2026-10-14 10:06:01  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13500 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.grid x4, long_reporting.nncl_numeric.cl_grid x8
+2026-10-14 10:06:22  end     long_reporting.nncl_numeric.grid slot 12: exit code 0, 1447 s; run files 1197 of 1200
+2026-10-14 10:06:22  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 6832
+2026-10-14 10:08:06  end     long_reporting.nncl_numeric.grid slot 7: exit code 0, 1432 s; run files 1198 of 1200
+2026-10-14 10:08:06  start   long_reporting.nncl_numeric.cl_grid slot 7 pid 11992
+2026-10-14 10:11:02  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13515 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x10, long_reporting.nncl_numeric.grid x2
+2026-10-14 10:12:04  end     long_reporting.nncl_numeric.grid slot 8: exit code 0, 2046 s; run files 1199 of 1200
+2026-10-14 10:12:05  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 12212
+2026-10-14 10:16:04  progress tasks 146 of 171 done, 0 failed, 0 blocked; runs 13525 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x11, long_reporting.nncl_numeric.grid x1
+2026-10-14 10:17:37  end     long_reporting.nncl_numeric.grid slot 1: exit code 0, 4400 s; run files 1200 of 1200
+2026-10-14 10:17:37  done    long_reporting.nncl_numeric.grid
+2026-10-14 10:17:37  start   long_reporting.nncl_numeric.grid.analysis slot 1 pid 15744
+2026-10-14 10:18:49  end     long_reporting.nncl_numeric.grid.analysis slot 1: exit code 0, 72 s
+2026-10-14 10:18:49  done    long_reporting.nncl_numeric.grid.analysis
+2026-10-14 10:18:49  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 14136
+2026-10-14 10:21:08  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13538 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:26:10  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13551 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:31:12  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13565 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:34:17  end     long_reporting.nncl_numeric.cl_grid slot 3: exit code 0, 1967 s; run files 69 of 1200
+2026-10-14 10:34:17  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 18608
+2026-10-14 10:35:18  end     long_reporting.nncl_numeric.cl_grid slot 6: exit code 0, 1987 s; run files 73 of 1200
+2026-10-14 10:35:18  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 16984
+2026-10-14 10:36:15  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13578 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:37:32  end     long_reporting.nncl_numeric.cl_grid slot 9: exit code 0, 2115 s; run files 78 of 1200
+2026-10-14 10:37:32  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 20348
+2026-10-14 10:37:37  end     long_reporting.nncl_numeric.cl_grid slot 4: exit code 0, 2026 s; run files 79 of 1200
+2026-10-14 10:37:37  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 10920
+2026-10-14 10:39:04  end     long_reporting.nncl_numeric.cl_grid slot 5: exit code 0, 2281 s; run files 81 of 1200
+2026-10-14 10:39:05  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 14512
+2026-10-14 10:41:18  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13588 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:43:26  end     long_reporting.nncl_numeric.cl_grid slot 12: exit code 0, 2224 s; run files 92 of 1200
+2026-10-14 10:43:26  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 17968
+2026-10-14 10:45:03  end     long_reporting.nncl_numeric.cl_grid slot 11: exit code 0, 2389 s; run files 96 of 1200
+2026-10-14 10:45:04  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 15716
+2026-10-14 10:45:09  end     long_reporting.nncl_numeric.cl_grid slot 8: exit code 0, 1984 s; run files 97 of 1200
+2026-10-14 10:45:09  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 13536
+2026-10-14 10:45:55  end     long_reporting.nncl_numeric.cl_grid slot 10: exit code 0, 2399 s; run files 99 of 1200
+2026-10-14 10:45:55  start   long_reporting.nncl_numeric.cl_grid slot 10 pid 19808
+2026-10-14 10:46:21  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13602 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:49:51  end     long_reporting.nncl_numeric.cl_grid slot 7: exit code 0, 2505 s; run files 108 of 1200
+2026-10-14 10:49:51  start   long_reporting.nncl_numeric.cl_grid slot 7 pid 11276
+2026-10-14 10:51:23  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13614 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:52:09  end     long_reporting.nncl_numeric.cl_grid slot 2: exit code 0, 2847 s; run files 114 of 1200
+2026-10-14 10:52:10  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 18132
+2026-10-14 10:56:26  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13626 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 10:57:12  end     long_reporting.nncl_numeric.cl_grid slot 1: exit code 0, 2303 s; run files 127 of 1200
+2026-10-14 10:57:12  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 18964
+2026-10-14 11:01:29  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13642 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:06:31  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13653 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:10:57  end     long_reporting.nncl_numeric.cl_grid slot 9: exit code 0, 2005 s; run files 161 of 1200
+2026-10-14 11:10:58  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 16788
+2026-10-14 11:11:34  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13664 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:11:59  end     long_reporting.nncl_numeric.cl_grid slot 4: exit code 0, 2062 s; run files 163 of 1200
+2026-10-14 11:12:00  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 18744
+2026-10-14 11:14:18  end     long_reporting.nncl_numeric.cl_grid slot 3: exit code 0, 2401 s; run files 170 of 1200
+2026-10-14 11:14:18  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 5328
+2026-10-14 11:16:37  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13676 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:18:19  end     long_reporting.nncl_numeric.cl_grid slot 5: exit code 0, 2355 s; run files 178 of 1200
+2026-10-14 11:18:19  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 8016
+2026-10-14 11:18:40  end     long_reporting.nncl_numeric.cl_grid slot 8: exit code 0, 2011 s; run files 179 of 1200
+2026-10-14 11:18:40  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 20104
+2026-10-14 11:19:01  end     long_reporting.nncl_numeric.cl_grid slot 6: exit code 0, 2622 s; run files 181 of 1200
+2026-10-14 11:19:01  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 10204
+2026-10-14 11:20:38  end     long_reporting.nncl_numeric.cl_grid slot 12: exit code 0, 2232 s; run files 183 of 1200
+2026-10-14 11:20:39  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 3600
+2026-10-14 11:21:40  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13691 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:22:01  end     long_reporting.nncl_numeric.cl_grid slot 11: exit code 0, 2217 s; run files 189 of 1200
+2026-10-14 11:22:01  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 18572
+2026-10-14 11:25:11  end     long_reporting.nncl_numeric.cl_grid slot 10: exit code 0, 2355 s; run files 197 of 1200
+2026-10-14 11:25:11  start   long_reporting.nncl_numeric.cl_grid slot 10 pid 19956
+2026-10-14 11:25:31  end     long_reporting.nncl_numeric.cl_grid slot 7: exit code 0, 2140 s; run files 198 of 1200
+2026-10-14 11:25:32  start   long_reporting.nncl_numeric.cl_grid slot 7 pid 6484
+2026-10-14 11:26:44  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13704 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:30:50  end     long_reporting.nncl_numeric.cl_grid slot 1: exit code 0, 2018 s; run files 212 of 1200
+2026-10-14 11:30:50  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 15112
+2026-10-14 11:31:47  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13717 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:36:49  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13727 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:41:52  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13741 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:43:04  end     long_reporting.nncl_numeric.cl_grid slot 2: exit code 0, 3054 s; run files 242 of 1200
+2026-10-14 11:43:04  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 9200
+2026-10-14 11:46:24  end     long_reporting.nncl_numeric.cl_grid slot 9: exit code 0, 2126 s; run files 252 of 1200
+2026-10-14 11:46:24  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 18784
+2026-10-14 11:46:55  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13757 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:51:57  end     long_reporting.nncl_numeric.cl_grid slot 5: exit code 0, 2017 s; run files 265 of 1200
+2026-10-14 11:51:57  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 18052
+2026-10-14 11:51:57  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13768 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:53:29  end     long_reporting.nncl_numeric.cl_grid slot 12: exit code 0, 1971 s; run files 268 of 1200
+2026-10-14 11:53:30  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 18684
+2026-10-14 11:54:11  end     long_reporting.nncl_numeric.cl_grid slot 8: exit code 0, 2130 s; run files 269 of 1200
+2026-10-14 11:54:11  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 20080
+2026-10-14 11:56:09  end     long_reporting.nncl_numeric.cl_grid slot 6: exit code 0, 2228 s; run files 276 of 1200
+2026-10-14 11:56:09  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 6176
+2026-10-14 11:57:00  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13781 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 11:59:29  end     long_reporting.nncl_numeric.cl_grid slot 4: exit code 0, 2849 s; run files 283 of 1200
+2026-10-14 11:59:29  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 13108
+2026-10-14 12:00:56  end     long_reporting.nncl_numeric.cl_grid slot 3: exit code 0, 2798 s; run files 284 of 1200
+2026-10-14 12:00:56  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 18012
+2026-10-14 12:01:48  end     long_reporting.nncl_numeric.cl_grid slot 11: exit code 0, 2387 s; run files 288 of 1200
+2026-10-14 12:01:48  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 2140
+2026-10-14 12:02:03  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13791 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:04:17  end     long_reporting.nncl_numeric.cl_grid slot 1: exit code 0, 2006 s; run files 294 of 1200
+2026-10-14 12:04:17  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 14948
+2026-10-14 12:05:39  end     long_reporting.nncl_numeric.cl_grid slot 7: exit code 0, 2407 s; run files 298 of 1200
+2026-10-14 12:05:39  start   long_reporting.nncl_numeric.cl_grid slot 7 pid 16164
+2026-10-14 12:07:06  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13806 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:12:09  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13819 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:13:00  end     long_reporting.nncl_numeric.cl_grid slot 10: exit code 0, 2869 s; run files 319 of 1200
+2026-10-14 12:13:00  start   long_reporting.nncl_numeric.cl_grid slot 10 pid 10204
+2026-10-14 12:16:26  end     long_reporting.nncl_numeric.cl_grid slot 2: exit code 0, 2002 s; run files 326 of 1200
+2026-10-14 12:16:26  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 19836
+2026-10-14 12:17:12  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13829 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:21:23  end     long_reporting.nncl_numeric.cl_grid slot 9: exit code 0, 2099 s; run files 338 of 1200
+2026-10-14 12:21:23  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 16436
+2026-10-14 12:22:15  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13843 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:25:24  end     long_reporting.nncl_numeric.cl_grid slot 5: exit code 0, 2007 s; run files 346 of 1200
+2026-10-14 12:25:25  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 19536
+2026-10-14 12:27:18  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13856 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:27:33  end     long_reporting.nncl_numeric.cl_grid slot 12: exit code 0, 2043 s; run files 354 of 1200
+2026-10-14 12:27:33  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 16540
+2026-10-14 12:32:20  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13869 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:33:48  end     long_reporting.nncl_numeric.cl_grid slot 8: exit code 0, 2377 s; run files 370 of 1200
+2026-10-14 12:33:48  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 16500
+2026-10-14 12:34:08  end     long_reporting.nncl_numeric.cl_grid slot 3: exit code 0, 1992 s; run files 371 of 1200
+2026-10-14 12:34:08  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 18300
+2026-10-14 12:36:01  end     long_reporting.nncl_numeric.cl_grid slot 6: exit code 0, 2392 s; run files 376 of 1200
+2026-10-14 12:36:01  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 13360
+2026-10-14 12:37:23  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13882 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:40:07  end     long_reporting.nncl_numeric.cl_grid slot 4: exit code 0, 2438 s; run files 386 of 1200
+2026-10-14 12:40:08  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 5212
+2026-10-14 12:42:26  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13896 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:45:00  end     long_reporting.nncl_numeric.cl_grid slot 11: exit code 0, 2592 s; run files 400 of 1200
+2026-10-14 12:45:00  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 17488
+2026-10-14 12:45:26  end     long_reporting.nncl_numeric.cl_grid slot 7: exit code 0, 2386 s; run files 401 of 1200
+2026-10-14 12:45:26  start   long_reporting.nncl_numeric.cl_grid slot 7 pid 12108
+2026-10-14 12:47:29  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13906 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:47:34  end     long_reporting.nncl_numeric.cl_grid slot 1: exit code 0, 2597 s; run files 404 of 1200
+2026-10-14 12:47:34  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 8856
+2026-10-14 12:48:15  end     long_reporting.nncl_numeric.cl_grid slot 10: exit code 0, 2115 s; run files 405 of 1200
+2026-10-14 12:48:16  start   long_reporting.nncl_numeric.cl_grid slot 10 pid 6904
+2026-10-14 12:49:53  end     long_reporting.nncl_numeric.cl_grid slot 2: exit code 0, 2007 s; run files 411 of 1200
+2026-10-14 12:49:53  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 6396
+2026-10-14 12:52:32  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13920 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 12:53:59  end     long_reporting.nncl_numeric.cl_grid slot 9: exit code 0, 1956 s; run files 421 of 1200
+2026-10-14 12:54:00  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 13584
+2026-10-14 12:57:35  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13936 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:00:40  end     long_reporting.nncl_numeric.cl_grid slot 5: exit code 0, 2115 s; run files 441 of 1200
+2026-10-14 13:00:40  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 19064
+2026-10-14 13:02:38  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13946 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:02:53  end     long_reporting.nncl_numeric.cl_grid slot 12: exit code 0, 2120 s; run files 444 of 1200
+2026-10-14 13:02:54  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 12980
+2026-10-14 13:07:41  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13960 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:12:44  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13971 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:12:49  end     long_reporting.nncl_numeric.cl_grid slot 4: exit code 0, 1962 s; run files 469 of 1200
+2026-10-14 13:12:50  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 7056
+2026-10-14 13:13:56  end     long_reporting.nncl_numeric.cl_grid slot 3: exit code 0, 2388 s; run files 473 of 1200
+2026-10-14 13:13:56  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 9888
+2026-10-14 13:17:32  end     long_reporting.nncl_numeric.cl_grid slot 6: exit code 0, 2491 s; run files 481 of 1200
+2026-10-14 13:17:32  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 19620
+2026-10-14 13:17:48  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 13984 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:17:53  end     long_reporting.nncl_numeric.cl_grid slot 8: exit code 0, 2645 s; run files 482 of 1200
+2026-10-14 13:17:53  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 16756
+2026-10-14 13:21:03  end     long_reporting.nncl_numeric.cl_grid slot 1: exit code 0, 2008 s; run files 493 of 1200
+2026-10-14 13:21:03  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 5976
+2026-10-14 13:22:51  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14000 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:23:52  end     long_reporting.nncl_numeric.cl_grid slot 2: exit code 0, 2039 s; run files 499 of 1200
+2026-10-14 13:23:53  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 14224
+2026-10-14 13:24:34  end     long_reporting.nncl_numeric.cl_grid slot 11: exit code 0, 2374 s; run files 501 of 1200
+2026-10-14 13:24:34  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 8364
+2026-10-14 13:25:10  end     long_reporting.nncl_numeric.cl_grid slot 10: exit code 0, 2214 s; run files 502 of 1200
+2026-10-14 13:25:10  start   long_reporting.nncl_numeric.cl_grid slot 10 pid 17772
+2026-10-14 13:27:13  end     long_reporting.nncl_numeric.cl_grid slot 9: exit code 0, 1993 s; run files 508 of 1200
+2026-10-14 13:27:13  start   long_reporting.nncl_numeric.cl_grid slot 9 pid 2496
+2026-10-14 13:27:44  end     long_reporting.nncl_numeric.cl_grid slot 7: exit code 0, 2538 s; run files 509 of 1200
+2026-10-14 13:27:44  start   long_reporting.nncl_numeric.cl_grid slot 7 pid 12720
+2026-10-14 13:27:55  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14012 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:32:59  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14025 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:33:45  end     long_reporting.nncl_numeric.cl_grid slot 5: exit code 0, 1985 s; run files 524 of 1200
+2026-10-14 13:33:45  start   long_reporting.nncl_numeric.cl_grid slot 5 pid 13936
+2026-10-14 13:38:02  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14038 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:43:05  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14052 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:44:32  end     long_reporting.nncl_numeric.cl_grid slot 4: exit code 0, 1902 s; run files 553 of 1200
+2026-10-14 13:44:32  start   long_reporting.nncl_numeric.cl_grid slot 4 pid 7988
+2026-10-14 13:48:08  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14064 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:50:47  end     long_reporting.nncl_numeric.cl_grid slot 12: exit code 0, 2873 s; run files 569 of 1200
+2026-10-14 13:50:47  start   long_reporting.nncl_numeric.cl_grid slot 12 pid 20416
+2026-10-14 13:51:28  end     long_reporting.nncl_numeric.cl_grid slot 3: exit code 0, 2252 s; run files 572 of 1200
+2026-10-14 13:51:29  start   long_reporting.nncl_numeric.cl_grid slot 3 pid 16912
+2026-10-14 13:53:11  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14077 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:53:57  end     long_reporting.nncl_numeric.cl_grid slot 1: exit code 0, 1974 s; run files 577 of 1200
+2026-10-14 13:53:58  start   long_reporting.nncl_numeric.cl_grid slot 1 pid 5936
+2026-10-14 13:55:30  end     long_reporting.nncl_numeric.cl_grid slot 8: exit code 0, 2257 s; run files 581 of 1200
+2026-10-14 13:55:30  start   long_reporting.nncl_numeric.cl_grid slot 8 pid 17000
+2026-10-14 13:55:56  end     long_reporting.nncl_numeric.cl_grid slot 6: exit code 0, 2303 s; run files 583 of 1200
+2026-10-14 13:55:56  start   long_reporting.nncl_numeric.cl_grid slot 6 pid 16440
+2026-10-14 13:58:09  end     long_reporting.nncl_numeric.cl_grid slot 11: exit code 0, 2016 s; run files 585 of 1200
+2026-10-14 13:58:10  start   long_reporting.nncl_numeric.cl_grid slot 11 pid 20244
+2026-10-14 13:58:15  progress tasks 148 of 171 done, 0 failed, 0 blocked; runs 14089 of 23343; sessions 12 of 12: long_reporting.nncl_numeric.cl_grid x12
+2026-10-14 13:58:25  end     long_reporting.nncl_numeric.cl_grid slot 2: exit code 0, 2072 s; run files 587 of 1200
+2026-10-14 13:58:25  start   long_reporting.nncl_numeric.cl_grid slot 2 pid 19624
