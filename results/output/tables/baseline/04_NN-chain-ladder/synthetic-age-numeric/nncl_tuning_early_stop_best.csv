@@ -1,0 +1,6 @@
+hyperparameter,value
+dropout,0
+hidden,"20, 15, 10"
+activation,sigmoid
+learning_rate,5e-04
+patience,50
