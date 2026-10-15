@@ -22,3 +22,12 @@ WARNING:tensorflow:6 out of the last 8 calls to <function TensorFlowTrainer.make
 22:44 dropout=0.1, hidden=20, activation=sigmoid: score 8.1059 (baseline 6.74986), 1850 s
 23:15 dropout=0.2, hidden=20, activation=sigmoid: score 10.5884 (baseline 6.74986), 1876 s
 23:49 dropout=0, hidden=20-15-10, activation=sigmoid: score 6.88082 (baseline 6.74986), 2006 s
+00:24 dropout=0.1, hidden=20-15-10, activation=sigmoid: score 6.94635 (baseline 6.74986), 2102 s
+01:00 dropout=0.2, hidden=20-15-10, activation=sigmoid: score 7.26633 (baseline 6.74986), 2177 s
+01:37 dropout=0, hidden=20-20-15, activation=sigmoid: score 6.76737 (baseline 6.74986), 2196 s
+02:15 dropout=0.1, hidden=20-20-15, activation=sigmoid: score 6.85865 (baseline 6.74986), 2270 s
+02:54 dropout=0.2, hidden=20-20-15, activation=sigmoid: score 7.16715 (baseline 6.74986), 2356 s
+03:33 dropout=0, hidden=20, activation=relu: score 7.48058 (baseline 6.74986), 2372 s
+04:13 dropout=0.1, hidden=20, activation=relu: score 8.66846 (baseline 6.74986), 2393 s
+04:53 dropout=0.2, hidden=20, activation=relu: score 8.72106 (baseline 6.74986), 2392 s
+05:34 dropout=0, hidden=20-15-10, activation=relu: score 7.37862 (baseline 6.74986), 2479 s
