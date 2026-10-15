@@ -159,3 +159,40 @@ WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for
 16:31 grid_20_relu_d0.2_adam_b64_s2028: 962 s, steps minimum 7, fixed 200, moving_average 49, patience 7
 16:43 grid_20_relu_d0.2_adam_b64_s2041: 719 s, steps minimum 2, fixed 200, moving_average 49, patience 2
 16:57 grid_20_relu_d0.2_sgd_momentum_bfull_s2033: 871 s, steps minimum 8, fixed 200, moving_average 49, patience 8
+17:13 grid_20_relu_d0.2_sgd_momentum_b64_s2026: 966 s, steps minimum 21, fixed 200, moving_average 49, patience 21
+17:25 grid_20_relu_d0.2_sgd_momentum_b64_s2038: 689 s, steps minimum 49, fixed 200, moving_average 49, patience 49
+17:41 grid_20-15_tanh_d0_rmsprop_bfull_s2030: 993 s, steps minimum 793, fixed 200, moving_average 544, patience 793
+17:56 grid_20-15_tanh_d0_rmsprop_bfull_s2041: 859 s, steps minimum 1, fixed 200, moving_average 757, patience 1
+18:11 grid_20-15_tanh_d0_rmsprop_b64_s2033: 902 s, steps minimum 0, fixed 200, moving_average 61, patience 0
+18:26 grid_20-15_tanh_d0_rmsprop_b64_s2045: 952 s, steps minimum 2, fixed 200, moving_average 50, patience 2
+18:42 grid_20-15_tanh_d0_adam_bfull_s2035: 943 s, steps minimum 5, fixed 200, moving_average 49, patience 5
+19:00 grid_20-15_tanh_d0_adam_b64_s2027: 1053 s, steps minimum 3, fixed 200, moving_average 93, patience 3
+19:15 grid_20-15_tanh_d0_adam_b64_s2039: 940 s, steps minimum 6, fixed 200, moving_average 465, patience 6
+==== 2026-10-15 19:15:56 start baseline.bccnn.grid slot 4
+combinations        seeds         runs 
+         144           20         2880 
+lowest validation loss of bCCNN fit.R at step 
+                                          165 
+                                  fixed steps 
+                                          200 
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792084579.772585    8960 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792084623.194330    8960 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+19:38 grid_20-15_tanh_d0_sgd_momentum_bfull_s2030: 1360 s, steps minimum 1000, fixed 200, moving_average 2950, patience 3
+19:55 grid_20-15_tanh_d0_sgd_momentum_b64_s2028: 974 s, steps minimum 2, fixed 200, moving_average 134, patience 2
+20:07 grid_20-15_tanh_d0_sgd_momentum_b64_s2039: 770 s, steps minimum 2, fixed 200, moving_average 1034, patience 2
+20:25 grid_20-15_tanh_d0.1_rmsprop_bfull_s2028: 1042 s, steps minimum 87, fixed 200, moving_average 2214, patience 87
+20:36 grid_20-15_tanh_d0.1_rmsprop_bfull_s2044: 673 s, steps minimum 1, fixed 200, moving_average 261, patience 1
+20:53 grid_20-15_tanh_d0.1_rmsprop_b64_s2029: 1007 s, steps minimum 17, fixed 200, moving_average 1082, patience 17
+21:14 grid_20-15_tanh_d0.1_rmsprop_b64_s2043: 1254 s, steps minimum 93, fixed 200, moving_average 188, patience 93
+21:27 grid_20-15_tanh_d0.1_adam_bfull_s2042: 826 s, steps minimum 529, fixed 200, moving_average 961, patience 17
+21:42 grid_20-15_tanh_d0.1_adam_b64_s2030: 896 s, steps minimum 7, fixed 200, moving_average 2497, patience 7
+21:57 grid_20-15_tanh_d0.1_adam_b64_s2041: 881 s, steps minimum 350, fixed 200, moving_average 1882, patience 350
+22:13 grid_20-15_tanh_d0.1_sgd_momentum_bfull_s2030: 930 s, steps minimum 292, fixed 200, moving_average 289, patience 292
+22:31 grid_20-15_tanh_d0.1_sgd_momentum_bfull_s2043: 1083 s, steps minimum 856, fixed 200, moving_average 1632, patience 253
+22:47 grid_20-15_tanh_d0.1_sgd_momentum_b64_s2036: 956 s, steps minimum 170, fixed 200, moving_average 2585, patience 170
+23:03 grid_20-15_tanh_d0.2_rmsprop_bfull_s2027: 995 s, steps minimum 764, fixed 200, moving_average 2412, patience 32
