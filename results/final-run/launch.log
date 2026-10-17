@@ -7252,3 +7252,142 @@
 2026-10-16 22:59:13  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16741 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
 2026-10-16 23:04:14  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16743 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
 2026-10-16 23:09:15  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16748 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:10:29  push    ok: progress after 6 hours
+2026-10-16 23:13:36  end     baseline.bccnn.grid slot 11: exit code 0, 19443 s; run files 2049 of 2880
+2026-10-16 23:13:36  start   baseline.bccnn.grid slot 11 pid 6448
+2026-10-16 23:14:18  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16752 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:19:19  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16755 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:24:20  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16758 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:29:21  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16762 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:34:22  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16764 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:37:29  end     baseline.bccnn.grid slot 1: exit code 0, 19129 s; run files 2062 of 2880
+2026-10-16 23:37:30  start   baseline.bccnn.grid slot 1 pid 13080
+2026-10-16 23:38:11  end     baseline.bccnn.grid slot 9: exit code 0, 19082 s; run files 2064 of 2880
+2026-10-16 23:38:12  start   baseline.bccnn.grid slot 9 pid 18836
+2026-10-16 23:39:24  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16770 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:44:25  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16771 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-16 23:49:27  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16774 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 18:44:10  ==== launcher started, process 12692
+2026-10-17 18:44:23  results worktree: C:\Users\26196425\Work\Masters-Research-R-results
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2045.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2044.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2043.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2042.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2041.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2040.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2039.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_rmsprop_b64_s2038.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_adam_bfull_s2029.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_adam_bfull_s2028.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_adam_bfull_s2027.rds.lock
+2026-10-17 18:46:02  unlock  C:\Users\26196425\Work\Masters-Research-R-results\results\data\processed\baseline\bccnn_grid_fit_grid_20-15-10_relu_d0.2_adam_bfull_s2026.rds.lock
+2026-10-17 18:46:06  R: R version 4.6.1 (2026-06-24 ucrt); Python: C:\Users\26196425\Work\Masters-Research-R-python\env\Scripts\python.exe; code commit: 5f045811
+2026-10-17 18:46:06  ==== final run: 12 slots, RUN_ROOT C:\Users\26196425\Work\Masters-Research-R-results\results
+2026-10-17 18:46:56  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16777 of 23343; sessions 0 of 12: 
+2026-10-17 18:46:56  start   baseline.bccnn.grid slot 1 pid 12364
+2026-10-17 18:46:56  start   baseline.bccnn.grid slot 2 pid 3672
+2026-10-17 18:46:57  start   baseline.bccnn.grid slot 3 pid 11612
+2026-10-17 18:46:57  start   baseline.bccnn.grid slot 4 pid 10096
+2026-10-17 18:46:57  start   baseline.bccnn.grid slot 5 pid 9156
+2026-10-17 18:46:58  start   baseline.bccnn.grid slot 6 pid 12248
+2026-10-17 18:46:58  start   baseline.bccnn.grid slot 7 pid 10720
+2026-10-17 18:46:58  start   baseline.bccnn.grid slot 8 pid 5012
+2026-10-17 18:46:59  start   baseline.bccnn.grid slot 9 pid 9176
+2026-10-17 18:47:00  start   baseline.bccnn.grid slot 10 pid 10568
+2026-10-17 18:47:00  start   baseline.bccnn.grid slot 11 pid 13348
+2026-10-17 18:47:01  start   baseline.bccnn.grid slot 12 pid 13420
+2026-10-17 18:51:58  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16777 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 18:56:59  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16777 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:02:04  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16777 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:07:04  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16784 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:12:05  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16789 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:17:05  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16789 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:22:05  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16794 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:27:06  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16799 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:32:06  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16801 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:37:06  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16803 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:42:07  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16810 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:47:07  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16813 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:52:08  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16813 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 19:57:13  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16820 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:02:13  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16824 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:07:14  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16826 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:12:14  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16832 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:17:16  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16836 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:22:16  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16838 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:27:16  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16841 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:32:21  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16847 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:37:26  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16851 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:42:31  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16852 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:47:36  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16859 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:52:41  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16863 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 20:57:46  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16863 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:02:51  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16870 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:07:56  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16873 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:13:01  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16875 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:18:06  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16881 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:23:11  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16885 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:28:11  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16888 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:33:16  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16893 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:38:21  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16897 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:43:26  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16898 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:48:31  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16905 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:53:36  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16909 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 21:58:41  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16910 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:03:41  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16920 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:08:47  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16921 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:13:52  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16925 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:18:56  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16931 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:24:02  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16934 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:29:02  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16937 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:34:07  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16941 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:39:12  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16945 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:44:12  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16950 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:49:12  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16954 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:54:17  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16957 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 22:59:22  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16960 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:04:22  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16967 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:09:27  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16970 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:14:28  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16975 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:19:33  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16980 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:24:38  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16982 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:29:43  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16985 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:34:43  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16991 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:39:43  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 16994 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:43:57  end     baseline.bccnn.grid slot 9: exit code 0, 17818 s; run files 2295 of 2880
+2026-10-17 23:43:57  start   baseline.bccnn.grid slot 9 pid 10412
+2026-10-17 23:44:44  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17000 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:49:44  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17004 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:54:44  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17005 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-17 23:57:09  end     baseline.bccnn.grid slot 2: exit code 0, 18613 s; run files 2302 of 2880
+2026-10-17 23:57:09  end     baseline.bccnn.grid slot 11: exit code 0, 18609 s; run files 2302 of 2880
+2026-10-17 23:57:09  start   baseline.bccnn.grid slot 2 pid 9736
+2026-10-17 23:57:10  start   baseline.bccnn.grid slot 11 pid 15984
+2026-10-17 23:57:56  end     baseline.bccnn.grid slot 4: exit code 0, 18659 s; run files 2304 of 2880
+2026-10-17 23:57:56  end     baseline.bccnn.grid slot 12: exit code 0, 18656 s; run files 2304 of 2880
+2026-10-17 23:57:57  start   baseline.bccnn.grid slot 4 pid 13052
+2026-10-17 23:57:57  start   baseline.bccnn.grid slot 12 pid 13880
+2026-10-17 23:59:45  end     baseline.bccnn.grid slot 8: exit code 0, 18767 s; run files 2306 of 2880
+2026-10-17 23:59:46  start   baseline.bccnn.grid slot 8 pid 8792
+2026-10-17 23:59:46  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17011 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:01:35  end     baseline.bccnn.grid slot 3: exit code 0, 18878 s; run files 2307 of 2880
+2026-10-18 00:01:35  start   baseline.bccnn.grid slot 3 pid 16044
+2026-10-18 00:02:42  end     baseline.bccnn.grid slot 6: exit code 0, 18945 s; run files 2308 of 2880
+2026-10-18 00:02:43  start   baseline.bccnn.grid slot 6 pid 8604
+2026-10-18 00:04:47  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17014 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:05:18  end     baseline.bccnn.grid slot 5: exit code 0, 19101 s; run files 2310 of 2880
+2026-10-18 00:05:18  start   baseline.bccnn.grid slot 5 pid 8464
+2026-10-18 00:05:39  end     baseline.bccnn.grid slot 1: exit code 0, 19123 s; run files 2311 of 2880
+2026-10-18 00:05:39  start   baseline.bccnn.grid slot 1 pid 15184
+2026-10-18 00:08:56  end     baseline.bccnn.grid slot 10: exit code 0, 19317 s; run files 2312 of 2880
+2026-10-18 00:08:57  start   baseline.bccnn.grid slot 10 pid 13860
+2026-10-18 00:09:49  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17017 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:13:32  end     baseline.bccnn.grid slot 7: exit code 0, 19593 s; run files 2315 of 2880
+2026-10-18 00:13:32  start   baseline.bccnn.grid slot 7 pid 13944
+2026-10-18 00:14:50  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17021 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:19:50  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17026 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:24:51  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17030 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:29:52  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17032 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:34:53  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17038 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:39:53  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17042 of 23343; sessions 12 of 12: baseline.bccnn.grid x12
+2026-10-18 00:44:54  progress tasks 160 of 171 done, 0 failed, 0 blocked; runs 17044 of 23343; sessions 12 of 12: baseline.bccnn.grid x12

@@ -50,3 +50,15 @@ code commit: 5f04581
 slots: 12
 profile: '', skip smoke: False, tasks file: ''
 
+launch: 2026-10-17 18:46:05
+computer: STATISVM7
+processor: Intel(R) Xeon(R) W-2245 CPU @ 3.90GHz
+logical processors: 12
+memory (GB): 322
+R: R version 4.6.1 (2026-06-24 ucrt)
+Rscript: C:\Users\26196425\AppData\Local\Programs\R-4.6.1\bin\x64\Rscript.exe
+Python: C:\Users\26196425\Work\Masters-Research-R-python\env\Scripts\python.exe
+code commit: 5f045811
+slots: 12
+profile: '', skip smoke: False, tasks file: ''
+
