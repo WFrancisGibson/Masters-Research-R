@@ -311,3 +311,41 @@ WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\ke
 WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
 00:21 grid_40-30-20_tanh_d0.1_adam_bfull_s2027: 975 s, steps minimum 727, fixed 200, moving_average 2365, patience 32
 00:35 grid_40-30-20_tanh_d0.1_adam_bfull_s2040: 840 s, steps minimum 190, fixed 200, moving_average 2665, patience 190
+00:48 grid_40-30-20_tanh_d0.1_adam_b64_s2031: 780 s, steps minimum 1, fixed 200, moving_average 1283, patience 1
+01:09 grid_40-30-20_tanh_d0.1_adam_b64_s2038: 1239 s, steps minimum 185, fixed 200, moving_average 2901, patience 185
+01:27 grid_40-30-20_tanh_d0.1_sgd_momentum_bfull_s2034: 1056 s, steps minimum 656, fixed 200, moving_average 1826, patience 321
+01:40 grid_40-30-20_tanh_d0.1_sgd_momentum_bfull_s2045: 824 s, steps minimum 463, fixed 200, moving_average 1728, patience 143
+01:57 grid_40-30-20_tanh_d0.1_sgd_momentum_b64_s2036: 991 s, steps minimum 259, fixed 200, moving_average 2873, patience 259
+02:12 grid_40-30-20_tanh_d0.2_rmsprop_bfull_s2028: 884 s, steps minimum 973, fixed 200, moving_average 990, patience 2
+02:26 grid_40-30-20_tanh_d0.2_rmsprop_bfull_s2042: 856 s, steps minimum 4, fixed 200, moving_average 2686, patience 4
+02:40 grid_40-30-20_tanh_d0.2_rmsprop_b64_s2036: 860 s, steps minimum 523, fixed 200, moving_average 560, patience 523
+02:55 grid_40-30-20_tanh_d0.2_adam_bfull_s2026: 897 s, steps minimum 224, fixed 200, moving_average 806, patience 224
+03:11 grid_40-30-20_tanh_d0.2_adam_bfull_s2037: 922 s, steps minimum 773, fixed 200, moving_average 215, patience 199
+03:24 grid_40-30-20_tanh_d0.2_adam_b64_s2032: 789 s, steps minimum 78, fixed 200, moving_average 85, patience 78
+03:40 grid_40-30-20_tanh_d0.2_adam_b64_s2042: 997 s, steps minimum 181, fixed 200, moving_average 146, patience 181
+03:55 grid_40-30-20_tanh_d0.2_sgd_momentum_bfull_s2034: 859 s, steps minimum 627, fixed 200, moving_average 354, patience 314
+04:10 grid_40-30-20_tanh_d0.2_sgd_momentum_bfull_s2044: 953 s, steps minimum 643, fixed 200, moving_average 2794, patience 76
+04:27 grid_40-30-20_tanh_d0.2_sgd_momentum_b64_s2038: 1019 s, steps minimum 59, fixed 200, moving_average 2943, patience 59
+04:41 grid_40-30-20_relu_d0_rmsprop_bfull_s2031: 831 s, steps minimum 2, fixed 200, moving_average 49, patience 2
+04:55 grid_40-30-20_relu_d0_rmsprop_bfull_s2041: 830 s, steps minimum 3, fixed 200, moving_average 49, patience 3
+05:08 grid_40-30-20_relu_d0_rmsprop_b64_s2033: 773 s, steps minimum 0, fixed 200, moving_average 49, patience 0
+==== 2026-10-18 05:08:37 start baseline.bccnn.grid slot 5
+combinations        seeds         runs 
+         144           20         2880 
+lowest validation loss of bCCNN fit.R at step 
+                                          165 
+                                  fixed steps 
+                                          200 
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792292925.365408    1956 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792292930.038545    1956 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+05:26 grid_40-30-20_relu_d0_rmsprop_b64_s2043: 1061 s, steps minimum 4, fixed 200, moving_average 49, patience 4
+05:37 grid_40-30-20_relu_d0_adam_bfull_s2036: 665 s, steps minimum 1, fixed 200, moving_average 49, patience 1
+05:52 grid_40-30-20_relu_d0_adam_b64_s2028: 923 s, steps minimum 5, fixed 200, moving_average 49, patience 5
+06:08 grid_40-30-20_relu_d0_adam_b64_s2042: 962 s, steps minimum 0, fixed 200, moving_average 49, patience 0
+06:22 grid_40-30-20_relu_d0_sgd_momentum_bfull_s2035: 798 s, steps minimum 0, fixed 200, moving_average 49, patience 0
+06:40 grid_40-30-20_relu_d0_sgd_momentum_b64_s2028: 1110 s, steps minimum 10, fixed 200, moving_average 49, patience 10
