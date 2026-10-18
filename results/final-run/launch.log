@@ -7712,3 +7712,99 @@
 2026-10-18 18:36:47  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17917 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
 2026-10-18 18:41:51  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17923 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
 2026-10-18 18:46:55  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17925 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 18:47:53  push    ok: progress after 6 hours
+2026-10-18 18:52:00  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17935 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 18:57:03  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17937 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:02:07  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17944 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:07:10  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17947 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:12:14  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17953 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:17:17  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17958 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:22:21  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17962 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:27:24  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17967 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:32:28  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17973 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:37:31  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17978 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:42:34  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17981 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:47:38  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17988 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:52:41  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17990 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 19:57:45  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17999 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:02:48  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 17999 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:07:51  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18006 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:12:55  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18011 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:17:58  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18017 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:23:02  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18021 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:28:06  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18029 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:33:09  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18034 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:38:13  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18042 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:43:16  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18045 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:44:54  end     si_calendar.bccnn.grid slot 2: exit code 0, 14986 s; run files 463 of 2880
+2026-10-18 20:44:55  start   si_calendar.bccnn.grid slot 2 pid 2024
+2026-10-18 20:46:38  end     si_calendar.bccnn.grid slot 9: exit code 0, 15063 s; run files 466 of 2880
+2026-10-18 20:46:38  end     si_calendar.bccnn.grid slot 12: exit code 0, 15156 s; run files 466 of 2880
+2026-10-18 20:46:38  start   si_calendar.bccnn.grid slot 9 pid 4016
+2026-10-18 20:46:38  start   si_calendar.bccnn.grid slot 12 pid 15052
+2026-10-18 20:48:21  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18053 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:52:13  end     si_calendar.bccnn.grid slot 8: exit code 0, 14955 s; run files 471 of 2880
+2026-10-18 20:52:13  start   si_calendar.bccnn.grid slot 8 pid 4412
+2026-10-18 20:53:25  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18056 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 20:53:46  end     si_calendar.bccnn.grid slot 10: exit code 0, 15141 s; run files 473 of 2880
+2026-10-18 20:53:46  start   si_calendar.bccnn.grid slot 10 pid 14976
+2026-10-18 20:57:17  end     si_calendar.bccnn.grid slot 3: exit code 0, 15708 s; run files 476 of 2880
+2026-10-18 20:57:17  start   si_calendar.bccnn.grid slot 3 pid 15492
+2026-10-18 20:57:38  end     si_calendar.bccnn.grid slot 11: exit code 0, 15239 s; run files 479 of 2880
+2026-10-18 20:57:38  start   si_calendar.bccnn.grid slot 11 pid 14916
+2026-10-18 20:57:54  end     si_calendar.bccnn.grid slot 4: exit code 0, 14791 s; run files 480 of 2880
+2026-10-18 20:57:54  start   si_calendar.bccnn.grid slot 4 pid 14796
+2026-10-18 20:58:30  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18064 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:02:47  end     si_calendar.bccnn.grid slot 1: exit code 0, 15476 s; run files 481 of 2880
+2026-10-18 21:02:47  start   si_calendar.bccnn.grid slot 1 pid 16312
+2026-10-18 21:03:34  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18065 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:03:49  end     si_calendar.bccnn.grid slot 5: exit code 0, 15971 s; run files 482 of 2880
+2026-10-18 21:03:49  start   si_calendar.bccnn.grid slot 5 pid 11196
+2026-10-18 21:05:43  end     si_calendar.bccnn.grid slot 6: exit code 0, 15610 s; run files 483 of 2880
+2026-10-18 21:05:43  start   si_calendar.bccnn.grid slot 6 pid 8344
+2026-10-18 21:08:38  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18069 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:08:43  end     si_calendar.bccnn.grid slot 7: exit code 0, 15122 s; run files 486 of 2880
+2026-10-18 21:08:43  start   si_calendar.bccnn.grid slot 7 pid 3052
+2026-10-18 21:13:42  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18075 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:18:45  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18078 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:23:49  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18082 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:28:53  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18088 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:33:57  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18091 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:39:01  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18096 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:44:05  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18100 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:49:08  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18104 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:54:12  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18110 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 21:59:15  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18113 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:04:19  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18117 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:09:23  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18122 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:14:27  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18126 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:19:30  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18129 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:24:35  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18133 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:29:38  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18139 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:34:42  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18145 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:39:46  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18150 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:44:50  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18157 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:49:53  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18163 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 22:54:57  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18169 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:00:01  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18174 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:05:05  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18180 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:10:09  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18184 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:15:13  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18187 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:20:16  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18193 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:25:20  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18196 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:30:24  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18200 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:35:28  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18206 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:40:31  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18209 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:45:35  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18214 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:50:39  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18218 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-18 23:55:42  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18221 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:00:46  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18227 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:05:50  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18232 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:10:54  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18236 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:15:57  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18239 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:21:01  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18246 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:26:05  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18248 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:31:09  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18251 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:36:12  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18257 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:41:16  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18262 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
+2026-10-19 00:46:20  progress tasks 163 of 171 done, 0 failed, 0 blocked; runs 18268 of 23343; sessions 12 of 12: si_calendar.bccnn.grid x12
