@@ -196,3 +196,60 @@ WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for
 12:04 grid_20-15_relu_d0.2_rmsprop_bfull_s2036: 939 s, steps minimum 48, fixed 200, moving_average 1477, patience 48
 12:22 grid_20-15_relu_d0.2_rmsprop_b64_s2028: 1074 s, steps minimum 2, fixed 200, moving_average 63, patience 2
 12:33 grid_20-15_relu_d0.2_rmsprop_b64_s2041: 673 s, steps minimum 29, fixed 200, moving_average 49, patience 29
+12:47 grid_20-15_relu_d0.2_adam_bfull_s2032: 862 s, steps minimum 7, fixed 200, moving_average 50, patience 7
+13:01 grid_20-15_relu_d0.2_adam_bfull_s2044: 838 s, steps minimum 1, fixed 200, moving_average 234, patience 1
+13:14 grid_20-15_relu_d0.2_adam_b64_s2035: 752 s, steps minimum 85, fixed 200, moving_average 595, patience 85
+13:24 grid_20-15_relu_d0.2_sgd_momentum_bfull_s2027: 590 s, steps minimum 1, fixed 200, moving_average 0, patience 1
+13:34 grid_20-15_relu_d0.2_sgd_momentum_bfull_s2038: 591 s, steps minimum 1, fixed 200, moving_average 0, patience 1
+13:44 grid_20-15_relu_d0.2_sgd_momentum_b64_s2030: 652 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+==== 2026-10-19 13:44:56 start si_calendar.bccnn.grid slot 9
+combinations        seeds         runs 
+         144           20         2880 
+lowest validation loss of bCCNN fit.R at step 
+                                          165 
+                                  fixed steps 
+                                          200 
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792410305.058904   18288 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792410310.257860   18288 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+13:55 grid_20-15_relu_d0.2_sgd_momentum_b64_s2042: 653 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+14:12 grid_20-15-10_tanh_d0_rmsprop_bfull_s2034: 977 s, steps minimum 21, fixed 200, moving_average 49, patience 21
+14:23 grid_20-15-10_tanh_d0_rmsprop_b64_s2027: 662 s, steps minimum 0, fixed 200, moving_average 165, patience 0
+14:36 grid_20-15-10_tanh_d0_rmsprop_b64_s2036: 809 s, steps minimum 1, fixed 200, moving_average 50, patience 1
+14:47 grid_20-15-10_tanh_d0_adam_bfull_s2028: 671 s, steps minimum 1, fixed 200, moving_average 49, patience 1
+14:59 grid_20-15-10_tanh_d0_adam_bfull_s2038: 721 s, steps minimum 38, fixed 200, moving_average 49, patience 38
+15:12 grid_20-15-10_tanh_d0_adam_b64_s2032: 736 s, steps minimum 4, fixed 200, moving_average 104, patience 4
+15:27 grid_20-15-10_tanh_d0_adam_b64_s2042: 894 s, steps minimum 162, fixed 200, moving_average 163, patience 162
+15:36 grid_20-15-10_tanh_d0_sgd_momentum_bfull_s2040: 582 s, steps minimum 2, fixed 200, moving_average 0, patience 2
+15:47 grid_20-15-10_tanh_d0_sgd_momentum_b64_s2032: 649 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+15:58 grid_20-15-10_tanh_d0_sgd_momentum_b64_s2044: 645 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+16:12 grid_20-15-10_tanh_d0.1_rmsprop_bfull_s2036: 819 s, steps minimum 179, fixed 200, moving_average 2879, patience 179
+16:23 grid_20-15-10_tanh_d0.1_rmsprop_b64_s2026: 695 s, steps minimum 78, fixed 200, moving_average 119, patience 78
+16:37 grid_20-15-10_tanh_d0.1_rmsprop_b64_s2034: 839 s, steps minimum 185, fixed 200, moving_average 216, patience 185
+16:56 grid_20-15-10_tanh_d0.1_rmsprop_b64_s2045: 1149 s, steps minimum 208, fixed 200, moving_average 2949, patience 208
+17:11 grid_20-15-10_tanh_d0.1_adam_bfull_s2040: 863 s, steps minimum 8, fixed 200, moving_average 2687, patience 8
+17:23 grid_20-15-10_tanh_d0.1_adam_b64_s2032: 765 s, steps minimum 478, fixed 200, moving_average 204, patience 21
+17:39 grid_20-15-10_tanh_d0.1_adam_b64_s2041: 941 s, steps minimum 768, fixed 200, moving_average 2351, patience 289
+17:49 grid_20-15-10_tanh_d0.1_sgd_momentum_bfull_s2033: 599 s, steps minimum 2, fixed 200, moving_average 0, patience 2
+17:59 grid_20-15-10_tanh_d0.1_sgd_momentum_bfull_s2045: 601 s, steps minimum 1, fixed 200, moving_average 0, patience 1
+==== 2026-10-19 17:59:39 start si_calendar.bccnn.grid slot 9
+combinations        seeds         runs 
+         144           20         2880 
+lowest validation loss of bCCNN fit.R at step 
+                                          165 
+                                  fixed steps 
+                                          200 
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792425587.381382   13160 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792425592.103666   13160 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+18:10 grid_20-15-10_tanh_d0.1_sgd_momentum_b64_s2037: 647 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+18:25 grid_20-15-10_tanh_d0.2_rmsprop_bfull_s2029: 921 s, steps minimum 585, fixed 200, moving_average 1174, patience 55
+18:38 grid_20-15-10_tanh_d0.2_rmsprop_bfull_s2042: 734 s, steps minimum 239, fixed 200, moving_average 906, patience 239
