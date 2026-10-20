@@ -336,3 +336,59 @@ WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for
 06:07 grid_40-30-20_tanh_d0.1_adam_bfull_s2039: 989 s, steps minimum 889, fixed 200, moving_average 2347, patience 7
 06:24 grid_40-30-20_tanh_d0.1_adam_b64_s2031: 1015 s, steps minimum 954, fixed 200, moving_average 2237, patience 408
 06:40 grid_40-30-20_tanh_d0.1_adam_b64_s2044: 954 s, steps minimum 960, fixed 200, moving_average 1150, patience 99
+06:50 grid_40-30-20_tanh_d0.1_sgd_momentum_bfull_s2036: 601 s, steps minimum 1, fixed 200, moving_average 0, patience 1
+07:01 grid_40-30-20_tanh_d0.1_sgd_momentum_b64_s2028: 649 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+==== 2026-10-20 07:01:34 start si_calendar.bccnn.grid slot 12
+combinations        seeds         runs 
+         144           20         2880 
+lowest validation loss of bCCNN fit.R at step 
+                                          165 
+                                  fixed steps 
+                                          200 
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792472503.190004   14512 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792472508.129231   14512 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+07:12 grid_40-30-20_tanh_d0.1_sgd_momentum_b64_s2041: 650 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+07:26 grid_40-30-20_tanh_d0.2_rmsprop_bfull_s2032: 809 s, steps minimum 626, fixed 200, moving_average 1096, patience 68
+07:38 grid_40-30-20_tanh_d0.2_rmsprop_bfull_s2042: 754 s, steps minimum 3, fixed 200, moving_average 962, patience 3
+07:52 grid_40-30-20_tanh_d0.2_rmsprop_b64_s2033: 862 s, steps minimum 65, fixed 200, moving_average 68, patience 65
+08:06 grid_40-30-20_tanh_d0.2_adam_bfull_s2026: 794 s, steps minimum 215, fixed 200, moving_average 1597, patience 215
+08:22 grid_40-30-20_tanh_d0.2_adam_bfull_s2035: 982 s, steps minimum 844, fixed 200, moving_average 2678, patience 32
+08:39 grid_40-30-20_tanh_d0.2_adam_b64_s2028: 1001 s, steps minimum 738, fixed 200, moving_average 2166, patience 149
+08:52 grid_40-30-20_tanh_d0.2_adam_b64_s2042: 785 s, steps minimum 183, fixed 200, moving_average 153, patience 183
+09:02 grid_40-30-20_tanh_d0.2_sgd_momentum_bfull_s2031: 588 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+09:11 grid_40-30-20_tanh_d0.2_sgd_momentum_bfull_s2043: 588 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+09:22 grid_40-30-20_tanh_d0.2_sgd_momentum_b64_s2035: 664 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+09:33 grid_40-30-20_relu_d0_rmsprop_bfull_s2027: 619 s, steps minimum 2, fixed 200, moving_average 49, patience 2
+09:48 grid_40-30-20_relu_d0_rmsprop_bfull_s2037: 909 s, steps minimum 24, fixed 200, moving_average 49, patience 24
+10:01 grid_40-30-20_relu_d0_rmsprop_b64_s2034: 771 s, steps minimum 1, fixed 200, moving_average 49, patience 1
+10:12 grid_40-30-20_relu_d0_rmsprop_b64_s2045: 688 s, steps minimum 0, fixed 200, moving_average 49, patience 0
+10:25 grid_40-30-20_relu_d0_adam_bfull_s2037: 764 s, steps minimum 14, fixed 200, moving_average 49, patience 14
+10:41 grid_40-30-20_relu_d0_adam_b64_s2031: 943 s, steps minimum 2, fixed 200, moving_average 49, patience 2
+10:52 grid_40-30-20_relu_d0_adam_b64_s2044: 695 s, steps minimum 4, fixed 200, moving_average 49, patience 4
+11:02 grid_40-30-20_relu_d0_sgd_momentum_bfull_s2038: 586 s, steps minimum 2, fixed 200, moving_average 0, patience 2
+11:13 grid_40-30-20_relu_d0_sgd_momentum_b64_s2029: 657 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+==== 2026-10-20 11:13:36 start si_calendar.bccnn.grid slot 12
+combinations        seeds         runs 
+         144           20         2880 
+lowest validation loss of bCCNN fit.R at step 
+                                          165 
+                                  fixed steps 
+                                          200 
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792487624.335933   15956 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792487629.697262   15956 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\26196425\Work\MASTER~3\env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+11:24 grid_40-30-20_relu_d0_sgd_momentum_b64_s2041: 642 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+11:38 grid_40-30-20_relu_d0.1_rmsprop_bfull_s2033: 829 s, steps minimum 189, fixed 200, moving_average 181, patience 189
+11:53 grid_40-30-20_relu_d0.1_rmsprop_bfull_s2045: 909 s, steps minimum 2, fixed 200, moving_average 53, patience 2
+12:06 grid_40-30-20_relu_d0.1_rmsprop_b64_s2036: 805 s, steps minimum 37, fixed 200, moving_average 127, patience 37
+12:19 grid_40-30-20_relu_d0.1_adam_bfull_s2030: 776 s, steps minimum 7, fixed 200, moving_average 49, patience 7
+12:35 grid_40-30-20_relu_d0.1_adam_bfull_s2040: 941 s, steps minimum 1, fixed 200, moving_average 88, patience 1
