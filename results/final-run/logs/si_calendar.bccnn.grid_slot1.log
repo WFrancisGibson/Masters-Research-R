@@ -390,3 +390,17 @@ WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for
 12:14 grid_40-30-20_relu_d0.1_rmsprop_b64_s2041: 866 s, steps minimum 6, fixed 200, moving_average 50, patience 6
 12:28 grid_40-30-20_relu_d0.1_adam_bfull_s2034: 843 s, steps minimum 13, fixed 200, moving_average 52, patience 13
 12:42 grid_40-30-20_relu_d0.1_adam_b64_s2026: 854 s, steps minimum 28, fixed 200, moving_average 49, patience 28
+12:57 grid_40-30-20_relu_d0.1_adam_b64_s2038: 894 s, steps minimum 5, fixed 200, moving_average 49, patience 5
+13:07 grid_40-30-20_relu_d0.1_sgd_momentum_bfull_s2030: 591 s, steps minimum 2, fixed 200, moving_average 0, patience 2
+13:16 grid_40-30-20_relu_d0.1_sgd_momentum_bfull_s2042: 586 s, steps minimum 1, fixed 200, moving_average 0, patience 1
+13:27 grid_40-30-20_relu_d0.1_sgd_momentum_b64_s2034: 654 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+13:41 grid_40-30-20_relu_d0.2_rmsprop_bfull_s2026: 840 s, steps minimum 3, fixed 200, moving_average 442, patience 3
+13:56 grid_40-30-20_relu_d0.2_rmsprop_bfull_s2038: 859 s, steps minimum 646, fixed 200, moving_average 683, patience 646
+14:13 grid_40-30-20_relu_d0.2_rmsprop_b64_s2030: 1018 s, steps minimum 477, fixed 200, moving_average 471, patience 5
+14:27 grid_40-30-20_relu_d0.2_rmsprop_b64_s2043: 893 s, steps minimum 39, fixed 200, moving_average 210, patience 39
+14:42 grid_40-30-20_relu_d0.2_adam_bfull_s2037: 854 s, steps minimum 1, fixed 200, moving_average 100, patience 1
+14:54 grid_40-30-20_relu_d0.2_adam_b64_s2029: 744 s, steps minimum 28, fixed 200, moving_average 49, patience 28
+15:14 grid_40-30-20_relu_d0.2_adam_b64_s2039: 1220 s, steps minimum 51, fixed 200, moving_average 2900, patience 51
+15:24 grid_40-30-20_relu_d0.2_sgd_momentum_bfull_s2038: 589 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+15:35 grid_40-30-20_relu_d0.2_sgd_momentum_b64_s2029: 665 s, steps minimum 0, fixed 200, moving_average 0, patience 0
+15:46 grid_40-30-20_relu_d0.2_sgd_momentum_b64_s2042: 658 s, steps minimum 0, fixed 200, moving_average 0, patience 0
