@@ -8667,3 +8667,123 @@
 2026-10-21 00:34:42  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20907 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
 2026-10-21 00:39:45  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20910 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
 2026-10-21 00:44:48  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20914 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 00:48:41  push    ok: progress after 6 hours
+2026-10-21 00:49:48  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20919 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 00:52:12  end     long_reporting.bccnn.grid slot 2: exit code 0, 15784 s; run files 458 of 2880
+2026-10-21 00:52:12  start   long_reporting.bccnn.grid slot 2 pid 16640
+2026-10-21 00:54:51  end     long_reporting.bccnn.grid slot 5: exit code 0, 16354 s; run files 462 of 2880
+2026-10-21 00:54:52  start   long_reporting.bccnn.grid slot 5 pid 15752
+2026-10-21 00:54:52  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20925 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 00:59:55  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20929 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:00:10  end     long_reporting.bccnn.grid slot 1: exit code 0, 16304 s; run files 467 of 2880
+2026-10-21 01:00:11  start   long_reporting.bccnn.grid slot 1 pid 9796
+2026-10-21 01:04:59  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20931 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:05:35  end     long_reporting.bccnn.grid slot 7: exit code 0, 15635 s; run files 470 of 2880
+2026-10-21 01:05:35  start   long_reporting.bccnn.grid slot 7 pid 9500
+2026-10-21 01:07:13  end     long_reporting.bccnn.grid slot 11: exit code 0, 16627 s; run files 471 of 2880
+2026-10-21 01:07:13  start   long_reporting.bccnn.grid slot 11 pid 17376
+2026-10-21 01:07:33  end     long_reporting.bccnn.grid slot 8: exit code 0, 16560 s; run files 472 of 2880
+2026-10-21 01:07:34  start   long_reporting.bccnn.grid slot 8 pid 2416
+2026-10-21 01:10:03  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20937 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:10:39  end     long_reporting.bccnn.grid slot 10: exit code 0, 16818 s; run files 475 of 2880
+2026-10-21 01:10:39  start   long_reporting.bccnn.grid slot 10 pid 13264
+2026-10-21 01:13:03  end     long_reporting.bccnn.grid slot 12: exit code 0, 17060 s; run files 478 of 2880
+2026-10-21 01:13:03  start   long_reporting.bccnn.grid slot 12 pid 8512
+2026-10-21 01:15:06  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20941 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:19:13  end     long_reporting.bccnn.grid slot 4: exit code 0, 16294 s; run files 481 of 2880
+2026-10-21 01:19:13  start   long_reporting.bccnn.grid slot 4 pid 14200
+2026-10-21 01:20:10  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20945 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:21:22  end     long_reporting.bccnn.grid slot 9: exit code 0, 15873 s; run files 483 of 2880
+2026-10-21 01:21:22  start   long_reporting.bccnn.grid slot 9 pid 2072
+2026-10-21 01:23:51  end     long_reporting.bccnn.grid slot 3: exit code 0, 17035 s; run files 487 of 2880
+2026-10-21 01:23:51  start   long_reporting.bccnn.grid slot 3 pid 4500
+2026-10-21 01:25:13  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20950 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:30:17  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20953 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:30:38  end     long_reporting.bccnn.grid slot 6: exit code 0, 16947 s; run files 491 of 2880
+2026-10-21 01:30:38  start   long_reporting.bccnn.grid slot 6 pid 6124
+2026-10-21 01:35:21  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20958 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:40:24  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20964 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:45:28  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20966 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:50:31  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20969 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 01:55:35  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20975 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:00:38  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20979 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:05:41  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20982 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:10:45  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20987 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:15:48  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20991 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:20:51  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20997 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:25:54  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 20999 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:30:58  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21004 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:36:01  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21009 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:41:04  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21013 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:46:08  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21017 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:51:11  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21023 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 02:56:14  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21024 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:01:18  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21030 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:06:21  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21035 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:11:24  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21039 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:16:27  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21043 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:21:31  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21049 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:26:34  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21052 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:31:38  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21055 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:36:41  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21060 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:41:44  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21064 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:46:48  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21068 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:51:51  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21072 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 03:56:54  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21077 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:01:57  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21081 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:07:01  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21085 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:12:04  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21087 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:17:08  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21093 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:22:11  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21097 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:27:14  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21100 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:32:17  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21103 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:37:21  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21109 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:42:24  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21113 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:47:27  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21114 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:52:31  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21121 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 04:57:34  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21125 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:02:38  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21128 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:07:41  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21133 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:12:44  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21137 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:17:48  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21139 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:22:51  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21145 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:27:54  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21149 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:32:58  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21154 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:38:01  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21159 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:43:05  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21161 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:45:23  end     long_reporting.bccnn.grid slot 5: exit code 0, 17432 s; run files 700 of 2880
+2026-10-21 05:45:24  start   long_reporting.bccnn.grid slot 5 pid 15548
+2026-10-21 05:47:12  end     long_reporting.bccnn.grid slot 1: exit code 0, 17221 s; run files 702 of 2880
+2026-10-21 05:47:12  start   long_reporting.bccnn.grid slot 1 pid 10444
+2026-10-21 05:48:09  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21166 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:51:29  end     long_reporting.bccnn.grid slot 11: exit code 0, 17056 s; run files 707 of 2880
+2026-10-21 05:51:29  start   long_reporting.bccnn.grid slot 11 pid 16112
+2026-10-21 05:51:45  end     long_reporting.bccnn.grid slot 8: exit code 0, 17051 s; run files 708 of 2880
+2026-10-21 05:51:45  start   long_reporting.bccnn.grid slot 8 pid 10888
+2026-10-21 05:53:13  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21172 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:58:06  end     long_reporting.bccnn.grid slot 12: exit code 0, 17103 s; run files 711 of 2880
+2026-10-21 05:58:06  start   long_reporting.bccnn.grid slot 12 pid 10160
+2026-10-21 05:58:16  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21174 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 05:58:42  end     long_reporting.bccnn.grid slot 10: exit code 0, 17283 s; run files 712 of 2880
+2026-10-21 05:58:42  start   long_reporting.bccnn.grid slot 10 pid 18376
+2026-10-21 06:03:20  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21178 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:04:07  end     long_reporting.bccnn.grid slot 2: exit code 0, 18714 s; run files 717 of 2880
+2026-10-21 06:04:07  start   long_reporting.bccnn.grid slot 2 pid 17492
+2026-10-21 06:04:38  end     long_reporting.bccnn.grid slot 7: exit code 0, 17943 s; run files 718 of 2880
+2026-10-21 06:04:38  start   long_reporting.bccnn.grid slot 7 pid 10136
+2026-10-21 06:08:24  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21182 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:09:05  end     long_reporting.bccnn.grid slot 3: exit code 0, 17114 s; run files 721 of 2880
+2026-10-21 06:09:06  start   long_reporting.bccnn.grid slot 3 pid 8344
+2026-10-21 06:13:28  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21188 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:17:19  end     long_reporting.bccnn.grid slot 9: exit code 0, 17757 s; run files 727 of 2880
+2026-10-21 06:17:20  start   long_reporting.bccnn.grid slot 9 pid 17132
+2026-10-21 06:18:16  end     long_reporting.bccnn.grid slot 6: exit code 0, 17258 s; run files 730 of 2880
+2026-10-21 06:18:16  start   long_reporting.bccnn.grid slot 6 pid 12216
+2026-10-21 06:18:32  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21193 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:22:24  end     long_reporting.bccnn.grid slot 4: exit code 0, 18190 s; run files 733 of 2880
+2026-10-21 06:22:24  start   long_reporting.bccnn.grid slot 4 pid 10164
+2026-10-21 06:23:36  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21196 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:28:39  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21201 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:33:43  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21204 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:38:46  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21210 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
+2026-10-21 06:43:50  progress tasks 165 of 171 done, 0 failed, 0 blocked; runs 21215 of 23343; sessions 12 of 12: long_reporting.bccnn.grid x12
