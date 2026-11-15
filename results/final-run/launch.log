@@ -9589,3 +9589,13 @@
 2026-11-15 18:56:32  end     long_reporting.bccnn.grid.analysis slot 1: exit code 0, 100 s
 2026-11-15 18:56:32  done    long_reporting.bccnn.grid.analysis
 2026-11-15 18:56:32  stage   8 complete
+2026-11-15 18:57:33  push    ok: stage 8 complete
+2026-11-15 18:58:28  end     long_reporting.timings.final slot 2: exit code 0, 216 s
+2026-11-15 18:58:28  done    long_reporting.timings.final
+2026-11-15 18:58:28  start   status.final slot 1 pid 11972
+2026-11-15 18:58:43  progress tasks 170 of 171 done, 0 failed, 0 blocked; runs 23343 of 23343; sessions 1 of 12: status.final x1
+2026-11-15 18:59:09  end     status.final slot 1: exit code 0, 40 s
+2026-11-15 18:59:09  done    status.final
+2026-11-15 18:59:09  stage   9 complete
+2026-11-15 18:59:09  progress tasks 171 of 171 done, 0 failed, 0 blocked; runs 23343 of 23343; sessions 0 of 12: 
+2026-11-15 18:59:09  ==== finished: 171 of 171 tasks done, 0 failed, 0 blocked
