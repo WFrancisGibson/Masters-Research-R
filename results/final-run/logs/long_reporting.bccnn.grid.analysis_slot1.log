@@ -1,0 +1,229 @@
+==== 2026-11-15 18:54:52 start long_reporting.bccnn.grid.analysis slot 1
+  final fit fixed steps 
+    "refit"         "0" 
+   reserve  loss_in loss_out test_loss_per_cell bias_pct
+1 17968.07 460.6027 552.6017             2.8894   2.6585
+       hidden activation dropout    optimizer batch_size           rule
+       <char>     <char>   <num>       <char>     <char>         <fctr>
+  1:    20-15       tanh     0.0      rmsprop       full        minimum
+  2:    20-15       tanh     0.0      rmsprop       full       patience
+  3: 40-30-20       tanh     0.1      rmsprop       full        minimum
+  4: 20-15-10       tanh     0.2 sgd_momentum       full        minimum
+  5:       20       tanh     0.2 sgd_momentum       full       patience
+ ---                                                                   
+572: 40-30-20       tanh     0.0         adam       full moving_average
+573: 40-30-20       relu     0.0      rmsprop         64 moving_average
+574: 40-30-20       relu     0.1      rmsprop         64 moving_average
+575: 40-30-20       relu     0.0         adam         64 moving_average
+576: 40-30-20       relu     0.0      rmsprop         64        minimum
+     steps_mean test_loss_mean test_loss_sd bias_pct_mean bias_pct_sd
+          <num>          <num>        <num>         <num>       <num>
+  1:       3.75         2.8708       0.0676        2.8783      0.1825
+  2:       3.75         2.8759       0.0751        2.8783      0.1825
+  3:     147.35         2.8832       0.0237        2.6343      0.1631
+  4:     378.40         2.8849       0.0218        2.6398      0.2286
+  5:     169.85         2.8868       0.0085        2.7011      0.1392
+ ---                                                                 
+572:      49.00         4.2637       0.9789        2.6713      0.0181
+573:      49.00         4.2665       0.8871        2.8049      0.8328
+574:      49.40         4.2994       0.6905        2.6547      0.7242
+575:      49.00         4.3074       0.8307        2.9835      1.0443
+576:       3.70         4.3935       1.0559        2.6940      0.4358
+     closer_than_cl
+              <num>
+  1:           0.05
+  2:           0.05
+  3:           0.70
+  4:           0.50
+  5:           0.30
+ ---               
+572:           0.20
+573:           0.55
+574:           0.45
+575:           0.50
+576:           0.35
+       setting          level           rule  runs diverged    steps
+        <char>         <char>         <fctr> <int>    <int>    <num>
+ 1:       rule        minimum        minimum  2880        1  93.1497
+ 2:       rule          fixed          fixed  2880        0   0.0000
+ 3:       rule moving_average moving_average  2880        7 375.4069
+ 4:       rule       patience       patience  2880        1  53.7753
+ 5:     hidden             20        minimum   720        1  91.2653
+ 6:     hidden             20          fixed   720        0   0.0000
+ 7:     hidden             20 moving_average   720        1 410.6306
+ 8:     hidden             20       patience   720        1  49.2611
+ 9:     hidden          20-15        minimum   720        0  96.0333
+10:     hidden          20-15          fixed   720        0   0.0000
+11:     hidden          20-15 moving_average   720        1 361.6653
+12:     hidden          20-15       patience   720        0  57.9111
+13:     hidden       20-15-10        minimum   720        0  89.7306
+14:     hidden       20-15-10          fixed   720        0   0.0000
+15:     hidden       20-15-10 moving_average   720        3 327.0694
+16:     hidden       20-15-10       patience   720        0  54.9208
+17:     hidden       40-30-20        minimum   720        0  95.5694
+18:     hidden       40-30-20          fixed   720        0   0.0000
+19:     hidden       40-30-20 moving_average   720        2 402.2625
+20:     hidden       40-30-20       patience   720        0  53.0083
+21: activation           tanh        minimum  1440        1 152.2562
+22: activation           tanh          fixed  1440        0   0.0000
+23: activation           tanh moving_average  1440        7 662.4382
+24: activation           tanh       patience  1440        1  83.9597
+25: activation           relu        minimum  1440        0  34.0431
+26: activation           relu          fixed  1440        0   0.0000
+27: activation           relu moving_average  1440        0  88.3757
+28: activation           relu       patience  1440        0  23.5910
+29:    dropout              0        minimum   960        0   6.9427
+30:    dropout              0          fixed   960        0   0.0000
+31:    dropout              0 moving_average   960        1  87.8688
+32:    dropout              0       patience   960        0   5.6510
+33:    dropout            0.1        minimum   960        0 127.5969
+34:    dropout            0.1          fixed   960        0   0.0000
+35:    dropout            0.1 moving_average   960        3 541.3542
+36:    dropout            0.1       patience   960        0  68.9510
+37:    dropout            0.2        minimum   960        1 144.9094
+38:    dropout            0.2          fixed   960        0   0.0000
+39:    dropout            0.2 moving_average   960        3 496.9979
+40:    dropout            0.2       patience   960        1  86.7240
+41:  optimizer        rmsprop        minimum   960        0  51.0510
+42:  optimizer        rmsprop          fixed   960        0   0.0000
+43:  optimizer        rmsprop moving_average   960        0 326.7448
+44:  optimizer        rmsprop       patience   960        0  34.8771
+45:  optimizer           adam        minimum   960        0  71.8875
+46:  optimizer           adam          fixed   960        0   0.0000
+47:  optimizer           adam moving_average   960        0 326.8531
+48:  optimizer           adam       patience   960        0  43.5281
+49:  optimizer   sgd_momentum        minimum   960        1 156.5104
+50:  optimizer   sgd_momentum          fixed   960        0   0.0000
+51:  optimizer   sgd_momentum moving_average   960        7 472.6229
+52:  optimizer   sgd_momentum       patience   960        1  82.9208
+53: batch_size           full        minimum  1440        0 113.0451
+54: batch_size           full          fixed  1440        0   0.0000
+55: batch_size           full moving_average  1440        0 390.0028
+56: batch_size           full       patience  1440        0  59.8563
+57: batch_size             64        minimum  1440        1  73.2542
+58: batch_size             64          fixed  1440        0   0.0000
+59: batch_size             64 moving_average  1440        7 360.8111
+60: batch_size             64       patience  1440        1  47.6944
+       setting          level           rule  runs diverged    steps
+        <char>         <char>         <fctr> <int>    <int>    <num>
+    test_loss_per_cell loss_out bias_pct abs_bias_pct
+                 <num>    <num>    <num>        <num>
+ 1:             3.0690 567.7106   2.7139       2.7735
+ 2:             2.8894 552.6017   2.6585       2.6585
+ 3:             3.2173 574.4574   2.5915       2.7936
+ 4:             3.0393 567.7394   2.7151       2.7747
+ 5:             2.9893 555.2794   2.6320       2.6818
+ 6:             2.8894 552.6017   2.6585       2.6585
+ 7:             3.0333 584.4996   2.4935       2.8369
+ 8:             2.9742 555.3630   2.6386       2.6883
+ 9:             3.0399 595.9483   2.7699       2.9417
+10:             2.8894 552.6017   2.6585       2.6585
+11:             3.2180 568.9200   2.6165       2.7738
+12:             3.0204 595.9185   2.7682       2.9399
+13:             3.0582 566.2096   2.7857       2.8026
+14:             2.8894 552.6017   2.6585       2.6585
+15:             3.2259 576.0089   2.6055       2.7750
+16:             3.0428 566.2454   2.7866       2.8035
+17:             3.1885 553.3877   2.6678       2.6678
+18:             2.8894 552.6017   2.6585       2.6585
+19:             3.3918 568.3973   2.6505       2.7885
+20:             3.1198 553.4134   2.6670       2.6670
+21:             2.9485 578.4183   2.7617       2.8511
+22:             2.8894 552.6017   2.6585       2.6585
+23:             2.9948 560.2288   2.6195       2.6989
+24:             2.9360 578.4558   2.7654       2.8549
+25:             3.1894 557.0103   2.6661       2.6959
+26:             2.8894 552.6017   2.6585       2.6585
+27:             3.4397 588.6169   2.5637       2.8878
+28:             3.1427 557.0303   2.6649       2.6946
+29:             3.2441 554.0674   2.6919       2.6919
+30:             2.8894 552.6017   2.6585       2.6585
+31:             3.4149 574.9062   2.6315       2.8527
+32:             3.1775 554.0574   2.6910       2.6910
+33:             3.0087 568.7801   2.6889       2.7753
+34:             2.8894 552.6017   2.6585       2.6585
+35:             3.1708 574.6884   2.5698       2.7703
+36:             2.9986 568.8396   2.6922       2.7786
+37:             2.9542 580.2973   2.7609       2.8533
+38:             2.8894 552.6017   2.6585       2.6585
+39:             3.0661 573.7768   2.5730       2.7576
+40:             2.9419 580.3341   2.7623       2.8547
+41:             3.0785 553.6502   2.6700       2.6700
+42:             2.8894 552.6017   2.6585       2.6585
+43:             3.2725 554.0970   2.7089       2.7089
+44:             3.0461 553.6730   2.6704       2.6704
+45:             3.1740 553.4056   2.6795       2.6795
+46:             2.8894 552.6017   2.6585       2.6585
+47:             3.3496 553.7317   2.7060       2.7060
+48:             3.1093 553.3171   2.6737       2.6737
+49:             2.9545 596.1055   2.7923       2.9712
+50:             2.8894 552.6017   2.6585       2.6585
+51:             3.0297 615.8455   2.3579       2.9671
+52:             2.9625 596.2577   2.8013       2.9803
+53:             3.0751 553.1228   2.6729       2.6729
+54:             2.8894 552.6017   2.6585       2.6585
+55:             3.2097 553.3039   2.7168       2.7168
+56:             3.0624 553.1885   2.6776       2.6776
+57:             3.0629 582.3085   2.7549       2.8742
+58:             2.8894 552.6017   2.6585       2.6585
+59:             3.2248 595.7143   2.4656       2.8708
+60:             3.0163 582.3003   2.7526       2.8719
+    test_loss_per_cell loss_out bias_pct abs_bias_pct
+                 <num>    <num>    <num>        <num>
+Key: <scope, rule>
+              scope           rule fixed  runs diverged steps_mean steps_sd
+             <fctr>         <fctr> <num> <int>    <int>      <num>    <num>
+1: all combinations        minimum     0  2880        1    93.1497 196.9949
+2: all combinations          fixed     0  2880        0     0.0000   0.0000
+3: all combinations moving_average     0  2880        7   375.4069 660.7834
+4: all combinations       patience     0  2880        1    53.7753 103.8531
+5:  Paper C network        minimum     0    20        0   116.6500 189.5774
+6:  Paper C network          fixed     0    20        0     0.0000   0.0000
+7:  Paper C network moving_average     0    20        0   504.3000 682.6584
+8:  Paper C network       patience     0    20        0    84.4000 105.6396
+   steps_min steps_median steps_max     true reserve_mean bias_pct_mean
+       <num>        <num>     <num>    <num>        <num>         <num>
+1:         0          5.0      1000 17502.76     17977.76        2.7139
+2:         0          0.0         0 17502.76     17968.07        2.6585
+3:        49         49.0      2950 17502.76     17956.34        2.5915
+4:         0          5.0       930 17502.76     17977.98        2.7151
+5:         1         19.5       788 17502.76     17970.42        2.6720
+6:         0          0.0         0 17502.76     17968.07        2.6585
+7:        52        248.5      2930 17502.76     17971.50        2.6781
+8:         1         19.5       372 17502.76     17971.55        2.6784
+   bias_pct_sd abs_bias_pct_mean closer_than_cl test_loss_mean test_loss_sd
+         <num>             <num>          <num>          <num>        <num>
+1:      3.1632            2.7735         0.4067         3.0690       0.3466
+2:      0.0000            2.6585         0.0000         2.8894       0.0000
+3:      1.9735            2.7936         0.4104         3.2173       0.5302
+4:      3.1626            2.7747         0.4012         3.0393       0.2916
+5:      0.1097            2.6720         0.4500         2.8944       0.0175
+6:      0.0000            2.6585         0.0000         2.8894       0.0000
+7:      0.0985            2.6781         0.4500         2.8903       0.0074
+8:      0.1136            2.6784         0.4500         2.8944       0.0176
+   loss_out_mean loss_out_sd
+           <num>       <num>
+1:      567.7106    410.7228
+2:      552.6017      0.0000
+3:      574.4574    326.8686
+4:      567.7394    410.7216
+5:      552.8869      1.6671
+6:      552.6017      0.0000
+7:      552.7180      1.0272
+8:      552.9728      1.6726
+Warning message:
+Removed 18 rows containing non-finite outside the scale range
+(`stat_boxplot()`). 
+Warning messages:
+1: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`). 
+2: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+3: Removed 7 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+4: Removed 14 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+5: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`). 
+6: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 

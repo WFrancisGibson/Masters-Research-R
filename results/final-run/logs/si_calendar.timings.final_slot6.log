@@ -1,0 +1,53 @@
+==== 2026-11-15 18:45:59 start si_calendar.timings.final slot 6
+     model                                     task  runs  fits networks
+    <char>                                   <char> <int> <int>    <num>
+ 1:  bccnn             bccnn.fit.claims_split_refit     1     2        2
+ 2:  bccnn       bccnn.fit.rolling_origin_partition     1     3        3
+ 3:  bccnn           bccnn.fit.rolling_origin_refit     1     6        6
+ 4:  bccnn       bccnn.bootstrap.claims_split_refit    20  1000     1000
+ 5:  bccnn bccnn.bootstrap.rolling_origin_partition    20  1000     1000
+ 6:  bccnn     bccnn.bootstrap.rolling_origin_refit    20  1000     1000
+ 7:  bccnn                            bccnn.masking    20    40       40
+ 8:  bccnn                             bccnn.search    13   144      144
+ 9:  bccnn                               bccnn.grid  2880 30444    30444
+10:   nncl                             nncl.cl_grid  1200 22800    22800
+11:   nncl                                nncl.grid  1200 22800    22800
+12:   nncl                                nncl.main     6   114      114
+13:   nncl                     nncl.search.cl_start    21   256     1213
+14:   nncl                   nncl.search.early_stop    21   256     1213
+15:   nncl                        nncl.search.paper    37   352     2701
+16:   nncl                     nncl_numeric.cl_grid  1200 22800    22800
+17:   nncl                        nncl_numeric.grid  1200 22800    22800
+18:   nncl                        nncl_numeric.main     6   114      114
+19:   nncl             nncl_numeric.search.cl_start    21   256     1213
+20:   nncl           nncl_numeric.search.early_stop    21   256     1213
+21:   nncl                nncl_numeric.search.paper    37   352     2701
+     model                                     task  runs  fits networks
+    <char>                                   <char> <int> <int>    <num>
+    hours_fit hours_run seconds_per_epoch
+        <num>     <num>             <num>
+ 1:    0.0238    0.0284            0.0583
+ 2:    0.0478    0.0526            0.0574
+ 3:    0.0696    0.0748            0.0579
+ 4:    7.9715    8.2421            0.0609
+ 5:    2.9605    3.2299            0.0646
+ 6:    2.9465    3.1907            0.0643
+ 7:    0.3580    0.3855            0.0596
+ 8:    1.5678    1.6116            0.0593
+ 9:  602.4756  616.3328            0.0634
+10:   73.9903   82.4210            0.1337
+11:  154.0965  162.6404            0.1278
+12:    0.4707    0.4923            0.1193
+13:    2.9643    5.1419            0.1572
+14:    9.5967   11.6366            0.1296
+15:   10.0596   16.8332            0.1383
+16:   73.9303   82.5353            0.1344
+17:  149.5650  158.2563            0.1290
+18:    0.4975    0.5183            0.1203
+19:    3.0190    5.3282            0.1656
+20:   10.3753   12.4869            0.1315
+21:   10.3288   17.2822            0.1451
+    hours_fit hours_run seconds_per_epoch
+        <num>     <num>             <num>
+      rows of timings_epochs rows of timings_epoch_blocks 
+                     2462485                       380319 
